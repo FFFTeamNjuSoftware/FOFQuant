@@ -38,10 +38,15 @@ public class Main  extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         instance = this;
-        this.primaryStage = primaryStage;
-        System.out.println("!!!!!?))))");
-        loginPanel= FXMLLoader.load(getClass().getResource("loginPanel.fxml"));
+        this.primaryStage = primaryStage
+        ;  String fileName = "loginPanel.fxml";
+        System.out.println(fileName);
+        System.out.println(new Main().getClass().getResource("loginPanel.fxml"));
+        System.out.println(new Main().getClass().getClassLoader().getResource("loginPanel.fxml"));
+
+        loginPanel= FXMLLoader.load(getClass().getClassLoader().getResource("loginPanel.fxml"));
         System.out.println("??????))))");
+
         primaryStage.setHeight(618);
         primaryStage.setWidth(1000);
         primaryStage.setTitle("FoFQuant");
@@ -51,7 +56,8 @@ public class Main  extends Application {
         primaryStage.show();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         launch(args);
     }
 }
