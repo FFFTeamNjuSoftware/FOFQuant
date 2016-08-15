@@ -1,6 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="Common">
-    <output-path>$PROJECT_DIR$/classes/artifacts/Common</output-path>
-    <root id="archive" name="Common.jar" />
-  </artifact>
-</component>
