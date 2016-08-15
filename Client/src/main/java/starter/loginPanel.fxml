@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="backPanel" fx:id="backPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="618.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.loginUI.loginUIController">
+   <children>
+      <ImageView id="backgroundImg" fx:id="backgroundImg" fitHeight="618.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/images/background.png" />
+         </image>
+      </ImageView>
+      <GridPane fx:id="gridPanel" layoutX="407.0" layoutY="166.0" prefHeight="326.0" prefWidth="237.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="125.0" minHeight="10.0" prefHeight="88.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="79.0" minHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="169.0" minHeight="0.0" prefHeight="50.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="192.0" minHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="192.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="192.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <ImageView fx:id="user" fitHeight="73.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/images/user.png" />
+               </image>
+               <GridPane.margin>
+                  <Insets bottom="20.0" left="56.0" />
+               </GridPane.margin>
+            </ImageView>
+            <Label fx:id="userNameLabel" opacity="0.8" prefHeight="15.0" prefWidth="49.0" text="用户名" textFill="WHITE" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="-10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="passwordLabel" opacity="0.8" text="密码" textFill="WHITE" GridPane.rowIndex="3">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="-10.0" />
+               </GridPane.margin>
+            </Label>
+            <PasswordField fx:id="passwordField" style="-fx-background-color: transparent; -fx-border-color: #ffffff;" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets right="60.0" />
+               </GridPane.margin>
+            </PasswordField>
+            <TextField fx:id="userNameField" prefHeight="23.0" prefWidth="100.0" style="-fx-background-color: transparent; -fx-border-color: #ffffff;" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets right="60.0" />
+               </GridPane.margin>
+            </TextField>
+            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="65.0" style="-fx-background-color: #23a3f3;" text="登录" textFill="WHITE" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets left="56.0" top="20.0" />
+               </GridPane.margin>
+            </Button>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>
