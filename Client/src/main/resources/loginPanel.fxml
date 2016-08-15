@@ -51,45 +51,64 @@
                   <Insets bottom="-10.0" />
                </GridPane.margin>
             </Label>
-            <PasswordField fx:id="passwordField" style="-fx-background-color: transparent; -fx-border-color: #ffffff;" GridPane.rowIndex="4">
+             <TextField fx:id="userNameField" prefHeight="23.0" prefWidth="100.0" style="-fx-background-color: transparent; -fx-border-color: #ffffff;  -fx-text-fill: #ffffff; " GridPane.rowIndex="2">
+                 <GridPane.margin>
+                     <Insets right="60.0" />
+                 </GridPane.margin>
+             </TextField>
+            <PasswordField fx:id="passwordField" style="-fx-background-color: transparent; -fx-border-color: #ffffff;  -fx-text-fill: #ffffff;" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets right="60.0" />
                </GridPane.margin>
             </PasswordField>
-            <TextField fx:id="userNameField" prefHeight="23.0" prefWidth="100.0" style="-fx-background-color: transparent; -fx-border-color: #ffffff; " GridPane.rowIndex="2">
-               <GridPane.margin>
-                  <Insets right="60.0" />
-               </GridPane.margin>
-            </TextField>
-            <Button mnemonicParsing="false" onAction="#toLogin" prefHeight="30.0" prefWidth="65.0" style="-fx-background-color: #23a3f3;" text="登录" textFill="WHITE" GridPane.rowIndex="5">
+            <Button fx:id="loginBtn" mnemonicParsing="false" onAction="#toLogin" prefHeight="30.0" prefWidth="65.0" style="-fx-background-color: #23a3f3;" text="登录" textFill="WHITE" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets left="56.0" top="20.0" />
                </GridPane.margin>
             </Button>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="4">
+                <GridPane.margin>
+                    <Insets left="150.0" />
+                </GridPane.margin>
+                <image>
+                    <Image url="@/java/images/min.png" />
+                </image>
+            </ImageView>
+            <Button fx:id="keyBtn" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" style="-fx-background-color: transparent;" textFill="WHITE" GridPane.rowIndex="4">
+                <GridPane.margin>
+                    <Insets left="150.0" />
+                </GridPane.margin>
+            </Button>
          </children>
       </GridPane>
-      <GridPane layoutX="928.0" layoutY="10.0" prefHeight="30.0" prefWidth="72.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <ImageView fx:id="minImage" fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@/java/images/min.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="exitImage" fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
-               <image>
-                  <Image url="@/java/images/exit.png" />
-               </image>
-            </ImageView>
-            <Button fx:id="minBtn" mnemonicParsing="false" onAction="#toMinScreen"  prefHeight="24.0" prefWidth="25.0" style="-fx-background-color: transparent;" textFill="WHITE" />
-            <Button fx:id="exitBtn" mnemonicParsing="false" onAction="#toExitScreen"  prefHeight="24.0" prefWidth="25.0" style="-fx-background-color: transparent;" textFill="WHITE" GridPane.columnIndex="1" />
-         </children>
-      </GridPane>
+       <GridPane layoutX="928.0" layoutY="-2.0" prefHeight="30.0" prefWidth="72.0">
+           <columnConstraints>
+               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+           </columnConstraints>
+           <rowConstraints>
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+           </rowConstraints>
+           <children>
+               <ImageView fx:id="minImage" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                   <image>
+                       <Image url="@/java/images/min.png" />
+                   </image>
+                   <GridPane.margin>
+                       <Insets left="8.0" right="5.0" top="15.0" />
+                   </GridPane.margin>
+               </ImageView>
+               <ImageView fx:id="exitImage" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+                   <image>
+                       <Image url="@/java/images/exit.png" />
+                   </image>
+                   <GridPane.margin>
+                       <Insets left="7.0" right="4.0" top="5.0" />
+                   </GridPane.margin>
+               </ImageView>
+               <Button fx:id="minBtn" mnemonicParsing="false" onAction="#toMinScreen" prefHeight="30.0" prefWidth="42.0" style="-fx-background-color: transparent;" textFill="WHITE" />
+               <Button fx:id="exitBtn" mnemonicParsing="false" onAction="#toExitScreen" opacity="0.26" prefHeight="30.0" prefWidth="69.0" style="-fx-background-color: transparent;" textFill="WHITE" GridPane.columnIndex="1" />
+           </children>
+       </GridPane>
    </children>
 </AnchorPane>
