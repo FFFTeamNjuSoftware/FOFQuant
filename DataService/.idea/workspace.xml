@@ -36,8 +36,8 @@
       <file leaf-file-name="FundInfos.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/FFFNJU/FundInfos.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="16" column="47" selection-start-line="16" selection-start-column="47" selection-end-line="16" selection-end-column="47" />
+            <state relative-caret-position="231">
+              <caret line="11" column="34" selection-start-line="11" selection-start-column="34" selection-end-line="11" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -658,15 +658,15 @@
       <option name="presentableId" value="Default" />
       <updated>1471156380412</updated>
       <workItem from="1471156388110" duration="1436000" />
-      <workItem from="1471225658395" duration="166000" />
+      <workItem from="1471225658395" duration="363000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1602000" />
+    <option name="totallyTimeSpent" value="1799000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1" y="1" width="1918" height="1030" extended-state="1" />
+    <frame x="1" y="1" width="1918" height="1030" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -776,8 +776,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/FFFNJU/FundInfos.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="16" column="47" selection-start-line="16" selection-start-column="47" selection-end-line="16" selection-end-column="47" />
+        <state relative-caret-position="231">
+          <caret line="11" column="34" selection-start-line="11" selection-start-column="34" selection-end-line="11" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
