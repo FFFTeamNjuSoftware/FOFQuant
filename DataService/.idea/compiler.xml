@@ -22,18 +22,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="Client" />
-        <module name="Common" />
         <module name="DataService" />
-        <module name="Server" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Client" target="1.8" />
-      <module name="Common" target="1.8" />
       <module name="DataService" target="1.8" />
-      <module name="FOFQuant" target="1.8" />
-      <module name="Server" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
