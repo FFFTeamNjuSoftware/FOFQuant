@@ -53,3 +53,4 @@ Temporary Items
 /Server/.idea/*
 /DataService/.idea/*
 .iml
+DataService/.idea/workspace.xml
