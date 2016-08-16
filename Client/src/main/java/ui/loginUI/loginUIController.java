@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import starter.Main;
+import util.UserType;
 
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -27,16 +28,13 @@ public class loginUIController  implements Initializable {
     private PasswordField passwordField;
     @FXML
     private Button minBtn,exitBtn,loginBtn;
+    String name=null;
+
 
     private static loginUIController instance;
 
     private UserLogic userLogic ;
     private UserInfo userInfo;
-
-    public static loginUIController getInstance() {
-        System.out.println("here is the instance of loginUIController ");
-        return instance == null ? (instance = new loginUIController()) : instance;
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -59,6 +57,19 @@ public class loginUIController  implements Initializable {
 
         try {
             userInfo = userLogic.loginIn(userName,password);
+            if(userInfo.userType== UserType.MANAGER){
+                //进入管理员界面
+                System.out.println("......manager......");
+                name = userName;
+                Main.enterInitPanel(1,name);
+            }else if(userInfo.userType== UserType.NORMAL){
+                //进入普通用户界面
+                name = userName;
+                System.out.println("......normal......");
+                Main.enterInitPanel(0,name);
+            }else{
+                System.out.println("......login fail......");
+            }
             ///////////////////////////////////////////////
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -117,9 +128,9 @@ public class loginUIController  implements Initializable {
     public void toMinScreen(){
         Main.getPrimaryStage().setIconified(true);
     }
+
     @FXML
     public void toExitScreen(){
         Main.getPrimaryStage().close();
-
     }
 }

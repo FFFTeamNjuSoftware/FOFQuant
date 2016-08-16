@@ -61,7 +61,7 @@
                   <Insets right="60.0" />
                </GridPane.margin>
             </PasswordField>
-            <Button fx:id="loginBtn" mnemonicParsing="false" onAction="#toLogin" prefHeight="30.0" prefWidth="65.0" style="-fx-background-color: #23a3f3;" text="登录" textFill="WHITE" GridPane.rowIndex="5">
+            <Button fx:id="loginBtn" mnemonicParsing="false" onAction="#toLogin" prefHeight="30.0" prefWidth="65.0" style="-fx-background-color:#23a3f3;" text="登录" textFill="WHITE" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets left="56.0" top="20.0" />
                </GridPane.margin>
@@ -71,7 +71,7 @@
                     <Insets left="150.0" />
                 </GridPane.margin>
                 <image>
-                    <Image url="@/java/images/min.png" />
+
                 </image>
             </ImageView>
             <Button fx:id="keyBtn" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" style="-fx-background-color: transparent;" textFill="WHITE" GridPane.rowIndex="4">
