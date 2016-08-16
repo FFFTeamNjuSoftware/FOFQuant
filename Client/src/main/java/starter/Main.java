@@ -1,5 +1,6 @@
 package starter;
 
+import RMIModule.BLInterfaces;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -12,6 +13,11 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.dom4j.DocumentException;
+import ui.controllerUI.managerGuideUIController;
+import ui.controllerUI.userGuideUIController;
+
+import java.io.IOException;
 
 /**
  * Created by QiHan on 2016/8/14.
@@ -24,6 +30,10 @@ public class Main  extends Application {
     private static AnchorPane loginPanel,headPanel,user_guidePanel,manager_guidePanel,writePanel;
     private static HBox hbox;
     private static VBox vbox;
+    private static Scene ans;
+    private static userGuideUIController userGuideUIController = new userGuideUIController();
+    private static managerGuideUIController managerGuideUIController = new managerGuideUIController();
+    private BLInterfaces blInterfaces = new BLInterfaces(); ;
 
     public static Main getInstance() {
         return instance;
@@ -33,7 +43,7 @@ public class Main  extends Application {
         /**
          * change cursor
          */
-        Scene ans=new Scene(parent);
+        ans=new Scene(parent);
         return ans;
     }
 
@@ -44,11 +54,20 @@ public class Main  extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         instance = this;
+        //----------------------------------------------------------
+        try {
+            blInterfaces.netStart();
+        } catch (DocumentException e) {
+            e.printStackTrace();
+            System.out.println("......net fail......");
+        }
+        //----------------------------------------------------------
         this.primaryStage = primaryStage;
         loginPanel= FXMLLoader.load(getClass().getClassLoader().getResource("loginPanel.fxml"));
         headPanel= FXMLLoader.load(getClass().getClassLoader().getResource("headPanel.fxml"));
-        user_guidePanel= FXMLLoader.load(getClass().getClassLoader().getResource("user_guidePanel.fxml"));
+     //   user_guidePanel= FXMLLoader.load(getClass().getClassLoader().getResource("user_guidePanel.fxml"));
         writePanel= FXMLLoader.load(getClass().getClassLoader().getResource("writePanel.fxml"));
+      //  manager_guidePanel =FXMLLoader.load(getClass().getClassLoader().getResource("manager_guidePanel.fxml"));
 
         primaryStage.setHeight(618);
         primaryStage.setWidth(1000);
@@ -56,12 +75,12 @@ public class Main  extends Application {
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.isResizable();
 
-
+/*
         //mainPage for test
         vbox = new VBox();
         hbox = new HBox();
         vbox.getChildren().addAll(headPanel,writePanel);
-        hbox.getChildren().addAll(user_guidePanel,vbox);
+        hbox.getChildren().addAll(manager_guidePanel,vbox);
 
         vbox.setPadding(new Insets(0,0,0,0));
         vbox.setSpacing(0);
@@ -71,26 +90,39 @@ public class Main  extends Application {
         hbox.setSpacing(0);
 
         primaryStage.setScene(getFactoryScene(hbox));
-       // primaryStage.setScene(getFactoryScene(loginPanel));
-
+        */
+       primaryStage.setScene(getFactoryScene(loginPanel));
         enableDragAndResize(primaryStage.getScene());
         primaryStage.show();
     }
 
-    public static void enterInitPanel(int i,String userName){
+    public static void enterInitPanel(int i, String userName){
         vbox = new VBox();
         hbox = new HBox();
-        vbox.getChildren().addAll(headPanel,writePanel);
-        hbox.getChildren().addAll(user_guidePanel,vbox);
-
         if(i==0){
             //普通用户界面
-            vbox.getChildren().addAll(headPanel,null);
+            try {
+                userGuideUIController.initNormalUser(userName);
+                FXMLLoader fxmlLoader=new FXMLLoader(Main.class.getClassLoader().getResource("user_guidePanel.fxml"));
+                user_guidePanel = (AnchorPane)fxmlLoader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            vbox.getChildren().addAll(headPanel,writePanel);
             hbox.getChildren().addAll(user_guidePanel,vbox);
+
         }else if(i==1){
             //管理员界面
+            try {
+                managerGuideUIController.initManagerUser(userName);
+                FXMLLoader fxmlLoader=new FXMLLoader(Main.class.getClassLoader().getResource("manager_guidePanel.fxml"));
+                manager_guidePanel = (AnchorPane)fxmlLoader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             vbox.getChildren().addAll(headPanel,writePanel);
             hbox.getChildren().addAll(manager_guidePanel,vbox);
+
         }else{
             System.out.println("......init error......");
         }
@@ -102,10 +134,20 @@ public class Main  extends Application {
         hbox.setSpacing(0);
 
         primaryStage.setScene(getFactoryScene(hbox));
+        enableDragAndResize(primaryStage.getScene());
     }
 
 
-
+    public static void enterLoginPanel() {
+        FXMLLoader fxmlLoader=new FXMLLoader(Main.class.getClassLoader().getResource("loginPanel.fxml"));
+        try {
+            loginPanel = (AnchorPane)fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        primaryStage.setScene(getFactoryScene(loginPanel));
+        enableDragAndResize(primaryStage.getScene());
+    }
 
     /**
      * =========================================================================

@@ -14,7 +14,7 @@
          <children>
             <ImageView fx:id="minImage" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@/java/images/min.png" />
+                  <Image url="@/images/min.png" />
                </image>
                <GridPane.margin>
                   <Insets left="8.0" right="5.0" top="15.0" />
@@ -22,7 +22,7 @@
             </ImageView>
             <ImageView fx:id="exitImage" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
                <image>
-                  <Image url="@/java/images/exit.png" />
+                  <Image url="@/images/exit.png" />
                </image>
                <GridPane.margin>
                   <Insets left="7.0" right="4.0" top="5.0" />
@@ -35,7 +35,7 @@
                   <Insets left="7.0" top="9.0" />
                </GridPane.margin>
                <image>
-                  <Image url="@/java/images/full.png" />
+                  <Image url="@/images/full.png" />
                </image>
             </ImageView>
             <Button fx:id="fullBtn" mnemonicParsing="false" onAction="#toFullScreen" prefHeight="31.0" prefWidth="36.0" style="-fx-background-color: transparent;" GridPane.columnIndex="1" />

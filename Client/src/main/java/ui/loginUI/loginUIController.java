@@ -1,5 +1,6 @@
 package ui.loginUI;
 
+import RMIModule.BLInterfaces;
 import beans.UserInfo;
 import bl.UserLogic;
 import exception.ObjectNotFoundException;
@@ -10,6 +11,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import org.dom4j.DocumentException;
 import starter.Main;
 import util.UserType;
 
@@ -33,8 +35,9 @@ public class loginUIController  implements Initializable {
 
     private static loginUIController instance;
 
+    private BLInterfaces blInterfaces = new BLInterfaces(); ;
     private UserLogic userLogic ;
-    private UserInfo userInfo;
+    private UserInfo userInfo = new UserInfo(); ;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -51,12 +54,15 @@ public class loginUIController  implements Initializable {
 
     @FXML
     public void toLogin(){
+
         String userName = userNameField.getText();
         String password = passwordField.getText();
         System.out.println(userName+"..."+password);
 
         try {
+            userLogic = blInterfaces.getUserLogic();
             userInfo = userLogic.loginIn(userName,password);
+            System.out.println(userInfo);
             if(userInfo.userType== UserType.MANAGER){
                 //进入管理员界面
                 System.out.println("......manager......");

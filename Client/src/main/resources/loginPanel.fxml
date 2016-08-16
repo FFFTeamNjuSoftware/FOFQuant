@@ -11,7 +11,7 @@
    <children>
       <ImageView id="backgroundImg" fx:id="backgroundImg" fitHeight="618.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@/java/images/background.png" />
+            <Image url="@/images/background.png" />
          </image>
       </ImageView>
       <GridPane fx:id="gridPanel" layoutX="407.0" layoutY="166.0" prefHeight="326.0" prefWidth="237.0">
@@ -29,7 +29,7 @@
          <children>
             <ImageView fx:id="user" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@/java/images/user.png" />
+                  <Image url="@/images/user.png" />
                </image>
                <GridPane.margin>
                   <Insets bottom="6.0" left="62.0" />
@@ -92,7 +92,7 @@
            <children>
                <ImageView fx:id="minImage" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                    <image>
-                       <Image url="@/java/images/min.png" />
+                       <Image url="@/images/min.png" />
                    </image>
                    <GridPane.margin>
                        <Insets left="8.0" right="5.0" top="15.0" />
@@ -100,7 +100,7 @@
                </ImageView>
                <ImageView fx:id="exitImage" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
                    <image>
-                       <Image url="@/java/images/exit.png" />
+                       <Image url="@/images/exit.png" />
                    </image>
                    <GridPane.margin>
                        <Insets left="7.0" right="4.0" top="5.0" />

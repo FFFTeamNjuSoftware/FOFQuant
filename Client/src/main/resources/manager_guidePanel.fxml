@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="guidePanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="618.0" prefWidth="70.0" scaleZ="9999.0" style="-fx-background-color: #23a3f3;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllerUI.managerGuideUIController">
+   <children>
+      <Line fx:id="Line1" endX="70.0" fill="WHITE" layoutY="122.0" stroke="WHITE" />
+      <Line fx:id="Line2" endX="70.0" fill="WHITE" layoutY="222.0" stroke="WHITE" />
+      <Line fx:id="Line3" endX="70.0" fill="WHITE" layoutY="322.0" stroke="WHITE" />
+      <Line fx:id="Line4" endX="70.0" fill="WHITE" layoutY="422.0" stroke="WHITE" />
+      <ImageView fx:id="userImage" fitHeight="50.0" fitWidth="50.0" layoutX="10.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/images/user.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="managerNameLabel" layoutX="22.0" layoutY="83.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Joy" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="userManageImage" fitHeight="47.0" fitWidth="47.0" layoutX="12.0" layoutY="135.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/images/userManager.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="11.0" layoutY="190.0" text="账户管理" textFill="WHITE" />
+      <ImageView fx:id="modifyImage" fitHeight="42.0" fitWidth="42.0" layoutX="16.0" layoutY="241.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/images/modify.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="11.0" layoutY="293.0" text="参数修改" textFill="WHITE" />
+      <ImageView fx:id="blogImage" fitHeight="42.0" fitWidth="42.0" layoutX="15.0" layoutY="342.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/images/system_log.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="11.0" layoutY="392.0" text="系统日志" textFill="WHITE" />
+      <ImageView fx:id="logoutImage" fitHeight="20.0" fitWidth="20.0" layoutX="25.0" layoutY="556.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/images/logout.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="11.0" layoutY="581.0" text="注销登录" textFill="WHITE" />
+      <Button fx:id="userManagerBtn" layoutY="122.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="70.0" style="-fx-background-color: transparent;" textFill="WHITE" />
+      <Button fx:id="modifyBtn" layoutY="222.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="100.0" prefWidth="70.0" style="-fx-background-color: transparent;" textFill="WHITE" />
+      <Button fx:id="system_logBtn" layoutY="322.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="70.0" style="-fx-background-color: transparent;" textFill="WHITE" />
+      <Button fx:id="logoutBtn" layoutY="522.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="70.0" style="-fx-background-color: transparent;" textFill="WHITE" />
+   </children>
+   <effect>
+      <DropShadow blurType="ONE_PASS_BOX" color="#4040407f" height="0.0" offsetX="10.0" radius="19.515" width="80.06" />
+   </effect>
+</AnchorPane>
