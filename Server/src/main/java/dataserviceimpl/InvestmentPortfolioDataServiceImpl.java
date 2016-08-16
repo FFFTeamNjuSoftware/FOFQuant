@@ -1,7 +1,7 @@
 package dataserviceimpl;
 
 import dataservice.InvestmentPortfolioDataService;
-import entities.AssetAllocationEntity;
+import entities.AssetAllocation;
 import entities.BondHoldInfoEntity;
 import entities.IndustryHoldInfoEntity;
 import entities.StockHoldInfoEntity;
@@ -34,7 +34,7 @@ public class InvestmentPortfolioDataServiceImpl implements InvestmentPortfolioDa
     }
 
     @Override
-    public List<AssetAllocationEntity> getAssetAllocations(String code) throws ObjectNotFoundException {
+    public List<AssetAllocation> getAssetAllocations(String code) throws ObjectNotFoundException {
         return null;
     }
 }

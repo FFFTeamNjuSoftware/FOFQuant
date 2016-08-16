@@ -29,7 +29,7 @@ public class FundInfo implements Serializable {
     /**
      * 建立日期
      */
-    public double establish_date;
+    public String establish_date;
     /**
      * 建立规模（亿份）
      */

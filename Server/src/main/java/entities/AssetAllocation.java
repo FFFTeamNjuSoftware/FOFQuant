@@ -9,7 +9,7 @@ import java.sql.Date;
 @Entity
 @Table(name = "asset_allocation", schema = "fofquant", catalog = "")
 @IdClass(AssetAllocationEntityPK.class)
-public class AssetAllocationEntity {
+public class AssetAllocation {
     private String code;
     private Date date;
     private Double stockValue;
@@ -148,7 +148,7 @@ public class AssetAllocationEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        AssetAllocationEntity that = (AssetAllocationEntity) o;
+        AssetAllocation that = (AssetAllocation) o;
 
         if (code != null ? !code.equals(that.code) : that.code != null) return false;
         if (date != null ? !date.equals(that.date) : that.date != null) return false;
