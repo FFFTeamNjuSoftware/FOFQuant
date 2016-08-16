@@ -1,5 +1,6 @@
 package RMIModule;
 
+import exception.ObjectNotFoundException;
 import org.dom4j.DocumentException;
 
 import java.rmi.RemoteException;
@@ -11,7 +12,13 @@ public class StartUp {
     public static void main(String[] args) {
         try {
             BLInterfaces.netStart();
-            System.out.println(BLInterfaces.getRiskFeature().getBeta("600000"));
+            try {
+                BLInterfaces.getUserLogic().loginIn("Buffett", "123456");
+                System.out.println("success");
+            } catch (ObjectNotFoundException e) {
+                e.printStackTrace();
+                System.out.println("wrong");
+            }
         } catch (DocumentException e) {
             e.printStackTrace();
         } catch (RemoteException e) {

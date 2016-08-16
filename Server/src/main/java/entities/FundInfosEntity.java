@@ -3,7 +3,7 @@ package entities;
 import javax.persistence.*;
 
 /**
- * Created by Daniel on 2016/8/16.
+ * Created by Daniel on 2016/8/16. 14 prameters
  */
 @Entity
 @Table(name = "fund_infos", schema = "fofquant", catalog = "")

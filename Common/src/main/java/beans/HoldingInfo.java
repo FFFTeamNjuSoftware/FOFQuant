@@ -18,5 +18,5 @@ public class HoldingInfo implements Serializable {
     /**
      * 持有信息
      */
-    List<HoldingUnit> items;
+    public List<HoldingUnit> items;
 }

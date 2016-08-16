@@ -14,21 +14,21 @@ public class ProfitFeatureLogicStub extends UnicastRemoteObject implements Profi
     }
     @Override
     public double getAlpha(String code) throws RemoteException {
-        return 0;
+        return 1;
     }
 
     @Override
     public double aveProfitRate(String code) throws RemoteException {
-        return 0;
+        return 2;
     }
 
     @Override
     public double riskProfitRate(String code) throws RemoteException {
-        return 0;
+        return 3;
     }
 
     @Override
     public double getEnsembleAveProfitRate(String code) throws RemoteException {
-        return 0;
+        return 4;
     }
 }

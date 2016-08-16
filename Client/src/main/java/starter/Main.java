@@ -2,10 +2,14 @@ package starter;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -17,8 +21,9 @@ public class Main  extends Application {
     private static Main instance;
     private static Stage primaryStage;
     private static Scene primaryScene;
-    private static AnchorPane loginPanel;
-
+    private static AnchorPane loginPanel,headPanel,user_guidePanel,manager_guidePanel,writePanel;
+    private static HBox hbox;
+    private static VBox vbox;
 
     public static Main getInstance() {
         return instance;
@@ -41,16 +46,65 @@ public class Main  extends Application {
         instance = this;
         this.primaryStage = primaryStage;
         loginPanel= FXMLLoader.load(getClass().getClassLoader().getResource("loginPanel.fxml"));
+        headPanel= FXMLLoader.load(getClass().getClassLoader().getResource("headPanel.fxml"));
+        user_guidePanel= FXMLLoader.load(getClass().getClassLoader().getResource("user_guidePanel.fxml"));
+        writePanel= FXMLLoader.load(getClass().getClassLoader().getResource("writePanel.fxml"));
 
         primaryStage.setHeight(618);
         primaryStage.setWidth(1000);
         primaryStage.setTitle("FoFQuant");
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.isResizable();
-        primaryStage.setScene(getFactoryScene(loginPanel));
+
+
+        //mainPage for test
+        vbox = new VBox();
+        hbox = new HBox();
+        vbox.getChildren().addAll(headPanel,writePanel);
+        hbox.getChildren().addAll(user_guidePanel,vbox);
+
+        vbox.setPadding(new Insets(0,0,0,0));
+        vbox.setSpacing(0);
+
+        hbox.setHgrow(user_guidePanel, Priority.ALWAYS);
+        hbox.setPadding(new Insets(0,0,0,0));
+        hbox.setSpacing(0);
+
+        primaryStage.setScene(getFactoryScene(hbox));
+       // primaryStage.setScene(getFactoryScene(loginPanel));
+
         enableDragAndResize(primaryStage.getScene());
         primaryStage.show();
     }
+
+    public static void enterInitPanel(int i,String userName){
+        vbox = new VBox();
+        hbox = new HBox();
+        vbox.getChildren().addAll(headPanel,writePanel);
+        hbox.getChildren().addAll(user_guidePanel,vbox);
+
+        if(i==0){
+            //普通用户界面
+            vbox.getChildren().addAll(headPanel,null);
+            hbox.getChildren().addAll(user_guidePanel,vbox);
+        }else if(i==1){
+            //管理员界面
+            vbox.getChildren().addAll(headPanel,writePanel);
+            hbox.getChildren().addAll(manager_guidePanel,vbox);
+        }else{
+            System.out.println("......init error......");
+        }
+        vbox.setPadding(new Insets(0,0,0,0));
+        vbox.setSpacing(0);
+
+        hbox.setHgrow(user_guidePanel, Priority.ALWAYS);
+        hbox.setPadding(new Insets(0,0,0,0));
+        hbox.setSpacing(0);
+
+        primaryStage.setScene(getFactoryScene(hbox));
+    }
+
+
 
 
     /**

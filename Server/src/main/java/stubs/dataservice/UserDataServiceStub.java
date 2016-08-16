@@ -11,7 +11,13 @@ import exception.ObjectNotFoundException;
 public class UserDataServiceStub implements UserDataService {
     @Override
     public UserEntity getUser(String username) throws ObjectNotFoundException {
-        return null;
+        UserEntity userEntity=new UserEntity();
+        userEntity.setName("Buffett");
+        userEntity.setPassword("12345678");
+        userEntity.setGender("男");
+        userEntity.setUsername("Jack");
+        userEntity.setUsertype("Corporation");
+        return userEntity;
     }
 
     @Override

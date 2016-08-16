@@ -14,26 +14,27 @@ public class RiskFeatureLogicStub  extends UnicastRemoteObject implements RiskFe
     }
     @Override
     public double getStandardDeviation(String code) throws RemoteException {
-        return 0;
+        return 1;
     }
 
     @Override
     public double getBeta(String code) throws RemoteException {
-        return 0;
+        return 2;
     }
 
     @Override
     public double getJansen(String code) throws RemoteException {
-        return 0;
+        return 3;
     }
 
     @Override
     public double getTreynor(String code) throws RemoteException {
-        return 0;
+        return 4;
     }
 
     @Override
     public double getSharpe(String code) throws RemoteException {
-        return 0;
+        return 5;
     }
+
 }
