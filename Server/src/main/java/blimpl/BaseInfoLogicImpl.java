@@ -19,8 +19,9 @@ public class BaseInfoLogicImpl extends UnicastRemoteObject implements BaseInfoLo
     private static BaseInfoLogic instance;
 
     private BaseInfoDataService baseInfoDataService;
+
     private BaseInfoLogicImpl() throws RemoteException {
-        baseInfoDataService= DataServiceController.getBaseInfoDataService();
+        baseInfoDataService = DataServiceController.getBaseInfoDataService();
     }
 
     public static BaseInfoLogic getInstance() {
@@ -45,6 +46,6 @@ public class BaseInfoLogicImpl extends UnicastRemoteObject implements BaseInfoLo
 
     @Override
     public FundInfo getFundBaseInfo(String code) throws RemoteException, ObjectNotFoundException {
-        return null;
+        return Converter.convertFundInfo(baseInfoDataService.getFundInfo(code));
     }
 }

@@ -106,7 +106,8 @@ public class BLController {
     private static LogicCreator currentCreator;
 
     static {
-        currentCreator = stubCreator;
+//        currentCreator = stubCreator;
+        currentCreator = trueCreator;
     }
 
     public static BaseInfoLogic getBaseInfoLogic() {

@@ -1,16 +1,14 @@
 package blimpl;
 
-import beans.FundInfo;
-import beans.UserInfo;
-import beans.UserManageInfo;
-import entities.FundInfosEntity;
-import entities.UserEntity;
+import beans.*;
+import entities.*;
 import util.UserType;
 
 /**
  * Created by Daniel on 2016/8/16.
  */
 public class Converter {
+
     public static UserInfo convertUserInfo(UserEntity entity) {
         UserInfo info = new UserInfo();
         info.name = entity.getName();
@@ -56,4 +54,48 @@ public class Converter {
         return info;
     }
 
+    public static AssetAllocation convertAssetAllocation(AssetAllocationEntity entity) {
+        AssetAllocation assetAllocation = new AssetAllocation();
+        assetAllocation.date = entity.getDate();
+        assetAllocation.bond_ratio = entity.getBondRatio();
+        assetAllocation.bond_value = entity.getBondValue();
+        assetAllocation.cash_ratio = entity.getCashRatio();
+        assetAllocation.cash_value = entity.getCashValue();
+        assetAllocation.net_value = entity.getNetValue();
+        assetAllocation.other_ratio = entity.getOtherRatio();
+        assetAllocation.other_value = entity.getOtherValue();
+        assetAllocation.stock_ratio = entity.getStockRatio();
+        assetAllocation.stock_value = entity.getStockValue();
+        assetAllocation.total_value = entity.getTotalValue();
+        return assetAllocation;
+    }
+
+    public static HoldingUnit convertHoldingUnit(StockHoldInfoEntity entity) {
+        HoldingUnit unit = new HoldingUnit();
+        unit.code = entity.getStockCode();
+        unit.holdNum = entity.getHoldNum();
+        unit.name = entity.getStockName();
+        unit.value = entity.getValue();
+        unit.ratio = entity.getRatio();
+        return unit;
+    }
+
+    public static HoldingUnit convertHoldingUnit(IndustryHoldInfoEntity entity) {
+        HoldingUnit unit = new HoldingUnit();
+        unit.code = entity.getIndustryCode();
+        unit.name = entity.getIndustryName();
+        unit.value = entity.getValue();
+        unit.ratio = entity.getRatio();
+        return unit;
+    }
+
+    public static HoldingUnit convertHoldingUnit(BondHoldInfoEntity entity) {
+        HoldingUnit unit = new HoldingUnit();
+        unit.code = entity.getBondCode();
+        unit.holdNum = entity.getHoldNum();
+        unit.name = entity.getBondName();
+        unit.value = entity.getValue();
+        unit.ratio = entity.getRatio();
+        return unit;
+    }
 }

@@ -3,14 +3,13 @@ package entities;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import java.io.Serializable;
-import java.sql.Date;
 
 /**
  * Created by Daniel on 2016/8/16.
  */
 public class AssetAllocationEntityPK implements Serializable {
     private String code;
-    private Date date;
+    private String date;
 
     @Column(name = "code", nullable = false, length = 255)
     @Id
@@ -24,11 +23,11 @@ public class AssetAllocationEntityPK implements Serializable {
 
     @Column(name = "date", nullable = false)
     @Id
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

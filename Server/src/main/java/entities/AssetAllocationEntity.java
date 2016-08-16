@@ -1,7 +1,6 @@
 package entities;
 
 import javax.persistence.*;
-import java.sql.Date;
 
 /**
  * Created by Daniel on 2016/8/16.
@@ -11,7 +10,7 @@ import java.sql.Date;
 @IdClass(AssetAllocationEntityPK.class)
 public class AssetAllocationEntity {
     private String code;
-    private Date date;
+    private String date;
     private Double stockValue;
     private Double stockRatio;
     private Double bondValue;
@@ -35,11 +34,11 @@ public class AssetAllocationEntity {
 
     @Id
     @Column(name = "date", nullable = false)
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

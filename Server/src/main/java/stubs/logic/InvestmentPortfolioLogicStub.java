@@ -29,7 +29,7 @@ public class InvestmentPortfolioLogicStub extends UnicastRemoteObject implements
         assetAllocation.setCode("010107");
         assetAllocation.setCashRatio(0.2);
         assetAllocation.setCashValue(2000.0);
-        assetAllocation.setDate(new java.sql.Date(2016-1900,1-1,1));
+        assetAllocation.setDate("2016-06-01");
         assetAllocation.setNetValue(1000.0);
         assetAllocation.setOtherRatio(0.30);
         assetAllocation.setStockRatio(0.4);

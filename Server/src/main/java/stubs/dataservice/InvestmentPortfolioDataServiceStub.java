@@ -67,7 +67,7 @@ public class InvestmentPortfolioDataServiceStub implements InvestmentPortfolioDa
 		assetAllocationEntity.setCode("010107");
 		assetAllocationEntity.setCashRatio(0.2);
 		assetAllocationEntity.setCashValue(2000.0);
-		assetAllocationEntity.setDate(new java.sql.Date(2016-1900,1-1,1));
+		assetAllocationEntity.setDate("2016-06-01");
 		assetAllocationEntity.setNetValue(1000.0);
 		assetAllocationEntity.setOtherRatio(0.30);
 		assetAllocationEntity.setStockRatio(0.4);
