@@ -48,9 +48,13 @@ Temporary Items
 
 *.class
 .idea/*
-/Client/.idea/*
-/Common/.idea/*
-/Server/.idea/*
-/DataService/.idea/*
+Client/.idea/*
+Common/.idea/*
+Server/.idea/*
+DataService/.idea/*
 *.iml
 DataService/.idea/workspace.xml
+Client/target/*
+Common/target/*
+Server/target/*
+DataService/target/*
