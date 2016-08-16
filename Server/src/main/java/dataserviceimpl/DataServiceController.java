@@ -60,7 +60,8 @@ public class DataServiceController {
     private static DataServiceCreator currentCreator;
 
     static {
-        currentCreator = stubCreator;
+//        currentCreator = stubCreator;
+        currentCreator = trueCreator;
     }
 
     public static BaseInfoDataService getBaseInfoDataService() {

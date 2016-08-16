@@ -23,7 +23,7 @@ public interface UserDataService {
      * @param username
      * @throws ObjectExistedException
      */
-    public void addUser(String username) throws ObjectExistedException;
+    public void addUser(UserEntity username) throws ObjectExistedException;
 
     /**
      * 更新用户信息

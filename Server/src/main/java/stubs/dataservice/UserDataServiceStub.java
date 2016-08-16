@@ -15,7 +15,7 @@ public class UserDataServiceStub implements UserDataService {
     }
 
     @Override
-    public void addUser(String username) throws ObjectExistedException {
+    public void addUser(UserEntity username) throws ObjectExistedException {
 
     }
 
