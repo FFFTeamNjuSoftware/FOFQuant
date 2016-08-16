@@ -9,6 +9,7 @@ import startup.HibernateBoot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Daniel on 2016/8/16.
@@ -44,5 +45,16 @@ public class BaseInfoDataServiceImpl implements BaseInfoDataService {
             codeNames.add(item);
         }
         return codeNames;
+    }
+
+    @Override
+    public List<String> getAllCodes() {
+        Session se = HibernateBoot.openSession();
+        List<? extends Object> li = se.createQuery("select code from FundInfosEntity group by code")
+                .list();
+        List<String> re = new ArrayList<>();
+        if (li == null)
+            return re;
+        return li.stream().map(e -> (String) e).collect(Collectors.toList());
     }
 }

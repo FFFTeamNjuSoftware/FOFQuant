@@ -13,34 +13,21 @@ public interface MarketDataService {
     /**
      * 获得对应基金代码对应类型的净值数据
      * @param code
-     * @param type
      * @return
      * @throws ObjectNotFoundException
      */
-    public List<NetWorthEntity> getNetWorth(String code, UnitType type) throws
+    public List<NetWorthEntity> getNetWorth(String code) throws
             ObjectNotFoundException;
 
     /**
      * 同上多了起止日期
      * @param code
-     * @param type
      * @param startDate
      * @param endDate
      * @return
      * @throws ObjectNotFoundException
      */
-    public List<NetWorthEntity> getNetWorth(String code, UnitType type, String startDate, String
+    public List<NetWorthEntity> getNetWorth(String code,  String startDate, String
             endDate) throws ObjectNotFoundException;
-
-    /**
-     * 同一多了返回数据的数量（日期近的数据）
-     * @param code
-     * @param type
-     * @param resultCount
-     * @return
-     * @throws ObjectNotFoundException
-     */
-    public List<NetWorthEntity> getNetWorth(String code, UnitType type, int resultCount) throws
-            ObjectNotFoundException;
 
 }

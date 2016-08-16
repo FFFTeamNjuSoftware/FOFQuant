@@ -41,4 +41,9 @@ public class BaseInfoDataServiceStub implements BaseInfoDataService {
         codeNameList.add(codeName);
         return codeNameList;
     }
+
+    @Override
+    public List<String> getAllCodes() {
+        return null;
+    }
 }

@@ -2,6 +2,7 @@ package bl;
 
 import beans.UserInfo;
 import beans.UserManageInfo;
+import exception.AuthorityException;
 import exception.ObjectExistedException;
 import exception.ObjectNotFoundException;
 
@@ -28,7 +29,7 @@ public interface UserLogic extends Remote {
      * @throws ObjectNotFoundException
      */
     public UserInfo loginIn(String username, String password) throws RemoteException,
-            ObjectNotFoundException;
+            ObjectNotFoundException, AuthorityException;
 
     /**
      * 获得用户的所有信息，管理员使用

@@ -28,4 +28,10 @@ public interface BaseInfoDataService {
      */
     public List<CodeName> fuzzySearch(String keyword);
 
+    /**
+     * 获得所有的基金代码
+     * @return
+     */
+    public List<String> getAllCodes();
+
 }

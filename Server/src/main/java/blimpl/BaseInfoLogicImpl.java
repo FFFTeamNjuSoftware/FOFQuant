@@ -3,6 +3,8 @@ package blimpl;
 import beans.CodeName;
 import beans.FundInfo;
 import bl.BaseInfoLogic;
+import dataservice.BaseInfoDataService;
+import dataserviceimpl.DataServiceController;
 import exception.ObjectNotFoundException;
 
 import java.rmi.RemoteException;
@@ -16,7 +18,9 @@ public class BaseInfoLogicImpl extends UnicastRemoteObject implements BaseInfoLo
 
     private static BaseInfoLogic instance;
 
+    private BaseInfoDataService baseInfoDataService;
     private BaseInfoLogicImpl() throws RemoteException {
+        baseInfoDataService= DataServiceController.getBaseInfoDataService();
     }
 
     public static BaseInfoLogic getInstance() {
@@ -31,12 +35,12 @@ public class BaseInfoLogicImpl extends UnicastRemoteObject implements BaseInfoLo
 
     @Override
     public List<String> getFundCodes() throws RemoteException {
-        return null;
+        return baseInfoDataService.getAllCodes();
     }
 
     @Override
     public List<CodeName> fuzzySearch(String keyword) throws RemoteException {
-        return null;
+        return baseInfoDataService.fuzzySearch(keyword);
     }
 
     @Override

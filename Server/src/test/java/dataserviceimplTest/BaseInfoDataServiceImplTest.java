@@ -53,10 +53,19 @@ public class BaseInfoDataServiceImplTest {
     @Test
     public void testFuzzySearch() throws Exception {
         List<CodeName> codeNameList;
-        codeNameList=dataService.fuzzySearch("华夏");
-        for(CodeName codeName:codeNameList){
+        codeNameList = dataService.fuzzySearch("华夏");
+        for (CodeName codeName : codeNameList) {
             System.out.println(new Gson().toJson(codeName));
         }
+    }
+
+    /**
+     * Method: getAllCodes()
+     */
+    @Test
+    public void testGetAllCodes() throws Exception {
+        List<String> str = dataService.getAllCodes();
+        str.stream().forEach(System.out::println);
     }
 
 

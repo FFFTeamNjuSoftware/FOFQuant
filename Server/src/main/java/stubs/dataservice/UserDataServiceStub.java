@@ -5,6 +5,8 @@ import entities.UserEntity;
 import exception.ObjectExistedException;
 import exception.ObjectNotFoundException;
 
+import java.util.List;
+
 /**
  * Created by Daniel on 2016/8/16.
  */
@@ -28,5 +30,10 @@ public class UserDataServiceStub implements UserDataService {
     @Override
     public void updateUser(UserEntity entity) throws ObjectNotFoundException {
 
+    }
+
+    @Override
+    public List<UserEntity> getAllUser() {
+        return null;
     }
 }

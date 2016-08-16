@@ -4,6 +4,8 @@ import entities.UserEntity;
 import exception.ObjectExistedException;
 import exception.ObjectNotFoundException;
 
+import java.util.List;
+
 /**
  * Created by Daniel on 2016/8/16.
  */
@@ -16,6 +18,13 @@ public interface UserDataService {
      * @throws ObjectNotFoundException
      */
     public UserEntity getUser(String username) throws ObjectNotFoundException;
+
+    /**
+     * 获得所有用户
+     *
+     * @return
+     */
+    public List<UserEntity> getAllUser();
 
     /**
      * 添加用户

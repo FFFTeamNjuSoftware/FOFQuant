@@ -10,6 +10,7 @@ import org.hibernate.Transaction;
 import org.hibernate.exception.ConstraintViolationException;
 import startup.HibernateBoot;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,6 +44,20 @@ public class UserDataServiceImpl implements UserDataService {
         } finally {
             se.close();
         }
+    }
+
+    @Override
+    public List<UserEntity> getAllUser() {
+        Session se = HibernateBoot.openSession();
+        List re = se.createQuery("from UserEntity").list();
+        List<UserEntity> entities = new ArrayList<>();
+        se.close();
+        if (re == null)
+            return entities;
+        for (Object obj : re) {
+            entities.add((UserEntity) obj);
+        }
+        return entities;
     }
 
     @Override
