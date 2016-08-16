@@ -1,4 +1,4 @@
-package stubs;
+package stubs.logic;
 
 import beans.PriceInfo;
 import bl.MarketLogic;
@@ -7,12 +7,16 @@ import exception.ParameterException;
 import util.UnitType;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
 /**
  * Created by Daniel on 2016/8/15.
  */
-public class MarketLogicStub implements MarketLogic {
+public class MarketLogicStub extends UnicastRemoteObject implements MarketLogic {
+    public MarketLogicStub() throws RemoteException{
+
+    }
     @Override
     public List<PriceInfo> getPriceInfo(String code, UnitType type) throws RemoteException, ObjectNotFoundException, ParameterException {
         return null;

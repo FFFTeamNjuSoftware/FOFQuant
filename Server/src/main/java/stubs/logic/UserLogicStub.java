@@ -1,4 +1,4 @@
-package stubs;
+package stubs.logic;
 
 import beans.UserInfo;
 import beans.UserManageInfo;
@@ -7,12 +7,17 @@ import exception.ObjectExistedException;
 import exception.ObjectNotFoundException;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
 /**
  * Created by Daniel on 2016/8/15.
  */
-public class UserLogicStub implements UserLogic{
+public class UserLogicStub extends UnicastRemoteObject implements UserLogic {
+    public UserLogicStub() throws RemoteException {
+
+    }
+
     @Override
     public UserInfo loginIn(String username, String password) throws RemoteException, ObjectNotFoundException {
         return null;

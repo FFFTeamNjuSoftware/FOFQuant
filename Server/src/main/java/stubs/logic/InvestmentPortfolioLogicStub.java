@@ -1,4 +1,4 @@
-package stubs;
+package stubs.logic;
 
 import beans.AssetAllocation;
 import beans.HoldingInfo;
@@ -7,12 +7,17 @@ import exception.ObjectNotFoundException;
 import util.HoldingType;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
 /**
  * Created by Daniel on 2016/8/15.
  */
-public class InvestmentPortfolioLogicStub implements InvestmentPortfolioLogic {
+public class InvestmentPortfolioLogicStub extends UnicastRemoteObject implements
+        InvestmentPortfolioLogic {
+    public InvestmentPortfolioLogicStub() throws RemoteException{
+
+    }
     @Override
     public List<AssetAllocation> getAssetAllocation(String code) throws RemoteException, ObjectNotFoundException {
         return null;

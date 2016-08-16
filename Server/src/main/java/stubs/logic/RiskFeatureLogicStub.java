@@ -1,13 +1,17 @@
-package stubs;
+package stubs.logic;
 
 import bl.RiskFeatureLogic;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 /**
  * Created by Daniel on 2016/8/15.
  */
-public class RiskFeatureLogicStub implements RiskFeatureLogic {
+public class RiskFeatureLogicStub  extends UnicastRemoteObject implements RiskFeatureLogic {
+    public RiskFeatureLogicStub() throws RemoteException{
+
+    }
     @Override
     public double getStandardDeviation(String code) throws RemoteException {
         return 0;

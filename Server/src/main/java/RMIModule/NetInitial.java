@@ -1,7 +1,7 @@
 package RMIModule;
 
 import bl.*;
-import blimpl.*;
+import blimpl.BLController;
 import config.RMIConfig;
 import org.dom4j.DocumentException;
 
@@ -22,14 +22,13 @@ public class NetInitial {
 
     static {
         serviceMap = new HashMap<>();
-        serviceMap.put(UserLogic.class.getSimpleName(), UserLogicImpl.getInstance());
-        serviceMap.put(BaseInfoLogic.class.getSimpleName(), BaseInfoLogicImpl.getInstance());
-        serviceMap.put(MarketLogic.class.getSimpleName(), MarketLogicImpl.getInstance());
+        serviceMap.put(UserLogic.class.getSimpleName(), BLController.getUserLogic());
+        serviceMap.put(BaseInfoLogic.class.getSimpleName(), BLController.getBaseInfoLogic());
+        serviceMap.put(MarketLogic.class.getSimpleName(), BLController.getMarketLogic());
         serviceMap.put(InvestmentPortfolioLogic.class.getSimpleName(),
-                InvestmentPortfolioLogicImpl.getInstance());
-        serviceMap.put(RiskFeatureLogic.class.getSimpleName(), RiskFeatureLogicImpl.getInstance());
-        serviceMap.put(ProfitFeatureLogic.class.getSimpleName(), ProfitFeatureLogicImpl
-                .getInstance());
+                BLController.getInvestmentPortfolioLogic());
+        serviceMap.put(RiskFeatureLogic.class.getSimpleName(), BLController.getRiskFeatureLogic());
+        serviceMap.put(ProfitFeatureLogic.class.getSimpleName(), BLController.getProfitFeatureLogic());
     }
 
     public static void initial() throws DocumentException, RemoteException, AlreadyBoundException,
