@@ -40,5 +40,5 @@ public interface BaseInfoLogic extends Remote {
      * @throws RemoteException
      * @throws ObjectNotFoundException
      */
-    public FundInfo getFundBaseInfo() throws RemoteException, ObjectNotFoundException;
+    public FundInfo getFundBaseInfo(String code) throws RemoteException, ObjectNotFoundException;
 }

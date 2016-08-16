@@ -40,7 +40,7 @@ public class BaseInfoLogicImpl extends UnicastRemoteObject implements BaseInfoLo
     }
 
     @Override
-    public FundInfo getFundBaseInfo() throws RemoteException, ObjectNotFoundException {
+    public FundInfo getFundBaseInfo(String code) throws RemoteException, ObjectNotFoundException {
         return null;
     }
 }
