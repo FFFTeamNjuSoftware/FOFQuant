@@ -28,7 +28,7 @@ public class Main  extends Application {
     private static Main instance;
     private static Stage primaryStage;
     private static Scene primaryScene;
-    private static AnchorPane loginPanel,headPanel,user_guidePanel,manager_guidePanel,writePanel;
+    private static AnchorPane loginPanel,headPanel,user_guidePanel,manager_guidePanel,writePanel,userManagerPanel;
     private static HBox hbox;
     private static VBox vbox;
     private static Scene ans;
@@ -150,6 +150,19 @@ public class Main  extends Application {
         enableDragAndResize(primaryStage.getScene());
     }
 
+    public static void enterUserManagerPanel(){
+        FXMLLoader fxmlLoader=new FXMLLoader(Main.class.getClassLoader().getResource("userManagerPanel.fxml"));
+        try {
+            userManagerPanel = (AnchorPane)fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        vbox = new VBox(headPanel, userManagerPanel);
+        hbox = new HBox(manager_guidePanel, vbox);
+        primaryStage.setScene(getFactoryScene(hbox));
+        enableDragAndResize(primaryStage.getScene());
+
+    }
 
     /**
      * =========================================================================

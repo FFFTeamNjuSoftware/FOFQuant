@@ -40,7 +40,6 @@ public class managerGuideUIController implements Initializable {
         Button[] buttons = new Button[]{userManagerBtn,modifyBtn,system_logBtn,logoutBtn};
         for(int i=0;i<buttons.length;i++) {
             int j=i;
-            System.out.println(buttons[j].getId());
             buttons[i].addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
                 buttons[j].setStyle("-fx-background-color: #AFE1FE; -fx-opacity:0.3");
             });
@@ -62,6 +61,9 @@ public class managerGuideUIController implements Initializable {
         Main.enterLoginPanel();
     }
 
+    public void toUserManagerPanel(){
 
+        Main.enterUserManagerPanel();
+    }
 
 }
