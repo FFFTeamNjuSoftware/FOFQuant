@@ -19,7 +19,7 @@ public class userGuideUIController implements Initializable {
     @FXML
     private Button combinationBtn,marketBtn,riskBtn,warning_logBtn,logoutBtn;
 
-    private static userGuideUIController instance;
+    private  userGuideUIController instance;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

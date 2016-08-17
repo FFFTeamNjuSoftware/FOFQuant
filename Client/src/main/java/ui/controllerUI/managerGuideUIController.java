@@ -20,9 +20,9 @@ public class managerGuideUIController implements Initializable {
     @FXML
     private Label managerNameLabel;
     @FXML
-    private Button userManagerBtn,modifyBtn,system_logBtn;
+    private Button userManagerBtn,modifyBtn,system_logBtn,logoutBtn;
 
-    private static managerGuideUIController instance;
+    private  managerGuideUIController instance;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -37,7 +37,7 @@ public class managerGuideUIController implements Initializable {
 
 
     public void initButtons(){
-        Button[] buttons = new Button[]{userManagerBtn,modifyBtn,system_logBtn};
+        Button[] buttons = new Button[]{userManagerBtn,modifyBtn,system_logBtn,logoutBtn};
         for(int i=0;i<buttons.length;i++) {
             int j=i;
             System.out.println(buttons[j].getId());
