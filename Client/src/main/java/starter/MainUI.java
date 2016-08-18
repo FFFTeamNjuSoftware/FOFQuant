@@ -15,11 +15,17 @@ import ui.util.FXMLHelper;
 public class MainUI extends Application {
     private Stage primaryStage;
     private Scene primaryScene;
-    private static AnchorPane loginPanel;
+    private AnchorPane loginPanel;
     private BLInterfaces blInterfaces;
+    private static MainUI instance;
+
+    public static MainUI getInstance() {
+        return instance;
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        instance = this;
         try {
             blInterfaces.netStart();
         } catch (DocumentException e) {
@@ -37,12 +43,16 @@ public class MainUI extends Application {
         primaryScene = new Scene(loginPanel);
 
         primaryStage.setScene(primaryScene);
-        //设置css
-        primaryScene.getStylesheets().add(MainUI.class.getResource("/css/loginStyle.css").toExternalForm());
         primaryStage.show();
     }
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public void changeScene(String name) {
+        AnchorPane pane = FXMLHelper.loadPanel(name);
+        primaryScene = new Scene(pane);
+        primaryStage.setScene(primaryScene);
     }
 }

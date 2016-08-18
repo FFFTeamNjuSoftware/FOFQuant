@@ -103,7 +103,7 @@ public class Main  extends Application {
         if(i==0){
             //普通用户界面
             try {
-                userGuideUIController.initNormalUser(userName);
+                userGuideUIController.initNormalUser();
                 FXMLLoader fxmlLoader=new FXMLLoader(Main.class.getClassLoader().getResource("user_guidePanel.fxml"));
                 user_guidePanel = (AnchorPane)fxmlLoader.load();
             } catch (IOException e) {
@@ -115,7 +115,7 @@ public class Main  extends Application {
         }else if(i==1){
             //管理员界面
             try {
-                managerGuideUIController.initManagerUser(userName);
+                managerGuideUIController.initManagerUser();
                 FXMLLoader fxmlLoader=new FXMLLoader(Main.class.getClassLoader().getResource("manager_guidePanel.fxml"));
                 manager_guidePanel = (AnchorPane)fxmlLoader.load();
             } catch (IOException e) {
