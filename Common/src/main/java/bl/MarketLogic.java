@@ -28,7 +28,7 @@ public interface MarketLogic extends Remote {
      * @throws ParameterException
      */
     public List<PriceInfo> getPriceInfo(String code, UnitType type) throws RemoteException,
-            ObjectNotFoundException, ParameterException;
+            ObjectNotFoundException;
 
     /**
      * @param code

@@ -98,4 +98,12 @@ public class Converter {
         unit.ratio = entity.getRatio();
         return unit;
     }
+
+    public static PriceInfo convertPriceInfo(NetWorthEntity entity) {
+        PriceInfo info = new PriceInfo();
+        info.date = entity.getDate().toString();
+        info.price = entity.getUnitWorth();
+        info.rise = entity.getDailyRise();
+        return info;
+    }
 }

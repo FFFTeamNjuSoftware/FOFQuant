@@ -18,6 +18,7 @@
         <mapping class="entities.BondHoldInfoEntity"/>
         <mapping class="entities.UserEntity"/>
         <mapping class="entities.ConstParametersEntity"/>
+        <mapping class="entities.IndexPriceEntity"/>
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hbm2ddl.auto">update</property> -->
     </session-factory>

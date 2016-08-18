@@ -1,13 +1,7 @@
 package dataserviceimpl;
 
-import dataservice.BaseInfoDataService;
-import dataservice.InvestmentPortfolioDataService;
-import dataservice.MarketDataService;
-import dataservice.UserDataService;
-import stubs.dataservice.BaseInfoDataServiceStub;
-import stubs.dataservice.InvestmentPortfolioDataServiceStub;
-import stubs.dataservice.MarketDataServiceStub;
-import stubs.dataservice.UserDataServiceStub;
+import dataservice.*;
+import stubs.dataservice.*;
 
 /**
  * Created by Daniel on 2016/8/16.
@@ -34,6 +28,11 @@ public class DataServiceController {
         public UserDataService getUserDataService() {
             return new UserDataServiceImpl();
         }
+
+        @Override
+        public IndexDataService getIndexDataService() {
+            return new IndexDataServiceImpl();
+        }
     };
     private static DataServiceCreator stubCreator = new DataServiceCreator() {
         @Override
@@ -54,6 +53,11 @@ public class DataServiceController {
         @Override
         public UserDataService getUserDataService() {
             return new UserDataServiceStub();
+        }
+
+        @Override
+        public IndexDataService getIndexDataService() {
+            return new IndexDataServiceStub();
         }
     };
 
@@ -79,5 +83,9 @@ public class DataServiceController {
 
     public static UserDataService getUserDataService() {
         return currentCreator.getUserDataService();
+    }
+
+    public static IndexDataService getIndexDataService() {
+        return currentCreator.getIndexDataService();
     }
 }

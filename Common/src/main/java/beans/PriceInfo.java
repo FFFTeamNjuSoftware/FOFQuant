@@ -18,4 +18,8 @@ public class PriceInfo implements Serializable {
      * 价格
      */
     public double price;
+    /**
+     * 涨幅
+     */
+    public double rise;
 }

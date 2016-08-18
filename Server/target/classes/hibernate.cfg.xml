@@ -9,7 +9,6 @@
         </property>
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
-        <property name="connection.username">root</property>
         <mapping class="entities.AssetAllocationEntity"/>
         <mapping class="entities.FundInfosEntity"/>
         <mapping class="entities.IndustryHoldInfoEntity"/>
@@ -18,6 +17,7 @@
         <mapping class="entities.BondHoldInfoEntity"/>
         <mapping class="entities.UserEntity"/>
         <mapping class="entities.ConstParametersEntity"/>
+        <mapping class="entities.IndexPriceEntity"/>
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hbm2ddl.auto">update</property> -->
     </session-factory>

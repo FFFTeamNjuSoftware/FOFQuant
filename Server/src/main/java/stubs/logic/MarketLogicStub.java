@@ -19,7 +19,7 @@ public class MarketLogicStub extends UnicastRemoteObject implements MarketLogic 
 
     }
     @Override
-    public List<PriceInfo> getPriceInfo(String code, UnitType type) throws RemoteException, ObjectNotFoundException, ParameterException {
+    public List<PriceInfo> getPriceInfo(String code, UnitType type) throws RemoteException, ObjectNotFoundException {
         List<PriceInfo>  priceInfoList= new ArrayList<PriceInfo>();
         PriceInfo priceInfo=new PriceInfo();
         priceInfo.date="20160101";

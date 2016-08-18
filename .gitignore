@@ -53,6 +53,10 @@ Common/.idea/*
 Server/.idea/*
 DataService/.idea/*
 *.iml
+Client/*.iml
+Common/*.iml
+Server/*.iml
+DataService/*.iml
 DataService/.idea/workspace.xml
 Client/target/*
 Common/target/*
