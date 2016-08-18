@@ -47,6 +47,10 @@ public class userGuideUIController implements Initializable {
                 buttons[j].setStyle("-fx-background-color: #1F77B9;  -fx-opacity:0.3");
             });
 
+            buttons[i].addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
+                buttons[j].setStyle("-fx-background-color: #1F77B9;  -fx-opacity:0.3");
+            });
+
 //Removing the shadow when the mouse cursor is off
             buttons[i].addEventHandler(MouseEvent.MOUSE_EXITED, (MouseEvent e) -> {
                 buttons[j].setStyle("-fx-background-color: transparent;");

@@ -4,6 +4,7 @@ import RMIModule.BLInterfaces;
 import beans.UserManageInfo;
 import bl.UserLogic;
 import exception.ObjectExistedException;
+import exception.ObjectNotFoundException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -63,6 +64,7 @@ public class userManagerUIController  implements Initializable {
     private UserLogic userLogic ;
     private List<UserManageInfo> userManageInfoList = new ArrayList<UserManageInfo>();
     private UserManageInfo userManageInfo = new UserManageInfo();
+    private UserManageInfo updateUserManageInfo = new UserManageInfo();
     private userManagerUIController instance;
 
     @Override
@@ -72,7 +74,7 @@ public class userManagerUIController  implements Initializable {
         initButton();
         init();
     }
-    public void init(){
+    private void init(){
         tipLabel.setText(null);
 
         try {
@@ -142,7 +144,7 @@ public class userManagerUIController  implements Initializable {
 
     }
 
-    public void initButton(){
+    private void initButton(){
         modifyBtn = new Button("修改");
         deleteBtn = new Button("删除");
         modifyBtn = setBtn[0];
@@ -151,11 +153,10 @@ public class userManagerUIController  implements Initializable {
 
 
     @FXML
-    public void addNewUser(){
+    private void addNewUser(){
         userManageInfo.name=nameField.getText();
         userManageInfo.username = userNameField.getText();
         userManageInfo.password = passwordField.getText();
-
 
 
         genderChoBox.valueProperty().addListener(new ChangeListener<String>() {
@@ -190,11 +191,22 @@ public class userManagerUIController  implements Initializable {
 
     }
     @FXML
-    public void deleteAllSelected(){
+    private void deleteAllSelected(){
 
     }
     @FXML
-    public void showAddList(){
+    private void showAddList(){
 
+    }
+
+    @FXML
+    private void updateAllUser(){
+        try {
+            userLogic.updateUserInfo(updateUserManageInfo);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (ObjectNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }

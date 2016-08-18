@@ -14,7 +14,8 @@
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="303.0" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="543.0" minWidth="10.0" prefWidth="133.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="695.0" minWidth="10.0" prefWidth="694.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="543.0" minWidth="10.0" prefWidth="377.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="695.0" minWidth="10.0" prefWidth="342.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -40,6 +41,16 @@
                   <Button fx:id="deleteAllBtn" layoutY="4.0" mnemonicParsing="false" onAction="#deleteAllSelected" prefHeight="23.0" prefWidth="101.0" style="-fx-background-color: transparent;" text="      批量删除" textFill="WHITE" />
                </children>
             </AnchorPane>
+            <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="156.0" GridPane.columnIndex="2">
+               <children>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="300.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/images/update.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="updateBtn" layoutX="295.0" layoutY="7.0" mnemonicParsing="false" onAction="#updateAllUser" prefHeight="23.0" prefWidth="67.0" style="-fx-background-color: transparent;"  text="       刷新" textFill="WHITE" />
+               </children>
+            </AnchorPane>
          </children>
       </GridPane>
       <GridPane layoutX="6.0" layoutY="70.0" prefHeight="507.0" prefWidth="916.0">
@@ -53,11 +64,11 @@
          <children>
             <TableView fx:id="table" blendMode="LIGHTEN" prefHeight="514.0" prefWidth="589.0">
               <columns>
-                <TableColumn fx:id="selectColumn" prefWidth="53.0" resizable="false"  />
-                  <TableColumn fx:id="userTypeColumn" resizable="false"  text="类型" />
-                <TableColumn fx:id="userNameColumn" prefWidth="78.0" resizable="false"  text="登录名" />
-                  <TableColumn fx:id="nameColumn" prefWidth="82.0" resizable="false"  text="姓名" />
-                  <TableColumn fx:id="genderColumn" prefWidth="69.0" resizable="false"  text="性别" />
+                <TableColumn fx:id="selectColumn" prefWidth="53.0" resizable="false" />
+                  <TableColumn fx:id="userTypeColumn" resizable="false" text="类型" />
+                <TableColumn fx:id="userNameColumn" prefWidth="78.0" resizable="false" text="登录名" />
+                  <TableColumn fx:id="nameColumn" prefWidth="82.0" resizable="false" text="姓名" />
+                  <TableColumn fx:id="genderColumn" prefWidth="69.0" resizable="false" text="性别" />
                   <TableColumn fx:id="passwordColumn" prefWidth="114.0" resizable="false" text="密码（显示/隐藏）" />
                   <TableColumn fx:id="settingColumn" prefWidth="106.0" resizable="false" text="设置（编辑/删除）" />
               </columns>
@@ -90,7 +101,7 @@
                      </children>
                   </GridPane>
                   <Label fx:id="tipLabel" layoutX="109.0" layoutY="297.0" prefHeight="15.0" prefWidth="101.0" textFill="RED" />
-                  <Button fx:id="sureBtn" onAction="#addNewUser" layoutX="125.0" layoutY="427.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="67.0" style="-fx-background-color: #23a3f3;" text="确定" textFill="WHITE" />
+                  <Button fx:id="sureBtn" layoutX="125.0" layoutY="427.0" mnemonicParsing="false" onAction="#addNewUser" prefHeight="30.0" prefWidth="67.0" style="-fx-background-color: #23a3f3;" text="确定" textFill="WHITE" />
                   <Line endX="200.0" layoutX="115.0" layoutY="5.0" startX="-100.0" stroke="#bbbbbb" />
                </children>
             </AnchorPane>
