@@ -45,6 +45,7 @@ public class loginUIController  implements Initializable {
         instance = this;
         init();
     }
+
     public void init(){
         userNameField.setPromptText("用户名");
         passwordField.setPromptText("密码");

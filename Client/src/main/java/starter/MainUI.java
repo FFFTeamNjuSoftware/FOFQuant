@@ -9,8 +9,6 @@ import javafx.stage.StageStyle;
 import org.dom4j.DocumentException;
 import ui.util.FXMLHelper;
 
-import java.net.URL;
-
 /**
  * Created by tj on 2016/8/17.
  */
@@ -40,7 +38,7 @@ public class MainUI extends Application {
 
         primaryStage.setScene(primaryScene);
         //设置css
-        primaryScene.getStylesheets().add(MainUI.class.getResource("/style/mainStyle.css").toExternalForm());
+        primaryScene.getStylesheets().add(MainUI.class.getResource("/css/loginStyle.css").toExternalForm());
         primaryStage.show();
     }
 
