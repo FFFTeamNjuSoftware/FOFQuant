@@ -54,7 +54,7 @@ public class userGuideUIController implements Initializable {
         }
         mainUI = MainUI.getInstance();
         marketBtn.setOnAction((e) -> {
-            mainUI.changeScene("marketPanel");
+            mainUI.changeScene("user_guidePanel","marketPanel");
         });
     }
 

@@ -65,7 +65,7 @@ public class managerGuideUIController implements Initializable {
 
     public void toUserManagerPanel(){
 
-        MainUI.changeScene("manager_guidePanel","userManagerPanel");
+        MainUI.getInstance().changeScene("manager_guidePanel","userManagerPanel");
     }
 
 }

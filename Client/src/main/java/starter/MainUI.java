@@ -108,7 +108,7 @@ public class MainUI extends Application {
 
     }
 
-    public static void changeScene(String guideName,String mainStageName) {
+    public void changeScene(String guideName,String mainStageName) {
         vbox = new VBox();
         hbox = new HBox();
         AnchorPane headPane = FXMLHelper.loadPanel("headPanel");
@@ -116,9 +116,8 @@ public class MainUI extends Application {
         AnchorPane mainStagePane = FXMLHelper.loadPanel(mainStageName);
         vbox.getChildren().addAll(headPane,mainStagePane);
         hbox.getChildren().addAll(guidePane,vbox);
-        MainUI.primaryScene = new Scene(hbox);
-        MainUI mainui = new MainUI();
-        mainui.addDraggableNode(hbox);
-        MainUI.primaryStage.setScene(primaryScene);
+        primaryScene = new Scene(hbox);
+        addDraggableNode(hbox);
+        primaryStage.setScene(primaryScene);
     }
 }
