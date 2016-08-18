@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import starter.Main;
+import starter.MainUI;
 import ui.util.IOHelper;
 
 import java.net.URL;
@@ -56,7 +57,7 @@ public class userGuideUIController implements Initializable {
 
     @FXML
     public void user_logout() {
-        Main.enterLoginPanel();
+        MainUI.enterLoginPanel();
     }
 
 

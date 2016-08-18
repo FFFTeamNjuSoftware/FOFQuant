@@ -7,10 +7,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.dom4j.DocumentException;
@@ -65,9 +62,9 @@ public class Main  extends Application {
         //----------------------------------------------------------
         this.primaryStage = primaryStage;
         loginPanel= FXMLLoader.load(getClass().getClassLoader().getResource("loginPanel.fxml"));
-        headPanel= FXMLLoader.load(getClass().getClassLoader().getResource("headPanel.fxml"));
-     //   user_guidePanel= FXMLLoader.load(getClass().getClassLoader().getResource("user_guidePanel.fxml"));
-        writePanel= FXMLLoader.load(getClass().getClassLoader().getResource("writePanel.fxml"));
+    //    headPanel= FXMLLoader.load(getClass().getClassLoader().getResource("headPanel.fxml"));
+    //    user_guidePanel= FXMLLoader.load(getClass().getClassLoader().getResource("user_guidePanel.fxml"));
+     //   writePanel= FXMLLoader.load(getClass().getClassLoader().getResource("writePanel.fxml"));
       //  manager_guidePanel =FXMLLoader.load(getClass().getClassLoader().getResource("manager_guidePanel.fxml"));
 
         primaryStage.setHeight(618);
@@ -76,23 +73,7 @@ public class Main  extends Application {
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.isResizable();
 
-/*
-        //mainPage for test
-        vbox = new VBox();
-        hbox = new HBox();
-        vbox.getChildren().addAll(headPanel,writePanel);
-        hbox.getChildren().addAll(manager_guidePanel,vbox);
-
-        vbox.setPadding(new Insets(0,0,0,0));
-        vbox.setSpacing(0);
-
-        hbox.setHgrow(user_guidePanel, Priority.ALWAYS);
-        hbox.setPadding(new Insets(0,0,0,0));
-        hbox.setSpacing(0);
-
-        primaryStage.setScene(getFactoryScene(hbox));
-        */
-       primaryStage.setScene(getFactoryScene(loginPanel));
+        primaryStage.setScene(getFactoryScene(loginPanel));
         enableDragAndResize(primaryStage.getScene());
         primaryStage.show();
     }
@@ -111,7 +92,6 @@ public class Main  extends Application {
             }
             vbox.getChildren().addAll(headPanel,writePanel);
             hbox.getChildren().addAll(user_guidePanel,vbox);
-            hbox.setHgrow(user_guidePanel, Priority.ALWAYS);
         }else if(i==1){
             //管理员界面
             try {
@@ -123,16 +103,10 @@ public class Main  extends Application {
             }
             vbox.getChildren().addAll(headPanel,writePanel);
             hbox.getChildren().addAll(manager_guidePanel,vbox);
-            hbox.setHgrow(manager_guidePanel, Priority.ALWAYS);
 
         }else{
             System.out.println("......init error......");
         }
-        vbox.setPadding(new Insets(0,0,0,0));
-        vbox.setSpacing(0);
-
-        hbox.setPadding(new Insets(0,0,0,0));
-        hbox.setSpacing(0);
 
         primaryStage.setScene(getFactoryScene(hbox));
         enableDragAndResize(primaryStage.getScene());
@@ -165,10 +139,6 @@ public class Main  extends Application {
     }
 
     /**
-     * =========================================================================
-     * =========================================================================
-     */
-    /**
      * drag
      */
     private static double calX;
@@ -184,7 +154,6 @@ public class Main  extends Application {
     private static final double padding = ResizePadding;
     public static final double titleHeight = 625;//70
     public static final double LeftTabsWidth = 80;//179
-
 
     private static enum CURSOR_AREA{
         NORTH_WEST,
@@ -245,7 +214,7 @@ public class Main  extends Application {
     static double ix;
     static double iy;
 
-    private static void enableDragAndResize(Scene scene){
+    static void enableDragAndResize(Scene scene){
         scene.setOnMousePressed(
                 me -> {
                     pressedArea = getCursorArea(me.getX(), me.getY(), primaryStage.getWidth(), primaryStage.getHeight());
@@ -313,7 +282,7 @@ public class Main  extends Application {
         // change the look of the mouse when it is moved to the sides
         scene.setOnMouseMoved(
                 me -> {
-                    CURSOR_AREA area = getCursorArea(me.getX(), me.getY(), primaryStage.getWidth(), primaryStage.getHeight());
+                    CURSOR_AREA area = getCursorArea(me.getX(), me.getY(), Main.getPrimaryStage().getWidth(), Main.getPrimaryStage().getHeight());
                     Cursor cursor = Cursor.DEFAULT;
                     switch (area) {
                         case NORTH_WEST:
@@ -345,12 +314,6 @@ public class Main  extends Application {
                 }
         );
     }
-
-
-    /**
-     * =========================================================================
-     * =========================================================================
-     */
 
     public static void main(String[] args)
     {

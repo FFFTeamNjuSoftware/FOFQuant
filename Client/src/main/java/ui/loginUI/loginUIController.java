@@ -74,12 +74,12 @@ public class loginUIController implements Initializable {
                 //进入管理员界面
                 System.out.println("......manager......");
                 IOHelper.writeName(userName);
-                mainUI.changeScene("user_guidePanel");
+                mainUI.changeScene("manager_guidePanel","userManagerPanel");
             } else if (userInfo.userType == UserType.NORMAL) {
                 //进入普通用户界面
                 IOHelper.writeName(userName);
                 System.out.println("......normal......");
-                mainUI.changeScene("manager_guidePanel");
+                mainUI.changeScene("user_guidePanel","writePanel");
             } else {
                 System.out.println("......login fail......");
             }
@@ -143,11 +143,11 @@ public class loginUIController implements Initializable {
 
     @FXML
     public void toMinScreen() {
-        Main.getPrimaryStage().setIconified(true);
+        MainUI.getPrimaryStage().setIconified(true);
     }
 
     @FXML
     public void toExitScreen() {
-        Main.getPrimaryStage().close();
+        MainUI.getPrimaryStage().close();
     }
 }
