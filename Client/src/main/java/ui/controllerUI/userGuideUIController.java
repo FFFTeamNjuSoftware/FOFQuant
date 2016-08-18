@@ -61,7 +61,7 @@ public class userGuideUIController implements Initializable {
 
     @FXML
     public void user_logout() {
-        Main.enterLoginPanel();
+        MainUI.enterLoginPanel();
     }
 
 

@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import starter.Main;
+import starter.MainUI;
 import ui.util.IOHelper;
 
 import java.net.URL;
@@ -59,12 +60,12 @@ public class managerGuideUIController implements Initializable {
 
     @FXML
     public void user_logout()  {
-        Main.enterLoginPanel();
+        MainUI.enterLoginPanel();
     }
 
     public void toUserManagerPanel(){
 
-        Main.enterUserManagerPanel();
+        MainUI.changeScene("manager_guidePanel","userManagerPanel");
     }
 
 }
