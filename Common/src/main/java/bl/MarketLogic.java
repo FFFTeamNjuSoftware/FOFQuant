@@ -5,8 +5,12 @@ package bl;
  */
 
 import beans.PriceInfo;
+import beans.ProfitChartInfo;
+import beans.ProfitRateInfo;
 import exception.ObjectNotFoundException;
 import exception.ParameterException;
+import util.ChartType;
+import util.TimeType;
 import util.UnitType;
 
 import java.rmi.Remote;
@@ -43,11 +47,10 @@ public interface MarketLogic extends Remote {
             RemoteException, ObjectNotFoundException, ParameterException;
 
     /**
-     *
      * @param code
      * @param type
      * @param startDate 起始日期
-     * @param endDate 结束日期
+     * @param endDate   结束日期
      * @return
      * @throws RemoteException
      * @throws ObjectNotFoundException
@@ -55,5 +58,30 @@ public interface MarketLogic extends Remote {
      */
     public List<PriceInfo> getPriceInfo(String code, UnitType type, String startDate, String endDate)
             throws RemoteException, ObjectNotFoundException, ParameterException;
+
+    /**
+     * 获得基金的收益率指标
+     *
+     * @param code
+     * @return
+     */
+    public ProfitRateInfo getProfitRateInfo(String code, UnitType type, TimeType timeType) throws
+            RemoteException, ObjectNotFoundException;
+
+    /**
+     * 获得万元波动图的值
+     *
+     * @param code      基金代码
+     * @param type      周期类型
+     * @param timeType  时间类型
+     * @param chartType 图表类型,分为万元波动图和折价/溢价图
+     * @return
+     * @throws RemoteException
+     * @throws ObjectNotFoundException
+     */
+    public List<ProfitChartInfo> getMillionWaveChart(String code, UnitType type, TimeType
+            timeType, ChartType chartType) throws RemoteException, ObjectNotFoundException;
+
+
 }
 

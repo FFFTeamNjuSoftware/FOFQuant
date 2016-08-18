@@ -5,10 +5,13 @@ import bl.MarketLogic;
 import bl.ProfitFeatureLogic;
 import com.google.gson.Gson;
 import exception.ObjectNotFoundException;
+import exception.ParameterException;
+import util.CalendarOperate;
 import util.UnitType;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,7 +46,16 @@ public class ProfitFeatureLogicImpl extends UnicastRemoteObject implements Profi
 
     @Override
     public double aveProfitRate(String code) throws RemoteException, ObjectNotFoundException {
-        List<PriceInfo> infos = marketLogic.getPriceInfo(code, UnitType.DAY);
+        Calendar calendar = Calendar.getInstance();
+        String date1 = CalendarOperate.formatCalender(calendar);
+        calendar.add(Calendar.YEAR, -1);
+        String date2 = CalendarOperate.formatCalender(calendar);
+        List<PriceInfo> infos = null;
+        try {
+            infos = marketLogic.getPriceInfo(code, UnitType.DAY, date2, date1);
+        } catch (ParameterException e) {
+            e.printStackTrace();
+        }
         double ave_rise = 0;
         int n = infos.size();
         for (PriceInfo info : infos) {
@@ -60,8 +72,16 @@ public class ProfitFeatureLogicImpl extends UnicastRemoteObject implements Profi
 
     @Override
     public double getEnsembleAveProfitRate(String code) throws RemoteException, ObjectNotFoundException {
-        List<PriceInfo> infos = marketLogic.getPriceInfo(code, UnitType.DAY);
-        infos.stream().forEach(e -> System.out.println(new Gson().toJson(e)));
+        Calendar calendar = Calendar.getInstance();
+        String date1 = CalendarOperate.formatCalender(calendar);
+        calendar.add(Calendar.YEAR, -1);
+        String date2 = CalendarOperate.formatCalender(calendar);
+        List<PriceInfo> infos = null;
+        try {
+            infos = marketLogic.getPriceInfo(code, UnitType.DAY, date2, date1);
+        } catch (ParameterException e) {
+            e.printStackTrace();
+        }
         double ave_rise = 1;
         int n = infos.size();
         for (PriceInfo info : infos) {

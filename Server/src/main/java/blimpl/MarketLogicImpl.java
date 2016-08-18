@@ -1,15 +1,15 @@
 package blimpl;
 
 import beans.PriceInfo;
+import beans.ProfitChartInfo;
+import beans.ProfitRateInfo;
 import bl.MarketLogic;
 import dataservice.MarketDataService;
 import dataserviceimpl.DataServiceController;
 import entities.NetWorthEntity;
 import exception.ObjectNotFoundException;
 import exception.ParameterException;
-import util.CalendarOperate;
-import util.DateConstraint;
-import util.UnitType;
+import util.*;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -71,12 +71,24 @@ public class MarketLogicImpl extends UnicastRemoteObject implements MarketLogic 
             throw new ParameterException("starDate:" + startDate + " is behind endDate:" + endDate);
         List<PriceInfo> infos = getPriceInfo(code, type);
         Collections.sort(infos, (e1, e2) -> e1.date.compareTo(e2.date));
-        int startIndex = 0, endIndex = infos.size()-1;
+        int startIndex = 0, endIndex = infos.size() - 1;
         while (startDate.compareTo(infos.get(startIndex).date) > 0)
             startIndex++;
         while (endDate.compareTo(infos.get(endIndex).date) < 0)
             endIndex--;
         endIndex++;
         return infos.subList(startIndex, endIndex);
+    }
+
+    @Override
+    public ProfitRateInfo getProfitRateInfo(String code, UnitType type, TimeType timeType)
+            throws RemoteException, ObjectNotFoundException {
+        return null;
+    }
+
+    @Override
+    public List<ProfitChartInfo> getMillionWaveChart(String code, UnitType type, TimeType
+            timeType, ChartType chartType) throws RemoteException, ObjectNotFoundException {
+        return null;
     }
 }
