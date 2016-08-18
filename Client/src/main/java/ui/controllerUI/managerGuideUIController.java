@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import starter.Main;
+import ui.util.IOHelper;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -28,11 +29,11 @@ public class managerGuideUIController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         instance = this;
         initButtons();
+        initManagerUser();
     }
 
-    public void initManagerUser(String userName){
-        managerNameLabel = new Label();
-        managerNameLabel.setText(userName);
+    public void initManagerUser(){
+        managerNameLabel.setText(IOHelper.readName());
     }
 
 

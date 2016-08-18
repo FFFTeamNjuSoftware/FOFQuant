@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import starter.Main;
+import ui.util.IOHelper;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -15,28 +16,28 @@ import java.util.ResourceBundle;
  */
 public class userGuideUIController implements Initializable {
     @FXML
-    private Label userNameLabel,managerNameLabel;
+    private Label userNameLabel, managerNameLabel;
     @FXML
-    private Button combinationBtn,marketBtn,riskBtn,warning_logBtn,logoutBtn;
+    private Button combinationBtn, marketBtn, riskBtn, warning_logBtn, logoutBtn;
 
-    private  userGuideUIController instance;
+    private userGuideUIController instance;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         instance = this;
         initButtons();
+        initNormalUser();
     }
 
-    public void initNormalUser(String userName){
-        userNameLabel = new Label();
-        userNameLabel.setText(userName);
+    public void initNormalUser() {
+        userNameLabel.setText(IOHelper.readName());
     }
 
 
-    public void initButtons(){
-        Button[] buttons = new Button[]{combinationBtn,marketBtn,riskBtn,warning_logBtn,logoutBtn};
-        for(int i=0;i<buttons.length;i++) {
-            int j=i;
+    public void initButtons() {
+        Button[] buttons = new Button[]{combinationBtn, marketBtn, riskBtn, warning_logBtn, logoutBtn};
+        for (int i = 0; i < buttons.length; i++) {
+            int j = i;
             buttons[i].addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
                 buttons[j].setStyle("-fx-background-color: #AFE1FE; -fx-opacity:0.3");
             });
@@ -54,10 +55,9 @@ public class userGuideUIController implements Initializable {
 
 
     @FXML
-    public void user_logout()  {
+    public void user_logout() {
         Main.enterLoginPanel();
     }
-
 
 
 }
