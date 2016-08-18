@@ -65,8 +65,7 @@ public interface MarketLogic extends Remote {
      * @param code
      * @return
      */
-    public ProfitRateInfo getProfitRateInfo(String code, UnitType type, TimeType timeType) throws
-            RemoteException, ObjectNotFoundException;
+    public ProfitRateInfo getProfitRateInfo(String code) throws RemoteException, ObjectNotFoundException;
 
     /**
      * 获得基金页面的图表的值
