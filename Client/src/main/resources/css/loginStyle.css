@@ -1,0 +1,7 @@
+.button-minButton:hover {
+    -fx-background-color: #23a3f3;
+    -fx-opacity:0.5;
+}
+.button-login:hover{
+    -fx-background-color: #87ECD0;
+}

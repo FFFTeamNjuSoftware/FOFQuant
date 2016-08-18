@@ -9,8 +9,6 @@ import javafx.stage.StageStyle;
 import org.dom4j.DocumentException;
 import ui.util.FXMLHelper;
 
-import java.net.URL;
-
 /**
  * Created by tj on 2016/8/17.
  */

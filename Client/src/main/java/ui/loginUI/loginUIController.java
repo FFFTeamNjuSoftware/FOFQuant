@@ -50,7 +50,9 @@ public class loginUIController implements Initializable {
         init();
     }
 
-    public void init() {
+
+    public void init(){
+
         userNameField.setPromptText("用户名");
         passwordField.setPromptText("密码");
     }
