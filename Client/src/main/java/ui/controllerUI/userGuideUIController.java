@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import starter.Main;
+import starter.MainUI;
 import ui.util.IOHelper;
 
 import java.net.URL;
@@ -21,7 +22,7 @@ public class userGuideUIController implements Initializable {
     private Button combinationBtn, marketBtn, riskBtn, warning_logBtn, logoutBtn;
 
     private userGuideUIController instance;
-
+    private MainUI mainUI;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         instance = this;
@@ -51,6 +52,10 @@ public class userGuideUIController implements Initializable {
                 buttons[j].setStyle("-fx-background-color: transparent;");
             });
         }
+        mainUI = MainUI.getInstance();
+        marketBtn.setOnAction((e) -> {
+            mainUI.changeScene("marketPanel");
+        });
     }
 
 
