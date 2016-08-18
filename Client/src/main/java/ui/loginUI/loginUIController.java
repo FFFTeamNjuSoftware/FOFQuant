@@ -3,6 +3,7 @@ package ui.loginUI;
 import RMIModule.BLInterfaces;
 import beans.UserInfo;
 import bl.UserLogic;
+import exception.AuthorityException;
 import exception.ObjectNotFoundException;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,6 +14,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import org.dom4j.DocumentException;
 import starter.Main;
+import starter.MainUI;
+import ui.util.IOHelper;
 import util.UserType;
 
 import java.net.URL;
@@ -22,58 +25,62 @@ import java.util.ResourceBundle;
 /**
  * Created by QiHan on 2016/8/14.
  */
-public class loginUIController  implements Initializable {
+public class loginUIController implements Initializable {
 
     @FXML
     private TextField userNameField;
     @FXML
     private PasswordField passwordField;
     @FXML
-    private Button minBtn,exitBtn,loginBtn;
-    String name=null;
+    private Button minBtn, exitBtn, loginBtn;
 
+    private MainUI mainUI;
 
-    private static loginUIController instance;
+    private loginUIController instance;
 
-    private BLInterfaces blInterfaces = new BLInterfaces(); ;
-    private UserLogic userLogic ;
-    private UserInfo userInfo = new UserInfo(); ;
+    private BLInterfaces blInterfaces = new BLInterfaces();
+    ;
+    private UserLogic userLogic;
+    private UserInfo userInfo = new UserInfo();
+    ;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         instance = this;
+        buttonInit();
         init();
     }
+
+
     public void init(){
-//        userNameField.setCaretColor(Color.WHITE);
-   //     userNameField.setForeground(Color.WHITE);
+
         userNameField.setPromptText("用户名");
         passwordField.setPromptText("密码");
-        buttonInit();
     }
 
     @FXML
-    public void toLogin(){
+    public void toLogin() {
 
         String userName = userNameField.getText();
         String password = passwordField.getText();
-        System.out.println(userName+"..."+password);
+        System.out.println(userName + "..." + password);
 
         try {
             userLogic = blInterfaces.getUserLogic();
-            userInfo = userLogic.loginIn(userName,password);
+            userInfo = userLogic.loginIn(userName, password);
             System.out.println(userInfo);
-            if(userInfo.userType== UserType.MANAGER){
+            mainUI = MainUI.getInstance();
+            if (userInfo.userType == UserType.MANAGER) {
                 //进入管理员界面
                 System.out.println("......manager......");
-                name = userName;
-                Main.enterInitPanel(1,name);
-            }else if(userInfo.userType== UserType.NORMAL){
+                IOHelper.writeName(userName);
+                mainUI.changeScene("manager_guidePanel","userManagerPanel");
+            } else if (userInfo.userType == UserType.NORMAL) {
                 //进入普通用户界面
-                name = userName;
+                IOHelper.writeName(userName);
                 System.out.println("......normal......");
-                Main.enterInitPanel(0,name);
-            }else{
+                mainUI.changeScene("user_guidePanel","writePanel");
+            } else {
                 System.out.println("......login fail......");
             }
             ///////////////////////////////////////////////
@@ -82,14 +89,18 @@ public class loginUIController  implements Initializable {
             System.out.println("......RemoteException......");
         } catch (ObjectNotFoundException e) {
             e.printStackTrace();
-            System.out.println("......ObjectNotFoundException......");
-        }catch(NullPointerException e){
+            System.out.println("......账号不存在......");
+        } catch (NullPointerException e) {
             e.printStackTrace();
             System.out.println("......NullPointerException......");
+        } catch (AuthorityException e) {
+            e.printStackTrace();
+            System.out.println("......密码错误......");
         }
 
 
     }
+
 
     public void buttonInit(){
         minBtn.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
@@ -131,12 +142,12 @@ public class loginUIController  implements Initializable {
     }
 
     @FXML
-    public void toMinScreen(){
-        Main.getPrimaryStage().setIconified(true);
+    public void toMinScreen() {
+        MainUI.getPrimaryStage().setIconified(true);
     }
 
     @FXML
-    public void toExitScreen(){
-        Main.getPrimaryStage().close();
+    public void toExitScreen() {
+        MainUI.getPrimaryStage().close();
     }
 }

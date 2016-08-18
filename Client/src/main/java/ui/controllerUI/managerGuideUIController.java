@@ -10,6 +10,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import starter.Main;
+import starter.MainUI;
+import ui.util.IOHelper;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -20,32 +22,35 @@ public class managerGuideUIController implements Initializable {
     @FXML
     private Label managerNameLabel;
     @FXML
-    private Button userManagerBtn,modifyBtn,system_logBtn;
+    private Button userManagerBtn,modifyBtn,system_logBtn,logoutBtn;
 
-    private static managerGuideUIController instance;
+    private  managerGuideUIController instance;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         instance = this;
         initButtons();
+        initManagerUser();
     }
 
-    public void initManagerUser(String userName){
-        managerNameLabel = new Label();
-        managerNameLabel.setText(userName);
+    public void initManagerUser(){
+        managerNameLabel.setText(IOHelper.readName());
     }
 
 
     public void initButtons(){
-        Button[] buttons = new Button[]{userManagerBtn,modifyBtn,system_logBtn};
+        Button[] buttons = new Button[]{userManagerBtn,modifyBtn,system_logBtn,logoutBtn};
         for(int i=0;i<buttons.length;i++) {
             int j=i;
-            System.out.println(buttons[j].getId());
             buttons[i].addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
                 buttons[j].setStyle("-fx-background-color: #AFE1FE; -fx-opacity:0.3");
             });
 
             buttons[i].addEventHandler(MouseEvent.MOUSE_PRESSED, (MouseEvent e) -> {
+                buttons[j].setStyle("-fx-background-color: #1F77B9;  -fx-opacity:0.3");
+            });
+
+            buttons[i].addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
                 buttons[j].setStyle("-fx-background-color: #1F77B9;  -fx-opacity:0.3");
             });
 
@@ -59,9 +64,12 @@ public class managerGuideUIController implements Initializable {
 
     @FXML
     public void user_logout()  {
-        Main.enterLoginPanel();
+        MainUI.enterLoginPanel();
     }
 
+    public void toUserManagerPanel(){
 
+        MainUI.getInstance().changeScene("manager_guidePanel","userManagerPanel");
+    }
 
 }

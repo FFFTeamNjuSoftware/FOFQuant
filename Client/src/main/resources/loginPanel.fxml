@@ -7,7 +7,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="backPanel" fx:id="backPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="618.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.loginUI.loginUIController">
+<AnchorPane id="backPanel" fx:id="basicPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="618.0" prefWidth="1000.0" stylesheets="@css/loginStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.loginUI.loginUIController">
    <children>
       <ImageView id="backgroundImg" fx:id="backgroundImg" fitHeight="618.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true">
          <image>

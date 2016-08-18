@@ -1,5 +1,6 @@
 package RMIModule;
 
+import exception.AuthorityException;
 import exception.ObjectNotFoundException;
 import org.dom4j.DocumentException;
 
@@ -18,6 +19,8 @@ public class StartUp {
             } catch (ObjectNotFoundException e) {
                 e.printStackTrace();
                 System.out.println("wrong");
+            } catch (AuthorityException e) {
+                e.printStackTrace();
             }
         } catch (DocumentException e) {
             e.printStackTrace();

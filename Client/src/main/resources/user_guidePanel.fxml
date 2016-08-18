@@ -8,21 +8,21 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="guidePanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="618.0" prefWidth="70.0" scaleZ="9999.0" style="-fx-background-color: #23a3f3;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"  fx:controller="ui.controllerUI.userGuideUIController">
+<AnchorPane fx:id="basicPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="618.0" prefWidth="70.0" scaleZ="9999.0"  style="-fx-background-color: rgba(72,79,105,0.30);  -fx-box-shadow: 8px 0px 4px 0px rgba(23,23,38,0.50);" styleClass="root" stylesheets="@css/guideView.css"  xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"  fx:controller="ui.controllerUI.userGuideUIController">
    <children>
-      <Line fx:id="Line1" endX="70.0" fill="WHITE" layoutY="122.0" stroke="WHITE" />
-      <Line fx:id="Line2" endX="70.0" fill="WHITE" layoutY="222.0" stroke="WHITE" />
-      <Line fx:id="Line3" endX="70.0" fill="WHITE" layoutY="322.0" stroke="WHITE" />
-      <Line fx:id="Line4" endX="70.0" fill="WHITE" layoutY="422.0" stroke="WHITE" />
-      <Line fx:id="Line5" endX="70.0" fill="WHITE" layoutY="522.0" stroke="WHITE" />
+      <Line fx:id="Line1" endX="70.0" fill="WHITE" layoutY="122.0" opacity="0.1" stroke="WHITE" />
+      <Line fx:id="Line2" endX="70.0" fill="WHITE" layoutY="222.0" opacity="0.1" stroke="WHITE" />
+      <Line fx:id="Line3" endX="70.0" fill="WHITE" layoutY="322.0" opacity="0.1" stroke="WHITE" />
+      <Line fx:id="Line4" endX="70.0" fill="WHITE" layoutY="422.0" opacity="0.1" stroke="WHITE" />
+      <Line fx:id="Line5" endX="70.0" fill="WHITE" layoutY="522.0" opacity="0.1" stroke="WHITE" />
       <ImageView fx:id="userImage" fitHeight="50.0" fitWidth="50.0" layoutX="10.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@/images/user.png" />
          </image>
       </ImageView>
-      <Label fx:id="userNameLabel" layoutX="22.0" layoutY="83.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"  text="Joy" textFill="WHITE">
+      <Label fx:id="userNameLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="83.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="70.0" text="Joy" textAlignment="CENTER" textFill="WHITE">
          <font>
-            <Font size="16.0" />
+            <Font size="14.0" />
          </font>
       </Label>
       <ImageView fx:id="combinationImage" fitHeight="40.0" fitWidth="40.0" layoutX="15.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true">

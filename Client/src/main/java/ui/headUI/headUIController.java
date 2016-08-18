@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import starter.Main;
+import starter.MainUI;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -16,7 +17,7 @@ public class headUIController implements Initializable {
 
     @FXML
     private Button minBtn,exitBtn,fullBtn;
-    private static headUIController instance;
+    private  headUIController instance;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         instance = this;
@@ -68,11 +69,11 @@ public class headUIController implements Initializable {
     }
     @FXML
     public void  toExitScreen(){
-        Main.getPrimaryStage().close();
+        MainUI.getPrimaryStage().close();
     }
     @FXML
     public void  toMinScreen(){
-        Main.getPrimaryStage().setIconified(true);
+        MainUI.getPrimaryStage().setIconified(true);
     }
 
 

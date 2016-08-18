@@ -1,0 +1,7 @@
+#minBtn:hover {
+    -fx-background-color: #23a3f3;
+    -fx-opacity:0.5;
+}
+#loginBtn:hover{
+    -fx-background-color: #87ECD0;
+}
