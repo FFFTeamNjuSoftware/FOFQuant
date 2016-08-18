@@ -16,7 +16,7 @@ public class headUIController implements Initializable {
 
     @FXML
     private Button minBtn,exitBtn,fullBtn;
-    private static headUIController instance;
+    private  headUIController instance;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         instance = this;

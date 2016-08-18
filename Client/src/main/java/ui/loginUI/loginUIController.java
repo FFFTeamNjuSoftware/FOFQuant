@@ -34,7 +34,7 @@ public class loginUIController  implements Initializable {
     String name=null;
 
 
-    private static loginUIController instance;
+    private  loginUIController instance;
 
     private BLInterfaces blInterfaces = new BLInterfaces(); ;
     private UserLogic userLogic ;
@@ -46,8 +46,6 @@ public class loginUIController  implements Initializable {
         init();
     }
     public void init(){
-//        userNameField.setCaretColor(Color.WHITE);
-   //     userNameField.setForeground(Color.WHITE);
         userNameField.setPromptText("用户名");
         passwordField.setPromptText("密码");
     }
@@ -82,12 +80,13 @@ public class loginUIController  implements Initializable {
             System.out.println("......RemoteException......");
         } catch (ObjectNotFoundException e) {
             e.printStackTrace();
-            System.out.println("......ObjectNotFoundException......");
+            System.out.println("......账号不存在......");
         }catch(NullPointerException e){
             e.printStackTrace();
             System.out.println("......NullPointerException......");
         } catch (AuthorityException e) {
             e.printStackTrace();
+			System.out.println("......密码错误......");
         }
 
 

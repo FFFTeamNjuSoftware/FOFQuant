@@ -14,6 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.dom4j.DocumentException;
+import sun.plugin.javascript.navig.Anchor;
 import ui.controllerUI.managerGuideUIController;
 import ui.controllerUI.userGuideUIController;
 
@@ -27,7 +28,7 @@ public class Main  extends Application {
     private static Main instance;
     private static Stage primaryStage;
     private static Scene primaryScene;
-    private static AnchorPane loginPanel,headPanel,user_guidePanel,manager_guidePanel,writePanel;
+    private static AnchorPane loginPanel,headPanel,user_guidePanel,manager_guidePanel,writePanel,userManagerPanel;
     private static HBox hbox;
     private static VBox vbox;
     private static Scene ans;
@@ -110,7 +111,7 @@ public class Main  extends Application {
             }
             vbox.getChildren().addAll(headPanel,writePanel);
             hbox.getChildren().addAll(user_guidePanel,vbox);
-
+            hbox.setHgrow(user_guidePanel, Priority.ALWAYS);
         }else if(i==1){
             //管理员界面
             try {
@@ -122,6 +123,7 @@ public class Main  extends Application {
             }
             vbox.getChildren().addAll(headPanel,writePanel);
             hbox.getChildren().addAll(manager_guidePanel,vbox);
+            hbox.setHgrow(manager_guidePanel, Priority.ALWAYS);
 
         }else{
             System.out.println("......init error......");
@@ -129,7 +131,6 @@ public class Main  extends Application {
         vbox.setPadding(new Insets(0,0,0,0));
         vbox.setSpacing(0);
 
-        hbox.setHgrow(user_guidePanel, Priority.ALWAYS);
         hbox.setPadding(new Insets(0,0,0,0));
         hbox.setSpacing(0);
 
@@ -147,6 +148,20 @@ public class Main  extends Application {
         }
         primaryStage.setScene(getFactoryScene(loginPanel));
         enableDragAndResize(primaryStage.getScene());
+    }
+
+    public static void enterUserManagerPanel(){
+        FXMLLoader fxmlLoader=new FXMLLoader(Main.class.getClassLoader().getResource("userManagerPanel.fxml"));
+        try {
+            userManagerPanel = (AnchorPane)fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        vbox = new VBox(headPanel, userManagerPanel);
+        hbox = new HBox(manager_guidePanel, vbox);
+        primaryStage.setScene(getFactoryScene(hbox));
+        enableDragAndResize(primaryStage.getScene());
+
     }
 
     /**
