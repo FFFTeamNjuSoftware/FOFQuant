@@ -43,6 +43,7 @@ public class loginUIController  implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         instance = this;
+        buttonInit();
         init();
     }
 
@@ -93,44 +94,44 @@ public class loginUIController  implements Initializable {
 
     }
 
-//    public void buttonInit(){
-//        minBtn.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
-//            minBtn.setStyle("-fx-background-color: #23a3f3; -fx-opacity:0.5");
-//        });
-//
-//        minBtn.addEventHandler(MouseEvent.MOUSE_PRESSED, (MouseEvent e) -> {
-//            minBtn.setStyle("-fx-background-color: #1F77B9;  -fx-opacity:0.5");
-//        });
-//
-////Removing the shadow when the mouse cursor is off
-//        minBtn.addEventHandler(MouseEvent.MOUSE_EXITED, (MouseEvent e) -> {
-//            minBtn.setStyle("-fx-background-color: transparent;");
-//        });
-//
-//        exitBtn.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
-//            exitBtn.setStyle("-fx-background-color: #23a3f3; -fx-opacity:0.5");
-//        });
-//
-//        exitBtn.addEventHandler(MouseEvent.MOUSE_PRESSED, (MouseEvent e) -> {
-//            exitBtn.setStyle("-fx-background-color: #1F77B9;  -fx-opacity:0.5");
-//        });
-//
-//        exitBtn.addEventHandler(MouseEvent.MOUSE_EXITED, (MouseEvent e) -> {
-//            exitBtn.setStyle("-fx-background-color: transparent;");
-//        });
-//
-//        loginBtn.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
-//            loginBtn.setStyle("-fx-background-color: #87CCF3;");
-//        });
-//
-//        loginBtn.addEventHandler(MouseEvent.MOUSE_PRESSED, (MouseEvent e) -> {
-//            loginBtn.setStyle("-fx-background-color: #1F77B9;");
-//        });
-//
-//        loginBtn.addEventHandler(MouseEvent.MOUSE_EXITED, (MouseEvent e) -> {
-//            loginBtn.setStyle("-fx-background-color: #23a3f3;");
-//        });
-//    }
+    public void buttonInit(){
+        minBtn.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
+            minBtn.setStyle("-fx-background-color: #23a3f3; -fx-opacity:0.5");
+        });
+
+        minBtn.addEventHandler(MouseEvent.MOUSE_PRESSED, (MouseEvent e) -> {
+            minBtn.setStyle("-fx-background-color: #1F77B9;  -fx-opacity:0.5");
+        });
+
+//Removing the shadow when the mouse cursor is off
+        minBtn.addEventHandler(MouseEvent.MOUSE_EXITED, (MouseEvent e) -> {
+            minBtn.setStyle("-fx-background-color: transparent;");
+        });
+
+        exitBtn.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
+            exitBtn.setStyle("-fx-background-color: #23a3f3; -fx-opacity:0.5");
+        });
+
+        exitBtn.addEventHandler(MouseEvent.MOUSE_PRESSED, (MouseEvent e) -> {
+            exitBtn.setStyle("-fx-background-color: #1F77B9;  -fx-opacity:0.5");
+        });
+
+        exitBtn.addEventHandler(MouseEvent.MOUSE_EXITED, (MouseEvent e) -> {
+            exitBtn.setStyle("-fx-background-color: transparent;");
+        });
+
+        loginBtn.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
+            loginBtn.setStyle("-fx-background-color: #87CCF3;");
+        });
+
+        loginBtn.addEventHandler(MouseEvent.MOUSE_PRESSED, (MouseEvent e) -> {
+            loginBtn.setStyle("-fx-background-color: #1F77B9;");
+        });
+
+        loginBtn.addEventHandler(MouseEvent.MOUSE_EXITED, (MouseEvent e) -> {
+            loginBtn.setStyle("-fx-background-color: #23a3f3;");
+        });
+    }
 
     @FXML
     public void toMinScreen(){
