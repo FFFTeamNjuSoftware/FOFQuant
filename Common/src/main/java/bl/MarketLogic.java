@@ -69,8 +69,8 @@ public interface MarketLogic extends Remote {
             RemoteException, ObjectNotFoundException;
 
     /**
-     * 获得万元波动图的值
-     *
+     * 获得基金页面的图表的值
+     * 返回的ProfitCharInfo 里的value为大小为3个数组，依次为基金、基金指数、沪深300指数的值
      * @param code      基金代码
      * @param type      周期类型
      * @param timeType  时间类型
@@ -79,7 +79,7 @@ public interface MarketLogic extends Remote {
      * @throws RemoteException
      * @throws ObjectNotFoundException
      */
-    public List<ProfitChartInfo> getMillionWaveChart(String code, UnitType type, TimeType
+    public List<ProfitChartInfo> getFundProfitInfoChart(String code, UnitType type, TimeType
             timeType, ChartType chartType) throws RemoteException, ObjectNotFoundException;
 
 

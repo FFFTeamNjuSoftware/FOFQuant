@@ -60,7 +60,7 @@ public class MarketLogicStub extends UnicastRemoteObject implements MarketLogic 
     }
 
     @Override
-    public List<ProfitChartInfo> getMillionWaveChart(String code, UnitType type, TimeType
+    public List<ProfitChartInfo> getFundProfitInfoChart(String code, UnitType type, TimeType
             timeType, ChartType chartType) throws RemoteException, ObjectNotFoundException {
         return null;
     }
