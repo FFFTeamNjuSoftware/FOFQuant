@@ -56,12 +56,48 @@ public class MarketLogicStub extends UnicastRemoteObject implements MarketLogic 
     @Override
     public ProfitRateInfo getProfitRateInfo(String code, UnitType type, TimeType timeType)
             throws RemoteException, ObjectNotFoundException {
-        return null;
+        ProfitRateInfo profitRateInfo=new ProfitRateInfo();
+        switch (timeType){
+            case ONE_MONTH:
+                profitRateInfo.nearOneMonth=0.7;
+                break;
+            case THREE_MONTH:
+                profitRateInfo.nearThreeMonth=0.5;
+                break;
+            case ONE_YEAR:
+                profitRateInfo.nearOneYear=0.3;
+                break;
+            case THREE_YEAR:
+                profitRateInfo.nearThreeYear=0.2;
+                break;
+            case SINCE_ESTABLISH:
+                profitRateInfo.sinceEstablish=0.1;
+                break;
+        }
+        return profitRateInfo;
     }
 
     @Override
     public List<ProfitChartInfo> getFundProfitInfoChart(String code, UnitType type, TimeType
             timeType, ChartType chartType) throws RemoteException, ObjectNotFoundException {
-        return null;
+        List<ProfitChartInfo> profitChartInfoList=new ArrayList<>();
+        ProfitChartInfo profitChartInfo=new ProfitChartInfo();
+        profitChartInfo.date="20160101";
+        switch (chartType) {
+            case MILLION_WAVE_CHART:
+                profitChartInfo.values=new double[3];
+                profitChartInfo.values[0]=1;
+                profitChartInfo.values[1]=8.8;
+                profitChartInfo.values[2]=8.8;
+                break;
+            case RATE_CHART:
+                profitChartInfo.values=new double[3];
+                profitChartInfo.values[0]=1;
+                profitChartInfo.values[1]=8.8;
+                profitChartInfo.values[2]=8.8;
+                break;
+        }
+        profitChartInfoList.add(profitChartInfo);
+        return profitChartInfoList;
     }
 }
