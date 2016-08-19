@@ -106,4 +106,12 @@ public class Converter {
         info.rise = entity.getDailyRise();
         return info;
     }
+
+    public static PriceInfo convertPriceInfo(IndexPriceEntity entity) {
+        PriceInfo info = new PriceInfo();
+        info.date = entity.getDate();
+        info.price = entity.getClose();
+        info.rise = entity.getDaily_rise();
+        return info;
+    }
 }

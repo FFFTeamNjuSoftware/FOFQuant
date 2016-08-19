@@ -22,6 +22,10 @@ import java.util.List;
  */
 public interface MarketLogic extends Remote {
     /**
+     * 代码默认为基金代码，如果需要获得指数数据，在基金最开始加上字符I
+     */
+
+    /**
      * 返回对应基金代码、指定周期类型的所有数据
      *
      * @param code 基金代码
@@ -70,6 +74,7 @@ public interface MarketLogic extends Remote {
     /**
      * 获得基金页面的图表的值
      * 返回的ProfitCharInfo 里的value为大小为3个数组，依次为基金、基金指数、沪深300指数的值
+     *
      * @param code      基金代码
      * @param type      周期类型
      * @param timeType  时间类型

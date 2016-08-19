@@ -4,9 +4,10 @@ import beans.PriceInfo;
 import beans.ProfitChartInfo;
 import beans.ProfitRateInfo;
 import bl.MarketLogic;
+import com.google.gson.Gson;
+import dataservice.IndexDataService;
 import dataservice.MarketDataService;
 import dataserviceimpl.DataServiceController;
-import entities.NetWorthEntity;
 import exception.ObjectNotFoundException;
 import exception.ParameterException;
 import util.*;
@@ -14,6 +15,7 @@ import util.*;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by Daniel on 2016/8/15.
@@ -22,9 +24,11 @@ public class MarketLogicImpl extends UnicastRemoteObject implements MarketLogic 
 
     private static MarketLogic instance;
     private MarketDataService marketDataService;
+    private IndexDataService indexDataService;
 
     private MarketLogicImpl() throws RemoteException {
         marketDataService = DataServiceController.getMarketDataService();
+        indexDataService = DataServiceController.getIndexDataService();
     }
 
     public static MarketLogic getInstance() {
@@ -39,22 +43,28 @@ public class MarketLogicImpl extends UnicastRemoteObject implements MarketLogic 
 
     @Override
     public List<PriceInfo> getPriceInfo(String code, UnitType type) throws RemoteException, ObjectNotFoundException {
-        List<NetWorthEntity> entities = marketDataService.getNetWorth(code);
+        List<PriceInfo> tems = null;
+        if (code.charAt(0) != 'I') {
+            tems = marketDataService.getNetWorth(code).stream().map(Converter::convertPriceInfo).collect
+                    (Collectors.toList());
+        } else {
+            tems = indexDataService.getIndexPriceInfo(code.substring(1)).stream().map
+                    (Converter::convertPriceInfo).collect(Collectors.toList());
+        }
         List<PriceInfo> infos = new ArrayList<>();
         DateConstraint constraint = DateConstrainGenerator.getDateConstrainByUnitType(type);
         double rise = 1;
-        for (int i = 0; i < entities.size(); i++) {
-            rise *= (1 + entities.get(i).getDailyRise() / 100);
-            if (i == entities.size() - 1) {
-                PriceInfo info = Converter.convertPriceInfo(entities.get(i));
+        for (int i = 0; i < tems.size(); i++) {
+            rise *= (1 + tems.get(i).rise / 100);
+            if (i == tems.size() - 1) {
+                PriceInfo info = tems.get(i);
                 info.rise = (rise - 1) * 100;
                 infos.add(info);
                 break;
             }
-            if (constraint.value(CalendarOperate.getCalendarByString(entities.get(i).getDate()
-                    .toString()), CalendarOperate.getCalendarByString(entities.get(i + 1).getDate()
-                    .toString()))) {
-                PriceInfo info = Converter.convertPriceInfo(entities.get(i));
+            if (constraint.value(CalendarOperate.getCalendarByString(tems.get(i).date), CalendarOperate
+                    .getCalendarByString(tems.get(i + 1).date))) {
+                PriceInfo info = tems.get(i);
                 info.rise = (rise - 1) * 100;
                 infos.add(info);
                 rise = 1;
@@ -99,7 +109,54 @@ public class MarketLogicImpl extends UnicastRemoteObject implements MarketLogic 
     public List<ProfitChartInfo> getFundProfitInfoChart(String code, UnitType type, TimeType
             timeType, ChartType chartType) throws RemoteException, ObjectNotFoundException {
         String[] dates = getDates(timeType);
-        return null;
+        List<ProfitChartInfo> chartInfos = new ArrayList<>();
+        try {
+            List<PriceInfo> fundInfos = getPriceInfo(code, type, dates[0], dates[1]);
+            List<PriceInfo> fundIndex = getPriceInfo("I000011", type, dates[0], dates[1]);
+            List<PriceInfo> szIndex = getPriceInfo("I000001", type, dates[0], dates[1]);
+            fundInfos.get(0).rise = 0;
+            fundIndex.get(0).rise = 0;
+            szIndex.get(0).rise = 0;
+            int i = 0;
+            while (fundIndex.get(i).date.compareTo(fundInfos.get(0).date) < 0)
+                i++;
+            int k = 0;
+            while (szIndex.get(k).date.compareTo(fundInfos.get(0).date) < 0)
+                k++;
+            double fund_rise = 1, fundIndex_rise = 1, szIndex_rise = 1;
+            for (int j = 0; j < fundInfos.size(); j++) {
+                ProfitChartInfo chartInfo = new ProfitChartInfo();
+                chartInfo.date = fundInfos.get(j).date;
+                chartInfo.values = new double[3];
+                fund_rise *= (1 + fundInfos.get(j).rise / 100);
+                chartInfo.values[0] = fund_rise;
+                while (i < fundIndex.size() && fundIndex.get(i).date.compareTo(fundInfos.get(j).date)
+                        <= 0) {
+                    fundIndex_rise *= (1 + fundIndex.get(i).rise / 100);
+                    i++;
+                }
+                chartInfo.values[1] = fundIndex_rise;
+                while (k < szIndex.size() && szIndex.get(k).date.compareTo(fundInfos.get(j).date)
+                        <= 0) {
+                    szIndex_rise *= (1 + szIndex.get(k).rise / 100);
+                    k++;
+                }
+                chartInfo.values[2] = szIndex_rise;
+                chartInfos.add(chartInfo);
+            }
+            for (ProfitChartInfo chartInfo : chartInfos) {
+                for (int d = 0; d < 3; d++) {
+                    if (chartType == ChartType.MILLION_WAVE_CHART) {
+                        chartInfo.values[d] *= 10000;
+                    } else {
+                        chartInfo.values[d] = (chartInfo.values[d] - 1) * 100;
+                    }
+                }
+            }
+        } catch (ParameterException e) {
+            e.printStackTrace();
+        }
+        return chartInfos;
     }
 
     /**
@@ -176,7 +233,7 @@ public class MarketLogicImpl extends UnicastRemoteObject implements MarketLogic 
     private String[] getDates(TimeType timeType) {
         String[] re = new String[2];
         Calendar cal = Calendar.getInstance();
-        re[0] = CalendarOperate.formatCalender(cal);
+        re[1] = CalendarOperate.formatCalender(cal);
         switch (timeType) {
             case ONE_MONTH:
                 cal.add(Calendar.MONTH, -1);
@@ -194,7 +251,7 @@ public class MarketLogicImpl extends UnicastRemoteObject implements MarketLogic 
                 cal.add(Calendar.YEAR, -100);
                 break;
         }
-        re[1] = CalendarOperate.formatCalender(cal);
+        re[0] = CalendarOperate.formatCalender(cal);
         return re;
     }
 }
