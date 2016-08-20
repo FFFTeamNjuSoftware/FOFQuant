@@ -12,6 +12,9 @@ import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -61,7 +64,7 @@ public class allFundUIController implements Initializable {
     private TableColumn<FundQuickInfo, Number> yearRateColumn;
 
     @FXML
-    private ComboBox comboBox;
+    private ComboBox comboBox1;
     private String selectedType ;
 
     private String[] basicTypes ={"固定收益类","权益类","其他类"};
@@ -79,21 +82,27 @@ public class allFundUIController implements Initializable {
     private BLInterfaces blInterfaces = new BLInterfaces();
     private BaseInfoLogic baseInfoLogic ;
     private List<FundQuickInfo> fundQuickInfoList = new ArrayList<FundQuickInfo>();
-
+    private int k=0;//标记tab第一次
     private allFundUIController instance;
+
+    @FXML
+    private LineChart lineChart1,lineChart2;
+    @FXML
+    private CategoryAxis date1Axis,date2Axis;
+    @FXML
+    private NumberAxis y1Axis,y2Axis;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
        instance= this;
         baseInfoLogic = blInterfaces.getBaseInfoLogic();
         initTab();
-        comboBox.setValue("固定收益类");
-        comboBox.setItems(FXCollections.observableArrayList(basicTypes));
-        initComboxBox();
+        comboBox1.setValue("固定收益类");
+        comboBox1.setItems(FXCollections.observableArrayList(basicTypes));
         init("000011");
     }
 
-    public void init(String sectorID){
+    private void init(String sectorID){
 
         try {
             fundQuickInfoList= baseInfoLogic.getFundQuickInfo(sectorID);
@@ -118,6 +127,23 @@ public class allFundUIController implements Initializable {
         full_nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
                 cellData.getValue().simple_name));
 
+//        full_nameColumn.setCellFactory(new Callback<TableColumn<FundQuickInfo, String>, TableCell<FundQuickInfo, String>>() {
+//            @Override
+//            public TableCell<FundQuickInfo, String> call(TableColumn<FundQuickInfo, String> arg0) {
+//                return new TableCell<FundQuickInfo, String>() {
+//                    ObservableValue ov1;
+//                    @Override
+//                    protected void updateItem(String item, boolean empty) {
+//                        super.updateItem(item, empty);
+//                        if (this.getIndex() < fundQuickInfoList.size()) {
+//                            if(!isEmpty()){
+//                                this.setTextFill(Color.ORANGERED);
+//                            }
+//                        }
+//                    }
+//                };
+//            }
+//        });
         daily_riseColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(
                 cellData.getValue().daily_rise));
         nearOneMonthColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(
@@ -140,7 +166,8 @@ public class allFundUIController implements Initializable {
 
     }
 
-    public void initTab(){
+    private void initTab(){
+        final int[] i = {0,0};
         tab1.setOnMouseEntered(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent e){
@@ -150,11 +177,32 @@ public class allFundUIController implements Initializable {
         tab1.setOnMousePressed(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent e){
+                i[0] =1;
+                 k=1;
                 tabImage1.setVisible(true);
                 tabImage2.setVisible(false);
-                comboBox.setValue("固定收益类");
-                comboBox.setItems(FXCollections.observableArrayList(marketTypes));
-
+                comboBox1.setValue("固定收益类");
+                comboBox1.setItems(FXCollections.observableArrayList(basicTypes));
+                initComboxBox(basicID);
+            }
+        });
+        tab1.setOnMouseExited(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+                if(k==0){tabImage1.setVisible(true);}else {
+                    if (i[0] == 1) {
+                        tabImage1.setVisible(true);
+                    } else {
+                        tabImage1.setVisible(false);
+                    }
+                }
+            }
+        });
+        tab1.setOnMouseReleased(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+                tabImage1.setVisible(true);
+                tabImage2.setVisible(false);
             }
         });
 
@@ -167,27 +215,51 @@ public class allFundUIController implements Initializable {
         tab2.setOnMousePressed(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent e){
+                i[1] =1;
+                 k=1;
                 tabImage2.setVisible(true);
                 tabImage1.setVisible(false);
-                comboBox.setValue("开放式基金");
-                comboBox.setItems(FXCollections.observableArrayList(basicTypes));
+                comboBox1.setValue("开放式基金");
+                comboBox1.setItems(FXCollections.observableArrayList(marketTypes));
+                initComboxBox(marketID);
+            }
+        });
+        tab2.setOnMouseReleased(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+                tabImage2.setVisible(true);
+                tabImage1.setVisible(false);
+            }
+        });
+        tab2.setOnMouseExited(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+                if(i[1]==1){tabImage2.setVisible(true);}else{
+                    tabImage2.setVisible(false);
+                }
             }
         });
 
     }
 
-    public void initComboxBox(){
+    private void initComboxBox(String[] a ){
 
-        comboBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+        comboBox1.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                selectedType = basicTypes[newValue.intValue()];
-                System.out.println("the selected is: " + selectedType);
-                selectedSectorID=basicID[newValue.intValue()];
-                System.out.println("the selected id is: " + selectedSectorID);
+                selectedSectorID = a[newValue.intValue()];
+                System.out.println("the selected is: " + selectedSectorID);
+//                if(a[0].equals(basicID[0])){selectedSectorID=basicID[newValue.intValue()];}
+//                else if(a[0].equals(marketID[0])){selectedSectorID=marketID[newValue.intValue()];}
+//                System.out.println("the selected id is: " + selectedSectorID);
                 init(selectedSectorID);
             }
         });
+
+    }
+
+    private void initChart(){
+
 
     }
 
@@ -202,8 +274,8 @@ public class allFundUIController implements Initializable {
 
                     if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 1) {
                         selectedIndex = TableRowControl.this.getIndex();
-                        fundQuickInfo = fundQuickInfoList.get(selectedIndex);
                         fundID = codeColumn.getCellData(selectedIndex);
+
                     }
                     if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
                         selectedIndex = TableRowControl.this.getIndex();

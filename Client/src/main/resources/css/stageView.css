@@ -19,7 +19,7 @@
 }
 
 .table-view .column-header, .table-view .filler {
-    -fx-size: 30;
+    -fx-size: 12;
     -fx-border-width: 1 1 1 1;
     -fx-background-color: transparent;
     -fx-border-color:
@@ -30,7 +30,7 @@
 }
 
 .table-view .column-header .label {
-    -fx-font-size: 10pt;
+    -fx-font-size: 12px;
     -fx-font-family: "Arial";
     -fx-text-fill: white;
     -fx-alignment: CENTER_LEFT;
@@ -41,11 +41,7 @@
     -fx-background-color: -fx-focus-color;
 }
 
-.table-view .scroll-bar:horizontal,.table-view  .scroll-bar:vertical{
-    -fx-background-color: #FFFFFF;
-     -fx-opacity: 0.7;
-}
 
 .table-cell{
-    -fx-font-size: 14px;
+    -fx-font-size: 12px;
 }
