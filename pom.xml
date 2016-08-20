@@ -7,7 +7,7 @@
   <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <name>QuangtFOF</name>
+  <name>FOFQuant</name>
   <url>http://maven.apache.org</url>
 
   <modules>
@@ -55,5 +55,7 @@
       <artifactId>mysql-connector-java</artifactId>
       <version>5.1.38</version>
     </dependency>
+
+
   </dependencies>
 </project>

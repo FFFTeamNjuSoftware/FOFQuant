@@ -114,4 +114,21 @@ public class Converter {
         info.rise = entity.getDaily_rise();
         return info;
     }
+
+    public static FundQuickInfo convertFundQuickInfo(FundQuickInfosEntity entity) {
+        FundQuickInfo info = new FundQuickInfo();
+        info.code = entity.getFundCode();
+        info.current_netWorth=entity.getNetWorth();
+        info.daily_rise=entity.getDailyRise();
+        info.simple_name = entity.getSimpleName();
+        info.oneMonth = entity.getOneMonth();
+        info.threeMonth = entity.getThreeMonth();
+        info.halfYear = entity.getSixMonth();
+        info.oneYear = entity.getOneYear();
+        info.threeYear = entity.getThreeYear();
+        info.fiveYear = entity.getFiveYear();
+        info.sinceEstablish = entity.getSinceEstablish();
+        info.yearRate = entity.getYearRate();
+        return info;
+    }
 }

@@ -1,13 +1,12 @@
 package blimpl;
 
-import beans.*;
+import beans.CodeName;
+import beans.FundInfo;
+import beans.FundQuickInfo;
 import bl.BaseInfoLogic;
 import dataservice.BaseInfoDataService;
 import dataserviceimpl.DataServiceController;
-import entities.FundInfosEntity;
 import exception.ObjectNotFoundException;
-import exception.ParameterException;
-import util.UnitType;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -57,27 +56,12 @@ public class BaseInfoLogicImpl extends UnicastRemoteObject implements BaseInfoLo
         List<String> codes = baseInfoDataService.getSectorCodes(sectorId);
         List<FundQuickInfo> infos = new ArrayList<>();
         for (String code : codes) {
-            FundQuickInfo quickInfo = new FundQuickInfo();
-            FundInfosEntity entity = baseInfoDataService.getFundInfo(code);
-            quickInfo.code = code;
-            quickInfo.simple_name = entity.getSimpleName();
-            PriceInfo priceInfo = null;
             try {
-                priceInfo = BLController.getMarketLogic().getPriceInfo(code, UnitType
-                        .DAY, 1).get(0);
-            } catch (ParameterException e) {
+                infos.add(Converter.convertFundQuickInfo(baseInfoDataService.getFundQuickInfo(code)));
+            } catch (ObjectNotFoundException e) {
                 e.printStackTrace();
+                continue;
             }
-            quickInfo.current_netWorth = priceInfo.price;
-            quickInfo.daily_rise = priceInfo.rise;
-            ProfitRateInfo profitRateInfo = BLController.getMarketLogic().getProfitRateInfo(code);
-            quickInfo.oneMonth = profitRateInfo.nearOneMonth;
-            quickInfo.threeMonth = profitRateInfo.nearThreeMonth;
-            quickInfo.halfYear = profitRateInfo.nearSixMonth;
-            quickInfo.oneYear = profitRateInfo.nearOneYear;
-            quickInfo.threeYear = profitRateInfo.nearThreeYear;
-            quickInfo.fiveYear = profitRateInfo.nearFiveYear;
-            infos.add(quickInfo);
         }
         return infos;
     }

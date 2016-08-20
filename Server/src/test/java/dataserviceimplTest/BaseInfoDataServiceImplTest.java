@@ -78,5 +78,21 @@ public class BaseInfoDataServiceImplTest {
         str.stream().forEach(System.out::println);
     }
 
+    /**
+     * Method: getSectorCodes(String sectorId)
+     */
+    @Test
+    public void testGetCompany() throws Exception {
+        System.out.println(new Gson().toJson(dataService.getCompanyInfo("00000015")));
+
+
+        dataService.getAllCompanyInfos().forEach(e-> System.out.println(new Gson().toJson(e)));
+
+
+        List<String> str = dataService.getCompanyFundCodes("00000015");
+        System.out.println(str.size());
+        str.stream().forEach(System.out::println);
+    }
+
 
 } 

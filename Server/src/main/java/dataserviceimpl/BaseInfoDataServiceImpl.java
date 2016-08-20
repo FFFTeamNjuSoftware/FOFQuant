@@ -2,7 +2,9 @@ package dataserviceimpl;
 
 import beans.CodeName;
 import dataservice.BaseInfoDataService;
+import entities.CompanyInfoEntity;
 import entities.FundInfosEntity;
+import entities.FundQuickInfosEntity;
 import exception.ObjectNotFoundException;
 import org.hibernate.Session;
 import startup.HibernateBoot;
@@ -68,5 +70,49 @@ public class BaseInfoDataServiceImpl implements BaseInfoDataService {
         if (li == null || li.size() == 0)
             throw new ObjectNotFoundException("sectorId:" + sectorId + " not found");
         return li.stream().map(e -> (String) e).collect(Collectors.toList());
+    }
+
+    @Override
+    public FundQuickInfosEntity getFundQuickInfo(String code) throws ObjectNotFoundException {
+        Session se = HibernateBoot.openSession();
+        List re = se.createQuery("from FundQuickInfosEntity where fundCode=:code").setString("code", code)
+                .list();
+        se.close();
+        if (re == null || re.size() == 0)
+            throw new ObjectNotFoundException("can't find this fund:" + code);
+        return (FundQuickInfosEntity) re.get(0);
+    }
+
+    @Override
+    public CompanyInfoEntity getCompanyInfo(String company_id) throws ObjectNotFoundException {
+        Session se = HibernateBoot.openSession();
+        List re = se.createQuery("from CompanyInfoEntity where companyId=:companyId").setString
+                ("companyId", company_id).list();
+        se.close();
+        if (re == null || re.size() == 0)
+            throw new ObjectNotFoundException("can't find this fund");
+        return (CompanyInfoEntity) re.get(0);
+    }
+
+    @Override
+    public List<String> getCompanyFundCodes(String company_id) throws ObjectNotFoundException {
+        Session se = HibernateBoot.openSession();
+        List<? extends Object> li = se.createQuery("select code from FundInfosEntity where " +
+                "company=:company_id").setString("company_id", company_id).list();
+        se.close();
+        if (li == null || li.size() == 0)
+            throw new ObjectNotFoundException("companyId:" + company_id + " not found");
+        return li.stream().map(e -> (String) e).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CompanyInfoEntity> getAllCompanyInfos() {
+        Session se = HibernateBoot.openSession();
+        List<? extends Object> li = se.createQuery("from CompanyInfoEntity order by scale desc ").list();
+        se.close();
+        List<CompanyInfoEntity> re = new ArrayList<>();
+        if (li == null)
+            return re;
+        return li.stream().map(e -> (CompanyInfoEntity) e).collect(Collectors.toList());
     }
 }
