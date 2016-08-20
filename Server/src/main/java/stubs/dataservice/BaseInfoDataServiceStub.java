@@ -2,6 +2,7 @@ package stubs.dataservice;
 
 import beans.CodeName;
 import dataservice.BaseInfoDataService;
+import entities.CompanyInfoEntity;
 import entities.FundInfosEntity;
 import entities.FundQuickInfosEntity;
 import exception.ObjectNotFoundException;
@@ -55,6 +56,21 @@ public class BaseInfoDataServiceStub implements BaseInfoDataService {
 
     @Override
     public FundQuickInfosEntity getFundQuickInfo(String code) throws ObjectNotFoundException {
+        return null;
+    }
+
+    @Override
+    public CompanyInfoEntity getCompanyInfo(String company_id) throws ObjectNotFoundException {
+        return null;
+    }
+
+    @Override
+    public List<String> getCompanyFundCodes(String company_id) throws ObjectNotFoundException {
+        return null;
+    }
+
+    @Override
+    public List<CompanyInfoEntity> getAllCompanyInfos() {
         return null;
     }
 }

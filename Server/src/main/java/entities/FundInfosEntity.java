@@ -22,6 +22,7 @@ public class FundInfosEntity {
     private String investStrategy;
     private String riskFeature;
     private String investType;
+    private String company;
 
     @Id
     @Column(name = "code", nullable = false, length = 255)
@@ -217,5 +218,15 @@ public class FundInfosEntity {
         result = 31 * result + (riskFeature != null ? riskFeature.hashCode() : 0);
         result = 31 * result + (investType != null ? investType.hashCode() : 0);
         return result;
+    }
+
+    @Basic
+    @Column(name = "company_id")
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
     }
 }

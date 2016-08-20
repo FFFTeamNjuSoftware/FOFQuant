@@ -27,17 +27,6 @@
             <version>5.1.0.Final</version>
         </dependency>
 
-        <dependency>
-            <groupId>FFFNJU</groupId>
-            <artifactId>MatlabTool</artifactId>
-            <systemPath>${project.basedir}/src/main/resources/lib/IndexCal.jar</systemPath>
-        </dependency>
-
-        <dependency>
-            <groupId>FFFNJU</groupId>
-            <artifactId>JavaBuilder</artifactId>
-            <systemPath>${project.basedir}/src/main/resources/lib/javabuilder.jar</systemPath>
-        </dependency>
     </dependencies>
 
 
