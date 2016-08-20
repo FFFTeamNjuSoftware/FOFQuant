@@ -1,9 +1,11 @@
 package beans;
 
+import java.io.Serializable;
+
 /**
  * Created by Daniel on 2016/8/18.
  */
-public class ProfitChartInfo {
+public class ProfitChartInfo implements Serializable{
     /**
      * 图表需要展示的数据
      */

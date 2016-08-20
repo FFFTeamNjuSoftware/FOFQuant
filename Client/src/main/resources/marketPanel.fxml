@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.paint.*?>
@@ -7,9 +9,9 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="basicPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="928.0" styleClass="root" stylesheets="@css/stageView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.marketUI.MarketPanelController">
+<AnchorPane fx:id="basicPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="928.0" styleClass="root" stylesheets="@css/stageView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.userUI.marketUI.MarketPanelController">
    <children>
-      <Label layoutX="18.0" layoutY="34.0" text="基金名称" textFill="#fcf246">
+      <Label fx:id="simple_name" layoutX="18.0" layoutY="34.0" text="基金名称" textFill="#fcf246">
          <font>
             <Font size="22.0" />
          </font>
@@ -17,20 +19,14 @@
       <Line endX="204.0" layoutX="18.0" layoutY="84.0" stroke="#bbbbbb" />
       <Line endX="218.0" layoutX="18.0" layoutY="430.0" stroke="#bbbbbb" />
       <Line endX="204.0" layoutX="18.0" layoutY="240.0" stroke="#bbbbbb" />
-      <Line endX="204.0" layoutX="18.0" layoutY="480.0" stroke="#bbbbbb" />
       <Label layoutX="18.0" layoutY="252.0" text="收益率指标" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="16.0" layoutY="442.0" text="效绩评估" textFill="WHITE">
+      <Label layoutX="16.0" layoutY="442.0" text="评级信息" textFill="WHITE">
          <font>
             <Font size="22.0" />
-         </font>
-      </Label>
-      <Label layoutX="16.0" layoutY="492.0" text="收益特征" textFill="WHITE">
-         <font>
-            <Font size="16.0" />
          </font>
       </Label>
       <Line endY="568.0" layoutX="243.0" layoutY="14.0" stroke="#bbbbbb" />
@@ -46,7 +42,7 @@
       </Label>
       <Line endX="681.0" layoutX="246.0" layoutY="334.0" stroke="#bbbbbb" />
       <Line endY="246.0" layoutX="681.0" layoutY="337.0" stroke="#bbbbbb" />
-      <Label layoutX="703.0" layoutY="356.0" text="评级信息" textFill="WHITE">
+      <Label layoutX="703.0" layoutY="356.0" text="效绩评估" textFill="WHITE">
          <font>
             <Font size="22.0" />
          </font>
@@ -66,17 +62,17 @@
             <Font size="12.0" />
          </font>
       </Label>
-      <Label layoutX="18.0" layoutY="146.0" text="基金规模" textFill="WHITE">
+      <Label layoutX="18.0" layoutY="146.0" text="建立规模" textFill="WHITE">
          <font>
             <Font size="12.0" />
          </font>
       </Label>
-      <Label layoutX="18.0" layoutY="218.0" text="基金净资产" textFill="WHITE">
+      <Label layoutX="18.0" layoutY="218.0" text="规模" textFill="WHITE">
          <font>
             <Font size="12.0" />
          </font>
       </Label>
-      <Label layoutX="18.0" layoutY="164.0" text="投资风格" textFill="WHITE">
+      <Label layoutX="18.0" layoutY="164.0" text="投资策略" textFill="WHITE">
          <font>
             <Font size="12.0" />
          </font>
@@ -131,46 +127,6 @@
             <Font size="12.0" />
          </font>
       </Label>
-      <Label layoutX="18.0" layoutY="519.0" text="alpha" textFill="WHITE">
-         <font>
-            <Font size="12.0" />
-         </font>
-      </Label>
-      <Label layoutX="18.0" layoutY="537.0" text="平均收益率" textFill="WHITE">
-         <font>
-            <Font size="12.0" />
-         </font>
-      </Label>
-      <Label layoutX="18.0" layoutY="555.0" text="几何平均收益率" textFill="WHITE">
-         <font>
-            <Font size="12.0" />
-         </font>
-      </Label>
-      <Label layoutX="703.0" layoutY="471.0" text="评级星数" textFill="WHITE">
-         <font>
-            <Font size="12.0" />
-         </font>
-      </Label>
-      <Label layoutX="703.0" layoutY="453.0" text="排名指标（RI=R*E*D）" textFill="WHITE">
-         <font>
-            <Font size="12.0" />
-         </font>
-      </Label>
-      <Label layoutX="703.0" layoutY="435.0" text="条件指数D" textFill="WHITE">
-         <font>
-            <Font size="12.0" />
-         </font>
-      </Label>
-      <Label layoutX="703.0" layoutY="417.0" text="风险指标R" textFill="WHITE">
-         <font>
-            <Font size="12.0" />
-         </font>
-      </Label>
-      <Label layoutX="703.0" layoutY="399.0" text="收益指标E" textFill="WHITE">
-         <font>
-            <Font size="12.0" />
-         </font>
-      </Label>
       <Label layoutX="266.0" layoutY="77.0" text="折价/溢价率" textFill="WHITE">
          <font>
             <Font size="12.0" />
@@ -181,7 +137,7 @@
             <Font size="12.0" />
          </font>
       </Label>
-      <Label layoutX="328.0" layoutY="394.0" text="重仓债券" textFill="WHITE">
+      <Label layoutX="384.0" layoutY="394.0" text="重仓债券" textFill="WHITE">
          <font>
             <Font size="12.0" />
          </font>
@@ -191,17 +147,7 @@
             <Font size="12.0" />
          </font>
       </Label>
-      <Label layoutX="398.0" layoutY="394.0" text="券种配置" textFill="WHITE">
-         <font>
-            <Font size="12.0" />
-         </font>
-      </Label>
-      <Label layoutX="468.0" layoutY="394.0" text="持股风格" textFill="WHITE">
-         <font>
-            <Font size="12.0" />
-         </font>
-      </Label>
-      <Label layoutX="538.0" layoutY="394.0" text="重仓股票" textFill="WHITE">
+      <Label layoutX="500.0" layoutY="394.0" text="重仓股票" textFill="WHITE">
          <font>
             <Font size="12.0" />
          </font>
@@ -211,5 +157,179 @@
             <Font size="12.0" />
          </font>
       </Label>
+      <Group fx:id="baseInfoGroup">
+         <children>
+            <Label id="invest_type" fx:id="invest_type" layoutX="135.0" layoutY="182.0" text="invest_type" textFill="WHITE">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Label>
+            <Label id="compare_base" fx:id="compare_base" layoutX="135.0" layoutY="200.0" text="compare_base" textFill="WHITE">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Label>
+            <Label id="invest_strategy" fx:id="invest_strategy" layoutX="135.0" layoutY="164.0" text="invest_strategy" textFill="WHITE">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Label>
+            <Label id="scale" fx:id="scale" layoutX="135.0" layoutY="218.0" text="scale" textFill="WHITE">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Label>
+            <Label id="establish_date" fx:id="establish_date" layoutX="135.0" layoutY="92.0" text="establish_date" textFill="WHITE">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Label>
+            <Label id="establish_scale" fx:id="establish_scale" layoutX="135.0" layoutY="146.0" text="establish_scale" textFill="WHITE">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </Group>
+      <Label layoutX="135.0" layoutY="110.0" text="国泰基金" textFill="WHITE">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="135.0" layoutY="128.0" text="小明" textFill="WHITE">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="code" layoutX="144.0" layoutY="34.0" text="002059" textFill="WHITE">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="703.0" layoutY="505.0" text="几何平均收益率" textFill="WHITE">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="703.0" layoutY="464.0" text="平均收益率" textFill="WHITE">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="703.0" layoutY="423.0" text="alpha" textFill="WHITE">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="712.0" layoutY="394.0" text="收益特征" textFill="WHITE">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="18.0" layoutY="479.0" text="收益指标E" textFill="WHITE">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="18.0" layoutY="497.0" text="风险指标R" textFill="WHITE">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="18.0" layoutY="515.0" text="条件指数D" textFill="WHITE">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="18.0" layoutY="533.0" text="排名指标（RI=R*E*D）" textFill="WHITE">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="18.0" layoutY="551.0" text="评级星数" textFill="WHITE">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="791.0" layoutY="394.0" text="风险特征" textFill="WHITE">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="703.0" layoutY="546.0" text="风险收益值" textFill="WHITE">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Label>
+      <FlowPane layoutX="276.0" layoutY="423.0" prefHeight="152.0" prefWidth="385.0" />
+      <Group fx:id="profitGroup">
+         <children>
+            <Label id="alpha" fx:id="alpha" layoutX="882.0" layoutY="423.0" text="alpha" textFill="WHITE">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Label>
+            <Label id="aveProfitRate" fx:id="aveProfitRate" layoutX="882.0" layoutY="464.0" text="alpha" textFill="WHITE">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Label>
+            <Label id="ensembleAveProfitRate" fx:id="ensembleAveProfitRate" layoutX="882.0" layoutY="505.0" text="alpha" textFill="WHITE">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Label>
+            <Label id="riskProfitRate" fx:id="riskProfitRate" layoutX="882.0" layoutY="546.0" text="alpha" textFill="WHITE">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </Group>
+      <AnchorPane fx:id="profitPane" layoutX="182.0" layoutY="275.0">
+         <children>
+            <Label id="yearRate" fx:id="yearRate" layoutY="127.0" text="近三月" textFill="WHITE">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Label>
+            <Label id="nearThreeMonth" fx:id="nearThreeMonth" layoutY="18.0" text="近三月" textFill="WHITE">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Label>
+            <Label id="nearOneMonth" fx:id="nearOneMonth" text="近一月" textFill="WHITE">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Label>
+            <Label id="nearSixMonth" fx:id="nearSixMonth" layoutY="36.0" text="近三月" textFill="WHITE">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Label>
+            <Label id="nearOneYear" fx:id="nearOneYear" layoutY="54.0" text="近三月" textFill="WHITE">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Label>
+            <Label id="nearThreeYear" fx:id="nearThreeYear" layoutY="74.0" text="近三月" textFill="WHITE">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Label>
+            <Label id="sinceEstablish" fx:id="sinceEstablish" layoutY="108.0" text="近三月" textFill="WHITE">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Label>
+            <Label id="nearFiveYear" fx:id="nearFiveYear" layoutY="92.0" text="近三月" textFill="WHITE">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="profitChartPane" layoutX="265.0" layoutY="97.0" prefHeight="221.0" prefWidth="643.0" />
    </children>
 </AnchorPane>

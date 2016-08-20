@@ -16,6 +16,11 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.util.Callback;
 import util.UserType;
 
@@ -46,7 +51,7 @@ public class userManagerUIController  implements Initializable {
     private Button[] setBtn = new Button[2];
     private Button modifyBtn,deleteBtn;
     @FXML
-    private TableColumn<Button[], Button> settingColumn;
+    private TableColumn<UserManageInfo, Button[]> settingColumn;
     @FXML
     private TableView<UserManageInfo> table;
     @FXML
@@ -90,9 +95,9 @@ public class userManagerUIController  implements Initializable {
             @Override
             public TableCell<UserManageInfo, Boolean> call(
                     TableColumn<UserManageInfo, Boolean> param) {
-                CheckBoxTableCell<UserManageInfo, Boolean> cell = new CheckBoxTableCell<>();
-                cell.setAlignment(Pos.CENTER);
-                return cell;
+                    CheckBoxTableCell<UserManageInfo, Boolean> cell = new CheckBoxTableCell<>();
+                    cell.setAlignment(Pos.CENTER);
+                    return cell;
             }
         });
 
@@ -125,16 +130,25 @@ public class userManagerUIController  implements Initializable {
         passwordColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
                 cellData.getValue().password));
         settingColumn
-                .setCellValueFactory(new PropertyValueFactory< Button[],  Button>(
+                .setCellValueFactory(new PropertyValueFactory< UserManageInfo,  Button[]>(
                         "设置"));
-//        settingColumn
-//                .setCellFactory(new Callback<TableColumn< Button[], Button>, TableCell< Button[],Button>>() {
-//                    @Override
-//                    public TableCell< Button[], Button> call(
-//                            TableColumn< Button[], Button> param) {
-//                        return new ChartTableCell();
-//                    }
-//                });
+
+        settingColumn.setCellFactory(new Callback<TableColumn<UserManageInfo, Button[]>, TableCell<UserManageInfo, Button[]>>() {
+            @Override
+            public TableCell<UserManageInfo, Button[]> call( // 单元格内容
+                                                   TableColumn<UserManageInfo, Button[]> arg0) {
+                return new TableCell<UserManageInfo, Button[]>() {
+                    @Override
+                    protected void updateItem(Button[] str,boolean arg1) {
+                        super.updateItem(str, arg1);
+                        if (this.getIndex()<userManageInfoList.size()-1&&this.getIndex()>=0) {
+                            setGraphic(new HBox(setBtn[0], setBtn[1]));
+                        }
+                    }
+                };}
+                });
+
+
         userTypeChoBox.setValue("normal");
         genderChoBox.setValue("male");
         choiceBox.setValue("全部");
@@ -144,11 +158,34 @@ public class userManagerUIController  implements Initializable {
 
     }
 
-    private void initButton(){
+    public void initButton(){
         modifyBtn = new Button("修改");
         deleteBtn = new Button("删除");
-        modifyBtn = setBtn[0];
-        deleteBtn = setBtn[1];
+        setBtn[0]=modifyBtn ;
+        setBtn[1]=deleteBtn ;
+        modifyBtn.setStyle("-fx-background-color: #23a3f3; ");
+        deleteBtn.setStyle("-fx-background-color: #23a3f3; ");
+        for (int i = 0; i < setBtn.length; i++) {
+            int j = i;
+            setBtn[i].addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
+                setBtn[j].setStyle("-fx-background-color: #87CCF3;");
+            });
+
+            setBtn[i].addEventHandler(MouseEvent.MOUSE_PRESSED, (MouseEvent e) -> {
+                setBtn[j].setStyle("-fx-background-color: #1F77B9;");
+            });
+
+            setBtn[i].addEventHandler(MouseEvent.MOUSE_EXITED, (MouseEvent e) -> {
+                setBtn[j].setStyle("-fx-background-color: #23a3f3;");
+            });
+        }
+
+        modifyBtn.setOnAction((e) -> {
+            System.out.println("");
+        });
+
+
+
     }
 
 
@@ -158,13 +195,9 @@ public class userManagerUIController  implements Initializable {
         userManageInfo.username = userNameField.getText();
         userManageInfo.password = passwordField.getText();
 
-
-        genderChoBox.valueProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue ov, String t, String t1) {
-                genderType = t1;
-                System.out.println("the selected is?: " + t1);
-            }
+        genderChoBox.getSelectionModel().selectedIndexProperty().addListener((ov,oldv,newv)->{
+            System.out.println("the selected is?: " + newv);
+            genderType=genderTypes[newv.intValue()];
         });
 
         userManageInfo.gender=genderType;

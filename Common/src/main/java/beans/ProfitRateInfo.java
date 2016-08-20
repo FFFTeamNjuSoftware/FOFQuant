@@ -1,9 +1,11 @@
 package beans;
 
+import java.io.Serializable;
+
 /**
  * Created by Daniel on 2016/8/18.
  */
-public class ProfitRateInfo {
+public class ProfitRateInfo implements Serializable {
 
     /**
      * 收益率指标

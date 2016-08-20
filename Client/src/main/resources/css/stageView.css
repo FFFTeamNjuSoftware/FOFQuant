@@ -5,6 +5,7 @@
 }
 
 .table-view {
+	 -fx-font-size: 12px;
     -fx-base: #1d1d1d;
     -fx-control-inner-background: #1d1d1d;
     -fx-background-color: #1d1d1d;
