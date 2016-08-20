@@ -2,8 +2,10 @@ package stubs.logic;
 
 import beans.CodeName;
 import beans.FundInfo;
+import beans.FundQuickInfo;
 import bl.BaseInfoLogic;
 import exception.ObjectNotFoundException;
+import util.SectorType;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -52,5 +54,10 @@ public class BaseInfoLogicStub extends UnicastRemoteObject implements BaseInfoLo
         fundInfo.scale = 2000.0;
         fundInfo.simple_name = "兴业聚惠A";
         return fundInfo;
+    }
+
+    @Override
+    public List<FundQuickInfo> getFundQuickInfo(String type) throws RemoteException {
+        return null;
     }
 }

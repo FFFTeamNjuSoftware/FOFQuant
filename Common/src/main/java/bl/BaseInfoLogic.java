@@ -6,7 +6,9 @@ package bl;
 
 import beans.CodeName;
 import beans.FundInfo;
+import beans.FundQuickInfo;
 import exception.ObjectNotFoundException;
+import util.SectorType;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -41,4 +43,13 @@ public interface BaseInfoLogic extends Remote {
      * @throws ObjectNotFoundException
      */
     public FundInfo getFundBaseInfo(String code) throws RemoteException, ObjectNotFoundException;
+
+    /**
+     * 获得基金的快速信息，用于榜单展示
+     *
+     * @param sectorId sectorId可通过SectorType类里的字段获取
+     * @return
+     * @throws RemoteException
+     */
+    public List<FundQuickInfo> getFundQuickInfo(String sectorId) throws RemoteException,ObjectNotFoundException;
 }

@@ -68,5 +68,15 @@ public class BaseInfoDataServiceImplTest {
         str.stream().forEach(System.out::println);
     }
 
+    /**
+     * Method: getSectorCodes(String sectorId)
+     */
+    @Test
+    public void testGetSectorCodes() throws Exception {
+        List<String> str = dataService.getSectorCodes("000002");
+        System.out.println(str.size());
+        str.stream().forEach(System.out::println);
+    }
+
 
 } 

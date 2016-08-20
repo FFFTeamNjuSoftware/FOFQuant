@@ -52,9 +52,21 @@ public class BaseInfoDataServiceImpl implements BaseInfoDataService {
         Session se = HibernateBoot.openSession();
         List<? extends Object> li = se.createQuery("select code from FundInfosEntity group by code")
                 .list();
+        se.close();
         List<String> re = new ArrayList<>();
         if (li == null)
             return re;
+        return li.stream().map(e -> (String) e).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<String> getSectorCodes(String sectorId) throws ObjectNotFoundException {
+        Session se = HibernateBoot.openSession();
+        List<? extends Object> li = se.createQuery("select code from SectorFundInfoEntity where " +
+                "sectorId=:sectorId").setString("sectorId", sectorId).list();
+        se.close();
+        if (li == null || li.size() == 0)
+            throw new ObjectNotFoundException("sectorId:" + sectorId + " not found");
         return li.stream().map(e -> (String) e).collect(Collectors.toList());
     }
 }

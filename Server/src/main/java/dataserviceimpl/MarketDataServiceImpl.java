@@ -22,6 +22,7 @@ public class MarketDataServiceImpl implements MarketDataService {
         Session se = HibernateBoot.openSession();
         List re = se.createQuery("from NetWorthEntity where code=:code order by date")
                 .setString("code", code).list();
+        se.close();
         if (re == null || re.size() == 0)
             throw new ObjectNotFoundException("fundCode: " + code + " not found.");
         List<NetWorthEntity> entities = new ArrayList<>();
@@ -37,6 +38,7 @@ public class MarketDataServiceImpl implements MarketDataService {
         List re = se.createQuery("from NetWorthEntity where code=:code and date between " +
                 ":startDate and :endDate order by date").setString("startDate", startDate)
                 .setString("endDate", endDate).setString("code", code).list();
+        se.close();
         if (re == null || re.size() == 0)
             throw new ObjectNotFoundException("fundCode: " + code + " not found.");
         List<NetWorthEntity> entities = new ArrayList<>();

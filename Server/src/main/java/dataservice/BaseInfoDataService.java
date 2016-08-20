@@ -19,7 +19,6 @@ public interface BaseInfoDataService {
     public FundInfosEntity getFundInfo(String code) throws ObjectNotFoundException;
 
 
-
     /**
      * 根据关键词模糊查找
      *
@@ -30,8 +29,16 @@ public interface BaseInfoDataService {
 
     /**
      * 获得所有的基金代码
+     *
      * @return
      */
     public List<String> getAllCodes();
+
+    /**
+     * 获得一个版块内的基金代码
+     * @param sectorId
+     * @return
+     */
+    public List<String> getSectorCodes(String sectorId) throws ObjectNotFoundException;
 
 }

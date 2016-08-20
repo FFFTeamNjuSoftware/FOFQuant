@@ -46,4 +46,9 @@ public class BaseInfoDataServiceStub implements BaseInfoDataService {
     public List<String> getAllCodes() {
         return null;
     }
+
+    @Override
+    public List<String> getSectorCodes(String sectorId) {
+        return null;
+    }
 }
