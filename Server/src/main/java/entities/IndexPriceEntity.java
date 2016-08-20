@@ -12,6 +12,7 @@ public class IndexPriceEntity {
     private String code;
     private String date;
     private Double close;
+    private Double daily_rise;
 
     @Id
     @Column(name = "code", nullable = false, length = 255)
@@ -43,6 +44,16 @@ public class IndexPriceEntity {
         this.close = close;
     }
 
+    @Basic
+    @Column(name = "daily_rise", nullable = true, precision = 0)
+    public Double getDaily_rise() {
+        return daily_rise;
+    }
+
+    public void setDaily_rise(Double daily_rise) {
+        this.daily_rise = daily_rise;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -53,6 +64,8 @@ public class IndexPriceEntity {
         if (code != null ? !code.equals(that.code) : that.code != null) return false;
         if (date != null ? !date.equals(that.date) : that.date != null) return false;
         if (close != null ? !close.equals(that.close) : that.close != null) return false;
+        if (daily_rise != null ? !daily_rise.equals(that.daily_rise) : that.daily_rise != null)
+            return false;
 
         return true;
     }
@@ -62,6 +75,7 @@ public class IndexPriceEntity {
         int result = code != null ? code.hashCode() : 0;
         result = 31 * result + (date != null ? date.hashCode() : 0);
         result = 31 * result + (close != null ? close.hashCode() : 0);
+        result = 31 * result + (daily_rise != null ? daily_rise.hashCode() : 0);
         return result;
     }
 }

@@ -55,14 +55,14 @@
       </GridPane>
       <GridPane layoutX="6.0" layoutY="70.0" prefHeight="507.0" prefWidth="916.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="743.0" minWidth="10.0" prefWidth="591.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="743.0" minWidth="10.0" prefWidth="593.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="456.0" minWidth="10.0" prefWidth="339.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TableView fx:id="table" blendMode="LIGHTEN" prefHeight="514.0" prefWidth="589.0">
+            <TableView fx:id="table" blendMode="LIGHTEN" prefHeight="514.0" prefWidth="593.0">
               <columns>
                 <TableColumn fx:id="selectColumn" prefWidth="53.0" resizable="false" />
                   <TableColumn fx:id="userTypeColumn" resizable="false" text="类型" />
@@ -70,7 +70,7 @@
                   <TableColumn fx:id="nameColumn" prefWidth="82.0" resizable="false" text="姓名" />
                   <TableColumn fx:id="genderColumn" prefWidth="69.0" resizable="false" text="性别" />
                   <TableColumn fx:id="passwordColumn" prefWidth="114.0" resizable="false" text="密码（显示/隐藏）" />
-                  <TableColumn fx:id="settingColumn" prefWidth="106.0" resizable="false" text="设置（编辑/删除）" />
+                  <TableColumn fx:id="settingColumn" prefWidth="109.0" resizable="false" text="设置（编辑/删除）" />
               </columns>
             </TableView>
             <AnchorPane prefHeight="510.0" prefWidth="340.0" GridPane.columnIndex="1">

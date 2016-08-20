@@ -1,5 +1,6 @@
 package blimplTest;
 
+import beans.ProfitChartInfo;
 import beans.ProfitRateInfo;
 import bl.MarketLogic;
 import blimpl.BLController;
@@ -8,7 +9,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import startup.HibernateBoot;
+import util.ChartType;
+import util.TimeType;
 import util.UnitType;
+
+import java.util.List;
 
 /**
  * MarketLogicImpl Tester.
@@ -72,10 +77,10 @@ public class MarketLogicImplTest {
      */
     @Test
     public void testGetPriceInfoForCodeTypeStartDateEndDate() throws Exception {
-        marketLogic.getPriceInfo("000001", UnitType.WEEK, "2016-03-01", "2016-06-01").stream()
+        marketLogic.getPriceInfo("I000011", UnitType.WEEK, "2016-03-01", "2016-06-01").stream()
                 .forEach(e -> System.out.println("WEEK" + new Gson().toJson(e)));
         System.out.println("————————————————————————————————————————————————————————————————");
-        marketLogic.getPriceInfo("000001", UnitType.WEEK, 30).stream()
+        marketLogic.getPriceInfo("I000011", UnitType.WEEK, 30).stream()
                 .forEach(e -> System.out.println("WEEK" + new Gson().toJson(e)));
     }
 
@@ -94,7 +99,9 @@ public class MarketLogicImplTest {
      */
     @Test
     public void testGetFundProfitInfoChart() throws Exception {
-//TODO: Test goes here... 
+        List<ProfitChartInfo> infos = marketLogic.getFundProfitInfoChart("000001", UnitType.DAY, TimeType.ONE_MONTH,
+                ChartType.MILLION_WAVE_CHART);
+        infos.stream().forEach(e -> System.out.println(new Gson().toJson(e)));
     }
 
 

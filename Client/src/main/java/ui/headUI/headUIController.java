@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
 public class headUIController implements Initializable {
 
     @FXML
-    private Button minBtn,exitBtn,fullBtn;
+    private Button minBtn,exitBtn,fullBtn,searchBtn;
     private  headUIController instance;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -61,6 +61,7 @@ public class headUIController implements Initializable {
         fullBtn.addEventHandler(MouseEvent.MOUSE_EXITED, (MouseEvent e) -> {
             fullBtn.setStyle("-fx-background-color: transparent;");
         });
+
     }
 
     @FXML
@@ -76,5 +77,7 @@ public class headUIController implements Initializable {
         MainUI.getPrimaryStage().setIconified(true);
     }
 
+    @FXML
+    public void toSearchFund(){}
 
-}
+    }

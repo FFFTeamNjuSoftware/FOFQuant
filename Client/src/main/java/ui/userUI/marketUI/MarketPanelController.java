@@ -1,4 +1,4 @@
-package ui.marketUI;
+package ui.userUI.marketUI;
 
 import RMIModule.BLInterfaces;
 import beans.FundInfo;
