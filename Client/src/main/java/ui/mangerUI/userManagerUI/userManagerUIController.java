@@ -88,7 +88,6 @@ public class userManagerUIController  implements Initializable {
             e.printStackTrace();
         }
         table.setItems(FXCollections.observableArrayList(userManageInfoList));
-        System.out.println(userManageInfoList.get(0).name+"......"+userManageInfoList.get(1).name);
 
         selectColumn.setCellValueFactory(new PropertyValueFactory<UserManageInfo, Boolean>("select"));
         selectColumn.setCellFactory(new Callback<TableColumn<UserManageInfo, Boolean>, TableCell<UserManageInfo, Boolean>>() {

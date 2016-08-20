@@ -36,29 +36,33 @@ public class userGuideUIController implements Initializable {
 
 
     public void initButtons() {
+        final int[] s = {0};
         Button[] buttons = new Button[]{combinationBtn, marketBtn, riskBtn, warning_logBtn, logoutBtn};
-        for (int i = 0; i < buttons.length; i++) {
-            int j = i;
-            buttons[i].addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
+        for (final int[] i = {0}; i[0] < buttons.length; i[0]++) {
+            int j = i[0];
+            buttons[i[0]].addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
                 buttons[j].setStyle("-fx-background-color: #AFE1FE; -fx-opacity:0.3");
             });
 
-            buttons[i].addEventHandler(MouseEvent.MOUSE_PRESSED, (MouseEvent e) -> {
+            buttons[i[0]].addEventHandler(MouseEvent.MOUSE_PRESSED, (MouseEvent e) -> {
                 buttons[j].setStyle("-fx-background-color: #1F77B9;  -fx-opacity:0.3");
+                s[0] =1;
+                for(int k = 0; k< buttons.length; k++){
+                    if(k!=j){
+                        buttons[k].setStyle("-fx-background-color: transparent;");
+                    }
+                }
+            });
+            buttons[i[0]].addEventHandler(MouseEvent.MOUSE_EXITED, (MouseEvent e) -> {
+                if(s[0]==1){}else {
+                    buttons[j].setStyle("-fx-background-color: transparent;");
+                }
             });
 
-            buttons[i].addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
-                buttons[j].setStyle("-fx-background-color: #1F77B9;  -fx-opacity:0.3");
-            });
-
-//Removing the shadow when the mouse cursor is off
-            buttons[i].addEventHandler(MouseEvent.MOUSE_EXITED, (MouseEvent e) -> {
-                buttons[j].setStyle("-fx-background-color: transparent;");
-            });
         }
         mainUI = MainUI.getInstance();
         marketBtn.setOnAction((e) -> {
-            mainUI.changeScene("user_guidePanel","marketPanel");
+            mainUI.changeScene("user_guidePanel","allFundPanel");
         });
     }
 
