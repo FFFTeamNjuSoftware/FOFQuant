@@ -10,6 +10,7 @@
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
         <property name="connection.username">root</property>
+        <property name="connection.password">123456</property>
         <mapping class="entities.AssetAllocationEntity"/>
         <mapping class="entities.FundInfosEntity"/>
         <mapping class="entities.IndustryHoldInfoEntity"/>
