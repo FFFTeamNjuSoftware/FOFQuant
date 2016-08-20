@@ -4,12 +4,13 @@ import beans.CodeName;
 import beans.FundInfo;
 import beans.FundQuickInfo;
 import bl.BaseInfoLogic;
+import com.google.gson.Gson;
 import exception.ObjectNotFoundException;
-import util.SectorType;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -58,6 +59,27 @@ public class BaseInfoLogicStub extends UnicastRemoteObject implements BaseInfoLo
 
     @Override
     public List<FundQuickInfo> getFundQuickInfo(String type) throws RemoteException {
-        return null;
+        FundQuickInfo quickInfo1 = new Gson().fromJson("{\"code\":\"960000\"," +
+                "\"simple_name\":\"汇丰大盘H\",\"current_netWorth\":0.996,\"daily_rise\":-0" +
+                ".39000000000000146,\"oneMonth\":5.866277493858152,\"threeMonth\":15" +
+                ".639142071013756,\"halfYear\":19.206876017803154,\"oneYear\":-0" +
+                ".3432342264725885,\"threeYear\":-0.3432342264725885,\"fiveYear\":-0" +
+                ".3432342264725885,\"sinceEstablish\":-0.3432342264725885,\"yearRate\":3" +
+                ".1420253164556122}", FundQuickInfo.class);
+        FundQuickInfo quickInfo2 = new Gson().fromJson("{\"code\":\"740101\"," +
+                "\"simple_name\":\"长安300非周期\",\"current_netWorth\":1.332,\"daily_rise\":-0" +
+                ".21999999999999797,\"oneMonth\":2.773275896500982,\"threeMonth\":12" +
+                ".973845588794685,\"halfYear\":12.664593959081882,\"oneYear\":-13" +
+                ".743672379197424,\"threeYear\":37.79746864867626,\"fiveYear\":42.84216424513683," +
+                "\"sinceEstablish\":42.84216424513683,\"yearRate\":12.888588957055108}",
+                FundQuickInfo.class);
+        FundQuickInfo quickInfo3 = new Gson().fromJson("{\"code\":\"700002\"," +
+                "\"simple_name\":\"平安深证300\",\"current_netWorth\":1.564,\"daily_rise\":-0" +
+                ".060000000000004494,\"oneMonth\":2.9129333155772708,\"threeMonth\":15" +
+                ".527550511186261,\"halfYear\":11.452745804007236,\"oneYear\":-6.118105911667005," +
+                "\"threeYear\":58.552659694511135,\"fiveYear\":68.53309185955898," +
+                "\"sinceEstablish\":68.53309185955898,\"yearRate\":15.511304347826075}",
+                FundQuickInfo.class);
+        return Arrays.asList(quickInfo1, quickInfo2, quickInfo3);
     }
 }
