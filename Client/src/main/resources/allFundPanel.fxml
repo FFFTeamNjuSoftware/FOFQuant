@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="basicPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="928.0" styleClass="root" stylesheets="@css/stageView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.userUI.marketUI.MarketPanelController">
+   <children>
+      <Label fx:id="simple_name" layoutX="18.0" layoutY="34.0" text="基" textFill="#fcf246">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Line endX="204.0" layoutX="18.0" layoutY="84.0" stroke="#bbbbbb" />
+      <Line endX="218.0" layoutX="18.0" layoutY="430.0" stroke="#bbbbbb" />
+      <Line endX="204.0" layoutX="18.0" layoutY="240.0" stroke="#bbbbbb" />
+      <Line endY="568.0" layoutX="243.0" layoutY="14.0" stroke="#bbbbbb" />
+      <Line endX="681.0" layoutX="246.0" layoutY="334.0" stroke="#bbbbbb" />
+      <Line endY="246.0" layoutX="681.0" layoutY="337.0" stroke="#bbbbbb" />
+      <FlowPane layoutX="276.0" layoutY="423.0" prefHeight="152.0" prefWidth="385.0" />
+      <AnchorPane fx:id="profitChartPane" layoutX="265.0" layoutY="97.0" prefHeight="221.0" prefWidth="643.0" />
+   </children>
+</AnchorPane>
