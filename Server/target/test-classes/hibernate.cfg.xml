@@ -20,6 +20,7 @@
         <mapping class="entities.ConstParametersEntity"/>
         <mapping class="entities.IndexPriceEntity"/>
         <mapping class="entities.SectorFundInfoEntity"/>
+        <mapping class="entities.FundQuickInfosEntity"/>
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hbm2ddl.auto">update</property> -->
     </session-factory>

@@ -3,6 +3,7 @@ package dataserviceimpl;
 import beans.CodeName;
 import dataservice.BaseInfoDataService;
 import entities.FundInfosEntity;
+import entities.FundQuickInfosEntity;
 import exception.ObjectNotFoundException;
 import org.hibernate.Session;
 import startup.HibernateBoot;
@@ -68,5 +69,16 @@ public class BaseInfoDataServiceImpl implements BaseInfoDataService {
         if (li == null || li.size() == 0)
             throw new ObjectNotFoundException("sectorId:" + sectorId + " not found");
         return li.stream().map(e -> (String) e).collect(Collectors.toList());
+    }
+
+    @Override
+    public FundQuickInfosEntity getFundQuickInfo(String code) throws ObjectNotFoundException {
+        Session se = HibernateBoot.openSession();
+        List re = se.createQuery("from FundQuickInfosEntity where fundCode=:code").setString("code", code)
+                .list();
+        se.close();
+        if (re == null || re.size() == 0)
+            throw new ObjectNotFoundException("can't find this fund:" + code);
+        return (FundQuickInfosEntity) re.get(0);
     }
 }

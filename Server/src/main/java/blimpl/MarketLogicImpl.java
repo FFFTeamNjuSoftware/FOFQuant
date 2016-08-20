@@ -197,7 +197,7 @@ public class MarketLogicImpl extends UnicastRemoteObject implements MarketLogic 
         dateProfitInfo.put(threeYear, 1.0);
         dateProfitInfo.put(fiveYear, 1.0);
 
-        System.out.println(oneMonth);
+        System.out.println(oneYear);
 
         for (PriceInfo info : infos) {
             dateProfitInfo.forEach((key, value) -> {
@@ -213,10 +213,10 @@ public class MarketLogicImpl extends UnicastRemoteObject implements MarketLogic 
         }
         sinceEstablish = sinceEstablish - 1;
         yearRate = yearRate / infos.size() * 252;
-        profitRateInfo.nearFiveYear = (dateProfitInfo.get(fiveYear) - 1) * 100;
         profitRateInfo.nearOneMonth = (dateProfitInfo.get(oneMonth) - 1) * 100;
         profitRateInfo.nearThreeMonth = (dateProfitInfo.get(threeMonth) - 1) * 100;
         profitRateInfo.nearSixMonth = (dateProfitInfo.get(sixMonth) - 1) * 100;
+        profitRateInfo.nearOneYear = (dateProfitInfo.get(oneYear) - 1) * 100;
         profitRateInfo.nearThreeYear = (dateProfitInfo.get(threeYear) - 1) * 100;
         profitRateInfo.nearFiveYear = (dateProfitInfo.get(fiveYear) - 1) * 100;
         profitRateInfo.yearRate = yearRate;

@@ -2,6 +2,7 @@ package dataservice;
 
 import beans.CodeName;
 import entities.FundInfosEntity;
+import entities.FundQuickInfosEntity;
 import exception.ObjectNotFoundException;
 
 import java.util.List;
@@ -36,9 +37,12 @@ public interface BaseInfoDataService {
 
     /**
      * 获得一个版块内的基金代码
+     *
      * @param sectorId
      * @return
      */
     public List<String> getSectorCodes(String sectorId) throws ObjectNotFoundException;
+
+    public FundQuickInfosEntity getFundQuickInfo(String code) throws ObjectNotFoundException;
 
 }

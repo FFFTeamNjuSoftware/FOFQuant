@@ -3,6 +3,7 @@ package stubs.dataservice;
 import beans.CodeName;
 import dataservice.BaseInfoDataService;
 import entities.FundInfosEntity;
+import entities.FundQuickInfosEntity;
 import exception.ObjectNotFoundException;
 
 import java.util.ArrayList;
@@ -49,6 +50,11 @@ public class BaseInfoDataServiceStub implements BaseInfoDataService {
 
     @Override
     public List<String> getSectorCodes(String sectorId) {
+        return null;
+    }
+
+    @Override
+    public FundQuickInfosEntity getFundQuickInfo(String code) throws ObjectNotFoundException {
         return null;
     }
 }
