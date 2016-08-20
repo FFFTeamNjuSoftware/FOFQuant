@@ -22,4 +22,8 @@ public class PriceInfo implements Serializable {
      * 涨幅
      */
     public double rise;
+    /**
+     * 累计净值（基金有，指数没有）
+     */
+    public double total_netWorth;
 }

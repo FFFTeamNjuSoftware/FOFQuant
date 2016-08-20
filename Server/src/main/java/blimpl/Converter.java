@@ -104,6 +104,7 @@ public class Converter {
         info.date = entity.getDate().toString();
         info.price = entity.getUnitWorth();
         info.rise = entity.getDailyRise();
+        info.total_netWorth = entity.getTotalWorth();
         return info;
     }
 
@@ -118,8 +119,8 @@ public class Converter {
     public static FundQuickInfo convertFundQuickInfo(FundQuickInfosEntity entity) {
         FundQuickInfo info = new FundQuickInfo();
         info.code = entity.getFundCode();
-        info.current_netWorth=entity.getNetWorth();
-        info.daily_rise=entity.getDailyRise();
+        info.current_netWorth = entity.getNetWorth();
+        info.daily_rise = entity.getDailyRise();
         info.simple_name = entity.getSimpleName();
         info.oneMonth = entity.getOneMonth();
         info.threeMonth = entity.getThreeMonth();
