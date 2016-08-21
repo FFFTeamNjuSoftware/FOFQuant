@@ -2,8 +2,12 @@ package ui.userUI.allFundUI;
 
 import RMIModule.BLInterfaces;
 import beans.FundQuickInfo;
+import beans.PriceInfo;
+import beans.ProfitChartInfo;
 import bl.BaseInfoLogic;
+import bl.MarketLogic;
 import exception.ObjectNotFoundException;
+import exception.ParameterException;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
@@ -15,12 +19,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
+import util.ChartType;
+import util.TimeType;
+import util.UnitType;
 
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -81,6 +89,9 @@ public class allFundUIController implements Initializable {
 
     private BLInterfaces blInterfaces = new BLInterfaces();
     private BaseInfoLogic baseInfoLogic ;
+    private MarketLogic marketLogic;
+    private List<PriceInfo> priceInfoList = new  ArrayList<PriceInfo>();
+    private List<ProfitChartInfo> profitChartInfo = new  ArrayList<ProfitChartInfo>();
     private List<FundQuickInfo> fundQuickInfoList = new ArrayList<FundQuickInfo>();
     private int k=0;//标记tab第一次
     private allFundUIController instance;
@@ -258,11 +269,84 @@ public class allFundUIController implements Initializable {
 
     }
 
-    private void initChart(){
+    private void initChart1(String code){
+
+        marketLogic=blInterfaces.getMarketLogic();
+        //String code, UnitType type, int counts
+        try {
+            priceInfoList =marketLogic.getPriceInfo(code, UnitType.WEEK,16);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (ObjectNotFoundException e) {
+            e.printStackTrace();
+        } catch (ParameterException e) {
+            e.printStackTrace();
+        }
+
+        lineChart1.setTitle("净值走势");
+
+        XYChart.Series series1 = new XYChart.Series();
+        series1.setName("单位净值");
+        for(int i = 0; i< priceInfoList.size(); i++) {
+            series1.getData().add(new XYChart.Data(priceInfoList.get(i).date, priceInfoList.get(i).price));
+        }
+//String code, UnitType type, String startDate, String endDate
+
+        XYChart.Series series2 = new XYChart.Series();
+        series2.setName("累计净值");
+        marketLogic=blInterfaces.getMarketLogic();
+        for(int i = 0; i< priceInfoList.size(); i++) {
+            series2.getData().add(new XYChart.Data(priceInfoList.get(i).date, priceInfoList.get(i).total_netWorth));
+        }
+
+        lineChart1.getData().add(0,series1);
+        lineChart1.getData().add(1,series2);
 
 
     }
 
+    private void initChart2(String code) {
+
+            //String code, UnitType type, TimeType timeType, ChartType chartType
+        try {
+            profitChartInfo = marketLogic.getFundProfitInfoChart(code, UnitType.WEEK, TimeType.ONE_MONTH,ChartType.MILLION_WAVE_CHART );
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (ObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
+        lineChart2.setTitle("收益走势");
+
+        XYChart.Series series1 = new XYChart.Series();
+        series1.setName("期间收益率");
+        for(int i = 0; i< priceInfoList.size(); i++) {
+            series1.getData().add(new XYChart.Data(profitChartInfo.get(i).date, profitChartInfo.get(i).values[0]));
+        }
+//String code, UnitType type, String startDate, String endDate
+
+        XYChart.Series series2 = new XYChart.Series();
+        series2.setName("上证指数");
+        marketLogic=blInterfaces.getMarketLogic();
+        for(int i = 0; i< priceInfoList.size(); i++) {
+            series2.getData().add(new XYChart.Data(profitChartInfo.get(i).date, profitChartInfo.get(i).values[2]));
+        }
+
+        XYChart.Series series3 = new XYChart.Series();
+        series3.setName("基金指数");
+        marketLogic=blInterfaces.getMarketLogic();
+        for(int i = 0; i< priceInfoList.size(); i++) {
+            series3.getData().add(new XYChart.Data(profitChartInfo.get(i).date, profitChartInfo.get(i).values[1]));
+        }
+
+        lineChart1.getData().add(0,series1);
+        lineChart1.getData().add(1,series2);
+        lineChart1.getData().add(2,series3);
+
+
+
+    }
     public class TableRowControl<T> extends TableRow<T> {
 
         public TableRowControl(TableView<T> tableView) {
@@ -275,7 +359,8 @@ public class allFundUIController implements Initializable {
                     if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 1) {
                         selectedIndex = TableRowControl.this.getIndex();
                         fundID = codeColumn.getCellData(selectedIndex);
-
+                        initChart1(fundID);
+                        initChart2(fundID);
                     }
                     if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
                         selectedIndex = TableRowControl.this.getIndex();

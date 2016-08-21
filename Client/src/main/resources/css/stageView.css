@@ -45,3 +45,46 @@
 .table-cell{
     -fx-font-size: 12px;
 }
+.chart{
+    -fx-padding: 0px;
+}
+.chart-title {
+  -fx-text-fill: white;
+  -fx-font-size: 1.6em;
+  -fx-alignment: CENTER;
+}
+.chart-content{
+    -fx-padding: 0px;
+}
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+.chart-vertical-grid-lines {
+    -fx-stroke: #ffffff;
+}
+.chart-horizontal-grid-lines {
+    -fx-stroke: #ECFFF6;
+}
+.chart-alternative-row-fill {
+    -fx-fill: transparent;
+    -fx-stroke: transparent;
+    -fx-stroke-width: 0;
+}
+.axis {
+    -fx-tick-label-fill: white;
+    -fx-tick-length: 2;
+    -fx-minor-tick-length: 2;
+}
+.chart-series-line0 {
+    -fx-stroke:#00CACA;
+}
+.chart-series-line1 {
+    -fx-stroke:#FFFFFF;
+}
+
+.chart-line-symbol {
+    /*-fx-background-color: #00CACA, white;*/
+    -fx-background-insets: 0, 2;
+    -fx-background-radius: 5px;
+    -fx-padding: 2px;
+}
