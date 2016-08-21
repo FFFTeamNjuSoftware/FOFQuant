@@ -340,9 +340,9 @@ public class allFundUIController implements Initializable {
             series3.getData().add(new XYChart.Data(profitChartInfo.get(i).date, profitChartInfo.get(i).values[1]));
         }
 
-        lineChart1.getData().add(0,series1);
-        lineChart1.getData().add(1,series2);
-        lineChart1.getData().add(2,series3);
+        lineChart2.getData().add(0,series1);
+        lineChart2.getData().add(1,series2);
+        lineChart2.getData().add(2,series3);
 
 
 

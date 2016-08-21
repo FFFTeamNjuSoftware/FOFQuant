@@ -106,12 +106,8 @@ public class BLController {
     private static LogicCreator currentCreator;
 
     static {
-<<<<<<< HEAD
-        //    currentCreator = stubCreator;
-=======
-//         currentCreator = stubCreator;
->>>>>>> ce60338c1a50ad9cf1ae1676e4e66ad99d7367cb
-            currentCreator = trueCreator;
+         currentCreator = stubCreator;
+        //       currentCreator = trueCreator;
     }
 
     public static BaseInfoLogic getBaseInfoLogic() {
