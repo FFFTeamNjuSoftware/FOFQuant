@@ -28,7 +28,10 @@
         /*derive(-fx-base, 80%)*/
         transparent;
 }
-
+.table-view  .scroll-bar:vertical{
+    -fx-background-color: #FFFFFF;
+     -fx-opacity: 0.7;
+}
 .table-view .column-header .label {
     -fx-font-size: 12px;
     -fx-font-family: "Arial";
@@ -76,10 +79,10 @@
     -fx-minor-tick-length: 2;
 }
 .chart-series-line0 {
-    -fx-stroke:#00CACA;
+    -fx-stroke:transparent;
 }
 .chart-series-line1 {
-    -fx-stroke:#FFFFFF;
+    -fx-stroke:transparent;
 }
 
 .chart-line-symbol {

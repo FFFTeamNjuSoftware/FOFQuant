@@ -75,26 +75,26 @@
                </yAxis>
             </LineChart>
          </children></AnchorPane>
-      <GridPane layoutX="45.0" layoutY="379.0" prefHeight="24.0" prefWidth="165.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Label fx:id="fullNameLabel" text="嘉实增长" textFill="#ffea00">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Label fx:id="fundIDLabel" text="070002" textFill="WHITE" GridPane.columnIndex="1">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-         </children>
-      </GridPane>
+       <GridPane layoutX="45.0" layoutY="379.0" prefHeight="24.0" prefWidth="180.0">
+           <columnConstraints>
+               <ColumnConstraints hgrow="SOMETIMES" maxWidth="143.0" minWidth="10.0" prefWidth="117.0" />
+               <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
+           </columnConstraints>
+           <rowConstraints>
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+           </rowConstraints>
+           <children>
+               <Label fx:id="fullNameLabel" prefHeight="19.0" prefWidth="154.0" text="" textFill="#ffea00">
+                   <font>
+                       <Font size="14.0" />
+                   </font>
+               </Label>
+               <Label fx:id="fundIDLabel" prefHeight="19.0" prefWidth="116.0" text="" textFill="WHITE" GridPane.columnIndex="1">
+                   <font>
+                       <Font size="14.0" />
+                   </font>
+               </Label>
+           </children>
+       </GridPane>
    </children>
 </AnchorPane>

@@ -55,6 +55,8 @@ public class allFundUIController implements Initializable {
     @FXML
     private TableColumn<FundQuickInfo, Number> daily_riseColumn;
     @FXML
+    private TableColumn<FundQuickInfo, Number> current_netWorthColumn;
+    @FXML
     private TableColumn<FundQuickInfo, Number> nearOneMonthColumn;
     @FXML
     private TableColumn<FundQuickInfo, Number> nearThreeMonthColumn;
@@ -70,6 +72,8 @@ public class allFundUIController implements Initializable {
     private TableColumn<FundQuickInfo, Number> sinceEstablishColumn;
     @FXML
     private TableColumn<FundQuickInfo, Number> yearRateColumn;
+    @FXML
+    private Label fullNameLabel,fundIDLabel;
 
     @FXML
     private ComboBox comboBox1;
@@ -81,7 +85,7 @@ public class allFundUIController implements Initializable {
 
     private int selectedIndex;
     private FundQuickInfo fundQuickInfo;
-    private String fundID;
+    private String fundID,fundName;
     private String selectedSectorID;
     private String[] basicID = new String[]{"000011","000012","000013"};
     private String[] marketID = new String[]{"000001","000002","000003","000004","000005","000006",
@@ -91,7 +95,7 @@ public class allFundUIController implements Initializable {
     private BaseInfoLogic baseInfoLogic ;
     private MarketLogic marketLogic;
     private List<PriceInfo> priceInfoList = new  ArrayList<PriceInfo>();
-    private List<ProfitChartInfo> profitChartInfo = new  ArrayList<ProfitChartInfo>();
+    private List<ProfitChartInfo> profitChartInfoList = new  ArrayList<ProfitChartInfo>();
     private List<FundQuickInfo> fundQuickInfoList = new ArrayList<FundQuickInfo>();
     private int k=0;//标记tab第一次
     private allFundUIController instance;
@@ -148,7 +152,7 @@ public class allFundUIController implements Initializable {
 //                        super.updateItem(item, empty);
 //                        if (this.getIndex() < fundQuickInfoList.size()) {
 //                            if(!isEmpty()){
-//                                this.setTextFill(Color.ORANGERED);
+//                                this.setTextFill(Color.ORANGE);
 //                            }
 //                        }
 //                    }
@@ -157,6 +161,8 @@ public class allFundUIController implements Initializable {
 //        });
         daily_riseColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(
                 cellData.getValue().daily_rise));
+        current_netWorthColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().current_netWorth));
         nearOneMonthColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(
                 cellData.getValue().oneMonth));
         nearThreeMonthColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(
@@ -309,35 +315,34 @@ public class allFundUIController implements Initializable {
 
             //String code, UnitType type, TimeType timeType, ChartType chartType
         try {
-            profitChartInfo = marketLogic.getFundProfitInfoChart(code, UnitType.WEEK, TimeType.ONE_MONTH,ChartType.MILLION_WAVE_CHART );
+            profitChartInfoList = marketLogic.getFundProfitInfoChart(code, UnitType.WEEK, TimeType.THREE_MONTH,ChartType.MILLION_WAVE_CHART );
         } catch (RemoteException e) {
             e.printStackTrace();
         } catch (ObjectNotFoundException e) {
             e.printStackTrace();
         }
-
-
+        
         lineChart2.setTitle("收益走势");
 
         XYChart.Series series1 = new XYChart.Series();
         series1.setName("期间收益率");
-        for(int i = 0; i< priceInfoList.size(); i++) {
-            series1.getData().add(new XYChart.Data(profitChartInfo.get(i).date, profitChartInfo.get(i).values[0]));
+        for(int i = 0; i< profitChartInfoList.size(); i++) {
+            series1.getData().add(new XYChart.Data(profitChartInfoList.get(i).date, profitChartInfoList.get(i).values[0]));
         }
 //String code, UnitType type, String startDate, String endDate
 
         XYChart.Series series2 = new XYChart.Series();
         series2.setName("上证指数");
         marketLogic=blInterfaces.getMarketLogic();
-        for(int i = 0; i< priceInfoList.size(); i++) {
-            series2.getData().add(new XYChart.Data(profitChartInfo.get(i).date, profitChartInfo.get(i).values[2]));
+        for(int i = 0; i< profitChartInfoList.size(); i++) {
+            series2.getData().add(new XYChart.Data(profitChartInfoList.get(i).date, profitChartInfoList.get(i).values[2]));
         }
 
         XYChart.Series series3 = new XYChart.Series();
         series3.setName("基金指数");
         marketLogic=blInterfaces.getMarketLogic();
-        for(int i = 0; i< priceInfoList.size(); i++) {
-            series3.getData().add(new XYChart.Data(profitChartInfo.get(i).date, profitChartInfo.get(i).values[1]));
+        for(int i = 0; i< profitChartInfoList.size(); i++) {
+            series3.getData().add(new XYChart.Data(profitChartInfoList.get(i).date, profitChartInfoList.get(i).values[1]));
         }
 
         lineChart2.getData().add(0,series1);
@@ -359,8 +364,11 @@ public class allFundUIController implements Initializable {
                     if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 1) {
                         selectedIndex = TableRowControl.this.getIndex();
                         fundID = codeColumn.getCellData(selectedIndex);
+                        fundName = full_nameColumn.getCellData(selectedIndex);
                         initChart1(fundID);
                         initChart2(fundID);
+                        fullNameLabel.setText(fundName);
+                        fundIDLabel.setText(fundID);
                     }
                     if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
                         selectedIndex = TableRowControl.this.getIndex();
