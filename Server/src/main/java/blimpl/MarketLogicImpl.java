@@ -81,7 +81,9 @@ public class MarketLogicImpl extends UnicastRemoteObject implements MarketLogic 
         if (counts > size)
             throw new ParameterException("required counts:" + counts + " is larger than true info " +
                     "counts:" + size);
-        return infos.subList(size - counts, size);
+        List<PriceInfo> re = new ArrayList<>();
+        re.addAll(infos.subList(size - counts, size));
+        return re;
     }
 
     @Override
@@ -211,7 +213,7 @@ public class MarketLogicImpl extends UnicastRemoteObject implements MarketLogic 
             sinceEstablish *= (1 + info.rise / 100);
         }
         sinceEstablish = sinceEstablish - 1;
-        System.out.println(yearRate+","+infos.size());
+        System.out.println(yearRate + "," + infos.size());
         yearRate = yearRate / infos.size() * 252;
         profitRateInfo.nearOneMonth = (dateProfitInfo.get(oneMonth) - 1) * 100;
         profitRateInfo.nearThreeMonth = (dateProfitInfo.get(threeMonth) - 1) * 100;
@@ -221,7 +223,7 @@ public class MarketLogicImpl extends UnicastRemoteObject implements MarketLogic 
         profitRateInfo.nearFiveYear = (dateProfitInfo.get(fiveYear) - 1) * 100;
         profitRateInfo.yearRate = yearRate;
         profitRateInfo.sinceEstablish = sinceEstablish * 100;
-        NumberOpe.controlDecimal(profitRateInfo,2);
+        NumberOpe.controlDecimal(profitRateInfo, 2);
         return profitRateInfo;
     }
 
