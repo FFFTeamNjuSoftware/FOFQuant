@@ -3,10 +3,10 @@ package blimpl;
 import beans.PriceInfo;
 import bl.MarketLogic;
 import bl.ProfitFeatureLogic;
-import com.google.gson.Gson;
 import exception.ObjectNotFoundException;
 import exception.ParameterException;
 import util.CalendarOperate;
+import util.NumberOpe;
 import util.UnitType;
 
 import java.rmi.RemoteException;
@@ -62,7 +62,7 @@ public class ProfitFeatureLogicImpl extends UnicastRemoteObject implements Profi
             ave_rise += info.rise / 100;
         }
         ave_rise = ave_rise / n;
-        return ave_rise;
+        return NumberOpe.controlDecimalDouble(ave_rise, 2);
     }
 
     @Override
@@ -88,6 +88,6 @@ public class ProfitFeatureLogicImpl extends UnicastRemoteObject implements Profi
             ave_rise *= (1 + info.rise / 100);
         }
         ave_rise = Math.pow(ave_rise, 1.0 / n) - 1;
-        return ave_rise;
+        return NumberOpe.controlDecimalDouble(ave_rise, 2);
     }
 }

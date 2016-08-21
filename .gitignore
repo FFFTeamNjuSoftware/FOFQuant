@@ -63,3 +63,4 @@ Common/target/*
 Server/target/*
 DataService/target/*
 Client/src/main/java/ui/util/temp.txt
+Server/src/main/resources/python/.idea/*

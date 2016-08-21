@@ -7,6 +7,7 @@ import bl.BaseInfoLogic;
 import dataservice.BaseInfoDataService;
 import dataserviceimpl.DataServiceController;
 import exception.ObjectNotFoundException;
+import util.NumberOpe;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -57,7 +58,10 @@ public class BaseInfoLogicImpl extends UnicastRemoteObject implements BaseInfoLo
         List<FundQuickInfo> infos = new ArrayList<>();
         for (String code : codes) {
             try {
-                infos.add(Converter.convertFundQuickInfo(baseInfoDataService.getFundQuickInfo(code)));
+                FundQuickInfo quickInfo = Converter.convertFundQuickInfo(baseInfoDataService
+                        .getFundQuickInfo(code));
+                NumberOpe.controlDecimal(quickInfo, 2);
+                infos.add(quickInfo);
             } catch (ObjectNotFoundException e) {
                 e.printStackTrace();
                 continue;

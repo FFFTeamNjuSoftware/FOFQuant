@@ -4,7 +4,6 @@ import beans.PriceInfo;
 import beans.ProfitChartInfo;
 import beans.ProfitRateInfo;
 import bl.MarketLogic;
-import com.google.gson.Gson;
 import dataservice.IndexDataService;
 import dataservice.MarketDataService;
 import dataserviceimpl.DataServiceController;
@@ -59,6 +58,7 @@ public class MarketLogicImpl extends UnicastRemoteObject implements MarketLogic 
             if (i == tems.size() - 1) {
                 PriceInfo info = tems.get(i);
                 info.rise = (rise - 1) * 100;
+                NumberOpe.controlDecimal(info, 2);
                 infos.add(info);
                 break;
             }
@@ -66,6 +66,7 @@ public class MarketLogicImpl extends UnicastRemoteObject implements MarketLogic 
                     .getCalendarByString(tems.get(i + 1).date))) {
                 PriceInfo info = tems.get(i);
                 info.rise = (rise - 1) * 100;
+                NumberOpe.controlDecimal(info, 2);
                 infos.add(info);
                 rise = 1;
             }
@@ -151,6 +152,7 @@ public class MarketLogicImpl extends UnicastRemoteObject implements MarketLogic 
                     } else {
                         chartInfo.values[d] = (chartInfo.values[d] - 1) * 100;
                     }
+                    NumberOpe.controlDecimal(chartInfo, 2);
                 }
             }
         } catch (ParameterException e) {
@@ -197,7 +199,6 @@ public class MarketLogicImpl extends UnicastRemoteObject implements MarketLogic 
         dateProfitInfo.put(threeYear, 1.0);
         dateProfitInfo.put(fiveYear, 1.0);
 
-        System.out.println(oneYear);
 
         for (PriceInfo info : infos) {
             dateProfitInfo.forEach((key, value) -> {
@@ -221,6 +222,7 @@ public class MarketLogicImpl extends UnicastRemoteObject implements MarketLogic 
         profitRateInfo.nearFiveYear = (dateProfitInfo.get(fiveYear) - 1) * 100;
         profitRateInfo.yearRate = yearRate;
         profitRateInfo.sinceEstablish = sinceEstablish * 100;
+        NumberOpe.controlDecimal(profitRateInfo, 2);
         return profitRateInfo;
     }
 
