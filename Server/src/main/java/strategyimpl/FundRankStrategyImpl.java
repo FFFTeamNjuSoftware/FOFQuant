@@ -1,13 +1,16 @@
 package strategyimpl;
 
+import beans.ConstParameter;
 import beans.PriceInfo;
+import bl.BaseInfoLogic;
 import bl.MarketLogic;
 import blimpl.BLController;
 import exception.ObjectNotFoundException;
+import util.TimeType;
 import util.UnitType;
 
 import java.rmi.RemoteException;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Seven on 16/8/19.
@@ -18,110 +21,116 @@ import java.util.List;
  */
 public class FundRankStrategyImpl implements FundRankStrategy{
     private MarketLogic marketLogic;
-    private static double RF=0.2996;
-    private static int PERIOD=12;
-    private static double PROFIT_INDEX=0;
-    private static double RISK_INDEX=0;
-    private static double A=0;
+    private BaseInfoLogic baseInfoLogic;
 
     private FundRankStrategyImpl(){
         marketLogic= BLController.getMarketLogic();
+        baseInfoLogic=BLController.getBaseInfoLogic();
     }
 
-    public double[] getFundGrowthRate(String fundcode, UnitType unitType) throws RemoteException, ObjectNotFoundException {
-        List<PriceInfo> priceInfoList=marketLogic.getPriceInfo(fundcode, unitType);
-        double[] rp=new double[priceInfoList.size()];
-        int index=0;
-        for(int i=0;i<priceInfoList.size();i++){
-            rp[index]=priceInfoList.get(i).rise;
-            index++;
+
+
+    @Override
+    public double getFundReturnRate(String fundcode, int month, TimeType timeType) throws RemoteException, ObjectNotFoundException {
+        List<PriceInfo> priceInfoList=marketLogic.getPriceInfo(fundcode, UnitType.MONTH);
+        double returnRate=1.0;
+        switch (timeType){
+            case THREE_YEAR:
+                priceInfoList=priceInfoList.subList(priceInfoList.size()-12*3,priceInfoList.size());
+                break;
+            default:
+                priceInfoList=priceInfoList.subList(priceInfoList.size()-12,priceInfoList.size());
         }
-        return rp;
+        for(int i=0;i<month;i++){
+            returnRate=returnRate*(priceInfoList.get(i).rise+1);
+        }
+        returnRate=returnRate-1;
+        return returnRate;
     }
 
-    public double getFundProfit(String fundcode,int n,double rf) throws RemoteException, ObjectNotFoundException {
-        double[] rp=this.getFundGrowthRate(fundcode,UnitType.MONTH);
-        double rn=0.0;
-        for(int i=0;i<n;i++){
-            rn=rn+(rp[rp.length-i-1]-rf);
-        }
-        return rn;
+    @Override
+    public double getFundNoRiskRate(String fundcode, int month) throws RemoteException {
+        ConstParameter constant=baseInfoLogic.getConstaParameteer();
+        return constant.noRiskProfit;
     }
 
-    public double getFundNegativeProfit(String fundcode,int n,double rf) throws RemoteException, ObjectNotFoundException {
-        double rd=0.0;
-        double rn=0.0;
-        double[] rp=this.getFundGrowthRate(fundcode,UnitType.WEEK);
-        for(int i=0;i<n*4;i++){
-            rn=rp[rp.length-i-1]-rf;
-            if(rn<0){
-                rd=rd+rn;
-            }
-        }
-        return rd;
-    }
-
-    public double getIndexE(String fundcode,int n,double e,double a) throws RemoteException, ObjectNotFoundException {
-        double profit=0.0;
-        double index=0.0;
-        for (int i=0;i<n;i++){
-            index=-e*this.getFundProfit(fundcode,i+1,RF);
-            profit=profit+Math.pow(Math.E,index)*Math.pow(a,i);
-        }
-        profit=profit/n;
+    @Override
+    public double getFundProfit(String fundcode, int month,TimeType timeType) throws RemoteException, ObjectNotFoundException {
+        double returnRate=this.getFundReturnRate(fundcode,month,timeType);
+        double noRiskRate=this.getFundNoRiskRate(fundcode,month);
+        double profit=(1+returnRate)/(1+noRiskRate)-1;
         return profit;
     }
 
-    public double getIndexR(String fundcode,int n,double d) throws RemoteException, ObjectNotFoundException {
-        double risk=0.0;
-        double index=this.getFundNegativeProfit(fundcode,n,RF);
-        risk=Math.pow(Math.E,index);
-        return risk;
+    @Override
+    public double getMRAR(String fundcode, TimeType timeType) throws RemoteException, ObjectNotFoundException {
+        double riskDislikeFactor=baseInfoLogic.getConstaParameteer().riskDislikeFactor;
+        double MRAR=1.0;
+        double profit=0.0;
+        int T;
+        switch (timeType){
+            case THREE_YEAR:
+                T=12*3;
+                break;
+            default:
+                T=12;
+        }
+        if (riskDislikeFactor==0){
+            for(int i=0;i<T;i++){
+                profit=this.getFundProfit(fundcode,i+1,timeType);
+                MRAR=MRAR*(1+profit);
+            }
+            MRAR=Math.pow(MRAR,12/T)-1;
+        }else{
+            for(int i=0;i<T;i++){
+                profit=this.getFundProfit(fundcode,i+1,timeType);
+                MRAR=MRAR+Math.pow(1+profit,-riskDislikeFactor);
+            }
+            MRAR=Math.pow(MRAR/T,-12/T)-1;
+        }
+        return MRAR;
     }
 
-    public double getIndexRE(String fundcode) throws RemoteException, ObjectNotFoundException {
-        double R=this.getIndexR(fundcode,PERIOD,RISK_INDEX);
-        double E=this.getIndexE(fundcode,PERIOD,PROFIT_INDEX,A);
-        double RE=-R*E;
-        return RE;
-    }
+    public Map<String ,Integer> refreshFundRank(TimeType timeType) throws RemoteException, ObjectNotFoundException {
+        Map<String,Integer> rank=new HashMap<>();
+        Map<String,Double> index=new HashMap<>();
+        List<String> codes=baseInfoLogic.getFundCodes();
+        for(int i=0;i<codes.size();i++){
+            index.put(codes.get(i),this.getMRAR(codes.get(i),timeType));
+        }
+        List<Map.Entry<String,Double>> fundCodes=new ArrayList<Map.Entry<String, Double>>(index.entrySet());
+        //按照降序排序
+        Collections.sort(fundCodes, new Comparator<Map.Entry<String, Double>>() {
+            @Override
+            public int compare(Map.Entry<String, Double> o1, Map.Entry<String, Double> o2) {
+                if(o2.getValue()>o1.getValue()){
+                    return 1;
+                }else if (o2.getValue()==o1.getValue()){
+                    return 0;
+                }else{
+                    return -1;
+                }
+            }
+        });
 
-    /**
-     * 单只基金N周收益排名百分比Pj
-     * @param fundcode
-     * @param n
-     * @return
-     */
-    public double getFundRankPercentage(String fundcode,int n){
-        return 0.0;
-    }
-
-    /**
-     * 基金公司旗下基金收益排名百分比均值Pk
-     * @param fundcode
-     * @param n
-     * @return
-     */
-    public double getCompanyRankPercentageAve(String fundcode,int n){
-        return 0.0;
-    }
-
-    /**
-     * 条件指标D
-     * @param fundcode
-     * @param b
-     * @return
-     */
-    public double getIndexD(String fundcode,double b){
-        return 0.0;
-    }
-
-    /**
-     * 最终的排名指标RI
-     * @param fundcode
-     * @return
-     */
-    public double getRankIndex(String fundcode){
-        return 0.0;
+        //计算对应等级
+        int size=fundCodes.size();
+        for (int i=0;i<size;i++){
+            String code=fundCodes.get(i).toString();
+            int fundRank=0;
+            if(i<=size*0.1){
+                fundRank=5;
+            }else if(size*0.1<i&&i<=size*0.325){
+                fundRank=4;
+            }else if(size*0.325<i&&i<=size*0.675){
+                fundRank=3;
+            }else if(size*0.675<i&&i<=size*0.9){
+                fundRank=2;
+            }else{
+                fundRank=1;
+            }
+            rank.put(code,fundRank);
+        }
+        return rank;
     }
 }
