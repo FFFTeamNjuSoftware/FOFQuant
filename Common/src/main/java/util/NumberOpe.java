@@ -7,7 +7,7 @@ import java.lang.reflect.Field;
  * Created by Daniel on 2016/8/21.
  */
 public class NumberOpe {
-    public void controlDecimal(Object obj, int decimalNum) {
+    public static void controlDecimal(Object obj, int decimalNum) {
         if (obj == null)
             return;
         try {

@@ -1,6 +1,7 @@
 package blimpl;
 
 import beans.CodeName;
+import beans.ConstParameter;
 import beans.FundInfo;
 import beans.FundQuickInfo;
 import bl.BaseInfoLogic;
@@ -68,5 +69,10 @@ public class BaseInfoLogicImpl extends UnicastRemoteObject implements BaseInfoLo
             }
         }
         return infos;
+    }
+
+    @Override
+    public ConstParameter getConstaParameteer() throws RemoteException {
+        return Converter.convertConstParameter(baseInfoDataService.getConstParameter());
     }
 }

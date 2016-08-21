@@ -3,6 +3,7 @@ package stubs.dataservice;
 import beans.CodeName;
 import dataservice.BaseInfoDataService;
 import entities.CompanyInfoEntity;
+import entities.ConstParameterEntity;
 import entities.FundInfosEntity;
 import entities.FundQuickInfosEntity;
 import exception.ObjectNotFoundException;
@@ -71,6 +72,11 @@ public class BaseInfoDataServiceStub implements BaseInfoDataService {
 
     @Override
     public List<CompanyInfoEntity> getAllCompanyInfos() {
+        return null;
+    }
+
+    @Override
+    public ConstParameterEntity getConstParameter() {
         return null;
     }
 }

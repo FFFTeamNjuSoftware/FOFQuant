@@ -15,6 +15,17 @@ public class NetWorthEntity {
     private Double unitWorth;
     private Double totalWorth;
     private Double dailyRise;
+    private Double fqWorth;
+
+    @Id
+    @Column(name = "fqnet", nullable = false)
+    public Double getFqWorth() {
+        return fqWorth;
+    }
+
+    public void setFqWorth(Double fqWorth) {
+        this.fqWorth = fqWorth;
+    }
 
     @Id
     @Column(name = "date", nullable = false)

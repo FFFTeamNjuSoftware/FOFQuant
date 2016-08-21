@@ -3,11 +3,11 @@ package entities;
 import javax.persistence.*;
 
 /**
- * Created by Daniel on 2016/8/16.
+ * Created by Daniel on 2016/8/21.
  */
 @Entity
-@Table(name = "const_parameters", schema = "fofquant", catalog = "")
-public class ConstParametersEntity {
+@Table(name = "const_parameter", schema = "fofquant", catalog = "")
+public class ConstParameterEntity {
     private int id;
     private Double noRiskProfit;
 
@@ -36,7 +36,7 @@ public class ConstParametersEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ConstParametersEntity that = (ConstParametersEntity) o;
+        ConstParameterEntity that = (ConstParameterEntity) o;
 
         if (id != that.id) return false;
         if (noRiskProfit != null ? !noRiskProfit.equals(that.noRiskProfit) : that.noRiskProfit != null)

@@ -1,6 +1,7 @@
 package stubs.logic;
 
 import beans.CodeName;
+import beans.ConstParameter;
 import beans.FundInfo;
 import beans.FundQuickInfo;
 import bl.BaseInfoLogic;
@@ -81,5 +82,10 @@ public class BaseInfoLogicStub extends UnicastRemoteObject implements BaseInfoLo
                 "\"sinceEstablish\":68.53309185955898,\"yearRate\":15.511304347826075}",
                 FundQuickInfo.class);
         return Arrays.asList(quickInfo1, quickInfo2, quickInfo3);
+    }
+
+    @Override
+    public ConstParameter getConstaParameteer() throws RemoteException {
+        return null;
     }
 }
