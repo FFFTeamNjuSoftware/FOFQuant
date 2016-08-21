@@ -3,6 +3,7 @@ package dataserviceimpl;
 import beans.CodeName;
 import dataservice.BaseInfoDataService;
 import entities.CompanyInfoEntity;
+import entities.ConstParameterEntity;
 import entities.FundInfosEntity;
 import entities.FundQuickInfosEntity;
 import exception.ObjectNotFoundException;
@@ -114,5 +115,15 @@ public class BaseInfoDataServiceImpl implements BaseInfoDataService {
         if (li == null)
             return re;
         return li.stream().map(e -> (CompanyInfoEntity) e).collect(Collectors.toList());
+    }
+
+    @Override
+    public ConstParameterEntity getConstParameter() {
+        Session se = HibernateBoot.openSession();
+        List<? extends Object> li = se.createQuery("from ConstParameterEntity ").list();
+        se.close();
+        if (li == null)
+            return null;
+        return (ConstParameterEntity) li.get(0);
     }
 }

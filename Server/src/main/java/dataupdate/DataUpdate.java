@@ -14,9 +14,6 @@ import org.hibernate.Transaction;
 import startup.HibernateBoot;
 import util.UnitType;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.List;
@@ -24,15 +21,20 @@ import java.util.List;
 /**
  * Created by Daniel on 2016/8/20.
  */
-public class QuickInfoUpdate {
+public class DataUpdate {
 
+    /**
+     * 更新基金的快速信息
+     *
+     * @throws IOException
+     */
     public void updateQuickinfo() throws IOException {
-        BufferedWriter writer = null;
-        try {
-            writer = new BufferedWriter(new FileWriter(new File("D:/log.txt")));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        BufferedWriter writer = null;
+//        try {
+//            writer = new BufferedWriter(new FileWriter(new File("D:/log.txt")));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         BaseInfoDataService baseInfoDataService = DataServiceController.getBaseInfoDataService();
         List<String> codes = baseInfoDataService.getAllCodes();
         Session se = HibernateBoot.openSession();
@@ -43,7 +45,7 @@ public class QuickInfoUpdate {
             try {
                 entity = baseInfoDataService.getFundInfo(code);
             } catch (ObjectNotFoundException e) {
-                writer.write("FundInfo:" + code + "\n");
+//                writer.write("FundInfo:" + code + "\n");
                 e.printStackTrace();
                 continue;
             }
@@ -56,7 +58,7 @@ public class QuickInfoUpdate {
             } catch (ParameterException e) {
                 e.printStackTrace();
             } catch (ObjectNotFoundException e) {
-                writer.write("PriceInfo:" + code + "\n");
+//                writer.write("PriceInfo:" + code + "\n");
                 e.printStackTrace();
                 continue;
             } catch (RemoteException e) {
@@ -70,7 +72,7 @@ public class QuickInfoUpdate {
             } catch (RemoteException e) {
                 e.printStackTrace();
             } catch (ObjectNotFoundException e) {
-                writer.write("ProfitRateInfo:" + code + "\n");
+//                writer.write("ProfitRateInfo:" + code + "\n");
                 e.printStackTrace();
                 continue;
             }
@@ -82,14 +84,20 @@ public class QuickInfoUpdate {
             fundQuickInfosEntity.setFiveYear(profitRateInfo.nearFiveYear);
             fundQuickInfosEntity.setSinceEstablish(profitRateInfo.sinceEstablish);
             fundQuickInfosEntity.setYearRate(profitRateInfo.yearRate);
-            writer.flush();
+//            writer.flush();
             se.save(fundQuickInfosEntity);
         }
         tra.commit();
     }
 
-    public static void main(String[] args) throws Exception{
-        QuickInfoUpdate quickInfoUpdate = new QuickInfoUpdate();
-        quickInfoUpdate.updateQuickinfo();
+
+    public void updateNetWorth() {
+
+    }
+
+
+    public static void main(String[] args) throws Exception {
+        DataUpdate dataUpdate = new DataUpdate();
+        dataUpdate.updateQuickinfo();
     }
 }

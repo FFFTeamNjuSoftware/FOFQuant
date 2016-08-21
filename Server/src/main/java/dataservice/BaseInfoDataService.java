@@ -2,6 +2,7 @@ package dataservice;
 
 import beans.CodeName;
 import entities.CompanyInfoEntity;
+import entities.ConstParameterEntity;
 import entities.FundInfosEntity;
 import entities.FundQuickInfosEntity;
 import exception.ObjectNotFoundException;
@@ -76,4 +77,10 @@ public interface BaseInfoDataService {
      * @throws ObjectNotFoundException
      */
     public List<String> getCompanyFundCodes(String company_id) throws ObjectNotFoundException;
+
+    /**
+     * 获得一些常量字段
+     * @return
+     */
+    public ConstParameterEntity getConstParameter();
 }

@@ -5,10 +5,10 @@ package bl;
  */
 
 import beans.CodeName;
+import beans.ConstParameter;
 import beans.FundInfo;
 import beans.FundQuickInfo;
 import exception.ObjectNotFoundException;
-import util.SectorType;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -51,5 +51,12 @@ public interface BaseInfoLogic extends Remote {
      * @return
      * @throws RemoteException
      */
-    public List<FundQuickInfo> getFundQuickInfo(String sectorId) throws RemoteException,ObjectNotFoundException;
+    public List<FundQuickInfo> getFundQuickInfo(String sectorId) throws RemoteException, ObjectNotFoundException;
+
+    /**
+     * 获得常量字段
+     * @return
+     * @throws RemoteException
+     */
+    public ConstParameter getConstaParameteer() throws RemoteException;
 }

@@ -18,11 +18,11 @@
         <mapping class="entities.StockHoldInfoEntity"/>
         <mapping class="entities.BondHoldInfoEntity"/>
         <mapping class="entities.UserEntity"/>
-        <mapping class="entities.ConstParametersEntity"/>
         <mapping class="entities.IndexPriceEntity"/>
         <mapping class="entities.SectorFundInfoEntity"/>
         <mapping class="entities.FundQuickInfosEntity"/>
         <mapping class="entities.CompanyInfoEntity"/>
+        <mapping class="entities.ConstParameterEntity"/>
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hbm2ddl.auto">update</property> -->
     </session-factory>

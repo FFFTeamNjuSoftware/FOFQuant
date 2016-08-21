@@ -132,4 +132,10 @@ public class Converter {
         info.yearRate = entity.getYearRate();
         return info;
     }
+
+    public static ConstParameter convertConstParameter(ConstParameterEntity entity) {
+        ConstParameter constParameter = new ConstParameter();
+        constParameter.noRiskProfit = entity.getNoRiskProfit();
+        return constParameter;
+    }
 }
