@@ -183,10 +183,17 @@ public class userManagerUIController  implements Initializable {
             System.out.println("");
         });
 
+        genderChoBox.getSelectionModel().selectedIndexProperty().addListener((ov,oldv,newv)->{
+            genderType=genderTypes[newv.intValue()];
+            System.out.println("the selected is?: " + genderType);
+        });
 
+        userTypeChoBox.getSelectionModel().selectedIndexProperty().addListener((ov,oldv,newv)->{
+            userType=userTypes[newv.intValue()];
+            System.out.println("the selected is?: " + userType);
+        });
 
     }
-
 
     @FXML
     private void addNewUser(){
@@ -194,16 +201,7 @@ public class userManagerUIController  implements Initializable {
         userManageInfo.username = userNameField.getText();
         userManageInfo.password = passwordField.getText();
 
-        genderChoBox.getSelectionModel().selectedIndexProperty().addListener((ov,oldv,newv)->{
-            System.out.println("the selected is?: " + newv);
-            genderType=genderTypes[newv.intValue()];
-        });
-
         userManageInfo.gender=genderType;
-
-        userTypeChoBox.getSelectionModel().selectedIndexProperty().addListener((ov,oldv,newv)->{
-            userType=userTypes[newv.intValue()];
-        });
 
         if (userType.equalsIgnoreCase("manager"))
             userManageInfo.userType = UserType.MANAGER;
