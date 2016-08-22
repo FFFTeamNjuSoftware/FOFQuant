@@ -190,7 +190,7 @@ public class userManagerUIController  implements Initializable {
 
         userTypeChoBox.getSelectionModel().selectedIndexProperty().addListener((ov,oldv,newv)->{
             userType=userTypes[newv.intValue()];
-            System.out.println("the selected is?: " + userType);
+            System.out.println("the selected userType is?: " + userType);
         });
 
     }
@@ -233,6 +233,7 @@ public class userManagerUIController  implements Initializable {
     private void updateAllUser(){
         try {
             userLogic.updateUserInfo(updateUserManageInfo);
+            init();
         } catch (RemoteException e) {
             e.printStackTrace();
         } catch (ObjectNotFoundException e) {

@@ -15,7 +15,7 @@
             <TableView fx:id="table" blendMode="LIGHTEN" layoutX="50.0" layoutY="34.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="238.0" prefWidth="870.0">
               <columns>
                 <TableColumn fx:id="codeColumn" maxWidth="55.0" minWidth="20.0" prefWidth="55.0" resizable="false" text="代码" />
-                <TableColumn fx:id="full_nameColumn" maxWidth="100.0" minWidth="20.0" prefWidth="94.0" text="名称" />
+                <TableColumn fx:id="full_nameColumn" maxWidth="120.0" minWidth="20.0" prefWidth="94.0" text="名称" />
                   <TableColumn fx:id="current_netWorthColumn" maxWidth="70.0" minWidth="20.0" prefWidth="70.0" text="当前净值" />
                   <TableColumn fx:id="daily_riseColumn" maxWidth="70.0" minWidth="20.0" prefWidth="70.0" text="日涨幅" />
                   <TableColumn fx:id="nearOneMonthColumn" maxWidth="70.0" minWidth="20.0" prefWidth="70.0" text="近一月" />
@@ -32,12 +32,12 @@
            </children>
       </AnchorPane>
       <Line endX="970.0" fill="WHITE" layoutY="368.0" stroke="#bbbbbb" />
-      <ImageView fx:id="tabImage1" fitHeight="32.0" fitWidth="144.0" layoutX="49.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="tabImage1" fitHeight="32.0" fitWidth="144.0" layoutX="49.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@/images/buttonBig.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="tabImage2" fitHeight="32.0" fitWidth="144.0" layoutX="214.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="tabImage2" fitHeight="32.0" fitWidth="144.0" layoutX="214.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true" >
          <image>
             <Image url="@/images/buttonBig.png" />
          </image>

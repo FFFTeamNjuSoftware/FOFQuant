@@ -112,9 +112,10 @@ public class allFundUIController implements Initializable {
        instance= this;
         baseInfoLogic = blInterfaces.getBaseInfoLogic();
         initTab();
-        comboBox1.setValue("固定收益类");
-        comboBox1.setItems(FXCollections.observableArrayList(basicTypes));
-        init("000011");
+        comboBox1.setValue("开放式基金");
+        comboBox1.setItems(FXCollections.observableArrayList(marketTypes));
+        initComboxBox(marketID);
+        init("000001");
     }
 
     private void init(String sectorID){
@@ -184,7 +185,7 @@ public class allFundUIController implements Initializable {
     }
 
     private void initTab(){
-        final int[] i = {0,0};
+        final int[] i = {0,1};
         tab1.setOnMouseEntered(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent e){
@@ -195,6 +196,7 @@ public class allFundUIController implements Initializable {
             @Override
             public void handle(MouseEvent e){
                 i[0] =1;
+                i[1] =0;
                  k=1;
                 tabImage1.setVisible(true);
                 tabImage2.setVisible(false);
@@ -206,7 +208,7 @@ public class allFundUIController implements Initializable {
         tab1.setOnMouseExited(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event) {
-                if(k==0){tabImage1.setVisible(true);}else {
+                if(k==0&i[1]==0){tabImage1.setVisible(true);}else {
                     if (i[0] == 1) {
                         tabImage1.setVisible(true);
                     } else {
@@ -233,6 +235,7 @@ public class allFundUIController implements Initializable {
             @Override
             public void handle(MouseEvent e){
                 i[1] =1;
+                i[0] =0;
                  k=1;
                 tabImage2.setVisible(true);
                 tabImage1.setVisible(false);
@@ -251,8 +254,12 @@ public class allFundUIController implements Initializable {
         tab2.setOnMouseExited(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event) {
-                if(i[1]==1){tabImage2.setVisible(true);}else{
-                    tabImage2.setVisible(false);
+                if(k==0&i[0]==0){tabImage2.setVisible(true);}else {
+                    if (i[1] ==1) {
+                        tabImage2.setVisible(true);
+                    } else {
+                        tabImage2.setVisible(false);
+                    }
                 }
             }
         });
@@ -365,10 +372,12 @@ public class allFundUIController implements Initializable {
                         selectedIndex = TableRowControl.this.getIndex();
                         fundID = codeColumn.getCellData(selectedIndex);
                         fundName = full_nameColumn.getCellData(selectedIndex);
-                        initChart1(fundID);
-                        initChart2(fundID);
                         fullNameLabel.setText(fundName);
                         fundIDLabel.setText(fundID);
+                        lineChart1.getData().clear();
+                        lineChart2.getData().clear();
+                        initChart1(fundID);
+                        initChart2(fundID);
                     }
                     if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
                         selectedIndex = TableRowControl.this.getIndex();
