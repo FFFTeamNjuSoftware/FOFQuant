@@ -6,6 +6,7 @@ import bl.BaseInfoLogic;
 import bl.MarketLogic;
 import blimpl.BLController;
 import exception.ObjectNotFoundException;
+import strategy.FundRankStrategy;
 import util.TimeType;
 import util.UnitType;
 
@@ -19,11 +20,11 @@ import java.util.*;
  * 基金公司指标&条件阈值=条件指标
  * 用条件指标过滤风险收益指标->排名指标
  */
-public class FundRankStrategyImpl implements FundRankStrategy{
+public class FundRankStrategyImpl implements FundRankStrategy {
     private MarketLogic marketLogic;
     private BaseInfoLogic baseInfoLogic;
 
-    private FundRankStrategyImpl(){
+    public FundRankStrategyImpl(){
         marketLogic= BLController.getMarketLogic();
         baseInfoLogic=BLController.getBaseInfoLogic();
     }

@@ -1,4 +1,4 @@
-package strategyimpl;
+package strategy;
 
 import exception.ObjectNotFoundException;
 import util.TimeType;
