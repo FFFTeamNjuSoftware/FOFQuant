@@ -16,9 +16,7 @@ import java.util.*;
 /**
  * Created by Seven on 16/8/19.
  * 基金评级策略
- * 风险指标R*收益指标E=风险收益指标
- * 基金公司指标&条件阈值=条件指标
- * 用条件指标过滤风险收益指标->排名指标
+ * 晨星评级 单一指标(总回报率,晨星风险系数,夏普比率)+综合评价
  */
 public class FundRankStrategyImpl implements FundRankStrategy {
     private MarketLogic marketLogic;
@@ -134,4 +132,32 @@ public class FundRankStrategyImpl implements FundRankStrategy {
         }
         return rank;
     }
+
+    @Override
+    public double getRiskIndex(String fundcode, TimeType timeType) throws RemoteException, ObjectNotFoundException {
+        double returnRate=0.0;
+        double noRiskRate=0.0;
+        int month=0;
+        switch (timeType){
+            case THREE_YEAR:
+                month=12*3;
+                break;
+            default:
+                month=12;
+        }
+        //获得同类基金的个数N
+        int N=1;
+        double tr=0.0;
+        double dtr=0.0;
+        double dr=0.0;
+        for(int i=0;i<month;i++) {
+            returnRate = this.getFundReturnRate(fundcode,i+1,timeType);
+            noRiskRate=this.getFundNoRiskRate(fundcode,i+1);
+            tr=(returnRate-noRiskRate<0)?(returnRate-noRiskRate):0;
+            dtr=-tr/month;
+        }
+        return 0;
+    }
+
+
 }

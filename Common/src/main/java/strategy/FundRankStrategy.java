@@ -60,4 +60,12 @@ public interface FundRankStrategy {
      */
     public Map<String ,Integer> refreshFundRank(TimeType timeType) throws RemoteException, ObjectNotFoundException;
 
+    /**
+     * 晨星风险系数
+     * @param fundcode
+     * @param timeType
+     * @return
+     */
+    public double getRiskIndex(String fundcode,TimeType timeType) throws RemoteException, ObjectNotFoundException;
+
 }
