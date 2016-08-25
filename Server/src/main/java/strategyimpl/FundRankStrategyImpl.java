@@ -112,6 +112,7 @@ public class FundRankStrategyImpl implements FundRankStrategy {
         List<String> codes=baseInfoLogic.getFundCodes();
         for(int i=0;i<codes.size();i++){
             index.put(codes.get(i),this.getMRAR(codes.get(i),timeType));
+            System.out.println("running"+codes.get(i));
         }
         List<Map.Entry<String,Double>> fundCodes=new ArrayList<Map.Entry<String, Double>>(index.entrySet());
         //按照降序排序
