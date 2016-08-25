@@ -33,15 +33,21 @@ public class FundRankStrategyImpl implements FundRankStrategy {
     public double getFundReturnRate(String fundcode, int month, TimeType timeType) throws RemoteException, ObjectNotFoundException {
         List<PriceInfo> priceInfoList=marketLogic.getPriceInfo(fundcode, UnitType.MONTH);
         double returnRate=1.0;
+
         switch (timeType){
             case THREE_YEAR:
-                if(priceInfoList.size()>12*3) {
+                if(priceInfoList.size()<12*3) {
+                    return 0;
+                }else{
                     priceInfoList = priceInfoList.subList(priceInfoList.size() - 12 * 3, priceInfoList.size());
                 }
                 break;
             default:
-                if(priceInfoList.size()>12) {
+                if(priceInfoList.size()<12) {
+                    return 0;
+                }else{
                     priceInfoList = priceInfoList.subList(priceInfoList.size() - 12, priceInfoList.size());
+
                 }
         }
         for(int i=0;i<month;i++){
