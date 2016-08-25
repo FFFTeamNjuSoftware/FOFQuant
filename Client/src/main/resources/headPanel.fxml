@@ -14,9 +14,9 @@
       <Screen fx:factory="getPrimary" fx:id="screen"/>
    </fx:define>
    <children>
-      <GridPane layoutX="825.0" layoutY="-2.0" prefHeight="${screen.bounds.width*(30.0/1366)}" prefWidth="${screen.bounds.width*(105.0/1366)}">
+      <GridPane layoutX="825.0" layoutY="-2.0" prefHeight="30.0" prefWidth="105.0">
          <children>
-            <ImageView fx:id="minImage" fitHeight="${screen.bounds.width*(20.0/1366)}" fitWidth="${screen.bounds.width*(20.0/1366)}" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="minImage" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@/images/min.png" />
                </image>
@@ -24,7 +24,7 @@
                   <Insets left="8.0" right="5.0" top="15.0" />
                </GridPane.margin>
             </ImageView>
-            <ImageView fx:id="exitImage" fitHeight="${screen.bounds.width*(20.0/1366)}" fitWidth="${screen.bounds.width*(20.0/1366)}" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+            <ImageView fx:id="exitImage" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
                <image>
                   <Image url="@/images/exit.png" />
                </image>
@@ -32,8 +32,8 @@
                   <Insets left="7.0" right="4.0" top="5.0" />
                </GridPane.margin>
             </ImageView>
-            <Button fx:id="minBtn" mnemonicParsing="false" onAction="#toMinScreen" prefHeight="${screen.bounds.width*(30.0/1366)}" prefWidth="${screen.bounds.width*(42.0/1366)}" style="-fx-background-color: transparent;" textFill="WHITE" />
-            <Button fx:id="exitBtn" mnemonicParsing="false" onAction="#toExitScreen" opacity="0.26" prefHeight="${screen.bounds.width*(30.0/1366)}" prefWidth="${screen.bounds.width*(69.0/1366)}" style="-fx-background-color: transparent;" textFill="WHITE" GridPane.columnIndex="2" />
+            <Button fx:id="minBtn" mnemonicParsing="false" onAction="#toMinScreen" prefHeight="30.0" prefWidth="42.0" style="-fx-background-color: transparent;" textFill="WHITE" />
+            <Button fx:id="exitBtn" mnemonicParsing="false" onAction="#toExitScreen" opacity="0.26" prefHeight="30.0" prefWidth="69.0" style="-fx-background-color: transparent;" textFill="WHITE" GridPane.columnIndex="2" />
             <ImageView fx:id="fullImage" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets left="7.0" top="9.0" />
@@ -42,24 +42,24 @@
                   <Image url="@/images/full.png" />
                </image>
             </ImageView>
-            <Button fx:id="fullBtn" mnemonicParsing="false" onAction="#toFullScreen" prefHeight="${screen.bounds.width*(31.0/1366)}" prefWidth="${screen.bounds.width*(36.0/1366)}" style="-fx-background-color: transparent;" GridPane.columnIndex="1" />
+            <Button fx:id="fullBtn" mnemonicParsing="false" onAction="#toFullScreen" prefHeight="31.0" prefWidth="36.0" style="-fx-background-color: transparent;" GridPane.columnIndex="1" />
          </children>
          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="${screen.bounds.width*(10.0/1366)}" prefWidth="${screen.bounds.width*(100.0/1366)}" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="${screen.bounds.width*(10.0/1366)}" prefWidth="${screen.bounds.width*(100.0/1366)}" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="${screen.bounds.width*(10.0/1366)}" prefWidth="${screen.bounds.width*(100.0/1366)}" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints minHeight="${screen.bounds.width*(10.0/1366)}" prefHeight="${screen.bounds.width*(30.0/1366)}" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <Line endX="930.0" layoutY="34.0" stroke="#bbbbbb" strokeWidth="${screen.bounds.width*(1.0/1366)}" />
-      <ImageView fitHeight="${screen.bounds.width*(26.0/1366)}" fitWidth="${screen.bounds.width*(178.0/1366)}" layoutX="38.0" layoutY="3.5" pickOnBounds="true" preserveRatio="true">
+      <Line endX="930.0" layoutY="34.0" stroke="#bbbbbb" strokeWidth="1" />
+      <ImageView fitHeight="26.0" fitWidth="178.0" layoutX="38.0" layoutY="3.5" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@/images/search.png" />
          </image>
       </ImageView>
-      <Button fx:id="searchBtn" layoutX="45.0" layoutY="3.0" mnemonicParsing="false" onAction="#toSearchFund" prefHeight="${screen.bounds.width*(25.0/1366)}" prefWidth="${screen.bounds.width*(26.0/1366)}" style="-fx-background-color: transparent;" textFill="WHITE" />
-      <TextField fx:id="searchTextField" layoutX="70.0" layoutY="3.5" prefHeight="${screen.bounds.width*(26.0/1366)}" prefWidth="${screen.bounds.width*(144.0/1366)}" style="-fx-background-color: transparent;" />
+      <Button fx:id="searchBtn" layoutX="45.0" layoutY="3.0" mnemonicParsing="false" onAction="#toSearchFund" prefHeight="25.0" prefWidth="26.0" style="-fx-background-color: transparent;" textFill="WHITE" />
+      <TextField fx:id="searchTextField" layoutX="70.0" layoutY="3.5" prefHeight="26.0" prefWidth="144.0" style="-fx-background-color: transparent;" />
    </children>
 </AnchorPane>
