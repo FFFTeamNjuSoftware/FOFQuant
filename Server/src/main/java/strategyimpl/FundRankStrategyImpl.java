@@ -35,10 +35,14 @@ public class FundRankStrategyImpl implements FundRankStrategy {
         double returnRate=1.0;
         switch (timeType){
             case THREE_YEAR:
-                priceInfoList=priceInfoList.subList(priceInfoList.size()-12*3,priceInfoList.size());
+                if(priceInfoList.size()>12*3) {
+                    priceInfoList = priceInfoList.subList(priceInfoList.size() - 12 * 3, priceInfoList.size());
+                }
                 break;
             default:
-                priceInfoList=priceInfoList.subList(priceInfoList.size()-12,priceInfoList.size());
+                if(priceInfoList.size()>12) {
+                    priceInfoList = priceInfoList.subList(priceInfoList.size() - 12, priceInfoList.size());
+                }
         }
         for(int i=0;i<month;i++){
             returnRate=returnRate*(priceInfoList.get(i).rise+1);
