@@ -1,5 +1,8 @@
 .root{
     -fx-background-image: url("../images/controlBarBg.png");
-    -fx-height: 34.0/768.0vh;
-    -fx-width: 970.0/1366.0vw;
+    -fx-height: 34.0px;
+    -fx-width: 970.0px;
 }
+/*
+-fx-height: 34.0/768.0vh;
+-fx-width: 970.0/1366.0vw;*/

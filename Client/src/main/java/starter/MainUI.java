@@ -66,8 +66,10 @@ public class MainUI extends Application {
 		sizeRatio =  theWidth/ normalWidth;
 
 
-		primaryStage.setHeight(618 * sizeRatio);
-		primaryStage.setWidth(1000 * sizeRatio);
+//		primaryStage.setHeight(618 * sizeRatio);
+//		primaryStage.setWidth(1000 * sizeRatio);
+		primaryStage.setHeight(618 );
+//		primaryStage.setWidth(1000 );
 		primaryStage.setTitle("FoFQuant");
 		primaryStage.initStyle(StageStyle.UNDECORATED);
 		primaryStage.setResizable(false);

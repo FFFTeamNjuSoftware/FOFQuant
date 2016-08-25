@@ -119,11 +119,11 @@ public class FundRankStrategyImpl implements FundRankStrategy {
             @Override
             public int compare(Map.Entry<String, Double> o1, Map.Entry<String, Double> o2) {
                 if(o2.getValue()>o1.getValue()){
-                    return 1;
+                    return -1;
                 }else if (o2.getValue()==o1.getValue()){
                     return 0;
                 }else{
-                    return -1;
+                    return 1;
                 }
             }
         });
@@ -131,7 +131,7 @@ public class FundRankStrategyImpl implements FundRankStrategy {
         //计算对应等级
         int size=fundCodes.size();
         for (int i=0;i<size;i++){
-            String code=fundCodes.get(i).toString();
+            String code=fundCodes.get(i).getKey();
             int fundRank=0;
             if(i<=size*0.1){
                 fundRank=5;

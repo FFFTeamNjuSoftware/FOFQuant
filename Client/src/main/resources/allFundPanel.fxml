@@ -7,104 +7,94 @@
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.stage.Screen?>
-
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="970.0" styleClass="root" stylesheets="@css/stageView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.userUI.allFundUI.allFundUIController">
-
-    <!--这是screen的初始化-->
-    <fx:define>
-        <Screen fx:factory="getPrimary" fx:id="screen"/>
-    </fx:define>
-    <!--测试Label-->
-    <!--<Label text="${screen.bounds.width}"/>-->
-
-   <children>
-      <AnchorPane layoutY="73.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="${screen.bounds.width*(292.0/1366)}" prefWidth="${screen.bounds.width*(970.0/1366)}">
-         <children>
-            <TableView fx:id="table" blendMode="LIGHTEN" layoutX="50.0" layoutY="34.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="${screen.bounds.width*(238.0/1366)}" prefWidth="${screen.bounds.width*(870.0/1366)}">
-              <columns>
-                <TableColumn fx:id="codeColumn" maxWidth="${screen.bounds.width*(55.0/1366)}" minWidth="${screen.bounds.width*(20.0/1366)}" prefWidth="${screen.bounds.width*(55.0/1366)}" resizable="false" text="代码" />
-                <TableColumn fx:id="full_nameColumn" maxWidth="${screen.bounds.width*(120.0/1366)}" minWidth="${screen.bounds.width*(20.0/1366)}" prefWidth="${screen.bounds.width*(94.0/1366)}" text="名称" />
-                  <TableColumn fx:id="current_netWorthColumn" maxWidth="${screen.bounds.width*(70.0/1366)}" minWidth="${screen.bounds.width*(20.0/1366)}" prefWidth="${screen.bounds.width*(70.0/1366)}" text="当前净值" />
-                  <TableColumn fx:id="daily_riseColumn" maxWidth="${screen.bounds.width*(70.0/1366)}" minWidth="${screen.bounds.width*(20.0/1366)}" prefWidth="${screen.bounds.width*(70.0/1366)}" text="日涨幅" />
-                  <TableColumn fx:id="nearOneMonthColumn" maxWidth="${screen.bounds.width*(70.0/1366)}" minWidth="${screen.bounds.width*(20.0/1366)}" prefWidth="${screen.bounds.width*(70.0/1366)}" text="近一月" />
-                  <TableColumn fx:id="nearThreeMonthColumn" maxWidth="${screen.bounds.width*(70.0/1366)}" minWidth="${screen.bounds.width*(20.0/1366)}" prefWidth="${screen.bounds.width*(70.0/1366)}" text="近三月" />
-                  <TableColumn fx:id="nearSixMonthColumn" maxWidth="${screen.bounds.width*(70.0/1366)}" minWidth="${screen.bounds.width*(20.0/1366)}" prefWidth="${screen.bounds.width*(70.0/1366)}" text="近半年" />
-                  <TableColumn fx:id="nearOneYearColumn" maxWidth="${screen.bounds.width*(70.0/1366)}" minWidth="${screen.bounds.width*(20.0/1366)}" prefWidth="${screen.bounds.width*(70.0/1366)}" text="近一年" />
-                  <TableColumn fx:id="nearThreeYearColumn" maxWidth="${screen.bounds.width*(70.0/1366)}" minWidth="${screen.bounds.width*(20.0/1366)}" prefWidth="${screen.bounds.width*(70.0/1366)}" text="近三年" />
-                  <TableColumn fx:id="nearFiveYearColumn" maxWidth="${screen.bounds.width*(70.0/1366)}" minWidth="${screen.bounds.width*(20.0/1366)}" prefWidth="${screen.bounds.width*(70.0/1366)}" text="近五年" />
-                  <TableColumn fx:id="sinceEstablishColumn" maxWidth="${screen.bounds.width*(70.0/1366)}" minWidth="${screen.bounds.width*(20.0/1366)}" prefWidth="${screen.bounds.width*(70.0/1366)}" text="自建立" />
-                  <TableColumn fx:id="yearRateColumn" maxWidth="${screen.bounds.width*(70.0/1366)}" minWidth="${screen.bounds.width*(20.0/1366)}" prefWidth="${screen.bounds.width*(70.0/1366)}" resizable="false" text="年化收益" />
-              </columns>
-            </TableView>
-            <ComboBox fx:id="comboBox1" layoutX="49.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="${screen.bounds.width*(24.0/1366)}" prefWidth="${screen.bounds.width*(144.0/1366)}" style="-fx-background-color: #057DC8; -fx-color: #ffffff;" />
-           </children>
-      </AnchorPane>
-      <Line endX="970.0" fill="WHITE" layoutY="368.0" stroke="#bbbbbb" />
-      <ImageView fx:id="tabImage1" fitHeight="${screen.bounds.width*(32.0/1366)}" fitWidth="${screen.bounds.width*(144.0/1366)}" layoutX="49.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@/images/buttonBig.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="tabImage2" fitHeight="${screen.bounds.width*(32.0/1366)}" fitWidth="${screen.bounds.width*(144.0/1366)}" layoutX="214.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true" visible="false">
-         <image>
-            <Image url="@/images/buttonBig.png" />
-         </image>
-      </ImageView>
-      <Label fx:id="tab1" layoutX="54.0" layoutY="24.0" fitHeight="${screen.bounds.width*(27.0/1366)}" fitWidth="${screen.bounds.width*(136.0/1366)}" text="   基金基础类" textFill="WHITE">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label fx:id="tab2" layoutX="219.0" layoutY="24.0" prefHeight="27.0" prefWidth="136.0" text="   基金市场类" textFill="WHITE">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Line endX="460.0" endY="570.0" fill="WHITE" startX="460.0" startY="380.0" stroke="#bbbbbb" />
-      <AnchorPane fx:id="leftAnchorPane" layoutX="32.0" layoutY="413.0" prefHeight="${screen.bounds.width*(148.0/1366)}" prefWidth="${screen.bounds.width*(392.0/1366)}">
-         <children>
-            <LineChart fx:id="lineChart1" blendMode="LIGHTEN" layoutX="-1.0" layoutY="14.0" prefHeight="150.0" prefWidth="394.0">
-              <xAxis>
-                <CategoryAxis fx:id="date1Axis" side="BOTTOM" />
-              </xAxis>
-              <yAxis>
-                <NumberAxis fx:id="y1Axis" side="LEFT" />
-              </yAxis>
-            </LineChart>
-         </children></AnchorPane>
-      <AnchorPane fx:id="rightAnchorPane" layoutX="461.0" layoutY="367.0" prefHeight="${screen.bounds.width*(217.0/1366)}" prefWidth="${screen.bounds.width*(511.0/1366)}">
-         <children>
-            <LineChart fx:id="lineChart2" blendMode="LIGHTEN" layoutX="36.0" layoutY="52.0" prefHeight="156.0" prefWidth="405.0">
-               <xAxis>
-                  <CategoryAxis fx:id="date2Axis" side="BOTTOM" />
-               </xAxis>
-               <yAxis>
-                  <NumberAxis fx:id="y2Axis" side="LEFT" />
-               </yAxis>
-            </LineChart>
-         </children></AnchorPane>
-       <GridPane layoutX="45.0" layoutY="379.0" prefHeight="${screen.bounds.width*(24.0/1366)}" prefWidth="${screen.bounds.width*(180.0/1366)}">
-           <columnConstraints>
-               <ColumnConstraints hgrow="SOMETIMES" maxWidth="${screen.bounds.width*(143.0/1366)}" minWidth="${screen.bounds.width*(10.0/1366)}" prefWidth="${screen.bounds.width*(117.0/1366)}" />
-               <ColumnConstraints hgrow="SOMETIMES" maxWidth="${screen.bounds.width*(100.0/1366)}" minWidth="${screen.bounds.width*(10.0/1366)}" prefWidth="${screen.bounds.width*(100.0/1366)}" />
-           </columnConstraints>
-           <rowConstraints>
-               <RowConstraints minHeight="${screen.bounds.width*(10.0/1366)}" prefHeight="${screen.bounds.width*(30.0/1366)}" vgrow="SOMETIMES" />
-           </rowConstraints>
-           <children>
-               <Label fx:id="fullNameLabel" prefHeight="${screen.bounds.width*(19.0/1366)}" prefWidth="${screen.bounds.width*(154.0/1366)}" text="" textFill="#ffea00">
-                   <font>
-                       <Font size="14.0" />
-                   </font>
-               </Label>
-               <Label fx:id="fundIDLabel" prefHeight="${screen.bounds.width*(19.0/1366)}" prefWidth="${screen.bounds.width*(116.0/1366)}" text="" textFill="WHITE" GridPane.columnIndex="1">
-                   <font>
-                       <Font size="14.0" />
-                   </font>
-               </Label>
-           </children>
-       </GridPane>
-   </children>
+    <children>
+        <AnchorPane layoutY="73.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="292.0" prefWidth="970.0">
+            <children>
+                <TableView fx:id="table" blendMode="LIGHTEN" layoutX="50.0" layoutY="34.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="238.0" prefWidth="870.0">
+                    <columns>
+                        <TableColumn fx:id="codeColumn" maxWidth="55.0" minWidth="20.0" prefWidth="55.0" resizable="false" text="代码" />
+                        <TableColumn fx:id="full_nameColumn" maxWidth="100.0" minWidth="20.0" prefWidth="94.0" text="名称" />
+                        <TableColumn fx:id="current_netWorthColumn" maxWidth="70.0" minWidth="20.0" prefWidth="70.0" text="当前净值" />
+                        <TableColumn fx:id="daily_riseColumn" maxWidth="70.0" minWidth="20.0" prefWidth="70.0" text="日涨幅" />
+                        <TableColumn fx:id="nearOneMonthColumn" maxWidth="70.0" minWidth="20.0" prefWidth="70.0" text="近一月" />
+                        <TableColumn fx:id="nearThreeMonthColumn" maxWidth="70.0" minWidth="20.0" prefWidth="70.0" text="近三月" />
+                        <TableColumn fx:id="nearSixMonthColumn" maxWidth="70.0" minWidth="20.0" prefWidth="70.0" text="近半年" />
+                        <TableColumn fx:id="nearOneYearColumn" maxWidth="70.0" minWidth="20.0" prefWidth="70.0" text="近一年" />
+                        <TableColumn fx:id="nearThreeYearColumn" maxWidth="70.0" minWidth="20.0" prefWidth="70.0" text="近三年" />
+                        <TableColumn fx:id="nearFiveYearColumn" maxWidth="70.0" minWidth="20.0" prefWidth="70.0" text="近五年" />
+                        <TableColumn fx:id="sinceEstablishColumn" maxWidth="70.0" minWidth="20.0" prefWidth="70.0" text="自建立" />
+                        <TableColumn fx:id="yearRateColumn" maxWidth="70.0" minWidth="20.0" prefWidth="70.0" resizable="false" text="年化收益" />
+                    </columns>
+                </TableView>
+                <ComboBox fx:id="comboBox1" layoutX="49.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="144.0" style="-fx-background-color: #057DC8; -fx-color: #ffffff;" />
+            </children>
+        </AnchorPane>
+        <Line endX="970.0" fill="WHITE" layoutY="368.0" stroke="#bbbbbb" />
+        <ImageView fx:id="tabImage1" fitHeight="32.0" fitWidth="144.0" layoutX="49.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@/images/buttonBig.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="tabImage2" fitHeight="32.0" fitWidth="144.0" layoutX="214.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true" visible="false">
+            <image>
+                <Image url="@/images/buttonBig.png" />
+            </image>
+        </ImageView>
+        <Label fx:id="tab1" layoutX="54.0" layoutY="24.0" prefHeight="27.0" prefWidth="136.0" text="   基金基础类" textFill="WHITE">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
+        <Label fx:id="tab2" layoutX="219.0" layoutY="24.0" prefHeight="27.0" prefWidth="136.0" text="   基金市场类" textFill="WHITE">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
+        <Line endX="460.0" endY="570.0" fill="WHITE" startX="460.0" startY="380.0" stroke="#bbbbbb" />
+        <AnchorPane fx:id="leftAnchorPane" layoutX="32.0" layoutY="413.0" prefHeight="148.0" prefWidth="392.0">
+            <children>
+                <LineChart fx:id="lineChart1" blendMode="LIGHTEN" layoutX="-1.0" layoutY="14.0" prefHeight="150.0" prefWidth="394.0">
+                    <xAxis>
+                        <CategoryAxis fx:id="date1Axis" side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis fx:id="y1Axis" side="LEFT" />
+                    </yAxis>
+                </LineChart>
+            </children></AnchorPane>
+        <AnchorPane fx:id="rightAnchorPane" layoutX="461.0" layoutY="367.0" prefHeight="217.0" prefWidth="511.0">
+            <children>
+                <LineChart fx:id="lineChart2" blendMode="LIGHTEN" layoutX="36.0" layoutY="52.0" prefHeight="156.0" prefWidth="405.0">
+                    <xAxis>
+                        <CategoryAxis fx:id="date2Axis" side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis fx:id="y2Axis" side="LEFT" />
+                    </yAxis>
+                </LineChart>
+            </children></AnchorPane>
+        <GridPane layoutX="45.0" layoutY="379.0" prefHeight="24.0" prefWidth="180.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="143.0" minWidth="10.0" prefWidth="117.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Label fx:id="fullNameLabel" prefHeight="19.0" prefWidth="154.0" text="" textFill="#ffea00">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+                <Label fx:id="fundIDLabel" prefHeight="19.0" prefWidth="116.0" text="" textFill="WHITE" GridPane.columnIndex="1">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+            </children>
+        </GridPane>
+    </children>
 </AnchorPane>
