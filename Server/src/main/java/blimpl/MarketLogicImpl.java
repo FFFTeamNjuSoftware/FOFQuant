@@ -208,13 +208,15 @@ public class MarketLogicImpl extends UnicastRemoteObject implements MarketLogic 
                     dateProfitInfo.put(key, value * (1 + info.rise / 100));
                 }
             });
-            System.out.println(info.rise);
             yearRate += info.rise;
             sinceEstablish *= (1 + info.rise / 100);
         }
         sinceEstablish = sinceEstablish - 1;
         System.out.println(yearRate + "," + infos.size());
-        yearRate = yearRate / infos.size() * 252;
+        if (infos.size() > 252)
+            yearRate = yearRate / infos.size() * 252;
+        else
+            yearRate = 0;
         profitRateInfo.nearOneMonth = (dateProfitInfo.get(oneMonth) - 1) * 100;
         profitRateInfo.nearThreeMonth = (dateProfitInfo.get(threeMonth) - 1) * 100;
         profitRateInfo.nearSixMonth = (dateProfitInfo.get(sixMonth) - 1) * 100;

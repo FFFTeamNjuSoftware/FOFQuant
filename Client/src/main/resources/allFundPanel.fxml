@@ -25,7 +25,7 @@
             <TableView fx:id="table" blendMode="LIGHTEN" layoutX="50.0" layoutY="34.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="${screen.bounds.width*(238.0/1366)}" prefWidth="${screen.bounds.width*(870.0/1366)}">
               <columns>
                 <TableColumn fx:id="codeColumn" maxWidth="${screen.bounds.width*(55.0/1366)}" minWidth="${screen.bounds.width*(20.0/1366)}" prefWidth="${screen.bounds.width*(55.0/1366)}" resizable="false" text="代码" />
-                <TableColumn fx:id="full_nameColumn" maxWidth="${screen.bounds.width*(100.0/1366)}" minWidth="${screen.bounds.width*(20.0/1366)}" prefWidth="${screen.bounds.width*(94.0/1366)}" text="名称" />
+                <TableColumn fx:id="full_nameColumn" maxWidth="${screen.bounds.width*(120.0/1366)}" minWidth="${screen.bounds.width*(20.0/1366)}" prefWidth="${screen.bounds.width*(94.0/1366)}" text="名称" />
                   <TableColumn fx:id="current_netWorthColumn" maxWidth="${screen.bounds.width*(70.0/1366)}" minWidth="${screen.bounds.width*(20.0/1366)}" prefWidth="${screen.bounds.width*(70.0/1366)}" text="当前净值" />
                   <TableColumn fx:id="daily_riseColumn" maxWidth="${screen.bounds.width*(70.0/1366)}" minWidth="${screen.bounds.width*(20.0/1366)}" prefWidth="${screen.bounds.width*(70.0/1366)}" text="日涨幅" />
                   <TableColumn fx:id="nearOneMonthColumn" maxWidth="${screen.bounds.width*(70.0/1366)}" minWidth="${screen.bounds.width*(20.0/1366)}" prefWidth="${screen.bounds.width*(70.0/1366)}" text="近一月" />

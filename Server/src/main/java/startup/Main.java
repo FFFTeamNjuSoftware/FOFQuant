@@ -13,6 +13,7 @@ import java.rmi.RemoteException;
 public class Main {
     public static void main(String []args){
         try {
+            HibernateBoot.init();
             NetInitial.initial();
         } catch (DocumentException e) {
             e.printStackTrace();

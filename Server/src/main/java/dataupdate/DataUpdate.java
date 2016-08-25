@@ -63,6 +63,9 @@ public class DataUpdate {
                 continue;
             } catch (RemoteException e) {
                 e.printStackTrace();
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+                continue;
             }
             fundQuickInfosEntity.setNetWorth(priceInfo.price);
             fundQuickInfosEntity.setDailyRise(priceInfo.rise);
@@ -85,7 +88,7 @@ public class DataUpdate {
             fundQuickInfosEntity.setSinceEstablish(profitRateInfo.sinceEstablish);
             fundQuickInfosEntity.setYearRate(profitRateInfo.yearRate);
 //            writer.flush();
-            se.save(fundQuickInfosEntity);
+            se.saveOrUpdate(fundQuickInfosEntity);
         }
         tra.commit();
     }
