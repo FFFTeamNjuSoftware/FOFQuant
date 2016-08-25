@@ -7,6 +7,8 @@ import strategy.FundRankStrategy;
 import strategyimpl.FundRankStrategyImpl;
 import util.TimeType;
 
+import java.util.Map;
+
 /**
  * Created by Seven on 16/8/24.
  */
@@ -27,25 +29,28 @@ public class FundRankStrategyImplTest {
 
     @Test
     public void getFundNoRiskRate() throws Exception {
-        double noRiskRate=fundRankStrategy.getFundNoRiskRate("000002",12);
+        double noRiskRate=fundRankStrategy.getFundNoRiskRate("000001",12);
         System.out.println(noRiskRate);
     }
 
     @Test
     public void getFundProfit() throws Exception {
-        double profit=fundRankStrategy.getFundProfit("000002",12, TimeType.ONE_YEAR);
+        double profit=fundRankStrategy.getFundProfit("000001",12, TimeType.ONE_YEAR);
         System.out.println(profit);
     }
 
     @Test
     public void getMRAR() throws Exception {
-        double mrar=fundRankStrategy.getMRAR("000002",TimeType.ONE_YEAR);
+        double mrar=fundRankStrategy.getMRAR("000001",TimeType.ONE_YEAR);
         System.out.println(mrar);
     }
 
     @Test
     public void refreshFundRank() throws Exception {
-        fundRankStrategy.refreshFundRank(TimeType.ONE_YEAR);
+        Map<String,Integer> maps=fundRankStrategy.refreshFundRank(TimeType.ONE_YEAR);
+        for(String str:maps.keySet() ){
+            System.out.println(str+","+maps.get(str));
+        };
     }
 
 }
