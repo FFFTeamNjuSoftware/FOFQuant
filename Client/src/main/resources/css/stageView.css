@@ -1,7 +1,7 @@
 .root{
     -fx-background-image: url("../images/totalBg.png");
-    -fx-height: 584px;
-    -fx-width: 970px;
+    -fx-height: 584/768.0vh;
+    -fx-width: 970/1366.0vw;
 }
 
 .table-view {

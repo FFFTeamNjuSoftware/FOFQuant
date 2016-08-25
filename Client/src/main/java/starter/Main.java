@@ -67,8 +67,8 @@ public class Main  extends Application {
      //   writePanel= FXMLLoader.load(getClass().getClassLoader().getResource("writePanel.fxml"));
       //  manager_guidePanel =FXMLLoader.load(getClass().getClassLoader().getResource("manager_guidePanel.fxml"));
 
-        primaryStage.setHeight(618);
-        primaryStage.setWidth(1000);
+        primaryStage.setHeight(618*MainUI.sizeRatio);
+        primaryStage.setWidth(1000*MainUI.sizeRatio);
         primaryStage.setTitle("FoFQuant");
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.isResizable();

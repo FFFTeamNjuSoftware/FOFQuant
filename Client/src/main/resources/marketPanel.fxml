@@ -9,7 +9,12 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="basicPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="928.0" styleClass="root" stylesheets="@css/stageView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.userUI.marketUI.MarketPanelController">
+<?import javafx.stage.Screen?>
+<AnchorPane fx:id="basicPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="${screen.bounds.width*(584.0/1366)}" prefWidth="9${screen.bounds.width*(28.0/1366)}" styleClass="root" stylesheets="@css/stageView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.userUI.marketUI.MarketPanelController">
+   <!--这是screen的初始化-->
+   <fx:define>
+      <Screen fx:factory="getPrimary" fx:id="screen"/>
+   </fx:define>
    <children>
       <Label fx:id="simple_name" layoutX="18.0" layoutY="34.0" text="基金名称" textFill="#fcf246">
          <font>
@@ -261,7 +266,7 @@
             <Font size="12.0" />
          </font>
       </Label>
-      <FlowPane layoutX="276.0" layoutY="423.0" prefHeight="152.0" prefWidth="385.0" />
+      <FlowPane layoutX="276.0" layoutY="423.0" prefHeight="${screen.bounds.width*(152.0/1366)}" prefWidth="${screen.bounds.width*(385.0/1366)}" />
       <Group fx:id="profitGroup">
          <children>
             <Label id="alpha" fx:id="alpha" layoutX="882.0" layoutY="423.0" text="alpha" textFill="WHITE">
@@ -330,6 +335,6 @@
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="profitChartPane" layoutX="265.0" layoutY="97.0" prefHeight="221.0" prefWidth="643.0" />
+      <AnchorPane fx:id="profitChartPane" layoutX="265.0" layoutY="97.0" prefHeight="${screen.bounds.width*(221.0/1366)}" prefWidth="${screen.bounds.width*(643.0/1366)}" />
    </children>
 </AnchorPane>
