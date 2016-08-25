@@ -30,10 +30,16 @@ public class FundRankStrategyImpl implements FundRankStrategy {
 
 
     @Override
-    public double getFundReturnRate(String fundcode, int month, TimeType timeType) throws RemoteException, ObjectNotFoundException {
-        List<PriceInfo> priceInfoList=marketLogic.getPriceInfo(fundcode, UnitType.MONTH);
-        double returnRate=1.0;
+    public double getFundReturnRate(String fundcode, int month, TimeType timeType) throws RemoteException {
+        List<PriceInfo> priceInfoList= null;
+        try {
+            priceInfoList = marketLogic.getPriceInfo(fundcode, UnitType.MONTH);
+        } catch (ObjectNotFoundException e) {
+            System.out.println("基金"+fundcode+"无对应数据");
+            return 0.0;
+        }
 
+        double returnRate=1.0;
         switch (timeType){
             case THREE_YEAR:
                 if(priceInfoList.size()<12*3) {
@@ -64,7 +70,7 @@ public class FundRankStrategyImpl implements FundRankStrategy {
     }
 
     @Override
-    public double getFundProfit(String fundcode, int month,TimeType timeType) throws RemoteException, ObjectNotFoundException {
+    public double getFundProfit(String fundcode, int month,TimeType timeType) throws RemoteException{
         double returnRate=this.getFundReturnRate(fundcode,month,timeType);
         double noRiskRate=this.getFundNoRiskRate(fundcode,month);
         double profit=(1+returnRate)/(1+noRiskRate)-1;
@@ -72,7 +78,7 @@ public class FundRankStrategyImpl implements FundRankStrategy {
     }
 
     @Override
-    public double getMRAR(String fundcode, TimeType timeType) throws RemoteException, ObjectNotFoundException {
+    public double getMRAR(String fundcode, TimeType timeType) throws RemoteException{
         double riskDislikeFactor=baseInfoLogic.getConstaParameteer().riskDislikeFactor;
         double MRAR=1.0;
         double profit=0.0;
@@ -100,7 +106,7 @@ public class FundRankStrategyImpl implements FundRankStrategy {
         return MRAR;
     }
 
-    public Map<String ,Integer> refreshFundRank(TimeType timeType) throws RemoteException, ObjectNotFoundException {
+    public Map<String ,Integer> refreshFundRank(TimeType timeType) throws RemoteException{
         Map<String,Integer> rank=new HashMap<>();
         Map<String,Double> index=new HashMap<>();
         List<String> codes=baseInfoLogic.getFundCodes();
@@ -144,7 +150,7 @@ public class FundRankStrategyImpl implements FundRankStrategy {
     }
 
     @Override
-    public double getRiskIndex(String fundcode, TimeType timeType) throws RemoteException, ObjectNotFoundException {
+    public double getRiskIndex(String fundcode, TimeType timeType) throws RemoteException{
         double returnRate=0.0;
         double noRiskRate=0.0;
         int month=0;
