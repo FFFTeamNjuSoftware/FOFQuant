@@ -31,6 +31,7 @@ public class MainUI extends Application {
 	private static HBox hbox;
 	private static VBox vbox;
 	private final double normalWidth = 1366;
+	private final double normalHeight=768;
 
 	public static double sizeRatio;
 
@@ -61,8 +62,8 @@ public class MainUI extends Application {
 
 		Rectangle2D primaryScreenBounds = Screen.getPrimary().getBounds();
 		double theWidth = primaryScreenBounds.getWidth();
-		System.out.print("width:"+theWidth+"height:"+primaryScreenBounds.getHeight());
-		sizeRatio = normalWidth / theWidth;
+		System.out.println("width:"+theWidth+"height:"+primaryScreenBounds.getHeight());
+		sizeRatio =  theWidth/ normalWidth;
 
 
 		primaryStage.setHeight(618 * sizeRatio);
