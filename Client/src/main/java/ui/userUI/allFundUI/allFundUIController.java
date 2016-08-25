@@ -26,6 +26,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
+import starter.MainUI;
 import util.ChartType;
 import util.TimeType;
 import util.UnitType;
@@ -382,7 +383,7 @@ public class allFundUIController implements Initializable {
                     if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
                         selectedIndex = TableRowControl.this.getIndex();
                         fundID = codeColumn.getCellData(selectedIndex);
-                        System.out.println("......Enter :" + fundID + " panel......");
+                        MainUI.getInstance().changeScene("user_guidePanel","marketPanel");
                     }
 
                 }

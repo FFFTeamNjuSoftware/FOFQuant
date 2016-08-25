@@ -89,7 +89,7 @@ public class MarketLogicImplTest {
      */
     @Test
     public void testGetProfitRateInfo() throws Exception {
-        ProfitRateInfo info = marketLogic.getProfitRateInfo("159943");
+        ProfitRateInfo info = marketLogic.getProfitRateInfo("511800");
         System.out.println(new Gson().toJson(info));
     }
 

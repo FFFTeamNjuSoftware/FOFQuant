@@ -67,7 +67,7 @@ public class managerGuideUIController implements Initializable {
 
     @FXML
     public void user_logout()  {
-        MainUI.enterLoginPanel();
+        MainUI.getInstance().enterLoginPanel();
     }
 
     public void toUserManagerPanel(){

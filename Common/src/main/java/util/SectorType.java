@@ -4,6 +4,11 @@ package util;
  * Created by Daniel on 2016/8/20.
  */
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * 基金分类类别的类
  */
@@ -60,4 +65,13 @@ public class SectorType {
      * 其他类
      */
     public static final String OTHER_TYPE = "000013";
+
+    public static final Map<String, List<String>> COMPONENT_INFO = new HashMap<>();
+
+    static {
+        COMPONENT_INFO.put(FIX_PROFIT_TYPE, Arrays.asList(BOND_TYPE, MONEY_MARKET_TYPE,
+                GUARANTEED_TYPE));
+        COMPONENT_INFO.put(RIGHTS_TYPE, Arrays.asList(STOCK_TYPE, MIX_TYPE));
+        COMPONENT_INFO.put(OTHER_TYPE, Arrays.asList(INDEX_TYPE, QDII_TYPE, LOF_TYPE, ETF_TYPE));
+    }
 }
