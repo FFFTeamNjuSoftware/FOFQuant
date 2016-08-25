@@ -47,7 +47,7 @@ public class FundRankStrategyImplTest {
 
     @Test
     public void refreshFundRank() throws Exception {
-        Map<String,Integer> maps=fundRankStrategy.refreshFundRank(TimeType.ONE_YEAR);
+        Map<String,Integer> maps=fundRankStrategy.refreshFundRank(TimeType.THREE_YEAR);
         for(String str:maps.keySet() ){
             System.out.println(str+","+maps.get(str));
         };
