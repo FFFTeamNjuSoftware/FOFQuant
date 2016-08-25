@@ -33,9 +33,11 @@ public class MainUI extends Application {
     public static MainUI getInstance() {
         return instance;
     }
+
     public static Stage getPrimaryStage() {
         return primaryStage;
     }
+
     public static Scene getPrimaryScene() {
         return primaryScene;
     }
@@ -51,6 +53,7 @@ public class MainUI extends Application {
             System.out.print("......net fail......+\n");
         }
         this.primaryStage = primaryStage;
+
         loginPanel = FXMLHelper.loadPanel("loginPanel");
         primaryStage.setHeight(618);
         primaryStage.setWidth(1000);
@@ -61,6 +64,7 @@ public class MainUI extends Application {
         primaryScene = new Scene(loginPanel);
         addDraggableNode(loginPanel);
         primaryStage.setScene(primaryScene);
+
         primaryStage.show();
     }
 
@@ -99,23 +103,21 @@ public class MainUI extends Application {
         });
     }
 
-        public static void enterLoginPanel() {
+    public void enterLoginPanel() {
         AnchorPane pane = FXMLHelper.loadPanel("loginPanel");
         MainUI.primaryScene = new Scene(pane);
-        MainUI mainui = new MainUI();
-        mainui.addDraggableNode(pane);
+        addDraggableNode(pane);
         MainUI.primaryStage.setScene(primaryScene);
-
     }
 
-    public void changeScene(String guideName,String mainStageName) {
+    public void changeScene(String guideName, String mainStageName) {
         vbox = new VBox();
         hbox = new HBox();
         AnchorPane headPane = FXMLHelper.loadPanel("headPanel");
         AnchorPane guidePane = FXMLHelper.loadPanel(guideName);
         AnchorPane mainStagePane = FXMLHelper.loadPanel(mainStageName);
-        vbox.getChildren().addAll(headPane,mainStagePane);
-        hbox.getChildren().addAll(guidePane,vbox);
+        vbox.getChildren().addAll(headPane, mainStagePane);
+        hbox.getChildren().addAll(guidePane, vbox);
         primaryScene = new Scene(hbox);
         addDraggableNode(hbox);
         primaryStage.setScene(primaryScene);
