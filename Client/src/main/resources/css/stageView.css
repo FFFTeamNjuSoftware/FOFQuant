@@ -63,7 +63,7 @@
     -fx-background-color: transparent;
 }
 .chart-vertical-grid-lines {
-    -fx-stroke: #ffffff;
+    -fx-stroke: transparent;
 }
 .chart-horizontal-grid-lines {
     -fx-stroke: transparent;
@@ -80,9 +80,11 @@
 }
 .chart-series-line0 {
     -fx-stroke:transparent;
+    -fx-stroke-width: 0px;
 }
 .chart-series-line1 {
     -fx-stroke:transparent;
+    -fx-stroke-width: 0px;
 }
 
 .chart-line-symbol {
