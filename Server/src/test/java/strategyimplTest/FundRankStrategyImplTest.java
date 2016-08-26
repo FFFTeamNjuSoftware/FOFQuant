@@ -41,7 +41,7 @@ public class FundRankStrategyImplTest {
 
     @Test
     public void getMRAR() throws Exception {
-        double mrar=fundRankStrategy.getMRAR("000001",TimeType.ONE_YEAR);
+        double mrar=fundRankStrategy.getMRAR("000001",TimeType.ONE_YEAR,"2015-12-31");
         System.out.println(mrar);
     }
 
@@ -53,4 +53,11 @@ public class FundRankStrategyImplTest {
         };
     }
 
+    @Test
+    public void getFundRankByDate() throws Exception{
+        Map<String,Integer> maps=fundRankStrategy.getFundRankByDate(TimeType.THREE_YEAR,"2015-12-31");
+        for(String str:maps.keySet() ){
+            System.out.println(str+","+maps.get(str));
+        };
+    }
 }

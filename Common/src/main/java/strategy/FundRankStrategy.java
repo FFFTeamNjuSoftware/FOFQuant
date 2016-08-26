@@ -50,7 +50,7 @@ public interface FundRankStrategy {
      * @param timeType
      * @return
      */
-    public double getMRAR(String fundcode, TimeType timeType) throws RemoteException;
+    public double getMRAR(String fundcode, TimeType timeType,String endDate) throws RemoteException;
 
     /**
      * 更新基金评级
@@ -60,6 +60,15 @@ public interface FundRankStrategy {
      * @throws ObjectNotFoundException
      */
     public Map<String ,Integer> refreshFundRank(TimeType timeType) throws RemoteException;
+
+    /**
+     * 获得某个时间点时的评级
+     * @param endDate
+     * @param timeType
+     * @return
+     * @throws RemoteException
+     */
+    public Map<String,Integer> getFundRankByDate(TimeType timeType,String endDate) throws RemoteException;
 
     /**
      * 晨星风险系数

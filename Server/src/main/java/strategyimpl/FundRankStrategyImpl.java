@@ -6,7 +6,9 @@ import bl.BaseInfoLogic;
 import bl.MarketLogic;
 import blimpl.BLController;
 import exception.ObjectNotFoundException;
+import exception.ParameterException;
 import strategy.FundRankStrategy;
+import util.CalendarOperate;
 import util.TimeType;
 import util.UnitType;
 
@@ -55,17 +57,20 @@ public class FundRankStrategyImpl implements FundRankStrategy {
     }
 
     @Override
-    public double getMRAR(String fundcode, TimeType timeType) throws RemoteException{
+    public double getMRAR(String fundcode, TimeType timeType,String endDate) throws RemoteException{
         List<PriceInfo> priceInfos=null;
         System.out.println("开始计算基金"+fundcode);
-        try {
-            priceInfos=marketLogic.getPriceInfo(fundcode,UnitType.MONTH);
-        } catch (ObjectNotFoundException e) {
-            System.out.println("基金"+fundcode+"没有对应的数据");
-            return 0.0;
-        }
+
         switch (timeType){
             case THREE_YEAR:
+                try {
+                        priceInfos=marketLogic.getPriceInfo(fundcode,UnitType.MONTH,"0000-00-00",endDate);
+                } catch (ObjectNotFoundException e) {
+                    System.out.println("基金"+fundcode+"没有对应的数据");
+                    return 0.0;
+                } catch (ParameterException e) {
+                    System.out.println("starDate:\" + startDate + \" is behind endDate:\" + endDate");
+                }
                 if(priceInfos.size()<12*3) {
                     return 0;
                 }else{
@@ -107,13 +112,30 @@ public class FundRankStrategyImpl implements FundRankStrategy {
     }
 
     public Map<String ,Integer> refreshFundRank(TimeType timeType) throws RemoteException{
-        Map<String,Integer> rank=new HashMap<>();
         Map<String,Double> index=new HashMap<>();
         List<String> codes=baseInfoLogic.getFundCodes();
         for(int i=0;i<codes.size();i++){
-            index.put(codes.get(i),this.getMRAR(codes.get(i),timeType));
+            index.put(codes.get(i),this.getMRAR(codes.get(i),timeType, CalendarOperate.formatCalender(Calendar.getInstance())));
             System.out.println("running"+codes.get(i));
         }
+        Map<String,Integer> rank=this.Sequence(index);
+        return rank;
+    }
+
+    @Override
+    public Map<String, Integer> getFundRankByDate(TimeType timeType,String endDate) throws RemoteException {
+        Map<String,Double> index=new HashMap<>();
+        List<String> codes=baseInfoLogic.getFundCodes();
+        for(int i=0;i<codes.size();i++){
+            index.put(codes.get(i),this.getMRAR(codes.get(i),timeType, endDate));
+            System.out.println("running"+codes.get(i));
+        }
+        Map<String,Integer> rank=this.Sequence(index);
+        return rank;
+    }
+
+    public Map<String,Integer> Sequence(Map<String,Double> index){
+        Map<String,Integer> rank=new HashMap<>();
         List<Map.Entry<String,Double>> fundCodes=new ArrayList<Map.Entry<String, Double>>(index.entrySet());
         //按照降序排序
         Collections.sort(fundCodes, new Comparator<Map.Entry<String, Double>>() {
@@ -149,6 +171,7 @@ public class FundRankStrategyImpl implements FundRankStrategy {
         }
         return rank;
     }
+
 
     @Override
     public double getRiskIndex(String fundcode, TimeType timeType) throws RemoteException{
