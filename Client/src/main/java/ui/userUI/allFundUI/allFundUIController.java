@@ -300,6 +300,7 @@ public class allFundUIController implements Initializable {
 
         XYChart.Series series1 = new XYChart.Series();
         series1.setName("单位净值");
+        double temp1=priceInfoList.get(0).price;
         for(int i = 0; i< priceInfoList.size(); i++) {
             series1.getData().add(new XYChart.Data(priceInfoList.get(i).date, priceInfoList.get(i).price));
         }
@@ -307,6 +308,7 @@ public class allFundUIController implements Initializable {
 
         XYChart.Series series2 = new XYChart.Series();
         series2.setName("累计净值");
+        double temp2=priceInfoList.get(0).total_netWorth;
         marketLogic=blInterfaces.getMarketLogic();
         for(int i = 0; i< priceInfoList.size(); i++) {
             series2.getData().add(new XYChart.Data(priceInfoList.get(i).date, priceInfoList.get(i).total_netWorth));
@@ -314,7 +316,6 @@ public class allFundUIController implements Initializable {
 
         lineChart1.getData().add(0,series1);
         lineChart1.getData().add(1,series2);
-
 
     }
 
