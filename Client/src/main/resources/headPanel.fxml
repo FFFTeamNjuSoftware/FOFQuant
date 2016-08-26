@@ -7,7 +7,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.stage.Screen?>
 <AnchorPane fx:id="basicPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="34.0" prefWidth="930.0" styleClass="root" stylesheets="@css/headView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.headUI.headUIController">
+   <!--这是screen的初始化-->
+   <fx:define>
+      <Screen fx:factory="getPrimary" fx:id="screen"/>
+   </fx:define>
    <children>
       <GridPane layoutX="825.0" layoutY="-2.0" prefHeight="30.0" prefWidth="105.0">
          <children>

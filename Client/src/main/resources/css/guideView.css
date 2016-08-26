@@ -1,5 +1,8 @@
 .root{
     -fx-background-image: url("../images/sidebarBg.png");
-    -fx-height: 618px;
-    -fx-width: 30px;
+    -fx-height: 618.0px;
+    -fx-width: 30.0px;
 }
+/*
+-fx-height: 618.0/768.0vh;
+-fx-width: 30.0/1366vw;*/

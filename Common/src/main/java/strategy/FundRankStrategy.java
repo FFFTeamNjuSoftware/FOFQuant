@@ -1,9 +1,11 @@
-package strategyimpl;
+package strategy;
 
+import beans.PriceInfo;
 import exception.ObjectNotFoundException;
 import util.TimeType;
 
 import java.rmi.RemoteException;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,31 +19,30 @@ public interface FundRankStrategy {
 
     /**
      * 获得基金第t月的总回报率TRt
-     * @param fundcode
+     * @param priceInfoList
      * @param month
      * @return
      * @throws RemoteException
      * @throws ObjectNotFoundException
      */
-    public double getFundReturnRate(String fundcode, int month,TimeType timeType) throws RemoteException, ObjectNotFoundException;
+    public double getFundReturnRate(List<PriceInfo> priceInfoList, int month, TimeType timeType) throws RemoteException;
 
     /**
      * 获得基金第t月的无风险资产收益率Rbt
-     * @param fundcode
      * @param month
      * @return
      */
-    public double getFundNoRiskRate(String fundcode,int month) throws RemoteException;
+    public double getFundNoRiskRate(int month) throws RemoteException;
 
     /**
      * 获得第t月的几何超额收益rGt
-     * @param fundcode
+     * @param priceInfoList
      * @param month
      * @return
      * @throws RemoteException
      * @throws ObjectNotFoundException
      */
-    public double getFundProfit(String fundcode,int month,TimeType timeType) throws RemoteException, ObjectNotFoundException;
+    public double getFundProfit(List<PriceInfo> priceInfoList,int month,TimeType timeType) throws RemoteException;
 
     /**
      * 获得基金近三年、近三年风险调整后收益 MRAR
@@ -49,7 +50,7 @@ public interface FundRankStrategy {
      * @param timeType
      * @return
      */
-    public double getMRAR(String fundcode, TimeType timeType) throws RemoteException, ObjectNotFoundException;
+    public double getMRAR(String fundcode, TimeType timeType) throws RemoteException;
 
     /**
      * 更新基金评级
@@ -58,6 +59,14 @@ public interface FundRankStrategy {
      * @throws RemoteException
      * @throws ObjectNotFoundException
      */
-    public Map<String ,Integer> refreshFundRank(TimeType timeType) throws RemoteException, ObjectNotFoundException;
+    public Map<String ,Integer> refreshFundRank(TimeType timeType) throws RemoteException;
+
+    /**
+     * 晨星风险系数
+     * @param fundcode
+     * @param timeType
+     * @return
+     */
+    public double getRiskIndex(String fundcode,TimeType timeType) throws RemoteException;
 
 }

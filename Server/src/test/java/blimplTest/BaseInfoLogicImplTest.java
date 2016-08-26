@@ -68,7 +68,7 @@ public class BaseInfoLogicImplTest {
      */
     @Test
     public void testGetFundQuickInfo() throws Exception {
-        List<FundQuickInfo> infos = baseInfoLogic.getFundQuickInfo("000002");
+        List<FundQuickInfo> infos = baseInfoLogic.getFundQuickInfo("000011");
 //        System.out.println(new Gson().toJson(infos));
         infos.stream().forEach(e -> System.out.println(new Gson().toJson(e)));
     }

@@ -64,10 +64,10 @@ public class MarketPanelController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         marketLogic = BLInterfaces.getMarketLogic();
-        initBaseInfo();
-        initProfitFeature();
-        initProfitRate();
-        initProfitChart();
+//        initBaseInfo();
+//        initProfitFeature();
+//        initProfitRate();
+//        initProfitChart();
     }
 
     public void initBaseInfo() {
@@ -149,21 +149,20 @@ public class MarketPanelController implements Initializable {
         } catch (ObjectNotFoundException e) {
             e.printStackTrace();
         }
-        System.out.println(list.size());
         String[] year = new String[list.size()];
         double[][] nums = new double[3][list.size()];
-        if (list != null) {
-            for (int i = 0; i < list.size(); i++) {
-                ProfitChartInfo info = list.get(i);
-                year[i] = info.date;
-            }
-            for (int i = 0; i < 3; i++) {
-                for(int j = 0;j<list.size();j++) {
-                    ProfitChartInfo info = list.get(j);
-                    nums[i][j] = info.values[j];
-                }
+
+        for (int i = 0; i < list.size(); i++) {
+            ProfitChartInfo info = list.get(i);
+            year[i] = info.date;
+        }
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < list.size(); j++) {
+                ProfitChartInfo info = list.get(j);
+                nums[i][j] = info.values[j];
             }
         }
+
         generator.setData(year, nums);
     }
 }
