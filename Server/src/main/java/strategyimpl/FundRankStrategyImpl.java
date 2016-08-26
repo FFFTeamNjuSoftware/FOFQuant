@@ -36,9 +36,9 @@ public class FundRankStrategyImpl implements FundRankStrategy {
         double returnRate=1.0;
 
         for(int i=0;i<month;i++){
-            returnRate=returnRate*(priceInfoList.get(i).rise+1);
+            returnRate=returnRate*(priceInfoList.get(i).rise+100);
         }
-        returnRate=returnRate-1;
+        returnRate=returnRate-100;
         return returnRate;
     }
 
