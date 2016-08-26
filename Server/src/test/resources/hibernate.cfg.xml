@@ -4,16 +4,20 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <!--<property name="connection.url">-->
-            <!--<![CDATA[jdbc:mysql://localhost:3306/fofquant?useUnicode=true&characterEncoding=utf8]]>-->
-        <!--</property>-->
         <property name="connection.url">
-        <![CDATA[jdbc:mysql://57be9e812240b.sh.cdb.myqcloud.com:4970/fofquant?useUnicode=true&characterEncoding=utf8]]>
+            <![CDATA[jdbc:mysql://localhost:3306/fofquant?useUnicode=true&characterEncoding=utf8]]>
         </property>
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
-        <property name="connection.username">cdb_outerroot</property>
-        <property name="connection.password">fff123456</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password">123456</property>
+        <!--<property name="connection.url">-->
+        <!--<![CDATA[jdbc:mysql://57be9e812240b.sh.cdb.myqcloud.com:4970/fofquant?useUnicode=true&characterEncoding=utf8]]>-->
+        <!--</property>-->
+        <!--<property name="connection.driver_class">com.mysql.jdbc.Driver</property>-->
+        <!--<property name="dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>-->
+        <!--<property name="connection.username">cdb_outerroot</property>-->
+        <!--<property name="connection.password">fff123456</property>-->
         <mapping class="entities.AssetAllocationEntity"/>
         <mapping class="entities.FundInfosEntity"/>
         <mapping class="entities.IndustryHoldInfoEntity"/>

@@ -95,7 +95,7 @@ public class MarketLogicImpl extends UnicastRemoteObject implements MarketLogic 
         int startIndex = 0, endIndex = infos.size() - 1;
         while (startDate.compareTo(infos.get(startIndex).date) > 0)
             startIndex++;
-        while (endDate.compareTo(infos.get(endIndex).date) < 0)
+        while (endDate.compareTo(infos.get(endIndex).date) < 0 && endIndex >= 0)
             endIndex--;
         endIndex++;
         return infos.subList(startIndex, endIndex);
