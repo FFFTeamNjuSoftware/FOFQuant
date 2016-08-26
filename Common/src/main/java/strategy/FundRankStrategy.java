@@ -1,9 +1,11 @@
 package strategy;
 
+import beans.PriceInfo;
 import exception.ObjectNotFoundException;
 import util.TimeType;
 
 import java.rmi.RemoteException;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,31 +19,30 @@ public interface FundRankStrategy {
 
     /**
      * 获得基金第t月的总回报率TRt
-     * @param fundcode
+     * @param priceInfoList
      * @param month
      * @return
      * @throws RemoteException
      * @throws ObjectNotFoundException
      */
-    public double getFundReturnRate(String fundcode, int month,TimeType timeType) throws RemoteException;
+    public double getFundReturnRate(List<PriceInfo> priceInfoList, int month, TimeType timeType) throws RemoteException;
 
     /**
      * 获得基金第t月的无风险资产收益率Rbt
-     * @param fundcode
      * @param month
      * @return
      */
-    public double getFundNoRiskRate(String fundcode,int month) throws RemoteException;
+    public double getFundNoRiskRate(int month) throws RemoteException;
 
     /**
      * 获得第t月的几何超额收益rGt
-     * @param fundcode
+     * @param priceInfoList
      * @param month
      * @return
      * @throws RemoteException
      * @throws ObjectNotFoundException
      */
-    public double getFundProfit(String fundcode,int month,TimeType timeType) throws RemoteException;
+    public double getFundProfit(List<PriceInfo> priceInfoList,int month,TimeType timeType) throws RemoteException;
 
     /**
      * 获得基金近三年、近三年风险调整后收益 MRAR

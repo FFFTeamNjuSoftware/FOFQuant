@@ -30,32 +30,9 @@ public class FundRankStrategyImpl implements FundRankStrategy {
 
 
     @Override
-    public double getFundReturnRate(String fundcode, int month, TimeType timeType) throws RemoteException {
-        List<PriceInfo> priceInfoList= null;
-        try {
-            priceInfoList = marketLogic.getPriceInfo(fundcode, UnitType.MONTH);
-        } catch (ObjectNotFoundException e) {
-            System.out.println("基金"+fundcode+"无对应数据");
-            return 0.0;
-        }
-
+    public double getFundReturnRate(List<PriceInfo> priceInfoList, int month, TimeType timeType) throws RemoteException {
         double returnRate=1.0;
-        switch (timeType){
-            case THREE_YEAR:
-                if(priceInfoList.size()<12*3) {
-                    return 0;
-                }else{
-                    priceInfoList = priceInfoList.subList(priceInfoList.size() - 12 * 3, priceInfoList.size());
-                }
-                break;
-            default:
-                if(priceInfoList.size()<12) {
-                    return 0;
-                }else{
-                    priceInfoList = priceInfoList.subList(priceInfoList.size() - 12, priceInfoList.size());
 
-                }
-        }
         for(int i=0;i<month;i++){
             returnRate=returnRate*(priceInfoList.get(i).rise+1);
         }
@@ -64,21 +41,44 @@ public class FundRankStrategyImpl implements FundRankStrategy {
     }
 
     @Override
-    public double getFundNoRiskRate(String fundcode, int month) throws RemoteException {
+    public double getFundNoRiskRate(int month) throws RemoteException {
         ConstParameter constant=baseInfoLogic.getConstaParameteer();
         return constant.noRiskProfit;
     }
 
     @Override
-    public double getFundProfit(String fundcode, int month,TimeType timeType) throws RemoteException{
-        double returnRate=this.getFundReturnRate(fundcode,month,timeType);
-        double noRiskRate=this.getFundNoRiskRate(fundcode,month);
+    public double getFundProfit(List<PriceInfo> priceInfoList, int month,TimeType timeType) throws RemoteException{
+        double returnRate=this.getFundReturnRate(priceInfoList,month,timeType);
+        double noRiskRate=this.getFundNoRiskRate(month);
         double profit=(1+returnRate)/(1+noRiskRate)-1;
         return profit;
     }
 
     @Override
     public double getMRAR(String fundcode, TimeType timeType) throws RemoteException{
+        List<PriceInfo> priceInfos=null;
+        System.out.println("开始计算基金"+fundcode);
+        try {
+            priceInfos=marketLogic.getPriceInfo(fundcode,UnitType.MONTH);
+        } catch (ObjectNotFoundException e) {
+            System.out.println("基金"+fundcode+"没有对应的数据");
+            return 0.0;
+        }
+        switch (timeType){
+            case THREE_YEAR:
+                if(priceInfos.size()<12*3) {
+                    return 0;
+                }else{
+                    priceInfos = priceInfos.subList(priceInfos.size() - 12 * 3, priceInfos.size());
+                }
+                break;
+            default:
+                if(priceInfos.size()<12) {
+                    return 0;
+                }else{
+                    priceInfos = priceInfos.subList(priceInfos.size() - 12, priceInfos.size());
+                }
+        }
         double riskDislikeFactor=baseInfoLogic.getConstaParameteer().riskDislikeFactor;
         double MRAR=1.0;
         double profit=0.0;
@@ -92,13 +92,13 @@ public class FundRankStrategyImpl implements FundRankStrategy {
         }
         if (riskDislikeFactor==0){
             for(int i=0;i<T;i++){
-                profit=this.getFundProfit(fundcode,i+1,timeType);
+                profit=this.getFundProfit(priceInfos,i+1,timeType);
                 MRAR=MRAR*(1+profit);
             }
             MRAR=Math.pow(MRAR,12/T)-1;
         }else{
             for(int i=0;i<T;i++){
-                profit=this.getFundProfit(fundcode,i+1,timeType);
+                profit=this.getFundProfit(priceInfos,i+1,timeType);
                 MRAR=MRAR+Math.pow(1+profit,-riskDislikeFactor);
             }
             MRAR=Math.pow(MRAR/T,-12/T)-1;
@@ -167,12 +167,12 @@ public class FundRankStrategyImpl implements FundRankStrategy {
         double tr=0.0;
         double dtr=0.0;
         double dr=0.0;
-        for(int i=0;i<month;i++) {
-            returnRate = this.getFundReturnRate(fundcode,i+1,timeType);
-            noRiskRate=this.getFundNoRiskRate(fundcode,i+1);
-            tr=(returnRate-noRiskRate<0)?(returnRate-noRiskRate):0;
-            dtr=-tr/month;
-        }
+//        for(int i=0;i<month;i++) {
+//            returnRate = this.getFundReturnRate(fundcode,i+1,timeType);
+//            noRiskRate=this.getFundNoRiskRate(fundcode,i+1);
+//            tr=(returnRate-noRiskRate<0)?(returnRate-noRiskRate):0;
+//            dtr=-tr/month;
+//        }
         return 0;
     }
 

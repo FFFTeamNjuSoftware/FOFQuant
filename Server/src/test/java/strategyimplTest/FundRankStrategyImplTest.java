@@ -23,20 +23,20 @@ public class FundRankStrategyImplTest {
 
     @Test
     public void getFundReturnRate() throws Exception {
-        double returnRate=fundRankStrategy.getFundReturnRate("000002",12,TimeType.ONE_YEAR);
-        System.out.println(returnRate);
+//        double returnRate=fundRankStrategy.getFundReturnRate("000002",12,TimeType.ONE_YEAR);
+//        System.out.println(returnRate);
     }
 
     @Test
     public void getFundNoRiskRate() throws Exception {
-        double noRiskRate=fundRankStrategy.getFundNoRiskRate("000001",12);
-        System.out.println(noRiskRate);
+//        double noRiskRate=fundRankStrategy.getFundNoRiskRate("000001",12);
+//        System.out.println(noRiskRate);
     }
 
     @Test
     public void getFundProfit() throws Exception {
-        double profit=fundRankStrategy.getFundProfit("000001",12, TimeType.ONE_YEAR);
-        System.out.println(profit);
+//        double profit=fundRankStrategy.getFundProfit("000001",12, TimeType.ONE_YEAR);
+//        System.out.println(profit);
     }
 
     @Test
