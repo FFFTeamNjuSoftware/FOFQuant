@@ -47,6 +47,7 @@ public interface BaseInfoLogic extends Remote {
     /**
      * 获得所有基金类型
      * @return
+     */
     public List<String> getAllSectorType();
 
     /**
