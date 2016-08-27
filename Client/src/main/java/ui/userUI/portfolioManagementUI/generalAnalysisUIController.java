@@ -27,38 +27,35 @@ public class generalAnalysisUIController implements Initializable {
     }
 
     public void tabInit(){
-      //  tabPanel.getTabs().addAll(tab1Btn, tab2Btn, tab3Btn, tab4Btn,tab5Btn, tab6Btn);
+        tabPanel.getChildrenUnmodifiable().addAll(tab1Btn, tab2Btn, tab3Btn, tab4Btn,tab5Btn, tab6Btn);
 
         tabPanel.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>(){
         @Override
         public void changed(ObservableValue<? extends Tab> arg0, Tab arg1, Tab mostRecentlySelectedTab){
-//            if (mostRecentlySelectedTab.equals(dayChatTab)){
-//                calendarPanel.setOpacity(1);
-//                toLabel.setDisable(false);
-//                dateChoiceLabel.setDisable(false);
-//                minTime.setDisable(false);
-//                maxTime.setDisable(false);
-//                okBtn.setDisable(false);
-//                System.out.println("daytab");
-//            }
-//            if (mostRecentlySelectedTab.equals(weekChatTab)){
-//                calendarPanel.setOpacity(0);
-//                toLabel.setDisable(true);
-//                dateChoiceLabel.setDisable(true);
-//                minTime.setDisable(true);
-//                maxTime.setDisable(true);
-//                okBtn.setDisable(true);
-//                System.out.println("weektab");
-//            }
-//            if (mostRecentlySelectedTab.equals(monthChatTab)){
-//                calendarPanel.setOpacity(0);
-//                toLabel.setDisable(true);
-//                dateChoiceLabel.setDisable(true);
-//                minTime.setDisable(true);
-//                maxTime.setDisable(true);
-//                okBtn.setDisable(true);
-//                System.out.println("monthtab");
-//            }
+            if (mostRecentlySelectedTab.equals(tab1Btn)){
+
+                System.out.println("...tab1Btn...");
+            }
+            if (mostRecentlySelectedTab.equals(tab2Btn)){
+
+                System.out.println("...tab2Btn...");
+            }
+            if (mostRecentlySelectedTab.equals(tab3Btn)){
+
+                System.out.println("...tab3Btn...");
+            }
+            if (mostRecentlySelectedTab.equals(tab4Btn)){
+
+                System.out.println("...tab4Btn...");
+            }
+            if (mostRecentlySelectedTab.equals(tab5Btn)){
+
+                System.out.println("...tab5Btn...");
+            }
+            if (mostRecentlySelectedTab.equals(tab6Btn)){
+
+                System.out.println("...tab6Btn...");
+            }
         }
     });
 
