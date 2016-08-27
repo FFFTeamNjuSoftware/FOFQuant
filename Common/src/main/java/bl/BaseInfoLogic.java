@@ -48,7 +48,7 @@ public interface BaseInfoLogic extends Remote {
      * 获得所有基金类型
      * @return
      */
-    public List<String> getAllSectorType();
+    public List<String> getAllSectorType() throws RemoteException;
 
     /**
      * 获得基金的快速信息，用于榜单展示

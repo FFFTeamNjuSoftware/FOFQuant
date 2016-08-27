@@ -119,12 +119,13 @@ public class FundRankStrategyImpl implements FundRankStrategy {
 
     @Override
     public Map<String, Integer> getFundRankByDate(TimeType timeType,String endDate) throws RemoteException {
-        Map<String,Double> index=new HashMap<>();
+
         Map<String,Integer> rank=new HashMap<>();
         List<String> sectorTypes=baseInfoLogic.getAllSectorType();
         List<FundQuickInfo> fundQuickInfos=null;
         List<String> codes=null;
         for (int i=0;i<sectorTypes.size();i++){
+            Map<String,Double> index=new HashMap<>();
             try {
                 fundQuickInfos=baseInfoLogic.getFundQuickInfo(sectorTypes.get(i));
             } catch (ObjectNotFoundException e) {
