@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="970.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <children>
+    <ImageView fitHeight="86.0" fitWidth="200.0" layoutX="365.0" layoutY="248.0" onMouseClicked="buildFundBtClick" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/buildFundBt.png" />
+      </image>
+    </ImageView>
+  </children>
+</AnchorPane>

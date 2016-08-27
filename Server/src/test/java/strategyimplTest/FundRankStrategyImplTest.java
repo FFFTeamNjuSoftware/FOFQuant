@@ -1,12 +1,17 @@
 package strategyimplTest;
 
+import beans.PriceInfo;
+import bl.MarketLogic;
+import blimpl.BLController;
 import org.junit.Before;
 import org.junit.Test;
 import startup.HibernateBoot;
 import strategy.FundRankStrategy;
 import strategyimpl.FundRankStrategyImpl;
 import util.TimeType;
+import util.UnitType;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,17 +19,20 @@ import java.util.Map;
  */
 public class FundRankStrategyImplTest {
     FundRankStrategy fundRankStrategy;
-
+    MarketLogic marketLogic;
     @Before
     public void before() throws Exception{
         HibernateBoot.init();
         fundRankStrategy=new FundRankStrategyImpl();
+        marketLogic= BLController.getMarketLogic();
     }
 
     @Test
     public void getFundReturnRate() throws Exception {
-//        double returnRate=fundRankStrategy.getFundReturnRate("000002",12,TimeType.ONE_YEAR);
-//        System.out.println(returnRate);
+        List<PriceInfo> priceInfoList=marketLogic.getPriceInfo("233009", UnitType.MONTH,"0000-00-00","2016-08-12");
+
+        double returnRate=fundRankStrategy.getFundReturnRate(priceInfoList,12,TimeType.ONE_YEAR);
+        System.out.println(returnRate);
     }
 
     @Test
