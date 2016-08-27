@@ -3,6 +3,7 @@ package bl.fof;
 import util.SectorType;
 
 import java.io.Serializable;
+import java.util.Map;
 
 /**
  * Created by Daniel on 2016/8/26.
@@ -13,19 +14,15 @@ public interface FOFGenerateLogic extends Serializable {
      *
      * @return
      */
-    double[] getLargeClassConfiguration();
+    Map<SectorType, Double> getLargeClassConfiguration();
+
+
 
 
     /**
      * 返回小类配置权重比
+     *
      * @return
      */
-    double[][] getSmallClassConfiguration();
-
-    /**
-     * 返回小类配置权重比
-     * @param fundNum 各类型的基金数量
-     * @return
-     */
-    double[][] getSmallClassConfiguration(int ... fundNum);
+    Map<SectorType, Map<String, Double>> getSmallClassConfiguration();
 }

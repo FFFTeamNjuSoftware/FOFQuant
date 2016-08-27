@@ -55,7 +55,8 @@ public class FundRankStrategyImplTest {
 
     @Test
     public void getFundRankByDate() throws Exception{
-        Map<String,Integer> maps=fundRankStrategy.getFundRankByDate(TimeType.THREE_YEAR,"2015-12-31");
+        Map<String,Integer> maps=fundRankStrategy.getFundRankByDate(TimeType.THREE_YEAR,
+                "2016-08-26");
         for(String str:maps.keySet() ){
             System.out.println(str+","+maps.get(str));
         };

@@ -93,11 +93,13 @@ public class MarketLogicImpl extends UnicastRemoteObject implements MarketLogic 
         List<PriceInfo> infos = getPriceInfo(code, type);
         Collections.sort(infos, (e1, e2) -> e1.date.compareTo(e2.date));
         int startIndex = 0, endIndex = infos.size() - 1;
-        while (startDate.compareTo(infos.get(startIndex).date) > 0)
+        while (startIndex < infos.size()&&startDate.compareTo(infos.get(startIndex).date) > 0  )
             startIndex++;
-        while (endDate.compareTo(infos.get(endIndex).date) < 0 && endIndex >= 0)
+        while (endIndex >= 0&&endDate.compareTo(infos.get(endIndex).date) < 0  )
             endIndex--;
         endIndex++;
+        if (startIndex >= endIndex)
+            return new ArrayList<>();
         return infos.subList(startIndex, endIndex);
     }
 
