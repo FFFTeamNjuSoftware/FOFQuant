@@ -58,36 +58,30 @@ public class FundRankStrategyImpl implements FundRankStrategy {
     }
 
     @Override
-    public double getMRAR(String fundcode, TimeType timeType,String endDate) throws RemoteException{
-        List<PriceInfo> priceInfos=null;
-        System.out.println("开始计算基金"+fundcode);
+    public double getMRAR(String fundcode, TimeType timeType,String endDate) throws RemoteException, ParameterException, ObjectNotFoundException {
+        List<PriceInfo> priceInfos;
+        priceInfos=marketLogic.getPriceInfo(fundcode, UnitType.MONTH,"0000-00-00",endDate);
+            switch (timeType){
+                case THREE_YEAR:
+                    if(priceInfos.size()>=12*3) {
+                        priceInfos = priceInfos.subList(priceInfos.size() - 12 * 3, priceInfos.size());
+                    }else{
+                        throw new ObjectNotFoundException(fundcode+"数据不足");
+                    }
+                    break;
+                default:
+                    if(priceInfos.size()>=12) {
+                        priceInfos = priceInfos.subList(priceInfos.size() - 12, priceInfos.size());
+                    }else{
+                        throw new ObjectNotFoundException(fundcode+"数据不足");
+                    }
+            }
 
-        switch (timeType){
-            case THREE_YEAR:
-                try {
-                        priceInfos=marketLogic.getPriceInfo(fundcode,UnitType.MONTH,"0000-00-00",endDate);
-                } catch (ObjectNotFoundException e) {
-                    System.out.println("基金"+fundcode+"没有对应的数据");
-                    return 0.0;
-                } catch (ParameterException e) {
-                    System.out.println("starDate:\" + startDate + \" is behind endDate:\" + endDate");
-                }
-                if(priceInfos.size()<12*3) {
-                    return 0;
-                }else{
-                    priceInfos = priceInfos.subList(priceInfos.size() - 12 * 3, priceInfos.size());
-                }
-                break;
-            default:
-                if(priceInfos.size()<12) {
-                    return 0;
-                }else{
-                    priceInfos = priceInfos.subList(priceInfos.size() - 12, priceInfos.size());
-                }
-        }
-        double riskDislikeFactor=baseInfoLogic.getConstaParameteer().riskDislikeFactor;
-        double MRAR=1.0;
-        double profit=0.0;
+
+//        double riskDislikeFactor=baseInfoLogic.getConstaParameteer().riskDislikeFactor;
+        double riskDislikeFactor=2;
+        double MRAR;
+        double profit;
         int T;
         switch (timeType){
             case THREE_YEAR:
@@ -97,12 +91,14 @@ public class FundRankStrategyImpl implements FundRankStrategy {
                 T=12;
         }
         if (riskDislikeFactor==0){
+           MRAR=1.0;
             for(int i=0;i<T;i++){
                 profit=this.getFundProfit(priceInfos,i+1,timeType);
                 MRAR=MRAR*(1+profit);
             }
             MRAR=Math.pow(MRAR,12/T)-1;
         }else{
+            MRAR=0.0;
             for(int i=0;i<T;i++){
                 profit=this.getFundProfit(priceInfos,i+1,timeType);
                 MRAR=MRAR+Math.pow(1+profit,-riskDislikeFactor);
@@ -122,20 +118,30 @@ public class FundRankStrategyImpl implements FundRankStrategy {
 
         Map<String,Integer> rank=new HashMap<>();
         List<String> sectorTypes=baseInfoLogic.getAllSectorType();
-        List<FundQuickInfo> fundQuickInfos=null;
-        List<String> codes=null;
+        List<FundQuickInfo> fundQuickInfos=new ArrayList<>();
         for (int i=0;i<sectorTypes.size();i++){
-            Map<String,Double> index=new HashMap<>();
+            System.out.println("!!!!!!!!!正在处理"+sectorTypes.get(i)+"类型的基金!!!!!!!!!!!!!!");
             try {
                 fundQuickInfos=baseInfoLogic.getFundQuickInfo(sectorTypes.get(i));
             } catch (ObjectNotFoundException e) {
                 System.out.println("没有"+sectorTypes.get(i)+" 类型对应的数据");
             }
-            for (int j=0;i<fundQuickInfos.size();j++){
-                codes.add(fundQuickInfos.get(j).code);
-            }
-            for(int k=0;k<codes.size();k++){
-                index.put(codes.get(k),this.getMRAR(codes.get(k),timeType, endDate));
+
+            Map<String,Double> index=new HashMap<>();
+            String code="";
+            for (int j=0;j<fundQuickInfos.size();j++){
+                code=fundQuickInfos.get(j).code;
+                double mrar=0.0;
+                try {
+                     mrar=this.getMRAR(code,timeType,endDate);
+                } catch (ParameterException e) {
+                    System.out.println("startdate在"+endDate+"之前");
+                     continue;
+                } catch (ObjectNotFoundException e) {
+                    System.out.println("没有"+code+" 类型对应的数据");
+                    continue;
+                }
+                index.put(code,mrar);
             }
             rank.putAll(this.Sequence(index));
         }
@@ -150,11 +156,11 @@ public class FundRankStrategyImpl implements FundRankStrategy {
             @Override
             public int compare(Map.Entry<String, Double> o1, Map.Entry<String, Double> o2) {
                 if(o2.getValue()>o1.getValue()){
-                    return -1;
+                    return 1;
                 }else if (o2.getValue()==o1.getValue()){
                     return 0;
                 }else{
-                    return 1;
+                    return -1;
                 }
             }
         });

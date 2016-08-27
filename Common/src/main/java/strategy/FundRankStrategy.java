@@ -2,6 +2,7 @@ package strategy;
 
 import beans.PriceInfo;
 import exception.ObjectNotFoundException;
+import exception.ParameterException;
 import util.TimeType;
 
 import java.rmi.RemoteException;
@@ -50,7 +51,7 @@ public interface FundRankStrategy {
      * @param timeType
      * @return
      */
-    public double getMRAR(String fundcode, TimeType timeType,String endDate) throws RemoteException;
+    public double getMRAR(String fundcode, TimeType timeType,String endDate) throws RemoteException, ParameterException, ObjectNotFoundException;
 
     /**
      * 更新基金评级

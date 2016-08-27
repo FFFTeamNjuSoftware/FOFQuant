@@ -29,9 +29,9 @@ public class FundRankStrategyImplTest {
 
     @Test
     public void getFundReturnRate() throws Exception {
-        List<PriceInfo> priceInfoList=marketLogic.getPriceInfo("540006", UnitType.MONTH,"2016-08-01","2016-08-26");
+        List<PriceInfo> priceInfoList=marketLogic.getPriceInfo("450009", UnitType.MONTH,"2013-01-01","2013-12-31");
 
-        double returnRate=fundRankStrategy.getFundReturnRate(priceInfoList,1,TimeType.ONE_YEAR);
+        double returnRate=fundRankStrategy.getFundReturnRate(priceInfoList,12,TimeType.ONE_YEAR);
         System.out.println(returnRate);
     }
 
@@ -43,14 +43,14 @@ public class FundRankStrategyImplTest {
 
     @Test
     public void getFundProfit() throws Exception {
-        List<PriceInfo> priceInfoList=marketLogic.getPriceInfo("540006", UnitType.MONTH,"2016-08-01","2016-08-26");
+        List<PriceInfo> priceInfoList=marketLogic.getPriceInfo("540006", UnitType.MONTH,"2013-01-01","2013-12-31");
         double profit=fundRankStrategy.getFundProfit(priceInfoList,12, TimeType.ONE_YEAR);
         System.out.println(profit);
     }
 
     @Test
     public void getMRAR() throws Exception {
-        double mrar=fundRankStrategy.getMRAR("000001",TimeType.ONE_YEAR,"2015-12-31");
+        double mrar=fundRankStrategy.getMRAR("000001",TimeType.THREE_YEAR,"2015-12-31");
         System.out.println(mrar);
     }
 
