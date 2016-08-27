@@ -10,7 +10,6 @@ import exception.ObjectNotFoundException;
 import exception.ParameterException;
 import strategy.FundRankStrategy;
 import util.CalendarOperate;
-import util.SectorType;
 import util.TimeType;
 import util.UnitType;
 
@@ -114,30 +113,31 @@ public class FundRankStrategyImpl implements FundRankStrategy {
     }
 
     public Map<String ,Integer> refreshFundRank(TimeType timeType) throws RemoteException{
-        Map<String,Double> index=new HashMap<>();
-        List<String> codes=baseInfoLogic.getFundCodes();
-        for(int i=0;i<codes.size();i++){
-            index.put(codes.get(i),this.getMRAR(codes.get(i),timeType, CalendarOperate.formatCalender(Calendar.getInstance())));
-            System.out.println("running"+codes.get(i));
-        }
-        Map<String,Integer> rank=this.Sequence(index);
+        Map<String,Integer> rank=this.getFundRankByDate(timeType,CalendarOperate.formatCalender(Calendar.getInstance()));
         return rank;
     }
 
     @Override
     public Map<String, Integer> getFundRankByDate(TimeType timeType,String endDate) throws RemoteException {
         Map<String,Double> index=new HashMap<>();
-
-        try {
-            code = baseInfoLogic.getFundQuickInfo(SectorType.BOND_TYPE);
-        } catch (ObjectNotFoundException e) {
-            e.printStackTrace();
+        Map<String,Integer> rank=new HashMap<>();
+        List<String> sectorTypes=baseInfoLogic.getAllSectorType();
+        List<FundQuickInfo> fundQuickInfos=null;
+        List<String> codes=null;
+        for (int i=0;i<sectorTypes.size();i++){
+            try {
+                fundQuickInfos=baseInfoLogic.getFundQuickInfo(sectorTypes.get(i));
+            } catch (ObjectNotFoundException e) {
+                System.out.println("没有"+sectorTypes.get(i)+" 类型对应的数据");
+            }
+            for (int j=0;i<fundQuickInfos.size();j++){
+                codes.add(fundQuickInfos.get(j).code);
+            }
+            for(int k=0;k<codes.size();k++){
+                index.put(codes.get(k),this.getMRAR(codes.get(k),timeType, endDate));
+            }
+            rank.putAll(this.Sequence(index));
         }
-        for(int i=0;i<codes.size();i++){
-            index.put(codes.get(i),this.getMRAR(codes.get(i),timeType, endDate));
-            System.out.println("running"+codes.get(i));
-        }
-        Map<String,Integer> rank=this.Sequence(index);
         return rank;
     }
 

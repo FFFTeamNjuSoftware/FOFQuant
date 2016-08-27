@@ -45,6 +45,11 @@ public interface BaseInfoLogic extends Remote {
     public FundInfo getFundBaseInfo(String code) throws RemoteException, ObjectNotFoundException;
 
     /**
+     * 获得所有基金类型
+     * @return
+    public List<String> getAllSectorType();
+
+    /**
      * 获得基金的快速信息，用于榜单展示
      *
      * @param sectorId sectorId可通过SectorType类里的字段获取
