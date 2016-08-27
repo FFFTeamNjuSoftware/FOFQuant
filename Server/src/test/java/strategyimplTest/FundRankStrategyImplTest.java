@@ -29,22 +29,23 @@ public class FundRankStrategyImplTest {
 
     @Test
     public void getFundReturnRate() throws Exception {
-        List<PriceInfo> priceInfoList=marketLogic.getPriceInfo("233009", UnitType.MONTH,"0000-00-00","2016-08-12");
+        List<PriceInfo> priceInfoList=marketLogic.getPriceInfo("540006", UnitType.MONTH,"2016-08-01","2016-08-26");
 
-        double returnRate=fundRankStrategy.getFundReturnRate(priceInfoList,12,TimeType.ONE_YEAR);
+        double returnRate=fundRankStrategy.getFundReturnRate(priceInfoList,1,TimeType.ONE_YEAR);
         System.out.println(returnRate);
     }
 
     @Test
     public void getFundNoRiskRate() throws Exception {
-//        double noRiskRate=fundRankStrategy.getFundNoRiskRate("000001",12);
-//        System.out.println(noRiskRate);
+        double noRiskRate=fundRankStrategy.getFundNoRiskRate(12);
+        System.out.println(noRiskRate);
     }
 
     @Test
     public void getFundProfit() throws Exception {
-//        double profit=fundRankStrategy.getFundProfit("000001",12, TimeType.ONE_YEAR);
-//        System.out.println(profit);
+        List<PriceInfo> priceInfoList=marketLogic.getPriceInfo("540006", UnitType.MONTH,"2016-08-01","2016-08-26");
+        double profit=fundRankStrategy.getFundProfit(priceInfoList,12, TimeType.ONE_YEAR);
+        System.out.println(profit);
     }
 
     @Test
