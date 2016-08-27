@@ -59,6 +59,11 @@ public class BaseInfoLogicStub extends UnicastRemoteObject implements BaseInfoLo
     }
 
     @Override
+    public List<String> getAllSectorType() {
+        return null;
+    }
+
+    @Override
     public List<FundQuickInfo> getFundQuickInfo(String type) throws RemoteException {
         FundQuickInfo quickInfo1 = new Gson().fromJson("{\"code\":\"960000\"," +
                 "\"simple_name\":\"汇丰大盘H\",\"current_netWorth\":0.996,\"daily_rise\":-0" +
