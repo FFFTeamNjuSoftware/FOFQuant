@@ -52,7 +52,6 @@ public class LineChartGenerator {
             lineChart.setCreateSymbols(true);
         }
         pane.getChildren().add(lineChart);
-        setupHover();
     }
 
     private void setupHover() {

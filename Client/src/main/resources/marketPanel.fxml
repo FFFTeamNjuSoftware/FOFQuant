@@ -127,32 +127,32 @@
             <Font size="12.0" />
          </font>
       </Label>
-      <Label layoutX="266.0" layoutY="77.0" text="折价/溢价率" textFill="WHITE">
+      <Label fx:id="rateChart" layoutX="266.0" layoutY="77.0" styleClass="tab-label" text="折价/溢价率" textFill="WHITE">
          <font>
             <Font size="12.0" />
          </font>
       </Label>
-      <Label layoutX="416.0" layoutY="77.0" text="万元波动图" textFill="WHITE">
+      <Label fx:id="millionWaveChart" layoutX="416.0" layoutY="77.0" styleClass="tab-label" text="万元波动图" textFill="WHITE">
          <font>
             <Font size="12.0" />
          </font>
       </Label>
-      <Label layoutX="384.0" layoutY="394.0" text="重仓债券" textFill="WHITE">
+      <Label fx:id="heavyBound" layoutX="384.0" layoutY="394.0" styleClass="tab-label" text="重仓债券" textFill="WHITE">
          <font>
             <Font size="12.0" />
          </font>
       </Label>
-      <Label layoutX="274.0" layoutY="394.0" text="分布" textFill="WHITE">
+      <Label fx:id="allocation" layoutX="274.0" layoutY="394.0" styleClass="tab-label" text="分布" textFill="WHITE">
          <font>
             <Font size="12.0" />
          </font>
       </Label>
-      <Label layoutX="500.0" layoutY="394.0" text="重仓股票" textFill="WHITE">
+      <Label fx:id="heavyStock" layoutX="500.0" layoutY="394.0" styleClass="tab-label" text="重仓股票" textFill="WHITE">
          <font>
             <Font size="12.0" />
          </font>
       </Label>
-      <Label layoutX="608.0" layoutY="394.0" text="行业配置" textFill="WHITE">
+      <Label fx:id="industry" layoutX="608.0" layoutY="394.0" styleClass="tab-label" text="行业配置" textFill="WHITE">
          <font>
             <Font size="12.0" />
          </font>
@@ -261,7 +261,7 @@
             <Font size="12.0" />
          </font>
       </Label>
-      <FlowPane layoutX="276.0" layoutY="423.0" prefHeight="152.0" prefWidth="385.0" />
+      <AnchorPane fx:id="assetAllocationPane" layoutX="253.0" layoutY="407.0" prefHeight="175.0" prefWidth="412.0" />
       <Group fx:id="profitGroup">
          <children>
             <Label id="alpha" fx:id="alpha" layoutX="882.0" layoutY="423.0" text="alpha" textFill="WHITE">

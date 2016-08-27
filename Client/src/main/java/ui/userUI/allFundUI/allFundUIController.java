@@ -43,9 +43,9 @@ import java.util.*;
 public class allFundUIController implements Initializable {
 
     @FXML
-    private Label tab1,tab2;
+    private Label tab1, tab2;
     @FXML
-    private ImageView tabImage1,tabImage2;
+    private ImageView tabImage1, tabImage2;
 
     @FXML
     private TableView<FundQuickInfo> table;
@@ -74,43 +74,44 @@ public class allFundUIController implements Initializable {
     @FXML
     private TableColumn<FundQuickInfo, Number> yearRateColumn;
     @FXML
-    private Label fullNameLabel,fundIDLabel;
+    private Label fullNameLabel, fundIDLabel;
 
     @FXML
     private ComboBox comboBox;
-    private String selectedType ;
+    private String selectedType;
 
-    private String[] basicTypes ={"固定收益类","权益类","其他类"};
-    private String[] marketTypes ={"开放式基金","股票型开放式基金","债券型开放式基金",
-            "混合型开放式基金","保本型开放式基金","指数型开放式基金","货币市场基金","QDII基金","LOF基金","ETF基金"};
+    private String[] basicTypes = {"固定收益类", "权益类", "其他类"};
+    private String[] marketTypes = {"开放式基金", "股票型开放式基金", "债券型开放式基金",
+            "混合型开放式基金", "保本型开放式基金", "指数型开放式基金", "货币市场基金", "QDII基金", "LOF基金", "ETF基金"};
 
     private int selectedIndex;
     private FundQuickInfo fundQuickInfo;
-    private String fundID,fundName;
+    private String fundID, fundName;
     private String selectedSectorID;
-    private String[] basicID = new String[]{"000011","000012","000013"};
-    private String[] marketID = new String[]{"000001","000002","000003","000004","000005","000006",
-            "000007","000008", "000009","000010"};
+    private String[] basicID = new String[]{"000011", "000012", "000013"};
+    private String[] marketID = new String[]{"000001", "000002", "000003", "000004", "000005", "000006",
+            "000007", "000008", "000009", "000010"};
 
     private BLInterfaces blInterfaces = new BLInterfaces();
-    private BaseInfoLogic baseInfoLogic ;
+    private BaseInfoLogic baseInfoLogic;
     private MarketLogic marketLogic;
-    private List<PriceInfo> priceInfoList = new  ArrayList<PriceInfo>();
-    private List<ProfitChartInfo> profitChartInfoList = new  ArrayList<ProfitChartInfo>();
+    private List<PriceInfo> priceInfoList = new ArrayList<PriceInfo>();
+    private List<ProfitChartInfo> profitChartInfoList = new ArrayList<ProfitChartInfo>();
     private List<FundQuickInfo> fundQuickInfoList = new ArrayList<FundQuickInfo>();
-    private int k=0;//标记tab第一次
+    private int k = 0;//标记tab第一次
     private allFundUIController instance;
 
     @FXML
-    private LineChart lineChart1,lineChart2;
+    private LineChart lineChart1, lineChart2;
     @FXML
-    private CategoryAxis date1Axis,date2Axis;
+    private CategoryAxis date1Axis, date2Axis;
     @FXML
-    private NumberAxis y1Axis,y2Axis;
+    private NumberAxis y1Axis, y2Axis;
+    private static String fundId;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-       instance= this;
+        instance = this;
         baseInfoLogic = blInterfaces.getBaseInfoLogic();
         initTab();
         comboBox.setValue("开放式基金");
@@ -119,10 +120,10 @@ public class allFundUIController implements Initializable {
         init("000001");
     }
 
-    private void init(String sectorID){
+    private void init(String sectorID) {
 
         try {
-            fundQuickInfoList= baseInfoLogic.getFundQuickInfo(sectorID);
+            fundQuickInfoList = baseInfoLogic.getFundQuickInfo(sectorID);
         } catch (RemoteException e) {
             e.printStackTrace();
         } catch (ObjectNotFoundException e) {
@@ -177,28 +178,28 @@ public class allFundUIController implements Initializable {
                 cellData.getValue().threeYear));
         nearFiveYearColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(
                 cellData.getValue().fiveYear));
-        sinceEstablishColumn .setCellValueFactory(cellData -> new SimpleDoubleProperty(
+        sinceEstablishColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(
                 cellData.getValue().sinceEstablish));
         yearRateColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(
-                 cellData.getValue().yearRate));
+                cellData.getValue().yearRate));
 
 
     }
 
-    private void initTab(){
-        final int[] i = {0,1};
-        tab1.setOnMouseEntered(new EventHandler<MouseEvent>(){
+    private void initTab() {
+        final int[] i = {0, 1};
+        tab1.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent e){
+            public void handle(MouseEvent e) {
                 tabImage1.setVisible(true);
             }
         });
-        tab1.setOnMousePressed(new EventHandler<MouseEvent>(){
+        tab1.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent e){
-                i[0] =1;
-                i[1] =0;
-                 k=1;
+            public void handle(MouseEvent e) {
+                i[0] = 1;
+                i[1] = 0;
+                k = 1;
                 tabImage1.setVisible(true);
                 tabImage2.setVisible(false);
                 comboBox.setValue("固定收益类");
@@ -206,10 +207,12 @@ public class allFundUIController implements Initializable {
                 initComboxBox(basicID);
             }
         });
-        tab1.setOnMouseExited(new EventHandler<MouseEvent>(){
+        tab1.setOnMouseExited(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if(k==0&i[1]==0){tabImage1.setVisible(true);}else {
+                if (k == 0 & i[1] == 0) {
+                    tabImage1.setVisible(true);
+                } else {
                     if (i[0] == 1) {
                         tabImage1.setVisible(true);
                     } else {
@@ -218,7 +221,7 @@ public class allFundUIController implements Initializable {
                 }
             }
         });
-        tab1.setOnMouseReleased(new EventHandler<MouseEvent>(){
+        tab1.setOnMouseReleased(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 tabImage1.setVisible(true);
@@ -226,18 +229,18 @@ public class allFundUIController implements Initializable {
             }
         });
 
-        tab2.setOnMouseEntered(new EventHandler<MouseEvent>(){
+        tab2.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent e){
+            public void handle(MouseEvent e) {
                 tabImage2.setVisible(true);
             }
         });
-        tab2.setOnMousePressed(new EventHandler<MouseEvent>(){
+        tab2.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent e){
-                i[1] =1;
-                i[0] =0;
-                 k=1;
+            public void handle(MouseEvent e) {
+                i[1] = 1;
+                i[0] = 0;
+                k = 1;
                 tabImage2.setVisible(true);
                 tabImage1.setVisible(false);
                 comboBox.setValue("开放式基金");
@@ -245,18 +248,20 @@ public class allFundUIController implements Initializable {
                 initComboxBox(marketID);
             }
         });
-        tab2.setOnMouseReleased(new EventHandler<MouseEvent>(){
+        tab2.setOnMouseReleased(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 tabImage2.setVisible(true);
                 tabImage1.setVisible(false);
             }
         });
-        tab2.setOnMouseExited(new EventHandler<MouseEvent>(){
+        tab2.setOnMouseExited(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if(k==0&i[0]==0){tabImage2.setVisible(true);}else {
-                    if (i[1] ==1) {
+                if (k == 0 & i[0] == 0) {
+                    tabImage2.setVisible(true);
+                } else {
+                    if (i[1] == 1) {
                         tabImage2.setVisible(true);
                     } else {
                         tabImage2.setVisible(false);
@@ -267,7 +272,7 @@ public class allFundUIController implements Initializable {
 
     }
 
-    private void initComboxBox(String[] a ){
+    private void initComboxBox(String[] a) {
 
         comboBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
@@ -283,12 +288,12 @@ public class allFundUIController implements Initializable {
 
     }
 
-    private void initChart1(String code){
+    private void initChart1(String code) {
 
-        marketLogic=blInterfaces.getMarketLogic();
+        marketLogic = blInterfaces.getMarketLogic();
         //String code, UnitType type, int counts
         try {
-            priceInfoList =marketLogic.getPriceInfo(code, UnitType.WEEK,16);
+            priceInfoList = marketLogic.getPriceInfo(code, UnitType.WEEK, 16);
         } catch (RemoteException e) {
             e.printStackTrace();
         } catch (ObjectNotFoundException e) {
@@ -311,8 +316,8 @@ public class allFundUIController implements Initializable {
 
         System.out.println();
         series1.setName("单位净值");
-        double temp1=priceInfoList.get(0).price;
-        for(int i = 0; i< priceInfoList.size(); i++) {
+
+        for (int i = 0; i < priceInfoList.size(); i++) {
             series1.getData().add(new XYChart.Data(priceInfoList.get(i).date, priceInfoList.get(i).price));
         }
 
@@ -321,28 +326,28 @@ public class allFundUIController implements Initializable {
         XYChart.Series series2 = new XYChart.Series();
         series2.setName("累计净值");
 
-        double temp2=priceInfoList.get(0).total_netWorth;
-        marketLogic=blInterfaces.getMarketLogic();
-        for(int i = 0; i< priceInfoList.size(); i++) {
+
+        marketLogic = blInterfaces.getMarketLogic();
+        for (int i = 0; i < priceInfoList.size(); i++) {
             series2.getData().add(new XYChart.Data(priceInfoList.get(i).date, priceInfoList.get(i).total_netWorth));
         }
 
-        lineChart1.getData().add(0,series1);
-        lineChart1.getData().add(1,series2);
+        lineChart1.getData().add(0, series1);
+        lineChart1.getData().add(1, series2);
 
     }
 
     private void initChart2(String code) {
 
-            //String code, UnitType type, TimeType timeType, ChartType chartType
+        //String code, UnitType type, TimeType timeType, ChartType chartType
         try {
-            profitChartInfoList = marketLogic.getFundProfitInfoChart(code, UnitType.WEEK, TimeType.THREE_MONTH,ChartType.MILLION_WAVE_CHART );
+            profitChartInfoList = marketLogic.getFundProfitInfoChart(code, UnitType.WEEK, TimeType.THREE_MONTH, ChartType.MILLION_WAVE_CHART);
         } catch (RemoteException e) {
             e.printStackTrace();
         } catch (ObjectNotFoundException e) {
             e.printStackTrace();
         }
-        
+
         lineChart2.setTitle("收益走势");
         lineChart2.setTitleSide(Side.TOP);
         lineChart2.setCreateSymbols(false);
@@ -355,29 +360,28 @@ public class allFundUIController implements Initializable {
 
         XYChart.Series series1 = new XYChart.Series();
         series1.setName("期间收益率");
-        for(int i = 0; i< profitChartInfoList.size(); i++) {
+        for (int i = 0; i < profitChartInfoList.size(); i++) {
             series1.getData().add(new XYChart.Data(profitChartInfoList.get(i).date, profitChartInfoList.get(i).values[0]));
         }
 //String code, UnitType type, String startDate, String endDate
 
         XYChart.Series series2 = new XYChart.Series();
         series2.setName("上证指数");
-        marketLogic=blInterfaces.getMarketLogic();
-        for(int i = 0; i< profitChartInfoList.size(); i++) {
+        marketLogic = blInterfaces.getMarketLogic();
+        for (int i = 0; i < profitChartInfoList.size(); i++) {
             series2.getData().add(new XYChart.Data(profitChartInfoList.get(i).date, profitChartInfoList.get(i).values[2]));
         }
 
         XYChart.Series series3 = new XYChart.Series();
         series3.setName("基金指数");
-        marketLogic=blInterfaces.getMarketLogic();
-        for(int i = 0; i< profitChartInfoList.size(); i++) {
+        marketLogic = blInterfaces.getMarketLogic();
+        for (int i = 0; i < profitChartInfoList.size(); i++) {
             series3.getData().add(new XYChart.Data(profitChartInfoList.get(i).date, profitChartInfoList.get(i).values[1]));
         }
 
-        lineChart2.getData().add(0,series1);
-        lineChart2.getData().add(1,series2);
-        lineChart2.getData().add(2,series3);
-
+        lineChart2.getData().add(0, series1);
+        lineChart2.getData().add(1, series2);
+        lineChart2.getData().add(2, series3);
 
 
     }
@@ -404,13 +408,17 @@ public class allFundUIController implements Initializable {
                     }
                     if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
                         selectedIndex = TableRowControl.this.getIndex();
-                        fundID = codeColumn.getCellData(selectedIndex);
-                        MainUI.getInstance().changeScene("user_guidePanel","marketPanel");
+                        fundId = codeColumn.getCellData(selectedIndex);
+                        MainUI.getInstance().changeScene("user_guidePanel", "marketPanel");
                     }
 
                 }
             });
         }
+    }
+
+    public static String getFundId() {
+        return fundId;
     }
 }
 

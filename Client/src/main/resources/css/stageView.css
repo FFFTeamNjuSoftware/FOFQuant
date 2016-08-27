@@ -93,3 +93,6 @@
     -fx-background-radius: 5px;
     -fx-padding: 2px;
 }
+.tab-label:hover{
+    -fx-background-color:#23A3F3;
+}
