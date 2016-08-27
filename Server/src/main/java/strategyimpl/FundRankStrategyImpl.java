@@ -1,6 +1,7 @@
 package strategyimpl;
 
 import beans.ConstParameter;
+import beans.FundQuickInfo;
 import beans.PriceInfo;
 import bl.BaseInfoLogic;
 import bl.MarketLogic;
@@ -9,6 +10,7 @@ import exception.ObjectNotFoundException;
 import exception.ParameterException;
 import strategy.FundRankStrategy;
 import util.CalendarOperate;
+import util.SectorType;
 import util.TimeType;
 import util.UnitType;
 
@@ -36,10 +38,10 @@ public class FundRankStrategyImpl implements FundRankStrategy {
         double returnRate=1.0;
 
         for(int i=0;i<month;i++){
-            returnRate=returnRate*(priceInfoList.get(i).rise+100);
+            returnRate=returnRate*(priceInfoList.get(i).rise/100+1);
         }
-        returnRate=returnRate-100;
-        return returnRate;
+        returnRate=returnRate-1;
+        return returnRate*100;
     }
 
     @Override
@@ -125,7 +127,12 @@ public class FundRankStrategyImpl implements FundRankStrategy {
     @Override
     public Map<String, Integer> getFundRankByDate(TimeType timeType,String endDate) throws RemoteException {
         Map<String,Double> index=new HashMap<>();
-        List<String> codes=baseInfoLogic.getFundCodes();
+
+        try {
+            code = baseInfoLogic.getFundQuickInfo(SectorType.BOND_TYPE);
+        } catch (ObjectNotFoundException e) {
+            e.printStackTrace();
+        }
         for(int i=0;i<codes.size();i++){
             index.put(codes.get(i),this.getMRAR(codes.get(i),timeType, endDate));
             System.out.println("running"+codes.get(i));
