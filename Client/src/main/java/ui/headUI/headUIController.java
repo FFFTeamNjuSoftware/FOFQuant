@@ -1,13 +1,22 @@
 package ui.headUI;
 
+import RMIModule.BLInterfaces;
+import beans.CodeName;
+import bl.BaseInfoLogic;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import starter.Main;
 import starter.MainUI;
 
+import java.awt.event.KeyAdapter;
 import java.net.URL;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -17,7 +26,13 @@ public class headUIController implements Initializable {
 
     @FXML
     private Button minBtn,exitBtn,fullBtn,searchBtn;
+    @FXML
+    private TextField searchTextField;
+    private BLInterfaces  blInterfaces;
+    private BaseInfoLogic baseInfoLogic;
+    private List<CodeName> searchList;
     private  headUIController instance;
+    private String searchID;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         instance = this;
@@ -77,7 +92,28 @@ public class headUIController implements Initializable {
         MainUI.getPrimaryStage().setIconified(true);
     }
 
-    @FXML
-    public void toSearchFund(){}
+
+    public void search(){
+        baseInfoLogic= blInterfaces.getBaseInfoLogic();
+
+        searchTextField.addEventHandler(KeyEvent.KEY_PRESSED, (KeyEvent e) -> {
+
+            try {
+                searchList =baseInfoLogic.fuzzySearch(e.getCharacter());
+
+                ////
+            } catch (RemoteException e1) {
+                e1.printStackTrace();
+            }
+
+        });
 
     }
+    @FXML
+    public void toSearchFund(){
+        String id =searchTextField.getText();
+        System.out.println("......search result......"+id);
+
+    }
+
+}
