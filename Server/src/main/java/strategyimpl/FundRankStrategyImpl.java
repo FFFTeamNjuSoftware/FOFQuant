@@ -101,22 +101,23 @@ public class FundRankStrategyImpl implements FundRankStrategy {
             MRAR=0.0;
             for(int i=0;i<T;i++){
                 profit=this.getFundProfit(priceInfos,i+1,timeType);
+
                 MRAR=MRAR+Math.pow(1+profit,-riskDislikeFactor);
             }
-            MRAR=Math.pow(MRAR/T,-12/T)-1;
+            MRAR=Math.pow(MRAR/T,-12/riskDislikeFactor)-1;
         }
         return MRAR;
     }
 
-    public Map<String ,Integer> refreshFundRank(TimeType timeType) throws RemoteException{
-        Map<String,Integer> rank=this.getFundRankByDate(timeType,CalendarOperate.formatCalender(Calendar.getInstance()));
+    public Map<String ,ArrayList<Double>> refreshFundRank(TimeType timeType) throws RemoteException{
+        Map<String,ArrayList<Double>> rank=this.getFundRankByDate(timeType,CalendarOperate.formatCalender(Calendar.getInstance()));
         return rank;
     }
 
     @Override
-    public Map<String, Integer> getFundRankByDate(TimeType timeType,String endDate) throws RemoteException {
+    public Map<String, ArrayList<Double>> getFundRankByDate(TimeType timeType,String endDate) throws RemoteException {
 
-        Map<String,Integer> rank=new HashMap<>();
+        Map<String,ArrayList<Double>> rank=new HashMap<>();
         List<String> sectorTypes=baseInfoLogic.getAllSectorType();
         List<FundQuickInfo> fundQuickInfos=new ArrayList<>();
         for (int i=0;i<sectorTypes.size();i++){
@@ -148,8 +149,8 @@ public class FundRankStrategyImpl implements FundRankStrategy {
         return rank;
     }
 
-    public Map<String,Integer> Sequence(Map<String,Double> index){
-        Map<String,Integer> rank=new HashMap<>();
+    public Map<String,ArrayList<Double>> Sequence(Map<String,Double> index){
+        Map<String,ArrayList<Double>> rank=new HashMap<>();
         List<Map.Entry<String,Double>> fundCodes=new ArrayList<Map.Entry<String, Double>>(index.entrySet());
         //按照降序排序
         Collections.sort(fundCodes, new Comparator<Map.Entry<String, Double>>() {
@@ -181,7 +182,10 @@ public class FundRankStrategyImpl implements FundRankStrategy {
             }else{
                 fundRank=1;
             }
-            rank.put(code,fundRank);
+            ArrayList<Double> sta=new ArrayList<>();
+            sta.add(fundCodes.get(i).getValue());
+            sta.add(Double.valueOf(fundRank));
+            rank.put(code,sta);
         }
         return rank;
     }
