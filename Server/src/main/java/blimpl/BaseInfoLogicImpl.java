@@ -82,7 +82,6 @@ public class BaseInfoLogicImpl extends UnicastRemoteObject implements BaseInfoLo
         return infos;
     }
 
-    @Override
     public List<String> getAllSectorType(){
         List<String> sectorTypes=null;
         sectorTypes.add(SectorType.BOND_TYPE);
