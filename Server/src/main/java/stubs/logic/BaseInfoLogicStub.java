@@ -58,10 +58,6 @@ public class BaseInfoLogicStub extends UnicastRemoteObject implements BaseInfoLo
         return fundInfo;
     }
 
-    @Override
-    public List<String> getAllSectorType() {
-        return null;
-    }
 
     @Override
     public List<String> getAllSectorType() {
