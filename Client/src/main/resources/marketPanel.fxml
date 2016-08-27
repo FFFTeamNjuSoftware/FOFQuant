@@ -72,7 +72,7 @@
             <Font size="12.0" />
          </font>
       </Label>
-      <Label layoutX="18.0" layoutY="164.0" text="投资策略" textFill="WHITE">
+      <Label layoutX="18.0" layoutY="164.0" text="管理费" textFill="WHITE">
          <font>
             <Font size="12.0" />
          </font>
@@ -159,17 +159,17 @@
       </Label>
       <Group fx:id="baseInfoGroup">
          <children>
-            <Label id="invest_type" fx:id="invest_type" layoutX="135.0" layoutY="182.0" text="invest_type" textFill="WHITE">
+            <Label id="invest_type" fx:id="invest_type" layoutX="135.0" layoutY="182.0" maxHeight="15.0" maxWidth="90.0" text="invest_type" textFill="WHITE">
                <font>
                   <Font size="12.0" />
                </font>
             </Label>
-            <Label id="compare_base" fx:id="compare_base" layoutX="135.0" layoutY="200.0" text="compare_base" textFill="WHITE">
+            <Label id="compare_base" fx:id="compare_base" layoutX="135.0" layoutY="200.0" maxHeight="15.0" maxWidth="100.0" text="compare_base" textFill="WHITE">
                <font>
                   <Font size="12.0" />
                </font>
             </Label>
-            <Label id="invest_strategy" fx:id="invest_strategy" layoutX="135.0" layoutY="164.0" text="invest_strategy" textFill="WHITE">
+            <Label id="invest_strategy" fx:id="invest_strategy" layoutX="135.0" layoutY="164.0" maxHeight="15.0" maxWidth="100.0" text="管理费" textFill="WHITE">
                <font>
                   <Font size="12.0" />
                </font>

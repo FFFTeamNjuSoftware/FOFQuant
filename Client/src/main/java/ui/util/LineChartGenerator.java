@@ -49,31 +49,33 @@ public class LineChartGenerator {
                 series.getData().add(new Data<String, Number>(x[i], y[j][i]));
             }
             lineChart.getData().add(series);
-            lineChart.setCreateSymbols(true);
         }
         pane.getChildren().add(lineChart);
+        for (XYChart.Series<String, Number> s : lineChart.getData()) {
+            s.getNode().setStyle("   -fx-stroke-width: 1; ");
+        }
+        lineChart.setCreateSymbols(true);
+        lineChart.setStyle("-fx-legend-visible: false");
+        setupHover();
     }
 
     private void setupHover() {
+        Label label = new Label();
+        label.setTextFill(Color.DARKCYAN);
+        label.setStyle("-fx-font: 15 arial;");
         for (int j = 0; j < serieses.size(); j++) {
             XYChart.Series<String, Number> series = serieses.get(j);
-            Label label = new Label();
-            label.setTextFill(Color.DARKCYAN);
-            label.setStyle("-fx-font: 18 arial;" + "-fx-opacity:0.5");
             for (final Data<String, Number> dt : series.getData()) {
                 final Node n = dt.getNode();
                 n.setEffect(null);
-                n.setOnMouseEntered(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent e) {
-                        n.setCursor(Cursor.HAND);
-                        label.setLayoutX(n.getLayoutX() + 40);
-                        label.setTranslateY(n.getLayoutY() + 10);
-                        label.setText(String.valueOf(dt.getYValue()));
-                    }
+                n.setOnMouseEntered((e) -> {
+                    n.setCursor(Cursor.HAND);
+                    label.setLayoutX(n.getLayoutX() + 40);
+                    label.setTranslateY(n.getLayoutY() + 10);
+                    label.setText(String.valueOf(dt.getYValue()));
                 });
             }
-            pane.getChildren().add(label);
         }
+        pane.getChildren().add(label);
     }
 }
