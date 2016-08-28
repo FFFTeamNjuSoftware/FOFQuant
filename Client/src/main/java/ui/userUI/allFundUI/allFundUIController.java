@@ -79,6 +79,8 @@ public class allFundUIController implements Initializable {
     @FXML
     private ComboBox comboBox;
     private String selectedType;
+    private String greenFill = "-fx-text-fill:#9ac94a;";
+    private String redFill = "-fx-text-fill:#eb494d;";
 
     private String[] basicTypes = {"固定收益类", "权益类", "其他类"};
     private String[] marketTypes = {"开放式基金", "股票型开放式基金", "债券型开放式基金",
@@ -155,7 +157,7 @@ public class allFundUIController implements Initializable {
 //                        super.updateItem(item, empty);
 //                        if (this.getIndex() < fundQuickInfoList.size()) {
 //                            if(!isEmpty()){
-//                                this.setTextFill(Color.ORANGE);
+//                                this.setStyle(redFill);
 //                            }
 //                        }
 //                    }
