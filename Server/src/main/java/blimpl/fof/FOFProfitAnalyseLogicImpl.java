@@ -1,4 +1,4 @@
-package dataserviceimpl.fof;
+package blimpl.fof;
 
 import beans.FOFProfitAnalyse;
 import bl.fof.FOFProfitAnalyseLogic;

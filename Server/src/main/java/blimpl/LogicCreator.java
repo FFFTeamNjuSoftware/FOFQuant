@@ -6,15 +6,15 @@ import bl.*;
  * Created by Daniel on 2016/8/16.
  */
 public interface LogicCreator {
-    public BaseInfoLogic getBaseInfoLogic();
+    BaseInfoLogic getBaseInfoLogic();
 
-    public InvestmentPortfolioLogic getInvestmentPortfolioLogic();
+    InvestmentPortfolioLogic getInvestmentPortfolioLogic();
 
-    public MarketLogic getMarketLogic();
+    MarketLogic getMarketLogic();
 
-    public UserLogic getUserLogic();
+    UserLogic getUserLogic();
 
-    public RiskFeatureLogic getRiskFeatureLogic();
+    RiskFeatureLogic getRiskFeatureLogic();
 
-    public ProfitFeatureLogic getProfitFeatureLogic();
+    ProfitFeatureLogic getProfitFeatureLogic();
 }
