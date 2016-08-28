@@ -79,6 +79,8 @@ public class allFundUIController implements Initializable {
     @FXML
     private ComboBox comboBox;
     private String selectedType;
+    private String greenFill = "-fx-text-fill:#9ac94a;";
+    private String redFill = "-fx-text-fill:#eb494d;";
 
     private String[] basicTypes = {"固定收益类", "权益类", "其他类"};
     private String[] marketTypes = {"开放式基金", "股票型开放式基金", "债券型开放式基金",
@@ -169,7 +171,7 @@ public class allFundUIController implements Initializable {
 //                        super.updateItem(item, empty);
 //                        if (this.getIndex() < fundQuickInfoList.size()) {
 //                            if(!isEmpty()){
-//                                this.setTextFill(Color.ORANGE);
+//                                this.setStyle(redFill);
 //                            }
 //                        }
 //                    }
@@ -327,7 +329,7 @@ public class allFundUIController implements Initializable {
         }
         //String code, UnitType type, int counts
 
-        lineChart1.setTitle("净值走势");
+   //     lineChart1.setTitle("净值走势");
         lineChart1.setTitleSide(Side.TOP);
         lineChart1.setCreateSymbols(false);
         lineChart1.setAlternativeRowFillVisible(false);
@@ -390,7 +392,7 @@ public class allFundUIController implements Initializable {
         }
         //String code, UnitType type, TimeType timeType, ChartType chartType
 
-        lineChart2.setTitle("收益走势");
+     //   lineChart2.setTitle("收益走势");
         lineChart2.setTitleSide(Side.TOP);
         lineChart2.setCreateSymbols(false);
         lineChart2.setAlternativeRowFillVisible(false);
@@ -437,7 +439,6 @@ public class allFundUIController implements Initializable {
 
         public TableRowControl(TableView<T> tableView) {
             super();
-            this.setTextFill(Color.RED);
             this.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
