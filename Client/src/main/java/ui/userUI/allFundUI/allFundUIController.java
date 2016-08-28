@@ -96,10 +96,12 @@ public class allFundUIController implements Initializable {
 
     private BLInterfaces blInterfaces = new BLInterfaces();
     private BaseInfoLogic baseInfoLogic;
+
     private MarketLogic marketLogic;
-    private List<PriceInfo> priceInfoList = new ArrayList<PriceInfo>();
-    private List<ProfitChartInfo> profitChartInfoList = new ArrayList<ProfitChartInfo>();
-    private List<FundQuickInfo> fundQuickInfoList = new ArrayList<FundQuickInfo>();
+    private  List<FundQuickInfo> fundQuickInfoList =null;
+    private  List<PriceInfo> priceInfoList =null;
+    private   List<ProfitChartInfo> profitChartInfoList = null;
+
     private int k = 0;//标记tab第一次
     private allFundUIController instance;
 
@@ -123,13 +125,20 @@ public class allFundUIController implements Initializable {
     }
 
     private void init(String sectorID) {
-
-        try {
-            fundQuickInfoList = baseInfoLogic.getFundQuickInfo(sectorID);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        } catch (ObjectNotFoundException e) {
-            e.printStackTrace();
+	    long tempTime=Calendar.getInstance().getTimeInMillis();
+	    if(!MainUI.fundInfoMap.containsKey(sectorID)){
+            try {
+                fundQuickInfoList = baseInfoLogic.getFundQuickInfo(sectorID);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            } catch (ObjectNotFoundException e) {
+                e.printStackTrace();
+            }
+            System.out.println("---get "+sectorID+" fundinfo from server:"+(Calendar.getInstance().getTimeInMillis()-tempTime));
+            MainUI.fundInfoMap.put(sectorID,fundQuickInfoList);
+        }else{
+            fundQuickInfoList=MainUI.fundInfoMap.get(sectorID);
+            System.out.println("get "+sectorID+" fundinfo from map:"+(Calendar.getInstance().getTimeInMillis()-tempTime));
         }
         table.setItems(FXCollections.observableArrayList(fundQuickInfoList));
 
@@ -291,18 +300,25 @@ public class allFundUIController implements Initializable {
     }
 
     private void initChart1(String code) {
-
         marketLogic = blInterfaces.getMarketLogic();
-        //String code, UnitType type, int counts
-        try {
-            priceInfoList = marketLogic.getPriceInfo(code, UnitType.WEEK, 16);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        } catch (ObjectNotFoundException e) {
-            e.printStackTrace();
-        } catch (ParameterException e) {
-            e.printStackTrace();
+	    long tempTime=Calendar.getInstance().getTimeInMillis();
+	    if(!MainUI.priceInfoMap.containsKey(code)){
+            try {
+                priceInfoList = marketLogic.getPriceInfo(code, UnitType.WEEK, 16);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            } catch (ObjectNotFoundException e) {
+                e.printStackTrace();
+            } catch (ParameterException e) {
+                e.printStackTrace();
+            }
+            System.out.println("---get "+code+" priceinfo from server:"+(Calendar.getInstance().getTimeInMillis()-tempTime));
+            MainUI.priceInfoMap.put(code,priceInfoList);
+        }else{
+            priceInfoList=MainUI.priceInfoMap.get(code);
+            System.out.println("get "+code+" priceinfo from map:"+(Calendar.getInstance().getTimeInMillis()-tempTime));
         }
+        //String code, UnitType type, int counts
 
         lineChart1.setTitle("净值走势");
         lineChart1.setTitleSide(Side.TOP);
@@ -340,15 +356,22 @@ public class allFundUIController implements Initializable {
     }
 
     private void initChart2(String code) {
-
-        //String code, UnitType type, TimeType timeType, ChartType chartType
-        try {
-            profitChartInfoList = marketLogic.getFundProfitInfoChart(code, UnitType.WEEK, TimeType.THREE_MONTH, ChartType.MILLION_WAVE_CHART);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        } catch (ObjectNotFoundException e) {
-            e.printStackTrace();
+	    long tempTime=Calendar.getInstance().getTimeInMillis();
+	    if(!MainUI.profitChartInfoMap.containsKey(code)){
+            try {
+                profitChartInfoList = marketLogic.getFundProfitInfoChart(code, UnitType.WEEK, TimeType.THREE_MONTH, ChartType.MILLION_WAVE_CHART);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            } catch (ObjectNotFoundException e) {
+                e.printStackTrace();
+            }
+            System.out.println("---get "+code+" profitInfoMap from server:"+(Calendar.getInstance().getTimeInMillis()-tempTime));
+            MainUI.profitChartInfoMap.put(code,profitChartInfoList);
+        }else{
+            profitChartInfoList=MainUI.profitChartInfoMap.get(code);
+            System.out.println("get "+code+" profitInfoMap from map:"+(Calendar.getInstance().getTimeInMillis()-tempTime));
         }
+        //String code, UnitType type, TimeType timeType, ChartType chartType
 
         lineChart2.setTitle("收益走势");
         lineChart2.setTitleSide(Side.TOP);

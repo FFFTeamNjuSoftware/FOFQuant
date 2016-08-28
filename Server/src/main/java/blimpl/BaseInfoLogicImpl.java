@@ -55,6 +55,26 @@ public class BaseInfoLogicImpl extends UnicastRemoteObject implements BaseInfoLo
     }
 
     @Override
+    public List<String> getAllSectorType() throws RemoteException {
+        List<String> sectorTypes=new ArrayList<>();
+        sectorTypes.add(SectorType.BOND_TYPE);
+        sectorTypes.add(SectorType.INDEX_TYPE);
+        sectorTypes.add(SectorType.ETF_TYPE);
+        sectorTypes.add(SectorType.GUARANTEED_TYPE);
+        sectorTypes.add(SectorType.LOF_TYPE);
+        sectorTypes.add(SectorType.MIX_TYPE);
+        sectorTypes.add(SectorType.MONEY_MARKET_TYPE);
+        sectorTypes.add(SectorType.OPEN_TYPE);
+        sectorTypes.add(SectorType.QDII_TYPE);
+        sectorTypes.add(SectorType.STOCK_TYPE);
+
+//        sectorTypes.add(SectorType.RIGHTS_TYPE);
+//        sectorTypes.add(SectorType.OTHER_TYPE);
+//        sectorTypes.add(SectorType.FIX_PROFIT_TYPE);
+        return sectorTypes;
+    }
+
+    @Override
     public List<FundQuickInfo> getFundQuickInfo(String sectorId) throws RemoteException, ObjectNotFoundException {
         List<String> codes = null;
         for (String str : SectorType.COMPONENT_INFO.keySet()) {
@@ -80,25 +100,6 @@ public class BaseInfoLogicImpl extends UnicastRemoteObject implements BaseInfoLo
             }
         }
         return infos;
-    }
-
-    public List<String> getAllSectorType(){
-        List<String> sectorTypes=null;
-        sectorTypes.add(SectorType.BOND_TYPE);
-        sectorTypes.add(SectorType.INDEX_TYPE);
-        sectorTypes.add(SectorType.ETF_TYPE);
-//        sectorTypes.add(SectorType.FIX_PROFIT_TYPE);
-        sectorTypes.add(SectorType.GUARANTEED_TYPE);
-        sectorTypes.add(SectorType.LOF_TYPE);
-        sectorTypes.add(SectorType.MIX_TYPE);
-        sectorTypes.add(SectorType.MONEY_MARKET_TYPE);
-        sectorTypes.add(SectorType.OPEN_TYPE);
-//        sectorTypes.add(SectorType.OTHER_TYPE);
-        sectorTypes.add(SectorType.QDII_TYPE);
-//        sectorTypes.add(SectorType.RIGHTS_TYPE);
-        sectorTypes.add(SectorType.STOCK_TYPE);
-
-        return sectorTypes;
     }
 
     @Override

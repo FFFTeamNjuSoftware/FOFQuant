@@ -2,9 +2,11 @@ package strategy;
 
 import beans.PriceInfo;
 import exception.ObjectNotFoundException;
+import exception.ParameterException;
 import util.TimeType;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -50,7 +52,7 @@ public interface FundRankStrategy {
      * @param timeType
      * @return
      */
-    public double getMRAR(String fundcode, TimeType timeType,String endDate) throws RemoteException;
+    public double getMRAR(String fundcode, TimeType timeType,String endDate) throws RemoteException, ParameterException, ObjectNotFoundException;
 
     /**
      * 更新基金评级
@@ -59,7 +61,7 @@ public interface FundRankStrategy {
      * @throws RemoteException
      * @throws ObjectNotFoundException
      */
-    public Map<String ,Integer> refreshFundRank(TimeType timeType) throws RemoteException;
+    public Map<String ,ArrayList<Double>> refreshFundRank(TimeType timeType) throws RemoteException;
 
     /**
      * 获得某个时间点时的评级
@@ -68,7 +70,7 @@ public interface FundRankStrategy {
      * @return
      * @throws RemoteException
      */
-    public Map<String,Integer> getFundRankByDate(TimeType timeType,String endDate) throws RemoteException;
+    public Map<String,ArrayList<Double>> getFundRankByDate(TimeType timeType,String endDate) throws RemoteException;
 
     /**
      * 晨星风险系数

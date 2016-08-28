@@ -7,9 +7,6 @@
         <property name="connection.url">
             <![CDATA[jdbc:mysql://localhost:3306/fofquant?useUnicode=true&characterEncoding=utf8]]>
         </property>
-        <!--<property name="connection.url">-->
-        <!--<![CDATA[jdbc:mysql://57be9e812240b.sh.cdb.myqcloud.com:4970/fofquant?useUnicode=true&characterEncoding=utf8]]>-->
-        <!--</property>-->
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
         <property name="connection.username">root</property>

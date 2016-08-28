@@ -85,7 +85,7 @@ public class MarketPanelController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.codeNum = allFundUIController.getFundId();
+        //this.codeNum = allFundUIController.getFundId();
         marketLogic = BLInterfaces.getMarketLogic();
         initButton();
         initBaseInfo();
@@ -108,7 +108,7 @@ public class MarketPanelController implements Initializable {
         if (fundInfo != null) {
             establish_date.setText(fundInfo.establish_date);
             establish_scale.setText(fundInfo.establish_scale + "");
-            //invest_strategy.setText(fundInfo.invest_strategy);
+            invest_strategy.setText(fundInfo.manage_fee+"");
             invest_type.setText(fundInfo.invest_type);
             compare_base.setText(fundInfo.compare_base);
             scale.setText(fundInfo.scale + "");

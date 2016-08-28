@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="970.0" styleClass="root" stylesheets="@css/stageView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.userUI.buildUI.BuildPanel2UIController">
+  <children>
+    <ImageView fitHeight="35.0" fitWidth="800.0" layoutX="58.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/navigation2.png" />
+      </image>
+    </ImageView>
+      <ImageView fx:id="waiting2" fitHeight="188.0" fitWidth="300.0" layoutX="308.0" layoutY="185.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/build2.gif" />
+         </image>
+      </ImageView>
+    <ImageView fx:id="nextBt2" fitHeight="42.0" fitWidth="82.0" layoutX="777.0" layoutY="502.0" onMouseClicked="#nextBt2Click" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/nextBt.png" />
+      </image>
+    </ImageView>
+  </children>
+</AnchorPane>

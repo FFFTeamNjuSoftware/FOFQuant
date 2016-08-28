@@ -23,6 +23,8 @@ public class FundInfosEntity {
     private String riskFeature;
     private String investType;
     private String company;
+    private Double trusteeFee;
+    private Double saleServiceFee;
 
     @Id
     @Column(name = "code", nullable = false, length = 255)
@@ -115,7 +117,7 @@ public class FundInfosEntity {
     }
 
     @Basic
-    @Column(name = "compare_base", nullable = true, length = 255)
+    @Column(name = "compare_base", nullable = true, length = 1000)
     public String getCompareBase() {
         return compareBase;
     }
@@ -228,5 +230,25 @@ public class FundInfosEntity {
 
     public void setCompany(String company) {
         this.company = company;
+    }
+
+    @Basic
+    @Column(name = "trustee_fee", nullable = true, precision = 0)
+    public Double getTrusteeFee() {
+        return trusteeFee;
+    }
+
+    public void setTrusteeFee(Double trusteeFee) {
+        this.trusteeFee = trusteeFee;
+    }
+
+    @Basic
+    @Column(name = "sale_service_fee", nullable = true, precision = 0)
+    public Double getSaleServiceFee() {
+        return saleServiceFee;
+    }
+
+    public void setSaleServiceFee(Double saleServiceFee) {
+        this.saleServiceFee = saleServiceFee;
     }
 }

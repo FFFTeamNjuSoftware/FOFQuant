@@ -11,6 +11,7 @@ import strategyimpl.FundRankStrategyImpl;
 import util.TimeType;
 import util.UnitType;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -29,9 +30,9 @@ public class FundRankStrategyImplTest {
 
     @Test
     public void getFundReturnRate() throws Exception {
-        List<PriceInfo> priceInfoList=marketLogic.getPriceInfo("540006", UnitType.MONTH,"2016-08-01","2016-08-26");
+        List<PriceInfo> priceInfoList=marketLogic.getPriceInfo("180033", UnitType.MONTH,"2013-08-26","2016-08-26");
 
-        double returnRate=fundRankStrategy.getFundReturnRate(priceInfoList,1,TimeType.ONE_YEAR);
+        double returnRate=fundRankStrategy.getFundReturnRate(priceInfoList,36,TimeType.ONE_YEAR);
         System.out.println(returnRate);
     }
 
@@ -43,31 +44,31 @@ public class FundRankStrategyImplTest {
 
     @Test
     public void getFundProfit() throws Exception {
-        List<PriceInfo> priceInfoList=marketLogic.getPriceInfo("540006", UnitType.MONTH,"2016-08-01","2016-08-26");
-        double profit=fundRankStrategy.getFundProfit(priceInfoList,12, TimeType.ONE_YEAR);
+        List<PriceInfo> priceInfoList=marketLogic.getPriceInfo("180033", UnitType.MONTH,"2016-01-01","2016-08-26");
+        double profit=fundRankStrategy.getFundProfit(priceInfoList,8, TimeType.ONE_YEAR);
         System.out.println(profit);
     }
 
     @Test
     public void getMRAR() throws Exception {
-        double mrar=fundRankStrategy.getMRAR("000001",TimeType.ONE_YEAR,"2015-12-31");
+        double mrar=fundRankStrategy.getMRAR("000001",TimeType.THREE_YEAR,"2015-12-31");
         System.out.println(mrar);
     }
 
     @Test
     public void refreshFundRank() throws Exception {
-        Map<String,Integer> maps=fundRankStrategy.refreshFundRank(TimeType.THREE_YEAR);
+        Map<String,ArrayList<Double>> maps=fundRankStrategy.refreshFundRank(TimeType.THREE_YEAR);
         for(String str:maps.keySet() ){
-            System.out.println(str+","+maps.get(str));
+            System.out.println(str+","+maps.get(str).get(0)+","+maps.get(str).get(1));
         };
     }
 
     @Test
     public void getFundRankByDate() throws Exception{
-        Map<String,Integer> maps=fundRankStrategy.getFundRankByDate(TimeType.THREE_YEAR,
+        Map<String,ArrayList<Double>> maps=fundRankStrategy.getFundRankByDate(TimeType.THREE_YEAR,
                 "2016-08-26");
         for(String str:maps.keySet() ){
-            System.out.println(str+","+maps.get(str));
+            System.out.println(str+","+maps.get(str).get(0)+","+maps.get(str).get(1));
         };
     }
 }
