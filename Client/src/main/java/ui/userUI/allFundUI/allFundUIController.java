@@ -320,7 +320,7 @@ public class allFundUIController implements Initializable {
         }
         //String code, UnitType type, int counts
 
-        lineChart1.setTitle("净值走势");
+   //     lineChart1.setTitle("净值走势");
         lineChart1.setTitleSide(Side.TOP);
         lineChart1.setCreateSymbols(false);
         lineChart1.setAlternativeRowFillVisible(false);
@@ -373,7 +373,7 @@ public class allFundUIController implements Initializable {
         }
         //String code, UnitType type, TimeType timeType, ChartType chartType
 
-        lineChart2.setTitle("收益走势");
+     //   lineChart2.setTitle("收益走势");
         lineChart2.setTitleSide(Side.TOP);
         lineChart2.setCreateSymbols(false);
         lineChart2.setAlternativeRowFillVisible(false);
@@ -415,7 +415,6 @@ public class allFundUIController implements Initializable {
 
         public TableRowControl(TableView<T> tableView) {
             super();
-            this.setTextFill(Color.RED);
             this.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
