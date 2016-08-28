@@ -19,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import ui.userUI.allFundUI.allFundUIController;
 import ui.util.BarChartGenerator;
+import ui.util.IOHelper;
 import ui.util.LineChartGenerator;
 import ui.util.PieChartGenerator;
 import util.ChartType;
@@ -29,6 +30,7 @@ import util.UnitType;
 import java.lang.reflect.Field;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -85,7 +87,7 @@ public class MarketPanelController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //this.codeNum = allFundUIController.getFundId();
+        this.codeNum = IOHelper.readName();
         marketLogic = BLInterfaces.getMarketLogic();
         initButton();
         initBaseInfo();
@@ -108,7 +110,7 @@ public class MarketPanelController implements Initializable {
         if (fundInfo != null) {
             establish_date.setText(fundInfo.establish_date);
             establish_scale.setText(fundInfo.establish_scale + "");
-            invest_strategy.setText(fundInfo.manage_fee+"");
+            invest_strategy.setText(fundInfo.manage_fee + "");
             invest_type.setText(fundInfo.invest_type);
             compare_base.setText(fundInfo.compare_base);
             scale.setText(fundInfo.scale + "");
@@ -154,7 +156,8 @@ public class MarketPanelController implements Initializable {
                     Field field = profitRate.getClass().getDeclaredField(id);
                     field.setAccessible(true);
                     Double temp = field.getDouble(profitRate) * 100;
-                    label.setText(temp + "%");
+                    DecimalFormat df=new DecimalFormat("#.00");
+                    label.setText(df.format(temp) + "%");
                     if (temp >= 0) {
                         label.setStyle(redFill);
                     } else {
@@ -185,21 +188,23 @@ public class MarketPanelController implements Initializable {
         } catch (ObjectNotFoundException e) {
             e.printStackTrace();
         }
-        String[] year = new String[list.size()];
-        double[][] nums = new double[3][list.size()];
+        if (list != null) {
+            String[] year = new String[list.size()];
+            double[][] nums = new double[3][list.size()];
 
-        for (int i = 0; i < list.size(); i++) {
-            ProfitChartInfo info = list.get(i);
-            year[i] = info.date;
-        }
-
-        for (int i = 0; i < list.size(); i++) {
-            ProfitChartInfo info = list.get(i);
-            for (int j = 0; j < 3; j++) {
-                nums[j][i] = info.values[j];
+            for (int i = 0; i < list.size(); i++) {
+                ProfitChartInfo info = list.get(i);
+                year[i] = info.date;
             }
+
+            for (int i = 0; i < list.size(); i++) {
+                ProfitChartInfo info = list.get(i);
+                for (int j = 0; j < 3; j++) {
+                    nums[j][i] = info.values[j];
+                }
+            }
+            generator.setData(year, nums);
         }
-        generator.setData(year, nums);
     }
 
     public void initButton() {
@@ -273,7 +278,7 @@ public class MarketPanelController implements Initializable {
             for (HoldingUnit unit : units) {
                 dataSeries.getData().add(new XYChart.Data(unit.name, unit.ratio));
             }
-            new BarChartGenerator(assetAllocationPane,"股票名称","占比",dataSeries);
+            new BarChartGenerator(assetAllocationPane, "股票名称", "占比", dataSeries);
         }
     }
 }
