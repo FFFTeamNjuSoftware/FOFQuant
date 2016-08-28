@@ -125,6 +125,7 @@ public class headUIController implements Initializable {
                 listView.setPrefSize(170, 200);
                 listView.setLayoutX(40);
                 listView.setLayoutY(0);
+                //listView.getStylesheets().add("Client/src/main/resources/css/stageView.css");
                 pane.getChildren().add(listView);
                 listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
                     public void changed(ObservableValue<? extends String> ov,
