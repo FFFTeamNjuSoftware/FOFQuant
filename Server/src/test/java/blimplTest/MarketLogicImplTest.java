@@ -1,5 +1,6 @@
 package blimplTest;
 
+import beans.PriceInfo;
 import beans.ProfitChartInfo;
 import beans.ProfitRateInfo;
 import bl.MarketLogic;
@@ -82,6 +83,16 @@ public class MarketLogicImplTest {
         System.out.println("————————————————————————————————————————————————————————————————");
         marketLogic.getPriceInfo("I000011", UnitType.WEEK, 30).stream()
                 .forEach(e -> System.out.println("WEEK" + new Gson().toJson(e)));
+
+        List<PriceInfo> infos = marketLogic.getPriceInfo("540006", UnitType.DAY, "2016-01-01",
+                "2016-08-27");
+        double rate = 1;
+        for (PriceInfo info : infos) {
+            rate *= (1 + info.rise / 100);
+            System.out.println(rate);
+        }
+        rate *= (1 - 0.0004) * (1 - 0.0009) * (1 - 0.0011) * (1 + 0.0001) * (1 + 0.0005);
+        System.out.println(rate);
     }
 
     /**
@@ -89,7 +100,7 @@ public class MarketLogicImplTest {
      */
     @Test
     public void testGetProfitRateInfo() throws Exception {
-        ProfitRateInfo info = marketLogic.getProfitRateInfo("511800");
+        ProfitRateInfo info = marketLogic.getProfitRateInfo("540006");
         System.out.println(new Gson().toJson(info));
     }
 
