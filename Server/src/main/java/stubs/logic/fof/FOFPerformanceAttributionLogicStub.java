@@ -1,17 +1,19 @@
-package blimpl.fof;
+package stubs.logic.fof;
 
-import beans.FOFProfitAnalyse;
-import bl.fof.FOFProfitAnalyseLogic;
+import beans.PerformanceAttribution;
+import bl.fof.FOFPerformanceAttributionLogic;
 import exception.ObjectNotFoundException;
 import exception.ParameterException;
-import util.TimeType;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 
 /**
- * Created by Daniel on 2016/8/26.
+ * Created by Daniel on 2016/8/28.
  */
-public class FOFProfitAnalyseLogicImpl implements FOFProfitAnalyseLogic {
+public class FOFPerformanceAttributionLogicStub extends UnicastRemoteObject implements FOFPerformanceAttributionLogic {
+    public FOFPerformanceAttributionLogicStub() throws RemoteException{}
     @Override
     public void setStartDate(String startDate) throws ParameterException, RemoteException {
 
@@ -28,7 +30,7 @@ public class FOFProfitAnalyseLogicImpl implements FOFProfitAnalyseLogic {
     }
 
     @Override
-    public FOFProfitAnalyse getFOFProfitAnalyse(TimeType timeType) throws RemoteException {
+    public List<PerformanceAttribution> getPerformanceAttribution() throws RemoteException {
         return null;
     }
 }

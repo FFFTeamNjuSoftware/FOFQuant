@@ -22,14 +22,14 @@ public interface FOFProfitStatisticsLogic extends Remote {
      *
      * @throws ParameterException
      */
-    void setStartDate() throws ParameterException, RemoteException;
+    void setStartDate(String startDate) throws ParameterException, RemoteException;
 
     /**
      * 设置区间结束时间
      *
      * @throws ParameterException
      */
-    void setEndDate() throws ParameterException, RemoteException;
+    void setEndDate(String endDate) throws ParameterException, RemoteException;
 
     /**
      * 设置业绩基准，大盘指数等

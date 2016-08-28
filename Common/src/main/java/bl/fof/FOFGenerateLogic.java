@@ -15,7 +15,7 @@ public interface FOFGenerateLogic extends Serializable {
      *
      * @return
      */
-    Map<SectorType, Double> getLargeClassConfiguration()throws RemoteException;
+    Map<String, Double> getLargeClassConfiguration()throws RemoteException;
 
 
 
@@ -25,5 +25,5 @@ public interface FOFGenerateLogic extends Serializable {
      *
      * @return
      */
-    Map<SectorType, Map<String, Double>> getSmallClassConfiguration()throws RemoteException;
+    Map<String, Map<String, Double>> getSmallClassConfiguration()throws RemoteException;
 }

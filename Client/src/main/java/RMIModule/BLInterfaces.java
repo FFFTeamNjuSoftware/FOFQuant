@@ -1,6 +1,7 @@
 package RMIModule;
 
 import bl.*;
+import bl.fof.*;
 import config.RMIConfig;
 import org.dom4j.DocumentException;
 
@@ -20,9 +21,15 @@ public class BLInterfaces {
     private static ProfitFeatureLogic profitFeatureLogic;
     private static RiskFeatureLogic riskFeature;
     private static UserLogic userLogic;
+    private static FOFAssetAllocationLogic fofAssetAllocationLogic;
+    private static FOFBaseInfoLogic fofBaseInfoLogic;
+    private static FOFGenerateLogic fofGenerateLogic;
+    private static FOFPerformanceAttributionLogic fofPerformanceAttributionLogic;
+    private static FOFProfitAnalyseLogic fofProfitAnalyseLogic;
+    private static FOFProfitStatisticsLogic fofProfitStatisticsLogic;
+    private static FOFRealTimeMonitorLogic fofRealTimeMonitorLogic;
 
     /**
-     *
      * @throws DocumentException
      */
     public static void netStart() throws DocumentException {
@@ -37,6 +44,19 @@ public class BLInterfaces {
                     .getSimpleName());
             riskFeature = (RiskFeatureLogic) Naming.lookup(url + RiskFeatureLogic.class.getSimpleName());
             userLogic = (UserLogic) Naming.lookup(url + UserLogic.class.getSimpleName());
+            fofAssetAllocationLogic = (FOFAssetAllocationLogic) Naming.lookup(url +
+                    FOFAssetAllocationLogic.class.getSimpleName());
+            fofBaseInfoLogic = (FOFBaseInfoLogic) Naming.lookup(url + FOFBaseInfoLogic.class
+                    .getSimpleName());
+            fofGenerateLogic = (FOFGenerateLogic) Naming.lookup(url + FOFGenerateLogic.class.getSimpleName());
+            fofPerformanceAttributionLogic = (FOFPerformanceAttributionLogic) Naming.lookup(url +
+                    FOFPerformanceAttributionLogic.class.getSimpleName());
+            fofProfitAnalyseLogic = (FOFProfitAnalyseLogic) Naming.lookup(url +
+                    FOFProfitAnalyseLogic.class.getSimpleName());
+            fofProfitStatisticsLogic = (FOFProfitStatisticsLogic) Naming.lookup(url +
+                    FOFProfitStatisticsLogic.class.getSimpleName());
+            fofRealTimeMonitorLogic = (FOFRealTimeMonitorLogic) Naming.lookup(url +
+                    FOFRealTimeMonitorLogic.class.getSimpleName());
         } catch (NotBoundException e) {
             e.printStackTrace();
         } catch (MalformedURLException e) {
@@ -70,4 +90,31 @@ public class BLInterfaces {
         return userLogic;
     }
 
+    public static FOFAssetAllocationLogic getFofAssetAllocationLogic() {
+        return fofAssetAllocationLogic;
+    }
+
+    public static FOFBaseInfoLogic getFofBaseInfoLogic() {
+        return fofBaseInfoLogic;
+    }
+
+    public static FOFGenerateLogic getFofGenerateLogic() {
+        return fofGenerateLogic;
+    }
+
+    public static FOFPerformanceAttributionLogic getFofPerformanceAttributionLogic() {
+        return fofPerformanceAttributionLogic;
+    }
+
+    public static FOFProfitAnalyseLogic getFofProfitAnalyseLogic() {
+        return fofProfitAnalyseLogic;
+    }
+
+    public static FOFProfitStatisticsLogic getFofProfitStatisticsLogic() {
+        return fofProfitStatisticsLogic;
+    }
+
+    public static FOFRealTimeMonitorLogic getFofRealTimeMonitorLogic() {
+        return fofRealTimeMonitorLogic;
+    }
 }
