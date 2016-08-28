@@ -3,6 +3,10 @@ package ui.userUI.portfolioManagementUI;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import starter.MainUI;
 
@@ -16,12 +20,19 @@ import java.util.ResourceBundle;
 public class analyseHomeUIController implements Initializable {
     private analyseHomeUIController analyseHomeUIController;
     private generalAnalysisUIController  generalAnalysisUIController =new generalAnalysisUIController();
+
+    @FXML
+    private Button btn1,btn2,btn3,btn4,btn5,btn6,btn7;
+    @FXML
+    private ImageView img1,img2,img3,img4,img5,img6,img7;
+
     private MainUI mainUI;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         analyseHomeUIController=this;
         mainUI = MainUI.getInstance();
+        initButton();
     }
 
     @FXML
@@ -31,6 +42,21 @@ public class analyseHomeUIController implements Initializable {
         generalAnalysisUIController.setTab(0);
         mainUI.changeScene("user_guidePanel","generalAnalysisPanel");
     }
+
+    private void initButton(){
+        Button[] buttons = new Button[]{btn1,btn2,btn3,btn4,btn5,btn6,btn7};
+        ImageView[] imgs = new ImageView[]{img1,img2,img3,img4,img5,img6,img7};
+        for (int i=0;i<buttons.length;i++){
+            int j=i;
+            buttons[i].addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
+         //       imgs[j].setImage(new Image("../resources/images/homepageButtonEnter"+(j+1)+".png"));
+            });
+            buttons[i].addEventHandler(MouseEvent.MOUSE_EXITED, (MouseEvent e) -> {
+          //      imgs[j].setImage(new Image("../images/homepageButton"+(j+1)+".png"));
+            });
+        }
+    }
+
     @FXML
     public void toAppraisalPanel(){
         generalAnalysisUIController.setTab(1);
