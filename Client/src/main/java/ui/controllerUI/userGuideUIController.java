@@ -35,18 +35,6 @@ public class userGuideUIController implements Initializable {
 		userNameLabel.setText(IOHelper.readName());
 	}
 
-<<<<<<< HEAD
-    public void initButtons() {
-        final int[] s = {0};
-        Button[] buttons = new Button[]{combinationBtn, marketBtn, riskBtn, warning_logBtn, logoutBtn};
-        for (final int[] i = {0}; i[0] < buttons.length; i[0]++) {
-            int j = i[0];
-            buttons[i[0]].addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
-                buttons[j].setStyle("-fx-background-color: #AFE1FE; -fx-opacity:0.3");
-            });
-=======
->>>>>>> 143af918510157032a851195629a3b3a526901e7
-
 	public void initButtons() {
 		Button[] buttons = new Button[]{combinationBtn, marketBtn, riskBtn, warning_logBtn, logoutBtn};
 //		combinationBtn.setStyle("-fx-background-color: #1F77B9;  -fx-opacity:0.3");
