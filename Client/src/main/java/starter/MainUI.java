@@ -25,8 +25,12 @@ import ui.util.FXMLHelper;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by tj on 2016/8/17.
@@ -38,12 +42,7 @@ public class MainUI extends Application {
     private final Delta dragDelta = new Delta();
     private static Stage primaryStage;
     private static Scene primaryScene;
-
-    public AnchorPane getPanel() {
-        return panel;
-    }
-
-    private AnchorPane panel;
+    private AnchorPane mainPanel;
 
     private BLInterfaces blInterfaces;
 
@@ -85,7 +84,7 @@ public class MainUI extends Application {
             System.out.print("......net fail......+\n");
         }
         this.primaryStage = primaryStage;
-        panel = FXMLHelper.loadPanel("loginPanel");
+        mainPanel = FXMLHelper.loadPanel("loginPanel");
 
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getBounds();
         double theWidth = primaryScreenBounds.getWidth();
@@ -101,10 +100,13 @@ public class MainUI extends Application {
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setResizable(false);
 
-        primaryScene = new Scene(panel);
-        addDraggableNode(panel);
+        primaryScene = new Scene(mainPanel);
+        addDraggableNode(mainPanel);
         primaryStage.setScene(primaryScene);
         primaryStage.show();
+
+        getFundDataThread();
+
     }
 
     public static void main(String[] args) {
@@ -143,9 +145,9 @@ public class MainUI extends Application {
     }
 
     public void enterLoginPanel() {
-        panel = FXMLHelper.loadPanel("loginPanel");
-        MainUI.primaryScene = new Scene(panel);
-        addDraggableNode(panel);
+        mainPanel = FXMLHelper.loadPanel("loginPanel");
+        MainUI.primaryScene = new Scene(mainPanel);
+        addDraggableNode(mainPanel);
         MainUI.primaryStage.setScene(primaryScene);
 
     }
@@ -155,12 +157,44 @@ public class MainUI extends Application {
         hbox = new HBox();
         AnchorPane headPane = FXMLHelper.loadPanel("headPanel");
         AnchorPane guidePane = FXMLHelper.loadPanel(guideName);
-        panel = FXMLHelper.loadPanel(mainStageName);
-        vbox.getChildren().addAll(headPane, panel);
+        mainPanel = FXMLHelper.loadPanel(mainStageName);
+        vbox.getChildren().addAll(headPane, mainPanel);
         hbox.getChildren().addAll(guidePane, vbox);
         primaryScene = new Scene(hbox);
         addDraggableNode(hbox);
         primaryStage.setScene(primaryScene);
     }
 
+    public void getFundDataThread() {
+        Runnable getFundData = new Runnable() {
+            @Override
+            public synchronized void run() {
+                String sectorID = "000001";
+                List<FundQuickInfo> fundQuickInfoList = null;
+                long tempTime = Calendar.getInstance().getTimeInMillis();
+                if (!MainUI.fundInfoMap.containsKey(sectorID)) {
+                    try {
+                        fundQuickInfoList = BLInterfaces.getBaseInfoLogic().getFundQuickInfo(sectorID);
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    } catch (ObjectNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("---get " + sectorID + " fundinfo from server:" + (Calendar.getInstance().getTimeInMillis() - tempTime));
+                    MainUI.fundInfoMap.put(sectorID, fundQuickInfoList);
+                } else {
+                    fundQuickInfoList = MainUI.fundInfoMap.get(sectorID);
+                    System.out.println("get " + sectorID + " fundinfo from map:" + (Calendar.getInstance().getTimeInMillis() - tempTime));
+                }
+            }
+        };
+        ScheduledExecutorService service = Executors
+                .newSingleThreadScheduledExecutor();
+        // 第二个参数为首次执行的延时时间，第三个参数为定时执行的间隔时间
+        service.schedule(getFundData, 0, TimeUnit.SECONDS);
+    }
+
+    public AnchorPane getMainPanel() {
+        return mainPanel;
+    }
 }

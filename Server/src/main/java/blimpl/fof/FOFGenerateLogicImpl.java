@@ -1,4 +1,4 @@
-package dataserviceimpl.fof;
+package blimpl.fof;
 
 import bl.fof.FOFGenerateLogic;
 import util.SectorType;

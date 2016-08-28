@@ -37,6 +37,8 @@ public class userGuideUIController implements Initializable {
 
     public void initButtons() {
         final int[] s = {0};
+        combinationBtn.setStyle("-fx-background-color: #1F77B9;  -fx-opacity:0.3");
+        s[0] =1;
         Button[] buttons = new Button[]{combinationBtn, marketBtn, riskBtn, warning_logBtn, logoutBtn};
         for (final int[] i = {0}; i[0] < buttons.length; i[0]++) {
             int j = i[0];

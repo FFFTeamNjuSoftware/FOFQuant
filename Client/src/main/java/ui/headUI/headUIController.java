@@ -115,7 +115,7 @@ public class headUIController implements Initializable {
                 e1.printStackTrace();
             }
             if (searchList != null) {
-                AnchorPane pane = MainUI.getInstance().getPanel();
+                AnchorPane pane = MainUI.getInstance().getMainPanel();
                 ObservableList<String> list = FXCollections.<String>observableArrayList();
                 for(CodeName codeName: searchList){
                     list.add(codeName.name+":"+codeName.code);
@@ -125,7 +125,6 @@ public class headUIController implements Initializable {
                 listView.setPrefSize(170, 200);
                 listView.setLayoutX(40);
                 listView.setLayoutY(0);
-                //listView.getStylesheets().add("Client/src/main/resources/css/stageView.css");
                 pane.getChildren().add(listView);
                 listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
                     public void changed(ObservableValue<? extends String> ov,

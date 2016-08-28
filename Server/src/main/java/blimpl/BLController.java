@@ -1,6 +1,8 @@
 package blimpl;
 
 import bl.*;
+import bl.fof.*;
+import blimpl.fof.FOFLogicCreator;
 import stubs.logic.*;
 
 import java.rmi.RemoteException;
@@ -103,11 +105,13 @@ public class BLController {
         }
     };
 
+
     private static LogicCreator currentCreator;
+    private static FOFLogicCreator currentFOFCreator;
 
     static {
         //    currentCreator = stubCreator;
-             currentCreator = trueCreator;
+        currentCreator = trueCreator;
     }
 
     public static BaseInfoLogic getBaseInfoLogic() {
@@ -132,5 +136,33 @@ public class BLController {
 
     public static ProfitFeatureLogic getProfitFeatureLogic() {
         return currentCreator.getProfitFeatureLogic();
+    }
+
+    public static FOFAssetAllocationLogic getFOFAssetAllocationLogic() {
+        return currentFOFCreator.getFofAssetAllocationLogic();
+    }
+
+    public static FOFBaseInfoLogic getFOFBaseInfoLogic() {
+        return currentFOFCreator.getFOFBaseInfoLogic();
+    }
+
+    public static FOFGenerateLogic getFOFGenerateLogic() {
+        return currentFOFCreator.getFOFGenerateLogic();
+    }
+
+    public static FOFPerformanceAttributionLogic getFOFPerformanceAttributionLogic() {
+        return currentFOFCreator.getFOFPerformanceAttributionLogic();
+    }
+
+    public static FOFProfitAnalyseLogic getFOFProfitAnalyseLogic() {
+        return currentFOFCreator.getFOFProfitAnalyseLogic();
+    }
+
+    public static FOFProfitStatisticsLogic getFOFPrifitStatisticsLogic() {
+        return currentFOFCreator.getFOFPrifitStatisticsLogic();
+    }
+
+    public static FOFRealTimeMonitorLogic getFOFRealTimeMonitorLogic() {
+        return currentFOFCreator.getFOFRealTimeMonitorLogic();
     }
 }

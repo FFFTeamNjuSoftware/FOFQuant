@@ -1,4 +1,4 @@
-package dataserviceimpl.fof;
+package blimpl.fof;
 
 import beans.PriceInfo;
 import beans.ProfitStatisticsInfo;
