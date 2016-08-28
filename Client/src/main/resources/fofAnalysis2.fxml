@@ -33,7 +33,7 @@
                   <Insets left="20.0" right="20.0" />
                </HBox.margin>
             </ComboBox>
-            <Label fx:id="startDateLb1" prefHeight="14.0" prefWidth="48.0" text="结束日期">
+            <Label fx:id="endDateLb" prefHeight="14.0" prefWidth="48.0" text="结束日期">
                <padding>
                   <Insets bottom="5.0" top="5.0" />
                </padding>
