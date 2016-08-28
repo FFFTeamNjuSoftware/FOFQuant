@@ -43,7 +43,7 @@ public class MainUI extends Application {
 	private final Delta dragDelta = new Delta();
 	private static Stage primaryStage;
 	private static Scene primaryScene;
-	private AnchorPane loginPanel;
+	private AnchorPane mainPanel;
 
 	private BLInterfaces blInterfaces;
 
@@ -61,6 +61,7 @@ public class MainUI extends Application {
 	public static HashMap<String, List<PriceInfo>> priceInfoMap = new HashMap<String, List<PriceInfo>>();
 	public static HashMap<String, List<ProfitChartInfo>> profitChartInfoMap = new HashMap<String, List<ProfitChartInfo>>();
 
+
 	public static MainUI getInstance() {
 		return MainUIHandler.instance;
 	}
@@ -72,7 +73,6 @@ public class MainUI extends Application {
 	public static Scene getPrimaryScene() {
 		return primaryScene;
 	}
-
 
 	private static class MainUIHandler {
 		private static MainUI instance = new MainUI();
@@ -87,7 +87,7 @@ public class MainUI extends Application {
 			System.out.print("......net fail......+\n");
 		}
 		this.primaryStage = primaryStage;
-		loginPanel = FXMLHelper.loadPanel("loginPanel");
+		mainPanel = FXMLHelper.loadPanel("loginPanel");
 
 		Rectangle2D primaryScreenBounds = Screen.getPrimary().getBounds();
 		double theWidth = primaryScreenBounds.getWidth();
@@ -103,8 +103,8 @@ public class MainUI extends Application {
 		primaryStage.initStyle(StageStyle.UNDECORATED);
 		primaryStage.setResizable(false);
 
-		primaryScene = new Scene(loginPanel);
-		addDraggableNode(loginPanel);
+		primaryScene = new Scene(mainPanel);
+		addDraggableNode(mainPanel);
 		primaryStage.setScene(primaryScene);
 		primaryStage.show();
 
@@ -148,9 +148,9 @@ public class MainUI extends Application {
 	}
 
 	public void enterLoginPanel() {
-		AnchorPane pane = FXMLHelper.loadPanel("loginPanel");
-		MainUI.primaryScene = new Scene(pane);
-		addDraggableNode(pane);
+		mainPanel = FXMLHelper.loadPanel("loginPanel");
+		MainUI.primaryScene = new Scene(mainPanel);
+		addDraggableNode(mainPanel);
 		MainUI.primaryStage.setScene(primaryScene);
 
 	}
@@ -160,8 +160,8 @@ public class MainUI extends Application {
 		hbox = new HBox();
 		AnchorPane headPane = FXMLHelper.loadPanel("headPanel");
 		AnchorPane guidePane = FXMLHelper.loadPanel(guideName);
-		AnchorPane mainStagePane = FXMLHelper.loadPanel(mainStageName);
-		vbox.getChildren().addAll(headPane, mainStagePane);
+		mainPanel = FXMLHelper.loadPanel(mainStageName);
+		vbox.getChildren().addAll(headPane, mainPanel);
 		hbox.getChildren().addAll(guidePane, vbox);
 		primaryScene = new Scene(hbox);
 		addDraggableNode(hbox);
@@ -197,5 +197,7 @@ public class MainUI extends Application {
 		service.schedule(getFundData, 0, TimeUnit.SECONDS);
 	}
 
-
+	public AnchorPane getMainPanel() {
+		return mainPanel;
+	}
 }

@@ -29,6 +29,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
 import starter.MainUI;
+import ui.util.IOHelper;
 import util.ChartType;
 import util.TimeType;
 import util.UnitType;
@@ -457,16 +458,13 @@ public class allFundUIController implements Initializable {
                     if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
                         selectedIndex = TableRowControl.this.getIndex();
                         fundId = codeColumn.getCellData(selectedIndex);
+                        IOHelper.writeName(fundId);
                         MainUI.getInstance().changeScene("user_guidePanel", "marketPanel");
                     }
 
                 }
             });
         }
-    }
-
-    public static String getFundId() {
-        return fundId;
     }
 }
 
