@@ -7,6 +7,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.image.ImageView;
+import starter.MainUI;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,13 +20,19 @@ public class generalAnalysisUIController implements Initializable {
     @FXML
     private TabPane tabPanel;
     @FXML
-    private Button tab1Btn,tab2Btn,tab3Btn,tab4Btn,tab5Btn,tab6Btn;
-    private generalAnalysisUIController instance;
+    private Button tab1Btn,tab2Btn,tab3Btn,tab4Btn,tab5Btn,tab6Btn,tab7Btn;
+    @FXML
+    private ImageView tab1Img,tab2Img,tab3Img,tab4Img,tab5Img,tab6Img,tab7Img;
+    private ImageView[] imgs = new ImageView[]{tab1Img,tab2Img,tab3Img,tab4Img,tab5Img,tab6Img,tab7Img};;
 
+    private generalAnalysisUIController instance;
+    private MainUI mainUI;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         instance=this;
+        mainUI = MainUI.getInstance();
     }
+
 
     public void tabInit(){
         tabPanel.getChildrenUnmodifiable().addAll(tab1Btn, tab2Btn, tab3Btn, tab4Btn,tab5Btn, tab6Btn);
@@ -57,8 +65,25 @@ public class generalAnalysisUIController implements Initializable {
                 System.out.println("...tab6Btn...");
             }
         }
-    });
+        });
 
-}
+    }
+    public  void setTab(int k){
+        for(int i=0;i<7;i++){
+            System.out.println("......"+i+"......");
+            if(i==k){
+                System.out.println("......visible......");
+                imgs[i].setVisible(true);
+            }else{
+                System.out.println("......not visible......");
+                imgs[i].setVisible(false);
+            }
+         }
+    }
 
+
+    @FXML
+    private void toAnalyseHomePanel() {
+        mainUI.changeScene("user_guidePanel","analyseHomePanel");
+    }
 }

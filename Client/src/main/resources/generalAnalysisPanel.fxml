@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="930.0" styleClass="root" stylesheets="@css/stageView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.userUI.portfolioManagementUI.generalAnalysisUIController">
+   <children>
+      <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="15.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/images/back.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="tab1Img" fitHeight="32.0" fitWidth="114.0" layoutX="43.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/images/buttonMedium.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="tab2Img" fitHeight="32.0" fitWidth="114.0" layoutX="164.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@/images/buttonMedium.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="tab5Img" fitHeight="32.0" fitWidth="114.0" layoutX="554.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@/images/buttonMedium.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="tab3Img" fitHeight="32.0" fitWidth="114.0" layoutX="294.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@/images/buttonMedium.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="tab4Img" fitHeight="32.0" fitWidth="114.0" layoutX="424.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@/images/buttonMedium.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="tab6Img" fitHeight="32.0" fitWidth="114.0" layoutX="684.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@/images/buttonMedium.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="tab7Img" fitHeight="32.0" fitWidth="114.0" layoutX="814.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@/images/buttonMedium.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="61.0" layoutY="25.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="80.0" text="实时监控" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="181.0" layoutY="25.0" text="盈亏分析" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="311.0" layoutY="25.0" text="业绩归因" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="441.0" layoutY="25.0" text="回报统计" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="571.0" layoutY="25.0" text="资产配置" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="701.0" layoutY="25.0" text="持仓变动" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <TabPane fx:id="tabPanel" layoutY="64.0" prefHeight="520.0" prefWidth="930.0" tabClosingPolicy="UNAVAILABLE" />
+      <Button fx:id="backBtn" onAction="#toAnalyseHomePanel" layoutX="14.0" layoutY="27.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="23.0" prefWidth="23.0" style="-fx-background-color: transparent;" textFill="WHITE" />
+      <Button fx:id="tab1Btn" layoutX="43.0" layoutY="22.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="114.0" style="-fx-background-color: transparent;" textFill="WHITE" />
+      <Button fx:id="tab6Btn" layoutX="684.0" layoutY="22.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="114.0" style="-fx-background-color: transparent;" textFill="WHITE" />
+      <Button fx:id="tab4Btn" layoutX="424.0" layoutY="22.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="114.0" style="-fx-background-color: transparent;" textFill="WHITE" />
+      <Button fx:id="tab3Btn" layoutX="294.0" layoutY="22.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="114.0" style="-fx-background-color: transparent;" textFill="WHITE" />
+      <Button fx:id="tab5Btn" layoutX="554.0" layoutY="22.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="114.0" style="-fx-background-color: transparent;" textFill="WHITE" />
+      <Button fx:id="tab2Btn" layoutX="164.0" layoutY="22.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="114.0" style="-fx-background-color: transparent;" textFill="WHITE" />
+      <Label layoutX="831.0" layoutY="25.0" text="效绩评估" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Button fx:id="tab7Btn" layoutX="814.0" layoutY="22.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="114.0" style="-fx-background-color: transparent;" textFill="WHITE" />
+   </children>
+</AnchorPane>

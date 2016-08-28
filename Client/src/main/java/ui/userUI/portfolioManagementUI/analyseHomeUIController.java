@@ -1,6 +1,7 @@
 package ui.userUI.portfolioManagementUI;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import starter.MainUI;
 
@@ -12,6 +13,7 @@ import java.util.ResourceBundle;
  */
 public class analyseHomeUIController implements Initializable {
     private analyseHomeUIController analyseHomeUIController;
+    private generalAnalysisUIController generalAnalysisUIController;
     private MainUI mainUI;
 
     @Override
@@ -20,21 +22,40 @@ public class analyseHomeUIController implements Initializable {
         mainUI = MainUI.getInstance();
     }
 
-
     @FXML
-    public void toGeneralAnalysisiPanel(){
-        mainUI.changeScene("user_guidePanel","buildHomePanel");
-    }
-    @FXML
-    public void toPerformancePanel(){
-
+    public void toMonitorPanel(){
+        generalAnalysisUIController.setTab(0);
+        mainUI.changeScene("user_guidePanel","generalAnalysisPanel");
     }
     @FXML
     public void toAppraisalPanel(){
-
+        generalAnalysisUIController.setTab(1);
+        mainUI.changeScene("user_guidePanel","generalAnalysisPanel");
     }
     @FXML
-    public void toAttributionPanel(){
+    public void toChangePositionPanel(){
+        generalAnalysisUIController.setTab(2);
+        mainUI.changeScene("user_guidePanel","generalAnalysisPanel");
+    }
+    @FXML
+    public void toBreakevenPanel(){
+        generalAnalysisUIController.setTab(3);
+        mainUI.changeScene("user_guidePanel","generalAnalysisPanel");
+    }
 
+    @FXML
+    public void toAttributionPanel(){
+        generalAnalysisUIController.setTab(4);
+        mainUI.changeScene("user_guidePanel","generalAnalysisPanel");
+    }
+    @FXML
+    public void toAssetAllocationPanel(){
+        generalAnalysisUIController.setTab(5);
+        mainUI.changeScene("user_guidePanel","generalAnalysisPanel");
+    }
+    @FXML
+    public void toReturnStatsPanel(){
+        generalAnalysisUIController.setTab(6);
+        mainUI.changeScene("user_guidePanel","generalAnalysisPanel");
     }
 }
