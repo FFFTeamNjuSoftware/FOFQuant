@@ -87,7 +87,7 @@ public class loginUIController implements Initializable {
 				//进入普通用户界面
 				IOHelper.writeName(userName);
 				System.out.println("......normal......");
-				mainUI.changeScene("user_guidePanel", "writePanel");
+				mainUI.changeScene("user_guidePanel", "buildHomePanel");
 //				getFundDataThread();
 			} else {
 				System.out.println("......login fail......");

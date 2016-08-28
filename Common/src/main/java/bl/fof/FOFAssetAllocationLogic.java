@@ -21,15 +21,15 @@ public interface FOFAssetAllocationLogic extends Remote {
      * 设置日期
      * @param date
      */
-    void setDate(String date);
+    void setDate(String date)throws RemoteException;
     /**
      * 获得资产配置情况
      * @return
      */
-    List<AssetItem> getFOFAssetAllocation();
+    List<AssetItem> getFOFAssetAllocation()throws RemoteException;
     /**
      * 获得大类配置权重情况
      * @return
      */
-    Map<String,Double> getWeights();
+    Map<String,Double> getWeights()throws RemoteException;
 }

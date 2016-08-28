@@ -3,6 +3,7 @@ package bl.fof;
 import util.SectorType;
 
 import java.io.Serializable;
+import java.rmi.RemoteException;
 import java.util.Map;
 
 /**
@@ -14,7 +15,7 @@ public interface FOFGenerateLogic extends Serializable {
      *
      * @return
      */
-    Map<SectorType, Double> getLargeClassConfiguration();
+    Map<SectorType, Double> getLargeClassConfiguration()throws RemoteException;
 
 
 
@@ -24,5 +25,5 @@ public interface FOFGenerateLogic extends Serializable {
      *
      * @return
      */
-    Map<SectorType, Map<String, Double>> getSmallClassConfiguration();
+    Map<SectorType, Map<String, Double>> getSmallClassConfiguration()throws RemoteException;
 }

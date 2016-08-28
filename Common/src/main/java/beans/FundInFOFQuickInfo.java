@@ -11,6 +11,10 @@ public class FundInFOFQuickInfo implements Serializable {
      */
     public String fundCode;
     /**
+     * 更新时间
+     */
+    public String time;
+    /**
      * 基金名字
      */
     public String fundName;
@@ -70,8 +74,5 @@ public class FundInFOFQuickInfo implements Serializable {
      * 持仓成本
      */
     public double cost;
-    /**
-     * 更新时间
-     */
-    public String time;
+
 }
