@@ -123,8 +123,8 @@ public class allFundUIController implements Initializable {
     }
 
     private void init(String sectorID) {
-        if(!MainUI.fundInfoMap.containsKey(sectorID)){
-            long tempTime=Calendar.getInstance().getTimeInMillis();
+	    long tempTime=Calendar.getInstance().getTimeInMillis();
+	    if(!MainUI.fundInfoMap.containsKey(sectorID)){
             try {
                 fundQuickInfoList = baseInfoLogic.getFundQuickInfo(sectorID);
             } catch (RemoteException e) {
@@ -135,7 +135,6 @@ public class allFundUIController implements Initializable {
             System.out.println("---get "+sectorID+" fundinfo from server:"+(Calendar.getInstance().getTimeInMillis()-tempTime));
             MainUI.fundInfoMap.put(sectorID,fundQuickInfoList);
         }else{
-            long tempTime=Calendar.getInstance().getTimeInMillis();
             fundQuickInfoList=MainUI.fundInfoMap.get(sectorID);
             System.out.println("get "+sectorID+" fundinfo from map:"+(Calendar.getInstance().getTimeInMillis()-tempTime));
         }
@@ -300,8 +299,8 @@ public class allFundUIController implements Initializable {
 
     private void initChart1(String code) {
         marketLogic = blInterfaces.getMarketLogic();
-        if(!MainUI.priceInfoMap.containsKey(code)){
-            long tempTime=Calendar.getInstance().getTimeInMillis();
+	    long tempTime=Calendar.getInstance().getTimeInMillis();
+	    if(!MainUI.priceInfoMap.containsKey(code)){
             try {
                 priceInfoList = marketLogic.getPriceInfo(code, UnitType.WEEK, 16);
             } catch (RemoteException e) {
@@ -314,7 +313,6 @@ public class allFundUIController implements Initializable {
             System.out.println("---get "+code+" priceinfo from server:"+(Calendar.getInstance().getTimeInMillis()-tempTime));
             MainUI.priceInfoMap.put(code,priceInfoList);
         }else{
-            long tempTime=Calendar.getInstance().getTimeInMillis();
             priceInfoList=MainUI.priceInfoMap.get(code);
             System.out.println("get "+code+" priceinfo from map:"+(Calendar.getInstance().getTimeInMillis()-tempTime));
         }
@@ -356,8 +354,8 @@ public class allFundUIController implements Initializable {
     }
 
     private void initChart2(String code) {
-        if(!MainUI.profitChartInfoMap.containsKey(code)){
-            long tempTime=Calendar.getInstance().getTimeInMillis();
+	    long tempTime=Calendar.getInstance().getTimeInMillis();
+	    if(!MainUI.profitChartInfoMap.containsKey(code)){
             try {
                 profitChartInfoList = marketLogic.getFundProfitInfoChart(code, UnitType.WEEK, TimeType.THREE_MONTH, ChartType.MILLION_WAVE_CHART);
             } catch (RemoteException e) {
@@ -368,7 +366,6 @@ public class allFundUIController implements Initializable {
             System.out.println("---get "+code+" profitInfoMap from server:"+(Calendar.getInstance().getTimeInMillis()-tempTime));
             MainUI.profitChartInfoMap.put(code,profitChartInfoList);
         }else{
-            long tempTime=Calendar.getInstance().getTimeInMillis();
             profitChartInfoList=MainUI.profitChartInfoMap.get(code);
             System.out.println("get "+code+" profitInfoMap from map:"+(Calendar.getInstance().getTimeInMillis()-tempTime));
         }

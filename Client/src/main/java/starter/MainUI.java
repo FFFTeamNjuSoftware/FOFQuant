@@ -25,8 +25,12 @@ import ui.util.FXMLHelper;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by tj on 2016/8/17.
@@ -99,6 +103,9 @@ public class MainUI extends Application {
 		addDraggableNode(loginPanel);
 		primaryStage.setScene(primaryScene);
 		primaryStage.show();
+
+		getFundDataThread();
+
 	}
 
 	public static void main(String[] args) {
@@ -156,5 +163,34 @@ public class MainUI extends Application {
 		addDraggableNode(hbox);
 		primaryStage.setScene(primaryScene);
 	}
+	public void getFundDataThread() {
+		Runnable getFundData = new Runnable() {
+			@Override
+			public synchronized void run() {
+				String sectorID="000001";
+				List<FundQuickInfo> fundQuickInfoList=null;
+				long tempTime= Calendar.getInstance().getTimeInMillis();
+				if(!MainUI.fundInfoMap.containsKey(sectorID)){
+					try {
+						fundQuickInfoList = BLInterfaces.getBaseInfoLogic().getFundQuickInfo(sectorID);
+					} catch (RemoteException e) {
+						e.printStackTrace();
+					} catch (ObjectNotFoundException e) {
+						e.printStackTrace();
+					}
+					System.out.println("---get "+sectorID+" fundinfo from server:"+(Calendar.getInstance().getTimeInMillis()-tempTime));
+					MainUI.fundInfoMap.put(sectorID,fundQuickInfoList);
+				}else{
+					fundQuickInfoList=MainUI.fundInfoMap.get(sectorID);
+					System.out.println("get "+sectorID+" fundinfo from map:"+(Calendar.getInstance().getTimeInMillis()-tempTime));
+				}
+			}
+		};
+		ScheduledExecutorService service = Executors
+				.newSingleThreadScheduledExecutor();
+		// 第二个参数为首次执行的延时时间，第三个参数为定时执行的间隔时间
+		service.schedule(getFundData, 0, TimeUnit.SECONDS);
+	}
+
 
 }
