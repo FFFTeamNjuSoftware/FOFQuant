@@ -1,4 +1,4 @@
-package blimpl.fof;
+package stubs.logic.fof;
 
 import beans.FOFProfitAnalyse;
 import bl.fof.FOFProfitAnalyseLogic;
@@ -7,11 +7,16 @@ import exception.ParameterException;
 import util.TimeType;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 /**
- * Created by Daniel on 2016/8/26.
+ * Created by Daniel on 2016/8/28.
  */
-public class FOFProfitAnalyseLogicImpl implements FOFProfitAnalyseLogic {
+
+public class FOFProfitAnalyseLogicStub extends UnicastRemoteObject implements FOFProfitAnalyseLogic {
+    public FOFProfitAnalyseLogicStub() throws RemoteException{
+
+    }
     @Override
     public void setStartDate(String startDate) throws ParameterException, RemoteException {
 

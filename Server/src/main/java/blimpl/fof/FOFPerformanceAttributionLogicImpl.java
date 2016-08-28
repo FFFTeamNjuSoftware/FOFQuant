@@ -13,12 +13,12 @@ import java.util.List;
  */
 public class FOFPerformanceAttributionLogicImpl implements FOFPerformanceAttributionLogic {
     @Override
-    public void setStartDate() throws ParameterException, RemoteException {
+    public void setStartDate(String startDate) throws ParameterException, RemoteException {
 
     }
 
     @Override
-    public void setEndDate() throws ParameterException, RemoteException {
+    public void setEndDate(String endDate) throws ParameterException, RemoteException {
 
     }
 

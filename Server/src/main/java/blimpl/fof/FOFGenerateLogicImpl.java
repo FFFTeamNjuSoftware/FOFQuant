@@ -10,12 +10,12 @@ import java.util.Map;
  */
 public class FOFGenerateLogicImpl implements FOFGenerateLogic {
     @Override
-    public Map<SectorType, Double> getLargeClassConfiguration() {
+    public Map<String, Double> getLargeClassConfiguration() {
         return null;
     }
 
     @Override
-    public Map<SectorType, Map<String, Double>> getSmallClassConfiguration() {
+    public Map<String, Map<String, Double>> getSmallClassConfiguration() {
         return null;
     }
 }

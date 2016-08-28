@@ -1,6 +1,7 @@
 package RMIModule;
 
 import bl.*;
+import bl.fof.*;
 import blimpl.BLController;
 import config.RMIConfig;
 import org.dom4j.DocumentException;
@@ -29,6 +30,18 @@ public class NetInitial {
                 BLController.getInvestmentPortfolioLogic());
         serviceMap.put(RiskFeatureLogic.class.getSimpleName(), BLController.getRiskFeatureLogic());
         serviceMap.put(ProfitFeatureLogic.class.getSimpleName(), BLController.getProfitFeatureLogic());
+        serviceMap.put(FOFAssetAllocationLogic.class.getSimpleName(), BLController
+                .getFOFAssetAllocationLogic());
+        serviceMap.put(FOFBaseInfoLogic.class.getSimpleName(), BLController.getFOFBaseInfoLogic());
+        serviceMap.put(FOFGenerateLogic.class.getSimpleName(), BLController.getFOFGenerateLogic());
+        serviceMap.put(FOFPerformanceAttributionLogic.class.getSimpleName(), BLController
+                .getFOFPerformanceAttributionLogic());
+        serviceMap.put(FOFProfitAnalyseLogic.class.getSimpleName(), BLController
+                .getFOFProfitAnalyseLogic());
+        serviceMap.put(FOFProfitStatisticsLogic.class.getSimpleName(), BLController
+                .getFOFPrifitStatisticsLogic());
+        serviceMap.put(FOFRealTimeMonitorLogic.class.getSimpleName(), BLController
+                .getFOFRealTimeMonitorLogic());
     }
 
     public static void initial() throws DocumentException, RemoteException, AlreadyBoundException,
