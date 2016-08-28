@@ -54,6 +54,7 @@ public class MainUI extends Application {
 
 	private BaseInfoLogic baseInfoLogic;
 
+
 	public static double sizeRatio;
 	public static int s = -1;
 	public static HashMap<String, List<FundQuickInfo>> fundInfoMap = new HashMap<String, List<FundQuickInfo>>();
