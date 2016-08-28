@@ -3,8 +3,10 @@ package ui.userUI.portfolioManagementUI;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.layout.AnchorPane;
 import starter.MainUI;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -13,7 +15,7 @@ import java.util.ResourceBundle;
  */
 public class analyseHomeUIController implements Initializable {
     private analyseHomeUIController analyseHomeUIController;
-    private generalAnalysisUIController generalAnalysisUIController;
+    private generalAnalysisUIController  generalAnalysisUIController =new generalAnalysisUIController();
     private MainUI mainUI;
 
     @Override
@@ -24,6 +26,8 @@ public class analyseHomeUIController implements Initializable {
 
     @FXML
     public void toMonitorPanel(){
+     //   FXMLLoader fxmlLoader=new FXMLLoader(MainUI.class.getResource("generalAnalysisPanel.fxml"));
+    //    generalAnalysisUIController=fxmlLoader.getController();
         generalAnalysisUIController.setTab(0);
         mainUI.changeScene("user_guidePanel","generalAnalysisPanel");
     }
