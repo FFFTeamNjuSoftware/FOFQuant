@@ -29,6 +29,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
 import starter.MainUI;
+import ui.util.IOHelper;
 import util.ChartType;
 import util.TimeType;
 import util.UnitType;
@@ -134,8 +135,13 @@ public class allFundUIController implements Initializable {
             } catch (ObjectNotFoundException e) {
                 e.printStackTrace();
             }
-            System.out.println("---get "+sectorID+" fundinfo from server:"+(Calendar.getInstance().getTimeInMillis()-tempTime));
-            MainUI.fundInfoMap.put(sectorID,fundQuickInfoList);
+
+            if(fundQuickInfoList!=null) {
+                MainUI.fundInfoMap.put(sectorID,fundQuickInfoList);
+                System.out.println("---get "+sectorID+" fundinfo from server:"+(Calendar.getInstance().getTimeInMillis()-tempTime));
+            }else{
+                System.out.println("failed---get " + sectorID + " fundinfo from server!");
+            }
         }else{
             fundQuickInfoList=MainUI.fundInfoMap.get(sectorID);
             System.out.println("get "+sectorID+" fundinfo from map:"+(Calendar.getInstance().getTimeInMillis()-tempTime));
@@ -312,8 +318,12 @@ public class allFundUIController implements Initializable {
             } catch (ParameterException e) {
                 e.printStackTrace();
             }
-            System.out.println("---get "+code+" priceinfo from server:"+(Calendar.getInstance().getTimeInMillis()-tempTime));
-            MainUI.priceInfoMap.put(code,priceInfoList);
+            if(priceInfoList!=null) {
+                MainUI.priceInfoMap.put(code, priceInfoList);
+                System.out.println("---get " + code + " priceinfo from server:" + (Calendar.getInstance().getTimeInMillis() - tempTime));
+            }else{
+                System.out.println("failed---get " + code + " priceinfo from server:");
+            }
         }else{
             priceInfoList=MainUI.priceInfoMap.get(code);
             System.out.println("get "+code+" priceinfo from map:"+(Calendar.getInstance().getTimeInMillis()-tempTime));
@@ -329,14 +339,20 @@ public class allFundUIController implements Initializable {
         XYChart.Series series1 = new XYChart.Series();
         date1Axis.setTickLabelGap(10);
         date1Axis.isGapStartAndEnd();
+        date1Axis.setTickMarkVisible(true);
+        date1Axis.setTickLabelRotation(0.5);
+        date1Axis.setTickLabelsVisible(true);
+//        date1Axis.setTickLength(10);
+
         y1Axis.setTickUnit(1);
         y1Axis.setForceZeroInRange(false);
 
         System.out.println();
         series1.setName("单位净值");
-
-        for (int i = 0; i < priceInfoList.size(); i++) {
-            series1.getData().add(new XYChart.Data(priceInfoList.get(i).date, priceInfoList.get(i).price));
+        if(priceInfoList!=null){
+            for (int i = 0; i < priceInfoList.size(); i++) {
+                series1.getData().add(new XYChart.Data(priceInfoList.get(i).date, priceInfoList.get(i).price));
+            }
         }
 
 //String code, UnitType type, String startDate, String endDate
@@ -365,8 +381,12 @@ public class allFundUIController implements Initializable {
             } catch (ObjectNotFoundException e) {
                 e.printStackTrace();
             }
-            System.out.println("---get "+code+" profitInfoMap from server:"+(Calendar.getInstance().getTimeInMillis()-tempTime));
-            MainUI.profitChartInfoMap.put(code,profitChartInfoList);
+            if(profitChartInfoList!=null) {
+                MainUI.profitChartInfoMap.put(code,profitChartInfoList);
+                System.out.println("---get "+code+" profitInfo from server:"+(Calendar.getInstance().getTimeInMillis()-tempTime));
+            }else{
+                System.out.println("failed---get " + code + " profitInfo from server!");
+            }
         }else{
             profitChartInfoList=MainUI.profitChartInfoMap.get(code);
             System.out.println("get "+code+" profitInfoMap from map:"+(Calendar.getInstance().getTimeInMillis()-tempTime));
@@ -381,8 +401,13 @@ public class allFundUIController implements Initializable {
 
         date2Axis.setTickLabelGap(10);
         date2Axis.isGapStartAndEnd();
-        y2Axis.setTickUnit(1);
+        date2Axis.setTickMarkVisible(true);
+        date2Axis.setTickLabelRotation(0.5);
+        date2Axis.setTickLabelsVisible(true);
 
+        y2Axis.setTickUnit(1);
+        y2Axis.setForceZeroInRange(false);
+        
         XYChart.Series series1 = new XYChart.Series();
         series1.setName("期间收益率");
         for (int i = 0; i < profitChartInfoList.size(); i++) {
@@ -433,16 +458,13 @@ public class allFundUIController implements Initializable {
                     if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
                         selectedIndex = TableRowControl.this.getIndex();
                         fundId = codeColumn.getCellData(selectedIndex);
+                        IOHelper.writeName(fundId);
                         MainUI.getInstance().changeScene("user_guidePanel", "marketPanel");
                     }
 
                 }
             });
         }
-    }
-
-    public static String getFundId() {
-        return fundId;
     }
 }
 

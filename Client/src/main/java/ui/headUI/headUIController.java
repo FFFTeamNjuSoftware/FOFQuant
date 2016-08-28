@@ -3,14 +3,23 @@ package ui.headUI;
 import RMIModule.BLInterfaces;
 import beans.CodeName;
 import bl.BaseInfoLogic;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Orientation;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import starter.MainUI;
+import ui.util.IOHelper;
 
 import java.awt.event.KeyAdapter;
 import java.net.URL;
@@ -25,22 +34,24 @@ import java.util.ResourceBundle;
 public class headUIController implements Initializable {
 
     @FXML
-    private Button minBtn,exitBtn,fullBtn,searchBtn;
+    private Button minBtn, exitBtn, fullBtn, searchBtn;
     @FXML
     private TextField searchTextField;
-    private BLInterfaces  blInterfaces;
+    private BLInterfaces blInterfaces;
     private BaseInfoLogic baseInfoLogic;
     private List<CodeName> searchList;
-    private  headUIController instance;
+    private headUIController instance;
     private String searchID;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         instance = this;
         buttonInit();
+        handleSearch();
     }
 
 
-    public void buttonInit(){
+    public void buttonInit() {
         minBtn.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
             minBtn.setStyle("-fx-background-color: #23a3f3; -fx-opacity:0.5");
         });
@@ -80,39 +91,60 @@ public class headUIController implements Initializable {
     }
 
     @FXML
-    public void  toFullScreen(){
+    public void toFullScreen() {
 
     }
+
     @FXML
-    public void  toExitScreen(){
+    public void toExitScreen() {
         MainUI.getPrimaryStage().close();
     }
+
     @FXML
-    public void  toMinScreen(){
+    public void toMinScreen() {
         MainUI.getPrimaryStage().setIconified(true);
     }
 
 
-    public void search(){
-        baseInfoLogic= blInterfaces.getBaseInfoLogic();
-
-        searchTextField.addEventHandler(KeyEvent.KEY_PRESSED, (KeyEvent e) -> {
-
+    public void handleSearch() {
+        baseInfoLogic = blInterfaces.getBaseInfoLogic();
+        searchTextField.setOnKeyReleased((e) -> {
             try {
-                searchList =baseInfoLogic.fuzzySearch(e.getCharacter());
-
-                ////
+                searchList = baseInfoLogic.fuzzySearch(e.getText());
             } catch (RemoteException e1) {
                 e1.printStackTrace();
             }
+            if (searchList != null) {
+                AnchorPane pane = MainUI.getInstance().getMainPanel();
+                ObservableList<String> list = FXCollections.<String>observableArrayList();
+                for(CodeName codeName: searchList){
+                    list.add(codeName.name+":"+codeName.code);
+                }
+                ListView<String> listView = new ListView<>(list);
+                listView.setOrientation(Orientation.VERTICAL);
+                listView.setPrefSize(170, 200);
+                listView.setLayoutX(40);
+                listView.setLayoutY(0);
+                pane.getChildren().add(listView);
+                listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+                    public void changed(ObservableValue<? extends String> ov,
+                                        final String oldvalue, final String newvalue) {
+                        String[] strs = newvalue.toString().split(":");
+                        IOHelper.writeName(strs[1]);
+                        MainUI.getInstance().changeScene("user_guidePanel","marketPanel");
+                    }
+                });
 
+            }
         });
 
+
     }
+
     @FXML
-    public void toSearchFund(){
-        String id =searchTextField.getText();
-        System.out.println("......search result......"+id);
+    public void toSearchFund() {
+        String id = searchTextField.getText();
+
 
     }
 

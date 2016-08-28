@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.dom4j.DocumentException;
 import ui.util.FXMLHelper;
+import ui.util.InitHelper;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ public class MainUI extends Application {
 	private final Delta dragDelta = new Delta();
 	private static Stage primaryStage;
 	private static Scene primaryScene;
-	private AnchorPane loginPanel;
+	private AnchorPane mainPanel;
 
 	private BLInterfaces blInterfaces;
 
@@ -53,10 +54,14 @@ public class MainUI extends Application {
 
 	private BaseInfoLogic baseInfoLogic;
 
+
 	public static double sizeRatio;
-	public static   HashMap<String,List<FundQuickInfo>> fundInfoMap=new HashMap<String,List<FundQuickInfo>>();
-	public static   HashMap<String,List<PriceInfo>> priceInfoMap =new HashMap<String,List<PriceInfo>>();
-	public static  HashMap<String,List<ProfitChartInfo>> profitChartInfoMap = new HashMap<String,List<ProfitChartInfo>>();
+	public static int s = -1;
+	public static HashMap<String, List<FundQuickInfo>> fundInfoMap = new HashMap<String, List<FundQuickInfo>>();
+	public static HashMap<String, List<PriceInfo>> priceInfoMap = new HashMap<String, List<PriceInfo>>();
+	public static HashMap<String, List<ProfitChartInfo>> profitChartInfoMap = new HashMap<String, List<ProfitChartInfo>>();
+
+
 	public static MainUI getInstance() {
 		return MainUIHandler.instance;
 	}
@@ -69,9 +74,8 @@ public class MainUI extends Application {
 		return primaryScene;
 	}
 
-
-	private static class MainUIHandler{
-		private static MainUI instance=new MainUI();
+	private static class MainUIHandler {
+		private static MainUI instance = new MainUI();
 	}
 
 	@Override
@@ -83,7 +87,7 @@ public class MainUI extends Application {
 			System.out.print("......net fail......+\n");
 		}
 		this.primaryStage = primaryStage;
-		loginPanel = FXMLHelper.loadPanel("loginPanel");
+		mainPanel = FXMLHelper.loadPanel("loginPanel");
 
 		Rectangle2D primaryScreenBounds = Screen.getPrimary().getBounds();
 		double theWidth = primaryScreenBounds.getWidth();
@@ -99,8 +103,8 @@ public class MainUI extends Application {
 		primaryStage.initStyle(StageStyle.UNDECORATED);
 		primaryStage.setResizable(false);
 
-		primaryScene = new Scene(loginPanel);
-		addDraggableNode(loginPanel);
+		primaryScene = new Scene(mainPanel);
+		addDraggableNode(mainPanel);
 		primaryStage.setScene(primaryScene);
 		primaryStage.show();
 
@@ -144,9 +148,9 @@ public class MainUI extends Application {
 	}
 
 	public void enterLoginPanel() {
-		AnchorPane pane = FXMLHelper.loadPanel("loginPanel");
-		MainUI.primaryScene = new Scene(pane);
-		addDraggableNode(pane);
+		mainPanel = FXMLHelper.loadPanel("loginPanel");
+		MainUI.primaryScene = new Scene(mainPanel);
+		addDraggableNode(mainPanel);
 		MainUI.primaryStage.setScene(primaryScene);
 
 	}
@@ -156,21 +160,22 @@ public class MainUI extends Application {
 		hbox = new HBox();
 		AnchorPane headPane = FXMLHelper.loadPanel("headPanel");
 		AnchorPane guidePane = FXMLHelper.loadPanel(guideName);
-		AnchorPane mainStagePane = FXMLHelper.loadPanel(mainStageName);
-		vbox.getChildren().addAll(headPane, mainStagePane);
+		mainPanel = FXMLHelper.loadPanel(mainStageName);
+		vbox.getChildren().addAll(headPane, mainPanel);
 		hbox.getChildren().addAll(guidePane, vbox);
 		primaryScene = new Scene(hbox);
 		addDraggableNode(hbox);
 		primaryStage.setScene(primaryScene);
 	}
+
 	public void getFundDataThread() {
 		Runnable getFundData = new Runnable() {
 			@Override
 			public synchronized void run() {
-				String sectorID="000001";
-				List<FundQuickInfo> fundQuickInfoList=null;
-				long tempTime= Calendar.getInstance().getTimeInMillis();
-				if(!MainUI.fundInfoMap.containsKey(sectorID)){
+				String sectorID = "000001";
+				List<FundQuickInfo> fundQuickInfoList = null;
+				long tempTime = Calendar.getInstance().getTimeInMillis();
+				if (!MainUI.fundInfoMap.containsKey(sectorID)) {
 					try {
 						fundQuickInfoList = BLInterfaces.getBaseInfoLogic().getFundQuickInfo(sectorID);
 					} catch (RemoteException e) {
@@ -178,11 +183,11 @@ public class MainUI extends Application {
 					} catch (ObjectNotFoundException e) {
 						e.printStackTrace();
 					}
-					System.out.println("---get "+sectorID+" fundinfo from server:"+(Calendar.getInstance().getTimeInMillis()-tempTime));
-					MainUI.fundInfoMap.put(sectorID,fundQuickInfoList);
-				}else{
-					fundQuickInfoList=MainUI.fundInfoMap.get(sectorID);
-					System.out.println("get "+sectorID+" fundinfo from map:"+(Calendar.getInstance().getTimeInMillis()-tempTime));
+					System.out.println("---get " + sectorID + " fundinfo from server:" + (Calendar.getInstance().getTimeInMillis() - tempTime));
+					MainUI.fundInfoMap.put(sectorID, fundQuickInfoList);
+				} else {
+					fundQuickInfoList = MainUI.fundInfoMap.get(sectorID);
+					System.out.println("get " + sectorID + " fundinfo from map:" + (Calendar.getInstance().getTimeInMillis() - tempTime));
 				}
 			}
 		};
@@ -192,5 +197,7 @@ public class MainUI extends Application {
 		service.schedule(getFundData, 0, TimeUnit.SECONDS);
 	}
 
-
+	public AnchorPane getMainPanel() {
+		return mainPanel;
+	}
 }
