@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.dom4j.DocumentException;
 import ui.util.FXMLHelper;
+import ui.util.InitHelper;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -54,9 +55,11 @@ public class MainUI extends Application {
 	private BaseInfoLogic baseInfoLogic;
 
 	public static double sizeRatio;
-	public static   HashMap<String,List<FundQuickInfo>> fundInfoMap=new HashMap<String,List<FundQuickInfo>>();
-	public static   HashMap<String,List<PriceInfo>> priceInfoMap =new HashMap<String,List<PriceInfo>>();
-	public static  HashMap<String,List<ProfitChartInfo>> profitChartInfoMap = new HashMap<String,List<ProfitChartInfo>>();
+	public static int s = -1;
+	public static HashMap<String, List<FundQuickInfo>> fundInfoMap = new HashMap<String, List<FundQuickInfo>>();
+	public static HashMap<String, List<PriceInfo>> priceInfoMap = new HashMap<String, List<PriceInfo>>();
+	public static HashMap<String, List<ProfitChartInfo>> profitChartInfoMap = new HashMap<String, List<ProfitChartInfo>>();
+
 	public static MainUI getInstance() {
 		return MainUIHandler.instance;
 	}
@@ -70,8 +73,8 @@ public class MainUI extends Application {
 	}
 
 
-	private static class MainUIHandler{
-		private static MainUI instance=new MainUI();
+	private static class MainUIHandler {
+		private static MainUI instance = new MainUI();
 	}
 
 	@Override
@@ -163,14 +166,15 @@ public class MainUI extends Application {
 		addDraggableNode(hbox);
 		primaryStage.setScene(primaryScene);
 	}
+
 	public void getFundDataThread() {
 		Runnable getFundData = new Runnable() {
 			@Override
 			public synchronized void run() {
-				String sectorID="000001";
-				List<FundQuickInfo> fundQuickInfoList=null;
-				long tempTime= Calendar.getInstance().getTimeInMillis();
-				if(!MainUI.fundInfoMap.containsKey(sectorID)){
+				String sectorID = "000001";
+				List<FundQuickInfo> fundQuickInfoList = null;
+				long tempTime = Calendar.getInstance().getTimeInMillis();
+				if (!MainUI.fundInfoMap.containsKey(sectorID)) {
 					try {
 						fundQuickInfoList = BLInterfaces.getBaseInfoLogic().getFundQuickInfo(sectorID);
 					} catch (RemoteException e) {
@@ -178,11 +182,11 @@ public class MainUI extends Application {
 					} catch (ObjectNotFoundException e) {
 						e.printStackTrace();
 					}
-					System.out.println("---get "+sectorID+" fundinfo from server:"+(Calendar.getInstance().getTimeInMillis()-tempTime));
-					MainUI.fundInfoMap.put(sectorID,fundQuickInfoList);
-				}else{
-					fundQuickInfoList=MainUI.fundInfoMap.get(sectorID);
-					System.out.println("get "+sectorID+" fundinfo from map:"+(Calendar.getInstance().getTimeInMillis()-tempTime));
+					System.out.println("---get " + sectorID + " fundinfo from server:" + (Calendar.getInstance().getTimeInMillis() - tempTime));
+					MainUI.fundInfoMap.put(sectorID, fundQuickInfoList);
+				} else {
+					fundQuickInfoList = MainUI.fundInfoMap.get(sectorID);
+					System.out.println("get " + sectorID + " fundinfo from map:" + (Calendar.getInstance().getTimeInMillis() - tempTime));
 				}
 			}
 		};
