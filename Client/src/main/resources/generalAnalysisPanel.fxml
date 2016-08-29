@@ -86,7 +86,7 @@
       <Button fx:id="tab3Btn" layoutX="294.0" layoutY="22.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="114.0" style="-fx-background-color: transparent;" textFill="WHITE" />
       <Button fx:id="tab5Btn" layoutX="554.0" layoutY="22.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="114.0" style="-fx-background-color: transparent;" textFill="WHITE" />
       <Button fx:id="tab2Btn" layoutX="164.0" layoutY="22.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="114.0" style="-fx-background-color: transparent;" textFill="WHITE" />
-      <Label layoutX="831.0" layoutY="25.0" text="效绩评估" textFill="WHITE">
+      <Label layoutX="831.0" layoutY="25.0" text="绩效评估" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>

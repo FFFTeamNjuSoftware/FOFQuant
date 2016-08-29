@@ -23,7 +23,6 @@ public class generalAnalysisUIController implements Initializable {
     private Button tab1Btn,tab2Btn,tab3Btn,tab4Btn,tab5Btn,tab6Btn,tab7Btn;
     @FXML
     private ImageView tab1Img,tab2Img,tab3Img,tab4Img,tab5Img,tab6Img,tab7Img;
-
     private generalAnalysisUIController instance;
     private MainUI mainUI;
     @Override
@@ -69,6 +68,7 @@ public class generalAnalysisUIController implements Initializable {
     }
     public  void setTab(int k){
         ImageView[] images = new ImageView[]{tab1Img,tab2Img,tab3Img,tab4Img,tab5Img,tab6Img,tab7Img};
+
         for(int i=0;i<images.length;i++){
             System.out.println("......"+i+"......");
             if(i==k){

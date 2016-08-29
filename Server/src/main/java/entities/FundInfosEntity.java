@@ -26,6 +26,18 @@ public class FundInfosEntity {
     private Double trusteeFee;
     private Double saleServiceFee;
 
+    @Basic
+    @Column(name = "rank", nullable = true, length = 10)
+    public Integer getRank() {
+        return rank;
+    }
+
+    public void setRank(Integer rank) {
+        this.rank = rank;
+    }
+
+    private Integer rank;
+
     @Id
     @Column(name = "code", nullable = false, length = 255)
     public String getCode() {

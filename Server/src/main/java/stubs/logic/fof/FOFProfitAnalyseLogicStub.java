@@ -57,6 +57,7 @@ public class FOFProfitAnalyseLogicStub extends UnicastRemoteObject implements FO
         fofProfitAnalyse.downsideRisk = 10.5;
         fofProfitAnalyse.treynor = 1.5;
         fofProfitAnalyse.minRiseRecoverDays = 8;
+        fofProfitAnalyse.Jensen = 2.3;
         return fofProfitAnalyse;
     }
 }
