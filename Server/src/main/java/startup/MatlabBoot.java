@@ -16,8 +16,12 @@ import java.util.List;
 public class MatlabBoot {
     private static CalculateTool calculateTool;
 
-    public static void init() throws MWException {
-        calculateTool = new CalculateTool();
+    public static void init() {
+        try {
+            calculateTool = new CalculateTool();
+        } catch (MWException e) {
+            e.printStackTrace();
+        }
     }
 
     public static CalculateTool getCalculateTool() throws NotInitialedExcepiton {
