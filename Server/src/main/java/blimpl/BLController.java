@@ -4,6 +4,7 @@ import bl.*;
 import bl.fof.*;
 import blimpl.fof.FOFLogicCreator;
 import stubs.logic.*;
+import stubs.logic.fof.*;
 
 import java.rmi.RemoteException;
 
@@ -105,6 +106,114 @@ public class BLController {
         }
     };
 
+    private static FOFLogicCreator fofTrueCreator = new FOFLogicCreator() {
+        @Override
+        public FOFAssetAllocationLogic getFofAssetAllocationLogic() {
+            return null;
+        }
+
+        @Override
+        public FOFBaseInfoLogic getFOFBaseInfoLogic() {
+            return null;
+        }
+
+        @Override
+        public FOFGenerateLogic getFOFGenerateLogic() {
+            return null;
+        }
+
+        @Override
+        public FOFPerformanceAttributionLogic getFOFPerformanceAttributionLogic() {
+            return null;
+        }
+
+        @Override
+        public FOFProfitAnalyseLogic getFOFProfitAnalyseLogic() {
+            return null;
+        }
+
+        @Override
+        public FOFProfitStatisticsLogic getFOFPrifitStatisticsLogic() {
+            return null;
+        }
+
+        @Override
+        public FOFRealTimeMonitorLogic getFOFRealTimeMonitorLogic() {
+            return null;
+        }
+    };
+
+    private static FOFLogicCreator fofStubCreator = new FOFLogicCreator() {
+        @Override
+        public FOFAssetAllocationLogic getFofAssetAllocationLogic() {
+            try {
+                return new FOFAssetAllocationLogicStub();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        public FOFBaseInfoLogic getFOFBaseInfoLogic() {
+            try {
+                return new FOFBaseInfoLogicStub();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        public FOFGenerateLogic getFOFGenerateLogic() {
+            try {
+                return new FOFGenerateLogicStub();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        public FOFPerformanceAttributionLogic getFOFPerformanceAttributionLogic() {
+            try {
+                return new FOFPerformanceAttributionLogicStub();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        public FOFProfitAnalyseLogic getFOFProfitAnalyseLogic() {
+            try {
+                return new FOFProfitAnalyseLogicStub();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        public FOFProfitStatisticsLogic getFOFPrifitStatisticsLogic() {
+            try {
+                return new FOFProfitStasticsLogicStub();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        public FOFRealTimeMonitorLogic getFOFRealTimeMonitorLogic() {
+            try {
+                return new FOFRealTimeMonitorLogicStub();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    };
 
     private static LogicCreator currentCreator;
     private static FOFLogicCreator currentFOFCreator;
@@ -112,6 +221,8 @@ public class BLController {
     static {
         //    currentCreator = stubCreator;
         currentCreator = trueCreator;
+
+        currentFOFCreator=fofStubCreator;
     }
 
     public static BaseInfoLogic getBaseInfoLogic() {
