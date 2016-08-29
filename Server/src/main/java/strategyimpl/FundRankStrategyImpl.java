@@ -187,6 +187,7 @@ public class FundRankStrategyImpl implements FundRankStrategy {
             }
             ArrayList<Double> sta=new ArrayList<>();
             sta.add(fundCodes.get(i).getValue());
+            sta.add(Double.valueOf(i));
             sta.add(Double.valueOf(fundRank));
             rank.put(code,sta);
         }

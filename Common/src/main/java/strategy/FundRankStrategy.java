@@ -57,7 +57,7 @@ public interface FundRankStrategy {
     /**
      * 更新基金评级
      * @param timeType
-     * @return
+     * @return <基金代码,<MRAR指数,排名,评级>>
      * @throws RemoteException
      * @throws ObjectNotFoundException
      */
