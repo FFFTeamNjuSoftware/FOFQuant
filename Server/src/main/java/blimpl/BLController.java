@@ -2,7 +2,7 @@ package blimpl;
 
 import bl.*;
 import bl.fof.*;
-import blimpl.fof.FOFLogicCreator;
+import blimpl.fof.*;
 import stubs.logic.*;
 import stubs.logic.fof.*;
 
@@ -109,37 +109,42 @@ public class BLController {
     private static FOFLogicCreator fofTrueCreator = new FOFLogicCreator() {
         @Override
         public FOFAssetAllocationLogic getFofAssetAllocationLogic() {
-            return null;
+            return
+                    FOFAssetAllocationLogicImpl.getInstance();
         }
 
         @Override
         public FOFBaseInfoLogic getFOFBaseInfoLogic() {
-            return null;
+            return FOFBaseInfoLogicImpl.getInstance();
         }
 
         @Override
         public FOFGenerateLogic getFOFGenerateLogic() {
-            return null;
+            return FOFGenerateLogicImpl.getInstance();
         }
 
         @Override
         public FOFPerformanceAttributionLogic getFOFPerformanceAttributionLogic() {
-            return null;
+            return
+                    FOFPerformanceAttributionLogicImpl.getInstance();
         }
 
         @Override
         public FOFProfitAnalyseLogic getFOFProfitAnalyseLogic() {
-            return null;
+            return
+                    FOFProfitAnalyseLogicImpl.getInstance();
         }
 
         @Override
         public FOFProfitStatisticsLogic getFOFPrifitStatisticsLogic() {
-            return null;
+            return
+                    FOFProfitStatisticsLogicImpl.getInstance();
         }
 
         @Override
         public FOFRealTimeMonitorLogic getFOFRealTimeMonitorLogic() {
-            return null;
+            return
+                    FOFRealTimeMonitorLogicImpl.getInstance();
         }
     };
 
@@ -223,6 +228,7 @@ public class BLController {
         currentCreator = trueCreator;
 
         currentFOFCreator=fofStubCreator;
+//        currentFOFCreator=fofTrueCreator;
     }
 
     public static BaseInfoLogic getBaseInfoLogic() {

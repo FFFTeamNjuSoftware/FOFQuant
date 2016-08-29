@@ -1,11 +1,13 @@
 package RMIModule;
 
+import beans.FOFProfitAnalyse;
 import com.google.gson.Gson;
 import exception.AuthorityException;
 import exception.ObjectNotFoundException;
 import exception.ParameterException;
 import org.dom4j.DocumentException;
 import util.SectorType;
+import util.TimeType;
 import util.UnitType;
 
 import java.rmi.RemoteException;
@@ -23,6 +25,9 @@ public class StartUp {
                         .forEach(e -> System.out.println(new Gson().toJson(e)));
                 BLInterfaces.getMarketLogic().getPriceInfo("000001", UnitType.WEEK, 16).stream()
                         .forEach(e -> System.out.println(new Gson().toJson(e)));
+                FOFProfitAnalyse fofProfitAnalyse = BLInterfaces.getFofProfitAnalyseLogic().getFOFProfitAnalyse
+                        (TimeType.ONE_MONTH);
+                System.out.println(new Gson().toJson(fofProfitAnalyse));
                 System.out.println("success");
             } catch (ObjectNotFoundException e) {
                 e.printStackTrace();
