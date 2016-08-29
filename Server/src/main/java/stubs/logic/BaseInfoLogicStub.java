@@ -58,11 +58,11 @@ public class BaseInfoLogicStub extends UnicastRemoteObject implements BaseInfoLo
         return fundInfo;
     }
 
-
     @Override
-    public List<String> getAllSectorType() {
+    public List<ArrayList<String>> getRankSectorType() throws RemoteException {
         return null;
     }
+
 
     @Override
     public List<FundQuickInfo> getFundQuickInfo(String type) throws RemoteException {
