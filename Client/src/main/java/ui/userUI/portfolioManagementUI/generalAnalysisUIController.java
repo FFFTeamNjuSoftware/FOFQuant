@@ -25,6 +25,7 @@ public class generalAnalysisUIController implements Initializable {
     private ImageView tab1Img,tab2Img,tab3Img,tab4Img,tab5Img,tab6Img,tab7Img;
     private generalAnalysisUIController instance;
     private MainUI mainUI;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         instance=this;

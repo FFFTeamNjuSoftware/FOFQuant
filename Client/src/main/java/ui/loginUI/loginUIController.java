@@ -11,6 +11,7 @@ import exception.ObjectNotFoundException;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -41,6 +42,8 @@ public class loginUIController implements Initializable {
 	private PasswordField passwordField;
 	@FXML
 	private Button minBtn, exitBtn, loginBtn;
+	@FXML
+	private Label tipLabel;
 
 	private MainUI mainUI;
 
@@ -64,6 +67,12 @@ public class loginUIController implements Initializable {
 
 		userNameField.setPromptText("用户名");
 		passwordField.setPromptText("密码");
+		userNameField.addEventHandler(MouseEvent.MOUSE_PRESSED, (MouseEvent e) -> {
+			tipLabel.setVisible(false);
+		});
+		passwordField.addEventHandler(MouseEvent.MOUSE_PRESSED, (MouseEvent e) -> {
+			tipLabel.setVisible(false);
+		});
 	}
 
 	@FXML
@@ -96,18 +105,21 @@ public class loginUIController implements Initializable {
 		} catch (RemoteException e) {
 			e.printStackTrace();
 			System.out.println("......RemoteException......");
+			tipLabel.setVisible(true);
 		} catch (ObjectNotFoundException e) {
 			e.printStackTrace();
 			System.out.println("......账号不存在......");
+			tipLabel.setVisible(true);
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 			System.out.println("......NullPointerException......");
+			tipLabel.setVisible(true);
 		} catch (AuthorityException e) {
 			e.printStackTrace();
 			System.out.println("......密码错误......");
+			tipLabel.setVisible(true);
 		}
 	}
-
 
 
 	public void buttonInit() {
@@ -158,4 +170,5 @@ public class loginUIController implements Initializable {
 	public void toExitScreen() {
 		MainUI.getPrimaryStage().close();
 	}
+
 }
