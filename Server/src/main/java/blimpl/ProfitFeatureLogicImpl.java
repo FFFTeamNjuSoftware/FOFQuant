@@ -13,7 +13,6 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Calendar;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by Daniel on 2016/8/15.
@@ -39,9 +38,12 @@ public class ProfitFeatureLogicImpl extends UnicastRemoteObject implements Profi
 
     @Override
     public double getAlpha(String code) throws RemoteException, ObjectNotFoundException {
-        List<Double> price = marketLogic.getPriceInfo(code, UnitType.DAY).stream().map(e -> e
-                .price).collect(Collectors.toList());
-        return 0;
+        AlphaBetaCal alphaBetaCal = new AlphaBetaCal(code);
+        double[] re = alphaBetaCal.getAlphaBeta();
+        if (re == null) {
+            throw new ObjectNotFoundException("");
+        }
+        return re[0];
     }
 
     @Override

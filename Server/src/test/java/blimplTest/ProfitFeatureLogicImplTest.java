@@ -6,6 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import startup.HibernateBoot;
+import startup.MatlabBoot;
 
 /**
  * ProfitFeatureLogicImpl Tester.
@@ -20,6 +21,7 @@ public class ProfitFeatureLogicImplTest {
     @Before
     public void before() throws Exception {
         HibernateBoot.init();
+        MatlabBoot.init();
         profitFeatureLogic = BLController.getProfitFeatureLogic();
     }
 
@@ -40,7 +42,8 @@ public class ProfitFeatureLogicImplTest {
      */
     @Test
     public void testGetAlpha() throws Exception {
-//TODO: Test goes here... 
+
+        System.out.println(profitFeatureLogic.getAlpha("000001"));
     }
 
     /**

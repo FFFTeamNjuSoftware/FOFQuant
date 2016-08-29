@@ -11,7 +11,7 @@ import java.rmi.server.UnicastRemoteObject;
 public class RiskFeatureLogicImpl extends UnicastRemoteObject implements RiskFeatureLogic {
     private static RiskFeatureLogic instance;
 
-    private RiskFeatureLogicImpl() throws RemoteException{
+    private RiskFeatureLogicImpl() throws RemoteException {
     }
 
     public static RiskFeatureLogic getInstance() {
@@ -31,8 +31,12 @@ public class RiskFeatureLogicImpl extends UnicastRemoteObject implements RiskFea
 
     @Override
     public double getBeta(String code) throws RemoteException {
-        System.out.println("run!!!");
-        return 888;
+        AlphaBetaCal alphaBetaCal = new AlphaBetaCal(code);
+        double[] re = alphaBetaCal.getAlphaBeta();
+        if (re == null) {
+            return 0;
+        }
+        return re[1];
     }
 
     @Override

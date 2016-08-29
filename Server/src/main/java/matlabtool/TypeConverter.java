@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class TypeConverter {
 
-    public MWNumericArray convertList(List<Number> numbers) {
+    public static <T>MWNumericArray convertList(List<T> numbers) {
         int len = numbers.size();
         MWNumericArray array = MWNumericArray.newInstance(new int[]{1, len}, MWClassID.DOUBLE,
                 MWComplexity.REAL);
