@@ -60,7 +60,7 @@ public class BaseInfoLogicStub extends UnicastRemoteObject implements BaseInfoLo
 
 
     @Override
-    public List<String> getAllSectorType() {
+    public List<ArrayList<String>> getRankSectorType() {
         return null;
     }
 

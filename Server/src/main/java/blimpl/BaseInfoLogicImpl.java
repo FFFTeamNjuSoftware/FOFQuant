@@ -57,22 +57,23 @@ public class BaseInfoLogicImpl extends UnicastRemoteObject implements BaseInfoLo
     @Override
     public List<ArrayList<String>> getRankSectorType() throws RemoteException {
         List<ArrayList<String>> sectorTypes=new ArrayList<>();
-        sectorTypes.get(0).add(SectorType.BOND_TYPE);
-        sectorTypes.get(1).add(SectorType.STOCK_TYPE);
-        sectorTypes.get(1).add(SectorType.MIX_TYPE);
+        ArrayList<String> fixprofit=new ArrayList<>();
+        fixprofit.add(SectorType.BOND_TYPE);
+        sectorTypes.add(fixprofit);
 
-        sectorTypes.get(2).add(SectorType.INDEX_TYPE);
-        sectorTypes.get(2).add(SectorType.ETF_TYPE);
-//        sectorTypes.add(SectorType.GUARANTEED_TYPE);
-        sectorTypes.get(2).add(SectorType.LOF_TYPE);
-//        sectorTypes.add(SectorType.MONEY_MARKET_TYPE);
-        sectorTypes.get(2).add(SectorType.OPEN_TYPE);
-        sectorTypes.get(2).add(SectorType.QDII_TYPE);
+        ArrayList<String> right=new ArrayList<>();
+        right.add(SectorType.STOCK_TYPE);
+        right.add(SectorType.MIX_TYPE);
+        sectorTypes.add(right);
 
+        ArrayList<String> other=new ArrayList<>();
+        other.add(SectorType.INDEX_TYPE);
+        other.add(SectorType.ETF_TYPE);
+        other.add(SectorType.LOF_TYPE);
+        other.add(SectorType.OPEN_TYPE);
+        other.add(SectorType.QDII_TYPE);
+        sectorTypes.add(other);
 
-//        sectorTypes.add(SectorType.RIGHTS_TYPE);
-//        sectorTypes.add(SectorType.OTHER_TYPE);
-//        sectorTypes.add(SectorType.FIX_PROFIT_TYPE);
         return sectorTypes;
     }
 
