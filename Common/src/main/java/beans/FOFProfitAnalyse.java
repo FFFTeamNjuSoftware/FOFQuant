@@ -79,10 +79,6 @@ public class FOFProfitAnalyse implements Serializable {
      */
     public double treynor;
     /**
-     * Jensen
-     */
-    public double Jensen;
-    /**
      * r2
      */
     public double R2;
