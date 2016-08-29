@@ -12,6 +12,7 @@ import exception.ObjectNotFoundException;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -48,7 +49,7 @@ public interface BaseInfoLogic extends Remote {
      * 获得所有基金类型
      * @return
      */
-    public List<String> getAllSectorType() throws RemoteException;
+    public List<ArrayList<String>> getRankSectorType() throws RemoteException;
 
     /**
      * 获得基金的快速信息，用于榜单展示

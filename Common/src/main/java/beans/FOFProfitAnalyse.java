@@ -94,4 +94,9 @@ public class FOFProfitAnalyse implements Serializable {
      *Sortino
      */
     public double sortino;
+
+    /**
+     * 詹森系数
+     */
+    public double Jensen;
 }

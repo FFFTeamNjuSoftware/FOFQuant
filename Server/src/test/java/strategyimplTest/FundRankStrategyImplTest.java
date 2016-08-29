@@ -11,6 +11,9 @@ import strategyimpl.FundRankStrategyImpl;
 import util.TimeType;
 import util.UnitType;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -57,18 +60,23 @@ public class FundRankStrategyImplTest {
 
     @Test
     public void refreshFundRank() throws Exception {
-        Map<String,ArrayList<Double>> maps=fundRankStrategy.refreshFundRank(TimeType.THREE_YEAR);
-        for(String str:maps.keySet() ){
-            System.out.println(str+","+maps.get(str).get(0)+","+maps.get(str).get(1));
-        };
+        this.getFundRankByDate();
     }
 
     @Test
     public void getFundRankByDate() throws Exception{
         Map<String,ArrayList<Double>> maps=fundRankStrategy.getFundRankByDate(TimeType.THREE_YEAR,
                 "2016-08-26");
+        File file=new File("rank.txt");
+        if(!file.exists()){
+            file.createNewFile();
+        }
+        FileWriter fileWriter=new FileWriter(file.getName());
+        BufferedWriter bufferedWriter=new BufferedWriter(fileWriter);
         for(String str:maps.keySet() ){
-            System.out.println(str+","+maps.get(str).get(0)+","+maps.get(str).get(1));
+            String data=str+","+maps.get(str).get(1) +"\n";
+            bufferedWriter.write(data);
         };
+        bufferedWriter.close();
     }
 }

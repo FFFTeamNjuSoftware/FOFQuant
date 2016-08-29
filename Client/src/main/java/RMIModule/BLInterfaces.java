@@ -66,29 +66,29 @@ public class BLInterfaces {
         }
     }
 
-	public static BaseInfoLogic getBaseInfoLogic() {
-		return baseInfoLogic;
-	}
+    public static BaseInfoLogic getBaseInfoLogic() {
+        return baseInfoLogic;
+    }
 
-	public static InvestmentPortfolioLogic getInvestmentPortfolioLogic() {
-		return investmentPortfolioLogic;
-	}
+    public static InvestmentPortfolioLogic getInvestmentPortfolioLogic() {
+        return investmentPortfolioLogic;
+    }
 
-	public static MarketLogic getMarketLogic() {
-		return marketLogic;
-	}
+    public static MarketLogic getMarketLogic() {
+        return marketLogic;
+    }
 
-	public static ProfitFeatureLogic getProfitFeatureLogic() {
-		return profitFeatureLogic;
-	}
+    public static ProfitFeatureLogic getProfitFeatureLogic() {
+        return profitFeatureLogic;
+    }
 
-	public static RiskFeatureLogic getRiskFeature() {
-		return riskFeature;
-	}
+    public static RiskFeatureLogic getRiskFeature() {
+        return riskFeature;
+    }
 
-	public static UserLogic getUserLogic() {
-		return userLogic;
-	}
+    public static UserLogic getUserLogic() {
+        return userLogic;
+    }
 
     public static FOFAssetAllocationLogic getFofAssetAllocationLogic() {
         return fofAssetAllocationLogic;

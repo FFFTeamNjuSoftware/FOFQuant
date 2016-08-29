@@ -4,13 +4,31 @@ import beans.AssetItem;
 import bl.fof.FOFAssetAllocationLogic;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Created by Daniel on 2016/8/26.
  */
-public class FOFAssetAllocationLogicImpl implements FOFAssetAllocationLogic {
+public class FOFAssetAllocationLogicImpl extends UnicastRemoteObject implements
+        FOFAssetAllocationLogic {
+    private FOFAssetAllocationLogicImpl() throws RemoteException {
+
+    }
+
+    private static FOFAssetAllocationLogic instance;
+
+    public static FOFAssetAllocationLogic getInstance() {
+        if (instance == null)
+            try {
+                instance = new FOFAssetAllocationLogicImpl();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        return instance;
+    }
+
     @Override
     public List<String> getAllSupportDate() throws RemoteException {
         return null;

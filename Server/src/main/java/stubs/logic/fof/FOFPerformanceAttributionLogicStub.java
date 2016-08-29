@@ -7,13 +7,16 @@ import exception.ParameterException;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by Daniel on 2016/8/28.
  */
 public class FOFPerformanceAttributionLogicStub extends UnicastRemoteObject implements FOFPerformanceAttributionLogic {
-    public FOFPerformanceAttributionLogicStub() throws RemoteException{}
+    public FOFPerformanceAttributionLogicStub() throws RemoteException {
+    }
+
     @Override
     public void setStartDate(String startDate) throws ParameterException, RemoteException {
 
@@ -31,6 +34,18 @@ public class FOFPerformanceAttributionLogicStub extends UnicastRemoteObject impl
 
     @Override
     public List<PerformanceAttribution> getPerformanceAttribution() throws RemoteException {
-        return null;
+        PerformanceAttribution performanceAttribution = new PerformanceAttribution();
+        performanceAttribution.fundCode = "000001";
+        performanceAttribution.fundName = "测试";
+        performanceAttribution.beginingHoldNum = 106232.3;
+        performanceAttribution.beginingPerValue = 1.5;
+        performanceAttribution.beginingTotalValue = 106232.3 * 1.5;
+        performanceAttribution.endingHoldNum = 120000;
+        performanceAttribution.endingPerValue = 1.6;
+        performanceAttribution.endingTotalValue = 120000 * 1.6;
+        performanceAttribution.periodProfit = 20.5;
+        performanceAttribution.periodProfitFinishProfit = 12002;
+        performanceAttribution.periodProfitRate = 10.5;
+        return Arrays.asList(performanceAttribution);
     }
 }

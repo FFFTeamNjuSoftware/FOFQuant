@@ -3,13 +3,14 @@ package bl.fof;
 import util.SectorType;
 
 import java.io.Serializable;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.Map;
 
 /**
  * Created by Daniel on 2016/8/26.
  */
-public interface FOFGenerateLogic extends Serializable {
+public interface FOFGenerateLogic extends Remote {
     /**
      * 返回大类配置的权重比
      *

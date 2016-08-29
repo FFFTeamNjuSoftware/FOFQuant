@@ -51,6 +51,7 @@ public class NetInitial {
         for (Map.Entry<String, Object> entry : serviceMap.entrySet()) {
             Naming.bind("rmi://" + config.getIpAddress() + ":" + config.getPort() + "/" +
                     entry.getKey(), (UnicastRemoteObject) entry.getValue());
+//            System.out.println(entry.getKey()+","+entry.getValue().getClass());
         }
         System.out.println("server started!!!");
     }

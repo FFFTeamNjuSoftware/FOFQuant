@@ -118,12 +118,15 @@ public class FundRankStrategyImpl implements FundRankStrategy {
     public Map<String, ArrayList<Double>> getFundRankByDate(TimeType timeType,String endDate) throws RemoteException {
 
         Map<String,ArrayList<Double>> rank=new HashMap<>();
-        List<String> sectorTypes=baseInfoLogic.getAllSectorType();
+        List<ArrayList<String>> sectorTypes=baseInfoLogic.getRankSectorType();
         List<FundQuickInfo> fundQuickInfos=new ArrayList<>();
         for (int i=0;i<sectorTypes.size();i++){
             System.out.println("!!!!!!!!!正在处理"+sectorTypes.get(i)+"类型的基金!!!!!!!!!!!!!!");
+            //  去掉保本型和货币型
             try {
-                fundQuickInfos=baseInfoLogic.getFundQuickInfo(sectorTypes.get(i));
+                for(int sec=0;sec<sectorTypes.get(i).size();sec++) {
+                    fundQuickInfos.addAll(baseInfoLogic.getFundQuickInfo(sectorTypes.get(i).get(sec)));
+                }
             } catch (ObjectNotFoundException e) {
                 System.out.println("没有"+sectorTypes.get(i)+" 类型对应的数据");
             }

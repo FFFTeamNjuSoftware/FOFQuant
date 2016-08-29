@@ -9,7 +9,7 @@ public class ProfitStatisticsInfo implements Serializable {
     /**
      * 回报统计第一列内容
      */
-    public ProfitStatisticsInfoOne periodNum, percentage, averate, standardDeviation, maxSequence,
+    public ProfitStatisticsInfoOne periodNum, percentage, average, standardDeviation, maxSequence,
             aveSequence;
     /**
      * 回报统计第二列内容
