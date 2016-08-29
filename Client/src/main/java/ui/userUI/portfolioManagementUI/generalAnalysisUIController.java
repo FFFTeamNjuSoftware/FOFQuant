@@ -69,6 +69,7 @@ public class generalAnalysisUIController implements Initializable {
     }
     public  void setTab(int k){
         ImageView[] images = new ImageView[]{tab1Img,tab2Img,tab3Img,tab4Img,tab5Img,tab6Img,tab7Img};
+
         for(int i=0;i<images.length;i++){
             System.out.println("......"+i+"......");
             if(i==k){

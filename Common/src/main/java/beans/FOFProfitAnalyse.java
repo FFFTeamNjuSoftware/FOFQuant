@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 public class FOFProfitAnalyse implements Serializable {
     /**
-     * 总回报率
+//     * 总回报率
      */
     public double totalProfit;
     /**
@@ -79,6 +79,10 @@ public class FOFProfitAnalyse implements Serializable {
      */
     public double treynor;
     /**
+     * Jensen
+     */
+    public double Jensen;
+    /**
      * r2
      */
     public double R2;
@@ -87,7 +91,7 @@ public class FOFProfitAnalyse implements Serializable {
      */
     public double semiVariance;
     /**
-     *
+     *Sortino
      */
     public double sortino;
 }
