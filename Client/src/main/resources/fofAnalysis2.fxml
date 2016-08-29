@@ -46,7 +46,7 @@
                   <Insets left="20.0" right="274.0" />
                </HBox.margin>
             </ComboBox>
-            <Label fx:id="startDateLb11" prefHeight="14.0" prefWidth="48.0" text="业绩基准">
+            <Label fx:id="gradeLb" prefHeight="14.0" prefWidth="48.0" text="业绩基准">
                <padding>
                   <Insets bottom="5.0" top="5.0" />
                </padding>
@@ -84,7 +84,7 @@
                         <Image url="@images/buttonBig.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="combinationLb1" layoutX="11.0" prefHeight="15.0" prefWidth="48.0" text="组合对比">
+                  <Label fx:id="combinationLb1" layoutX="11.0" onMouseClicked="#combinationLb1Click" prefHeight="15.0" prefWidth="48.0" text="组合对比">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -101,7 +101,7 @@
                         <Image url="@images/buttonBig.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="combinationLb2" layoutX="11.0" prefHeight="15.0" prefWidth="48.0" text="组合序列">
+                  <Label fx:id="combinationLb2" layoutX="11.0" onMouseClicked="#combinationLb2Click" prefHeight="15.0" prefWidth="48.0" text="组合序列">
                      <padding>
                         <Insets bottom="3.0" top="2.0" />
                      </padding>

@@ -70,7 +70,7 @@ public class analyseHomeUIController implements Initializable {
     @FXML
     public void toBreakevenPanel(){
         generalAnalysisUIController.setTab(3);
-        mainUI.changeScene("user_guidePanel","generalAnalysisPanel");
+        mainUI.changeScene("user_guidePanel","fofAnalysis2");
     }
 
     @FXML
