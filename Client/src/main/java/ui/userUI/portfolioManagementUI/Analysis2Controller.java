@@ -12,8 +12,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import jdk.nashorn.internal.ir.Labels;
-
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
