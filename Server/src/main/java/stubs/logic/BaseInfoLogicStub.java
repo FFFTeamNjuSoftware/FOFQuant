@@ -23,6 +23,11 @@ public class BaseInfoLogicStub extends UnicastRemoteObject implements BaseInfoLo
     }
 
     @Override
+    public List<ArrayList<String>> getRankSectorType() throws RemoteException {
+        return null;
+    }
+
+    @Override
     public List<String> getFundCodes() throws RemoteException {
         List<String> fundCodeList = new ArrayList<String>();
         fundCodeList.add("001547");
@@ -56,11 +61,6 @@ public class BaseInfoLogicStub extends UnicastRemoteObject implements BaseInfoLo
         fundInfo.scale = 2000.0;
         fundInfo.simple_name = "兴业聚惠A";
         return fundInfo;
-    }
-
-    @Override
-    public List<ArrayList<String>> getRankSectorType() throws RemoteException {
-        return null;
     }
 
 
