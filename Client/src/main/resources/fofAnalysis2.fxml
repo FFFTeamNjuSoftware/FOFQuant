@@ -13,105 +13,71 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="930.0" styleClass="root" stylesheets="@css/stageView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.userUI.buildUI.BuildPanel1UIController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="930.0" styleClass="root" stylesheets="@css/stageView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.userUI.portfolioManagementUI.Analysis2Controller">
    <children>
-      <HBox layoutX="46.0" layoutY="64.0" prefHeight="24.0" prefWidth="808.0">
+      <AnchorPane layoutY="64.0" prefHeight="520.0" prefWidth="930.0">
          <children>
-            <Label fx:id="startDateLb" layoutY="5.0" prefHeight="25.0" prefWidth="48.0" text="开始日期">
-               <padding>
-                  <Insets bottom="5.0" top="5.0" />
-               </padding>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </Label>
-            <ComboBox fx:id="startCb" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="100.0" style="-fx-background-color: #057DC8; -fx-color: #ffffff;">
-               <padding>
-                  <Insets left="20.0" />
-               </padding>
-               <HBox.margin>
-                  <Insets left="20.0" right="20.0" />
-               </HBox.margin>
-            </ComboBox>
-            <Label fx:id="endDateLb" prefHeight="14.0" prefWidth="48.0" text="结束日期">
-               <padding>
-                  <Insets bottom="5.0" top="5.0" />
-               </padding>
-            </Label>
-            <ComboBox fx:id="endCb" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="100.0" style="-fx-background-color: #057DC8; -fx-color: #ffffff;">
-               <padding>
-                  <Insets left="20.0" right="20.0" />
-               </padding>
-               <HBox.margin>
-                  <Insets left="20.0" right="274.0" />
-               </HBox.margin>
-            </ComboBox>
-            <Label fx:id="gradeLb" prefHeight="14.0" prefWidth="48.0" text="业绩基准">
-               <padding>
-                  <Insets bottom="5.0" top="5.0" />
-               </padding>
-            </Label>
-            <ComboBox fx:id="referCb" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="100.0" style="-fx-background-color: #057DC8; -fx-color: #ffffff;">
-               <padding>
-                  <Insets left="30.0" right="20.0" />
-               </padding>
-               <HBox.margin>
-                  <Insets left="20.0" />
-               </HBox.margin>
-            </ComboBox>
-         </children>
-      </HBox>
-      <TableView fx:id="table" blendMode="LIGHTEN" layoutX="47.0" layoutY="145.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="299.0" prefWidth="808.0">
-         <columns>
-            <TableColumn fx:id="project1Cn" maxWidth="123.0" minWidth="103.0" prefWidth="123.0" resizable="false" />
-            <TableColumn fx:id="month3_1Cn" maxWidth="100.0" minWidth="20.0" prefWidth="75.0" text="最近3个月" />
-            <TableColumn fx:id="month6_1Cn" maxWidth="80.0" minWidth="20.0" prefWidth="75.0" text="最近6个月" />
-            <TableColumn fx:id="yearToNow1Cn" maxWidth="80.0" minWidth="20.0" prefWidth="75.0" text="年初至今" />
-            <TableColumn fx:id="choose1Cn" maxWidth="80.0" minWidth="20.0" prefWidth="75.0" text="选择区间" />
-            <TableColumn fx:id="project2Cn" maxWidth="100.0" minWidth="20.0" prefWidth="95.0" />
-            <TableColumn fx:id="month3_2Cn" maxWidth="80.0" minWidth="20.0" prefWidth="75.0" text="最近3个月" />
-            <TableColumn fx:id="month6_2Cn" maxWidth="80.0" minWidth="20.0" prefWidth="70.0" text="最近6个月" />
-            <TableColumn fx:id="yearToNow2Cn" maxWidth="75.0" minWidth="20.0" prefWidth="70.0" text="年初至今" />
-            <TableColumn fx:id="choose2Cn" maxWidth="75.0" minWidth="20.0" prefWidth="70.0" text="选择区间" />
-         </columns>
-      </TableView>
-      <HBox layoutX="47.0" layoutY="114.0" prefHeight="20.0" prefWidth="808.0">
-         <children>
-            <Group>
+            <HBox layoutX="47.0" prefHeight="24.0" prefWidth="808.0">
                <children>
-                  <ImageView fx:id="combinationImage1" fitHeight="20.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" visible="false">
-                     <image>
-                        <Image url="@images/buttonBig.png" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="combinationLb1" layoutX="11.0" onMouseClicked="#combinationLb1Click" prefHeight="15.0" prefWidth="48.0" text="组合对比">
+                  <Label fx:id="startDateLb" layoutY="5.0" prefHeight="25.0" prefWidth="48.0" text="开始日期">
+                     <padding>
+                        <Insets bottom="5.0" top="5.0" />
+                     </padding>
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
+                  </Label>
+                  <ComboBox fx:id="startCb" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="100.0" style="-fx-background-color: #057DC8; -fx-color: #ffffff;">
                      <padding>
-                        <Insets bottom="3.0" top="2.0" />
+                        <Insets left="20.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets left="20.0" right="20.0" />
+                     </HBox.margin>
+                  </ComboBox>
+                  <Label fx:id="endDateLb" prefHeight="14.0" prefWidth="48.0" text="结束日期">
+                     <padding>
+                        <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-               </children>
-            </Group>
-            <Group>
-               <children>
-                  <ImageView fx:id="combinationImage2" fitHeight="20.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" visible="false">
-                     <image>
-                        <Image url="@images/buttonBig.png" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="combinationLb2" layoutX="11.0" onMouseClicked="#combinationLb2Click" prefHeight="15.0" prefWidth="48.0" text="组合序列">
+                  <ComboBox fx:id="endCb" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="100.0" style="-fx-background-color: #057DC8; -fx-color: #ffffff;">
                      <padding>
-                        <Insets bottom="3.0" top="2.0" />
+                        <Insets left="20.0" right="20.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets left="20.0" right="274.0" />
+                     </HBox.margin>
+                  </ComboBox>
+                  <Label fx:id="gradeLb" prefHeight="14.0" prefWidth="48.0" text="业绩基准">
+                     <padding>
+                        <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
+                  <ComboBox fx:id="gradeCb" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="100.0" style="-fx-background-color: #057DC8; -fx-color: #ffffff;">
+                     <padding>
+                        <Insets left="30.0" right="20.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </ComboBox>
                </children>
-               <HBox.margin>
-                  <Insets left="20.0" />
-               </HBox.margin>
-            </Group>
+            </HBox>
+            <TableView fx:id="table" blendMode="LIGHTEN" layoutX="47.0" layoutY="54.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="299.0" prefWidth="808.0">
+               <columns>
+                  <TableColumn fx:id="project1Cn" maxWidth="123.0" minWidth="103.0" prefWidth="123.0" resizable="false" />
+                  <TableColumn fx:id="month3_1Cn" maxWidth="100.0" minWidth="20.0" prefWidth="75.0" text="最近3个月" />
+                  <TableColumn fx:id="month6_1Cn" maxWidth="80.0" minWidth="20.0" prefWidth="75.0" text="最近6个月" />
+                  <TableColumn fx:id="yearToNow1Cn" maxWidth="80.0" minWidth="20.0" prefWidth="75.0" text="年初至今" />
+                  <TableColumn fx:id="choose1Cn" maxWidth="80.0" minWidth="20.0" prefWidth="75.0" text="选择区间" />
+                  <TableColumn fx:id="project2Cn" maxWidth="100.0" minWidth="20.0" prefWidth="95.0" />
+                  <TableColumn fx:id="month3_2Cn" maxWidth="80.0" minWidth="20.0" prefWidth="75.0" text="最近3个月" />
+                  <TableColumn fx:id="month6_2Cn" maxWidth="80.0" minWidth="20.0" prefWidth="70.0" text="最近6个月" />
+                  <TableColumn fx:id="yearToNow2Cn" maxWidth="75.0" minWidth="20.0" prefWidth="70.0" text="年初至今" />
+                  <TableColumn fx:id="choose2Cn" maxWidth="75.0" minWidth="20.0" prefWidth="70.0" text="选择区间" />
+               </columns>
+            </TableView>
          </children>
-      </HBox>
+      </AnchorPane>
    </children>
 </AnchorPane>

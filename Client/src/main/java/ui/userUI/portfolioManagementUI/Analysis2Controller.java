@@ -3,6 +3,7 @@ package ui.userUI.portfolioManagementUI;
 import RMIModule.BLInterfaces;
 import beans.FOFProfitAnalyse;
 import bl.fof.FOFProfitAnalyseLogic;
+import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,22 +13,24 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import jdk.nashorn.internal.ir.Labels;
+import util.FOFUtilInfo;
 
 import java.net.URL;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
+
+import static util.FOFUtilInfo.*;
 
 /**
  * Created by OptimusPrime on 2016/8/28.
  */
 public class Analysis2Controller implements Initializable {
 	@FXML
-	private ComboBox<Date> startCb,endCb;
+	private ComboBox<Date> startCb,endCb,gradeCb;
 	@FXML
-	private Label startDateLb,endDateLb,combinationLb1,combinationLb2;
-	@FXML
-	private ImageView combinationImage1,combinationImage2;
+	private Label startDateLb,endDateLb;
 	@FXML
 	private TableView<FOFProfitAnalyse> table;
 	@FXML
@@ -44,19 +47,14 @@ public class Analysis2Controller implements Initializable {
 		this.analysis2Controller=this;
 		this.fofProfitAnalyseLogic= BLInterfaces.getFofProfitAnalyseLogic();
 		initComboboxes();
-		initLabels();
 		initTable();
 	}
 	public void initComboboxes(){
+//		gradeCb.setItems(FXCollections.observableMap());
+	}
+	public void initTable(){
 
 	}
-	public void initLabels(){
-		Label[] labels={combinationLb1,combinationLb2};
-		ImageView[] imageViews={combinationImage1,combinationImage2};
-		beautifyLabels(labels,imageViews);
-
-	}
-	public void initTable(){}
 	@FXML
 	public void combinationLb1Click(){
 
