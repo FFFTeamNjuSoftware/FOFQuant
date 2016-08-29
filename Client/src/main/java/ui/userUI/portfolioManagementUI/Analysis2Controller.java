@@ -5,6 +5,7 @@ import beans.FOFProfitAnalyse;
 import beans.FOFQuickInfo;
 import bl.fof.FOFProfitAnalyseLogic;
 import exception.ObjectNotFoundException;
+import exception.ParameterException;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -16,13 +17,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import util.CalendarOperate;
 import util.TimeType;
 
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.util.Date;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.time.LocalDate;
+import java.util.*;
 
 import static util.FOFUtilInfo.performanceBaseInfo;
 
@@ -76,9 +77,62 @@ public class Analysis2Controller implements Initializable {
 
 		});
 
+		LocalDate nowLocalDate= LocalDate.now();
 //		init startCombobox
+		LocalDate startTempDate=nowLocalDate.minusDays(90);
+		List<Date> startDateList=new ArrayList<Date>();
+		int i=0;
+		do {
+			startDateList.add(new Date(nowLocalDate.toString()));
+			startTempDate=startTempDate.plusDays(1);
+			i++;
+		}while(i<30);
+		startCb.setItems(FXCollections.observableArrayList(startDateList));
+		startCb.getSelectionModel().selectFirst();
+		startCb.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Date>() {
+			@Override
+			public void changed(ObservableValue<? extends Date> observable, Date oldValue, Date newValue) {
+				if(!oldValue.toString().equals(newValue.toString())){
+					try {
+						profitAnalyseLogic.setStartDate(newValue.toString());
+					} catch (RemoteException e) {
+						e.printStackTrace();
+					}  catch (ParameterException e) {
+						e.printStackTrace();
+					}
+					initTable();
+				}
+			}
+		});
 
 //		init endCombobox
+		List<Date> endDateList=new ArrayList<Date>();
+		LocalDate endTempDate=nowLocalDate;
+		int j=0;
+		do {
+			endDateList.add(new Date(nowLocalDate.toString()));
+			endTempDate=endTempDate.minusDays(1);
+			j++;
+		}while(j<30);
+		endCb.setItems(FXCollections.observableArrayList(endDateList));
+		endCb.getSelectionModel().selectFirst();
+		endCb.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Date>() {
+
+
+			@Override
+			public void changed(ObservableValue<? extends Date> observable, Date oldValue, Date newValue) {
+				if(!oldValue.toString().equals(newValue.toString())){
+					try {
+						profitAnalyseLogic.setEndDate(newValue.toString());
+					} catch (RemoteException e) {
+						e.printStackTrace();
+					}  catch (ParameterException e) {
+						e.printStackTrace();
+					}
+					initTable();
+				}
+			}
+		});
 	}
 
 	@FXML
