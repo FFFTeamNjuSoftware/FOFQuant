@@ -51,7 +51,7 @@ public class Converter {
         info.scale = entity.getScale();
         info.simple_name = entity.getSimpleName();
         info.invest_type = entity.getInvestType();
-        info.rank = entity.getRank();
+        info.rank = entity.getRank() == null ? 0 : entity.getRank();
         return info;
     }
 
