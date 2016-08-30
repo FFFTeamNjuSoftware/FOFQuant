@@ -1,5 +1,6 @@
 package strategy;
 
+import java.rmi.RemoteException;
 import java.util.List;
 
 /**
@@ -34,7 +35,7 @@ public interface FundDeployStrategy {
      * 根据系统基金评级计算小类配置结果
      * @return
      */
-    public List DefaultFundDeploy();
+    public List DefaultFundDeploy() throws RemoteException;
 
     /**
      * 根据自选的基金计算小类配置结果
