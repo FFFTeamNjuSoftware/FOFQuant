@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import dataservice.BaseInfoDataService;
 import dataserviceimpl.DataServiceController;
 import entities.FundInfosEntity;
+import entities.FundRankEntity;
 import exception.ObjectNotFoundException;
 import org.junit.After;
 import org.junit.Before;
@@ -38,9 +39,10 @@ public class BaseInfoDataServiceImplTest {
      */
     @Test
     public void testGetFundInfo() {
-        FundInfosEntity entity = null;
+//        FundInfosEntity entity = null;
+        FundRankEntity entity=null;
         try {
-            entity = dataService.getFundInfo("000005");
+            entity = dataService.getFundRankInfo("000001");
         } catch (ObjectNotFoundException e) {
             e.printStackTrace();
         }

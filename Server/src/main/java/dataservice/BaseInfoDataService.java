@@ -1,10 +1,7 @@
 package dataservice;
 
 import beans.CodeName;
-import entities.CompanyInfoEntity;
-import entities.ConstParameterEntity;
-import entities.FundInfosEntity;
-import entities.FundQuickInfosEntity;
+import entities.*;
 import exception.ObjectNotFoundException;
 
 import java.util.List;
@@ -21,6 +18,14 @@ public interface BaseInfoDataService {
      */
     public FundInfosEntity getFundInfo(String code) throws ObjectNotFoundException;
 
+
+    /**
+     * 获得基金的评级信息
+     * @param code
+     * @return
+     * @throws ObjectNotFoundException
+     */
+    public FundRankEntity getFundRankInfo(String code) throws ObjectNotFoundException;
 
     /**
      * 根据关键词模糊查找

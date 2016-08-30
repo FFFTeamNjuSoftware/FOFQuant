@@ -2,10 +2,7 @@ package dataserviceimpl;
 
 import beans.CodeName;
 import dataservice.BaseInfoDataService;
-import entities.CompanyInfoEntity;
-import entities.ConstParameterEntity;
-import entities.FundInfosEntity;
-import entities.FundQuickInfosEntity;
+import entities.*;
 import exception.ObjectNotFoundException;
 import org.hibernate.Session;
 import startup.HibernateBoot;
@@ -29,8 +26,19 @@ public class BaseInfoDataServiceImpl implements BaseInfoDataService {
                 .list();
         se.close();
         if (re == null || re.size() == 0)
-            throw new ObjectNotFoundException("can't find this fund");
+            throw new ObjectNotFoundException("can't find this fund :" + code);
         return (FundInfosEntity) re.get(0);
+    }
+
+    @Override
+    public FundRankEntity getFundRankInfo(String code) throws ObjectNotFoundException {
+        Session se = HibernateBoot.openSession();
+        List re = se.createQuery("from FundRankEntity where code=:code").setString("code", code)
+                .list();
+        se.close();
+        if (re == null || re.size() == 0)
+            throw new ObjectNotFoundException("can't find this fund");
+        return (FundRankEntity) re.get(0);
     }
 
     @Override

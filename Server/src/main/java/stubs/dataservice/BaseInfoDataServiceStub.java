@@ -2,10 +2,7 @@ package stubs.dataservice;
 
 import beans.CodeName;
 import dataservice.BaseInfoDataService;
-import entities.CompanyInfoEntity;
-import entities.ConstParameterEntity;
-import entities.FundInfosEntity;
-import entities.FundQuickInfosEntity;
+import entities.*;
 import exception.ObjectNotFoundException;
 
 import java.util.ArrayList;
@@ -15,6 +12,11 @@ import java.util.List;
  * Created by Daniel on 2016/8/16.
  */
 public class BaseInfoDataServiceStub implements BaseInfoDataService {
+    @Override
+    public FundRankEntity getFundRankInfo(String code) throws ObjectNotFoundException {
+        return null;
+    }
+
     @Override
     public FundInfosEntity getFundInfo(String code) throws ObjectNotFoundException {
         FundInfosEntity fundInfosEntity = new FundInfosEntity();

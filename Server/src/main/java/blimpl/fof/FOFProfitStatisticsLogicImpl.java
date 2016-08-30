@@ -5,6 +5,7 @@ import beans.ProfitStatisticsInfo;
 import bl.fof.FOFProfitStatisticsLogic;
 import exception.ObjectNotFoundException;
 import exception.ParameterException;
+import util.UnitType;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -47,7 +48,7 @@ public class FOFProfitStatisticsLogicImpl extends UnicastRemoteObject implements
     }
 
     @Override
-    public void setUnitType() throws RemoteException {
+    public void setUnitType(UnitType unitType) throws RemoteException {
 
     }
 
