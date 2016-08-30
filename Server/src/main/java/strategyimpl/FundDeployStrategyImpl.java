@@ -1,16 +1,23 @@
 package strategyimpl;
 
 import beans.FundQuickInfo;
+import beans.PriceInfo;
 import bl.BaseInfoLogic;
 import bl.MarketLogic;
 import blimpl.BLController;
 import dataservice.BaseInfoDataService;
 import dataserviceimpl.DataServiceController;
+import entities.FundInfosEntity;
 import entities.FundRankEntity;
 import exception.ObjectNotFoundException;
+import exception.ParameterException;
 import strategy.FundDeployStrategy;
 import util.SectorType;
+import util.UnitType;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.*;
@@ -67,84 +74,83 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
                 }
             }
             List<String> sortedCodes=this.sort(fixProfitRank);
-            for(String sortedCode:sortedCodes){
-                System.out.println(sortedCode);
-            }
+//            for(String sortedCode:sortedCodes){
+//                System.out.println(sortedCode);
+//            }
 
 
-//            //读取系统中前N只固定收益型股票的2013.12-2015.12收盘价数据,每只基金对应的费率
-//            List<String> sortedCodes=this.sort(fixProfitRank);
-//                //N=2,可调
-//                int N=0;
-//                if(sortedCodes.size()>2){N=2;}else{N=sortedCodes.size();}
-//
-//                Map<String,List<Double>> codePrices=new HashMap<>();
-//                Map<String,List<Double>> codeFee=new HashMap<>();
-//                int size=marketLogic.getPriceInfo(sortedCodes.get(0),UnitType.DAY,startDate,endDate).size();
-//                int i=0;
-//                while(i<N){
-//                    String code=sortedCodes.get(i);
-//                    List<PriceInfo> priceInfos=marketLogic.getPriceInfo(code, UnitType.DAY,startDate,endDate);
-//                    if(priceInfos.size()<size){
-//                        size=priceInfos.size();
-//                    }
-//                    //<基金,收盘价序列>
-//                    List<Double> prices=new ArrayList<>();
-//                    for(int j=0;j<priceInfos.size();j++){
-//                        prices.add(priceInfos.get(j).price);
-//                    }
-//                    codePrices.put(code,prices);
-//                    //<基金,费率序列>
-//                    List<Double> fees=new ArrayList<>();
-//                    FundInfosEntity fundInfos=baseInfoDataService.getFundInfo(code);
-//                    Double manageFee=fundInfos.getManageFee();
-//                    Double trusteeFee=fundInfos.getTrusteeFee();
-//                    Double saleServiceFee=fundInfos.getSaleServiceFee();
-//                    if(manageFee!=null) {fees.add(manageFee);}else{fees.add(0.0);}
-//                    if(trusteeFee!=null){fees.add(trusteeFee);}else{fees.add(0.0);}
-//                    if(saleServiceFee!=null){fees.add(saleServiceFee);}else{fees.add(0.0);}
-//                    codeFee.put(code,fees);
-//
-//                    i++;
-//                }
-//                System.out.println(codePrices.keySet());
-//                //将收盘价数据写入txt文件
-//                File priceFile=new File("fundDeployN2.txt");
-//                if(!priceFile.exists()){
-//                    priceFile.createNewFile();
-//                }
-//                File feeFile=new File("fundFeeN2");
-//                if(!feeFile.exists()){
-//                    feeFile.createNewFile();
-//                }
-//
-//                FileWriter priceFileWriter=new FileWriter(priceFile.getName());
-//                BufferedWriter bufferedWriter=new BufferedWriter(priceFileWriter);
-//
-//                FileWriter feeFileWriter=new FileWriter(feeFile.getName());
-//                BufferedWriter bufferedWriter1=new BufferedWriter(feeFileWriter);
-//
-//                for(int day=0;day<size;day++) {
-//                    for (String fundcode:codePrices.keySet()) {
-//                        double close=codePrices.get(fundcode).get(day);
-//                        bufferedWriter.write(close+" ");
-//                        if (day==0){
-//                            for(i=0;i<3;i++){
-//                                double fee=codeFee.get(fundcode).get(i);
-//                                bufferedWriter1.write(fee+" ");
-//                            }
-//                            bufferedWriter1.write("\n");
-//                        }
-//                    }
-//                    bufferedWriter.write("\n");
-//                }
-//                bufferedWriter.close();
-//                bufferedWriter1.close();
+            //读取系统中前N只固定收益型股票的2013.12-2015.12收盘价数据,每只基金对应的费率
+                //N=2,可调
+                int N=0;
+                if(sortedCodes.size()>2){N=2;}else{N=sortedCodes.size();}
+
+                Map<String,List<Double>> codePrices=new HashMap<>();
+                Map<String,List<Double>> codeFee=new HashMap<>();
+                int size=marketLogic.getPriceInfo(sortedCodes.get(0), UnitType.DAY,startDate,endDate).size();
+                int i=0;
+                while(i<N){
+                    String code=sortedCodes.get(i);
+                    List<PriceInfo> priceInfos=marketLogic.getPriceInfo(code, UnitType.DAY,startDate,endDate);
+                    if(priceInfos.size()<size){
+                        size=priceInfos.size();
+                    }
+                    //<基金,收盘价序列>
+                    List<Double> prices=new ArrayList<>();
+                    for(int j=0;j<priceInfos.size();j++){
+                        prices.add(priceInfos.get(j).price);
+                    }
+                    codePrices.put(code,prices);
+                    //<基金,费率序列>
+                    List<Double> fees=new ArrayList<>();
+                    FundInfosEntity fundInfos=baseInfoDataService.getFundInfo(code);
+                    Double manageFee=fundInfos.getManageFee();
+                    Double trusteeFee=fundInfos.getTrusteeFee();
+                    Double saleServiceFee=fundInfos.getSaleServiceFee();
+                    if(manageFee!=null) {fees.add(manageFee);}else{fees.add(0.0);}
+                    if(trusteeFee!=null){fees.add(trusteeFee);}else{fees.add(0.0);}
+                    if(saleServiceFee!=null){fees.add(saleServiceFee);}else{fees.add(0.0);}
+                    codeFee.put(code,fees);
+
+                    i++;
+                }
+                System.out.println(codePrices.keySet());
+                //将收盘价数据写入txt文件
+                File priceFile=new File("fundDeployN2.txt");
+                if(!priceFile.exists()){
+                    priceFile.createNewFile();
+                }
+                File feeFile=new File("fundFeeN2");
+                if(!feeFile.exists()){
+                    feeFile.createNewFile();
+                }
+
+                FileWriter priceFileWriter=new FileWriter(priceFile.getName());
+                BufferedWriter bufferedWriter=new BufferedWriter(priceFileWriter);
+
+                FileWriter feeFileWriter=new FileWriter(feeFile.getName());
+                BufferedWriter bufferedWriter1=new BufferedWriter(feeFileWriter);
+
+                for(int day=0;day<size;day++) {
+                    for (String fundcode:codePrices.keySet()) {
+                        double close=codePrices.get(fundcode).get(day);
+                        bufferedWriter.write(close+" ");
+                        if (day==0){
+                            for(i=0;i<3;i++){
+                                double fee=codeFee.get(fundcode).get(i);
+                                bufferedWriter1.write(fee+" ");
+                            }
+                            bufferedWriter1.write("\n");
+                        }
+                    }
+                    bufferedWriter.write("\n");
+                }
+                bufferedWriter.close();
+                bufferedWriter1.close();
 
         } catch (ObjectNotFoundException e) {
             System.out.println("NO SUCH KIND OF FUNDS");
-//        } catch (ParameterException e) {
-//            System.out.println("FORMAT WRONG");
+        } catch (ParameterException e) {
+            System.out.println("FORMAT WRONG");
         } catch (IOException e) {
             e.printStackTrace();
         }
