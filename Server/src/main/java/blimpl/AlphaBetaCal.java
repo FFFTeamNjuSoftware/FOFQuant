@@ -7,6 +7,7 @@ import com.mathworks.toolbox.javabuilder.MWException;
 import com.mathworks.toolbox.javabuilder.MWNumericArray;
 import exception.NotInitialedExcepiton;
 import exception.ObjectNotFoundException;
+import exception.ParameterException;
 import matlabtool.TypeConverter;
 import startup.MatlabBoot;
 import util.UnitType;
@@ -30,12 +31,12 @@ public class AlphaBetaCal {
             MarketLogic marketLogic = BLController.getMarketLogic();
             BaseInfoLogic baseInfoLogic = BLController.getBaseInfoLogic();
             ConstParameter constParameter = baseInfoLogic.getConstaParameteer();
-            List<Double> price = marketLogic.getPriceInfo(code, UnitType.DAY).stream().map(e -> e
-                    .rise / 100).collect(Collectors.toList());
-            List<Double> basePrice = marketLogic.getPriceInfo("I000011", UnitType.DAY).stream().map(e
-                    -> e.rise / 100).collect(Collectors.toList());
-            int size = basePrice.size();
-            basePrice = basePrice.subList(size - price.size(), size);
+            List<Double> price = marketLogic.getPriceInfo(code, UnitType.DAY, 252).stream()
+                    .map(e -> e.rise / 100).collect(Collectors.toList());
+            List<Double> basePrice = marketLogic.getPriceInfo("I000011", UnitType.DAY, 252).stream
+                    ().map(e -> e.rise / 100).collect(Collectors.toList());
+//            int size = basePrice.size();
+//            basePrice = basePrice.subList(size - price.size(), size);
 //            System.out.println(price.size() + "," + basePrice.size());
             Object[] objs = MatlabBoot.getCalculateTool().singleIndexModule(2, TypeConverter
                     .convertList(basePrice), TypeConverter.convertList(price), constParameter
@@ -53,6 +54,8 @@ public class AlphaBetaCal {
         } catch (RemoteException e) {
             e.printStackTrace();
         } catch (ObjectNotFoundException e) {
+
+        } catch (ParameterException e) {
 
         }
         return null;

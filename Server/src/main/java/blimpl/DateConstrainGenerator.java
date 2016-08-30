@@ -27,7 +27,6 @@ public class DateConstrainGenerator {
             return d1.get(Calendar.MONTH) / 3 != d2.get(Calendar.MONTH) / 3;
         };
         map = new HashMap<>();
-
         map.put(UnitType.DAY, dayConstraint);
         map.put(UnitType.WEEK, weekConstraint);
         map.put(UnitType.MONTH, monthConstraint);
