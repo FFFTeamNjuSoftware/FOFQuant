@@ -35,7 +35,7 @@ public interface FundDeployStrategy {
      * @return
      * @throws RemoteException
      */
-    public void AdjustiveFundDeploy(Map<String, Double> codeRank, int N, int window, int hold) throws RemoteException;
+    public void AdjustiveFundDeploy(List<String> codeRank, int N, int window, int hold) throws RemoteException;
 
         /**
          * 获得回测结果,可指定日期

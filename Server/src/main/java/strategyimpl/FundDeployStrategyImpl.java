@@ -63,20 +63,23 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
                         fixProfitRank.put(code, rank);
                     }
                 } catch (ObjectNotFoundException e) {
-                    System.out.println(code + "no rank info");
+                    continue;
                 }
             }
-
+            //排序
+            List<String> sortedCodes = this.sort(fixProfitRank);
             int[] windows = {90, 180, 360};
             int[] holds = {30, 60, 90};
             int N;
-            for (int window : windows) {
-                for (int hold : holds) {
-                    for (N = 2; N < 6; N++) {
-                        this.AdjustiveFundDeploy(fixProfitRank, N, window, hold);
+//            for (int window : windows) {
+//                for (int hold : holds) {
+                    for (N = 2; N <= 6; N++) {
+                        System.out.println(N+"begin");
+                        this.AdjustiveFundDeploy(sortedCodes, N, 360, 30);
+
                     }
-                }
-            }
+//                }
+//            }
         } catch (ObjectNotFoundException e) {
             e.printStackTrace();
         }
@@ -89,20 +92,25 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
     }
 
     @Override
-    public void AdjustiveFundDeploy(Map<String, Double> codeRank, int N, int window, int hold) throws RemoteException {
-        //排序
-        List<String> sortedCodes = this.sort(codeRank);
-
+    public void AdjustiveFundDeploy(List<String> sortedCodes, int N, int window, int hold) throws RemoteException {
         //读取系统中前N只固定收益型股票的2013.12-2015.12收盘价数据,每只基金对应的费率
-        //N=2,可调
         if (sortedCodes.size() < N) {
             N = sortedCodes.size();
         }
-
         Map<String, List<Double>> codePrices = this.getCodePrices(sortedCodes, N);
         Map<String, List<Double>> codeFee = this.getCodeFee(sortedCodes, N);
+        int length=0;
+        for(String codePrice:codePrices.keySet()){
+            if(length==0) {
+                length = codePrices.get(codePrice).size();
+            }else{
+                if (length>codePrices.get(codePrice).size()){
+                    length=codePrices.get(codePrice).size();
+                }
+            }
+        }
 
-        this.writeToTXT(codePrices,codeFee,N,window,hold);
+        this.writeToTXT(codePrices,codeFee,N,window,hold,length);
 
     }
 
@@ -115,16 +123,15 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
             while (i < N) {
                 String code = funds.get(i);
                 List<PriceInfo> priceInfos = marketLogic.getPriceInfo(code, UnitType.DAY, startDate, endDate);
-                if (priceInfos.size() < size) {
-                    size = priceInfos.size();
-                }
                 //<基金,收盘价序列>
                 List<Double> prices = new ArrayList<>();
                 for (int j = 0; j < priceInfos.size(); j++) {
                     prices.add(priceInfos.get(j).price);
                 }
                 codePrices.put(code, prices);
+                i++;
             }
+
         } catch (ObjectNotFoundException e) {
             e.printStackTrace();
         } catch (ParameterException e) {
@@ -137,15 +144,9 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
         Map<String, List<Double>> codeFee = new HashMap<>();
         int size = 0;
         try {
-            size = marketLogic.getPriceInfo(funds.get(0), UnitType.DAY, startDate, endDate).size();
             int i = 0;
             while (i < N) {
                 String code = funds.get(i);
-                List<PriceInfo> priceInfos = marketLogic.getPriceInfo(code, UnitType.DAY, startDate, endDate);
-                if (priceInfos.size() < size) {
-                    size = priceInfos.size();
-                }
-
                 //<基金,费率序列>
                 List<Double> fees = new ArrayList<>();
                 FundInfosEntity fundInfos = baseInfoDataService.getFundInfo(code);
@@ -167,21 +168,18 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
                 } else {
                     fees.add(0.0);
                 }
-                codeFee.put(code, fees);
-
+                codeFee.put(code,fees);
                 i++;
             }
         } catch (ObjectNotFoundException e) {
             e.printStackTrace();
-        } catch (ParameterException e) {
-            e.printStackTrace();
         }
-        return null;
+        return codeFee;
     }
 
-    private void writeToTXT(Map<String,List<Double>> codePrices,Map<String, List<Double>> codeFee,int N,int window,int hold) {
-        String name1 = "riskyParityN" + N + "W" + window + "H" + hold + "Price";
-        String name2 = "riskyParityN" + N + "W" + window + "H" + hold + "Fee";
+    private void writeToTXT(Map<String,List<Double>> codePrices,Map<String, List<Double>> codeFee,int N,int window,int hold,int length) {
+        String name1 = "riskyParityN" + N + "Price.txt";
+        String name2 = "riskyParityN" + N + "Fee.txt";
         //将收盘价数据写入txt文件
         File priceFile = new File(name1);
         File feeFile = new File(name2);
@@ -199,7 +197,8 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
             FileWriter feeFileWriter = new FileWriter(feeFile.getName());
             BufferedWriter bufferedWriter1 = new BufferedWriter(feeFileWriter);
 
-            for (int day = 0; day < codeFee.get(0).size(); day++) {
+            System.out.println(length+"codePriceSize!!!");
+            for (int day = 0; day < length; day++) {
                 for (String fundcode : codePrices.keySet()) {
                     double close = codePrices.get(fundcode).get(day);
                     bufferedWriter.write(close + " ");
