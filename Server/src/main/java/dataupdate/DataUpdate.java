@@ -1,13 +1,8 @@
 package dataupdate;
 
-import beans.FundJSNetWorth;
-import beans.FundRealTimeInfo;
 import beans.PriceInfo;
 import beans.ProfitRateInfo;
-import blimpl.AnalyseFundJSResult;
-import blimpl.AnalyseFundJSResultImpl;
 import blimpl.BLController;
-import com.google.gson.Gson;
 import dataservice.BaseInfoDataService;
 import dataserviceimpl.DataServiceController;
 import entities.FundInfosEntity;
@@ -15,28 +10,18 @@ import entities.FundQuickInfosEntity;
 import entities.FundRankEntity;
 import exception.ObjectNotFoundException;
 import exception.ParameterException;
-import org.dom4j.io.SAXReader;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import startup.HibernateBoot;
 import strategyimpl.FundRankStrategyImpl;
-import util.HttpTool;
 import util.TimeType;
 import util.UnitType;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.charset.Charset;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by Daniel on 2016/8/20.
@@ -136,18 +121,22 @@ public class DataUpdate {
      */
     public void updateNetWorth() throws IOException {
         UpdateNetWorthFromJS updateNetWorthFromJS = new UpdateNetWorthFromJS();
-        updateNetWorthFromJS.updateNetWorth("000001", "2015-03-01");
+        BaseInfoDataService baseInfoDataService = DataServiceController.getBaseInfoDataService();
+        List<String> codes = baseInfoDataService.getAllCodes();
+        int count = 0;
+        for (String code : codes) {
+            System.out.println(count++ + ":" + code);
+            updateNetWorthFromJS.updateNetWorth(code, "1015-03-01");
+        }
 
     }
 
 
     public static void main(String[] args) throws Exception {
-//        HibernateBoot.init();
+        HibernateBoot.init();
         DataUpdate dataUpdate = new DataUpdate();
 //        dataUpdate.updateQuickinfo();
 //        dataUpdate.updateFundRank();
         dataUpdate.updateNetWorth();
-        Thread.sleep(100000);
-//        HibernateBoot.closeConnection();
     }
 }

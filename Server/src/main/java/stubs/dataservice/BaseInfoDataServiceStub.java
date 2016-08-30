@@ -18,6 +18,11 @@ public class BaseInfoDataServiceStub implements BaseInfoDataService {
     }
 
     @Override
+    public String getMaxDate(String code) {
+        return null;
+    }
+
+    @Override
     public FundInfosEntity getFundInfo(String code) throws ObjectNotFoundException {
         FundInfosEntity fundInfosEntity = new FundInfosEntity();
         fundInfosEntity.setCode("001547");

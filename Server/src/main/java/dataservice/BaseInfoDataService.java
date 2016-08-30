@@ -43,6 +43,13 @@ public interface BaseInfoDataService {
     public List<String> getAllCodes();
 
     /**
+     * 返回数据库中基金数据的最新的日期
+     * @param code
+     * @return
+     */
+    public String getMaxDate(String code);
+
+    /**
      * 获得一个版块内的基金代码
      *
      * @param sectorId

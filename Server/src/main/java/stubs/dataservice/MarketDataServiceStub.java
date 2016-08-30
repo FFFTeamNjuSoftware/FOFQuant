@@ -18,7 +18,7 @@ public class MarketDataServiceStub implements MarketDataService {
         NetWorthEntity netWorthEntity = new NetWorthEntity();
         netWorthEntity.setCode("000001");
         netWorthEntity.setDailyRise(0.01);
-        netWorthEntity.setDate(new Date(2016 - 1900, 1 - 1, 1));
+        netWorthEntity.setDate("2016-01-01");
         netWorthEntity.setTotalWorth(10000.0);
         netWorthEntity.setUnitWorth(1000.0);
         netWorthEntityList.add(netWorthEntity);
@@ -31,7 +31,7 @@ public class MarketDataServiceStub implements MarketDataService {
         NetWorthEntity netWorthEntity = new NetWorthEntity();
         netWorthEntity.setCode("000001");
         netWorthEntity.setDailyRise(0.01);
-        netWorthEntity.setDate(new Date(2016 - 1900, 1 - 1, 1));
+        netWorthEntity.setDate("2016-01-01");
         netWorthEntity.setTotalWorth(10000.0);
         netWorthEntity.setUnitWorth(1000.0);
         netWorthEntityList.add(netWorthEntity);

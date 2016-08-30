@@ -43,6 +43,7 @@ public class BaseInfoDataServiceImplTest {
         FundRankEntity entity=null;
         try {
             entity = dataService.getFundRankInfo("000001");
+            System.out.println(dataService.getMaxDate("000001"));
         } catch (ObjectNotFoundException e) {
             e.printStackTrace();
         }

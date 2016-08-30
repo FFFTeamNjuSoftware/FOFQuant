@@ -42,6 +42,16 @@ public class BaseInfoDataServiceImpl implements BaseInfoDataService {
     }
 
     @Override
+    public String getMaxDate(String code) {
+        Session se = HibernateBoot.openSession();
+        List re = se.createQuery("select max(date) from NetWorthEntity where code=:code").setString("code", code).list();
+        se.close();
+        if (re == null || re.size() == 0)
+            return null;
+        return (String) re.get(0);
+    }
+
+    @Override
     public List<CodeName> fuzzySearch(String keyword) {
         Session se = HibernateBoot.openSession();
         List re = se.createQuery("from FundInfosEntity where code like :keyword or simpleName like :keyword")

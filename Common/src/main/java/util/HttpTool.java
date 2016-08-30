@@ -26,7 +26,6 @@ public class HttpTool {
         String tem;
         String re = "";
         while ((tem = reader.readLine()) != null) {
-            System.out.println(tem);
             re = re + tem;
         }
         return re;
