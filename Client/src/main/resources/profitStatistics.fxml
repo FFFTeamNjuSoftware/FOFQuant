@@ -12,30 +12,28 @@
    <children>
       <AnchorPane layoutY="64.0" prefHeight="520.0" prefWidth="930.0">
          <children>
-            <ComboBox layoutX="303.0" layoutY="12.0" prefHeight="24.0" prefWidth="100.0" style="-fx-background-color: #057DC8; -fx-color: #ffffff;" />
-            <ComboBox layoutX="115.0" layoutY="12.0" prefHeight="24.0" prefWidth="100.0" style="-fx-background-color: #057DC8; -fx-color: #ffffff;" />
-            <Label layoutX="235.0" layoutY="14.0" text="结束日期" textFill="WHITE">
+            <Label layoutX="234.0" layoutY="14.0" text="结束日期" textFill="WHITE">
                <font>
                   <Font size="12.0" />
                </font>
             </Label>
-            <Label layoutX="425.0" layoutY="14.0" text="统计周期" textFill="WHITE">
+            <Label layoutX="449.0" layoutY="14.0" text="统计周期" textFill="WHITE">
                <font>
                   <Font size="12.0" />
                </font>
             </Label>
-            <ComboBox layoutX="488.0" layoutY="12.0" prefHeight="24.0" prefWidth="56.0" style="-fx-background-color: #057DC8; -fx-color: #ffffff;" />
-            <Label layoutX="47.0" layoutY="14.0" text="开始日期" textFill="WHITE">
+            <ComboBox fx:id="statisticsPeriod" layoutX="508.0" layoutY="7.0" prefHeight="30.0" prefWidth="72.0" promptText="日" style="-fx-background-color: #057DC8; -fx-color: #ffffff;" />
+            <Label layoutX="23.0" layoutY="14.0" text="开始日期" textFill="WHITE">
                <font>
                   <Font size="12.0" />
                </font>
             </Label>
-            <Label layoutX="564.0" layoutY="14.0" text="回报周期" textFill="WHITE">
+            <Label layoutX="605.0" layoutY="15.0" text="业绩基准" textFill="WHITE">
                <font>
                   <Font size="12.0" />
                </font>
             </Label>
-            <ComboBox layoutX="627.0" layoutY="12.0" prefHeight="24.0" prefWidth="100.0" style="-fx-background-color: #057DC8; -fx-color: #ffffff;" />
+            <ComboBox fx:id="repayPeriod" layoutX="667.0" layoutY="7.0" prefHeight="30.0" prefWidth="153.0" promptText="上证基金指数" style="-fx-background-color: #057DC8; -fx-color: #ffffff;" />
             <Label layoutX="47.0" layoutY="158.0" text="最大序列" textFill="WHITE">
                <font>
                   <Font size="12.0" />
@@ -261,22 +259,22 @@
                      <children>
                         <Group id="threeRise" fx:id="threeRise">
                            <children>
-                              <Label layoutX="656.0" layoutY="116.0" text="周期数" textFill="WHITE">
+                              <Label id="combinationProfit" fx:id="combinationProfit" layoutX="656.0" layoutY="116.0" text="周期数" textFill="WHITE">
                                  <font>
                                     <Font size="12.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="567.0" layoutY="116.0" text="周期数" textFill="WHITE">
+                              <Label id="relatedProfit" fx:id="relatedProfit" layoutX="567.0" layoutY="116.0" text="周期数" textFill="WHITE">
                                  <font>
                                     <Font size="12.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="746.0" layoutY="116.0" text="周期数" textFill="WHITE">
+                              <Label id="baseProfit" fx:id="baseProfit" layoutX="746.0" layoutY="116.0" text="周期数" textFill="WHITE">
                                  <font>
                                     <Font size="12.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="828.0" layoutY="116.0" text="周期数" textFill="WHITE">
+                              <Label id="happenDate" fx:id="happenDate" layoutX="828.0" layoutY="116.0" text="周期数" textFill="WHITE">
                                  <font>
                                     <Font size="12.0" />
                                  </font>
@@ -285,22 +283,22 @@
                         </Group>
                         <Group id="threeDrop" fx:id="threeDrop">
                            <children>
-                              <Label layoutX="567.0" layoutY="179.0" text="周期数" textFill="WHITE">
+                              <Label id="relatedProfit" fx:id="relatedProfit" layoutX="567.0" layoutY="179.0" text="周期数" textFill="WHITE">
                                  <font>
                                     <Font size="12.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="828.0" layoutY="179.0" text="周期数" textFill="WHITE">
+                              <Label id="happenDate" fx:id="happenDate" layoutX="828.0" layoutY="179.0" text="周期数" textFill="WHITE">
                                  <font>
                                     <Font size="12.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="656.0" layoutY="179.0" text="周期数" textFill="WHITE">
+                              <Label id="combinationProfit" fx:id="combinationProfit" layoutX="656.0" layoutY="179.0" text="周期数" textFill="WHITE">
                                  <font>
                                     <Font size="12.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="746.0" layoutY="179.0" text="周期数" textFill="WHITE">
+                              <Label id="baseProfit" fx:id="baseProfit" layoutX="746.0" layoutY="179.0" text="周期数" textFill="WHITE">
                                  <font>
                                     <Font size="12.0" />
                                  </font>
@@ -309,22 +307,22 @@
                         </Group>
                         <Group id="oneDrop" fx:id="oneDrop">
                            <children>
-                              <Label layoutX="567.0" layoutY="137.0" text="周期数" textFill="WHITE">
+                              <Label id="relatedProfit" fx:id="relatedProfit" layoutX="567.0" layoutY="137.0" text="周期数" textFill="WHITE">
                                  <font>
                                     <Font size="12.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="656.0" layoutY="137.0" text="周期数" textFill="WHITE">
+                              <Label id="combinationProfit" fx:id="combinationProfit" layoutX="656.0" layoutY="137.0" text="周期数" textFill="WHITE">
                                  <font>
                                     <Font size="12.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="828.0" layoutY="137.0" text="周期数" textFill="WHITE">
+                              <Label id="happenDate" fx:id="happenDate" layoutX="828.0" layoutY="137.0" text="周期数" textFill="WHITE">
                                  <font>
                                     <Font size="12.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="746.0" layoutY="137.0" text="周期数" textFill="WHITE">
+                              <Label id="baseProfit" fx:id="baseProfit" layoutX="746.0" layoutY="137.0" text="周期数" textFill="WHITE">
                                  <font>
                                     <Font size="12.0" />
                                  </font>
@@ -333,22 +331,22 @@
                         </Group>
                         <Group id="twoRise" fx:id="twoRise">
                            <children>
-                              <Label layoutX="567.0" layoutY="95.0" text="周期数" textFill="WHITE">
+                              <Label id="relatedProfit" fx:id="relatedProfit" layoutX="567.0" layoutY="95.0" text="周期数" textFill="WHITE">
                                  <font>
                                     <Font size="12.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="746.0" layoutY="95.0" text="周期数" textFill="WHITE">
+                              <Label id="baseProfit" fx:id="baseProfit" layoutX="746.0" layoutY="95.0" text="周期数" textFill="WHITE">
                                  <font>
                                     <Font size="12.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="828.0" layoutY="95.0" text="周期数" textFill="WHITE">
+                              <Label id="happenDate" fx:id="happenDate" layoutX="828.0" layoutY="95.0" text="周期数" textFill="WHITE">
                                  <font>
                                     <Font size="12.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="656.0" layoutY="95.0" text="周期数" textFill="WHITE">
+                              <Label id="combinationProfit" fx:id="combinationProfit" layoutX="656.0" layoutY="95.0" text="周期数" textFill="WHITE">
                                  <font>
                                     <Font size="12.0" />
                                  </font>
@@ -357,22 +355,22 @@
                         </Group>
                         <Group id="oneRise" fx:id="oneRise">
                            <children>
-                              <Label layoutX="567.0" layoutY="74.0" text="周期数" textFill="WHITE">
+                              <Label id="relatedProfit" fx:id="relatedProfit" layoutX="567.0" layoutY="74.0" text="周期数" textFill="WHITE">
                                  <font>
                                     <Font size="12.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="746.0" layoutY="74.0" text="周期数" textFill="WHITE">
+                              <Label id="baseProfit" fx:id="baseProfit" layoutX="746.0" layoutY="74.0" text="周期数" textFill="WHITE">
                                  <font>
                                     <Font size="12.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="656.0" layoutY="74.0" text="周期数" textFill="WHITE">
+                              <Label id="combinationProfit" fx:id="combinationProfit" layoutX="656.0" layoutY="74.0" text="周期数" textFill="WHITE">
                                  <font>
                                     <Font size="12.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="828.0" layoutY="74.0" text="周期数" textFill="WHITE">
+                              <Label id="happenDate" fx:id="happenDate" layoutX="828.0" layoutY="74.0" text="周期数" textFill="WHITE">
                                  <font>
                                     <Font size="12.0" />
                                  </font>
@@ -381,22 +379,22 @@
                         </Group>
                         <Group id="twoDrop" fx:id="twoDrop">
                            <children>
-                              <Label layoutX="828.0" layoutY="158.0" text="周期数" textFill="WHITE">
+                              <Label id="happenDate" fx:id="happenDate" layoutX="828.0" layoutY="158.0" text="周期数" textFill="WHITE">
                                  <font>
                                     <Font size="12.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="567.0" layoutY="158.0" text="周期数" textFill="WHITE">
+                              <Label id="relatedProfit" fx:id="relatedProfit" layoutX="567.0" layoutY="158.0" text="周期数" textFill="WHITE">
                                  <font>
                                     <Font size="12.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="746.0" layoutY="158.0" text="周期数" textFill="WHITE">
+                              <Label id="baseProfit" fx:id="baseProfit" layoutX="746.0" layoutY="158.0" text="周期数" textFill="WHITE">
                                  <font>
                                     <Font size="12.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="656.0" layoutY="158.0" text="周期数" textFill="WHITE">
+                              <Label id="combinationProfit" fx:id="combinationProfit" layoutX="656.0" layoutY="158.0" text="周期数" textFill="WHITE">
                                  <font>
                                     <Font size="12.0" />
                                  </font>
@@ -437,6 +435,9 @@
                   <Font size="12.0" />
                </font>
             </Label>
+            <DatePicker fx:id="startDate" layoutX="83.0" layoutY="7.0" prefHeight="30.0" prefWidth="139.0" style="-fx-color: #057DC8;" />
+            <DatePicker fx:id="endDate" layoutX="292.0" layoutY="7.0" prefHeight="30.0" prefWidth="139.0" style="-fx-color: #057DC8;" />
+            <AnchorPane fx:id="barChartPane" layoutX="9.0" layoutY="281.0" prefHeight="231.0" prefWidth="915.0" />
          </children>
       </AnchorPane>
    </children>
