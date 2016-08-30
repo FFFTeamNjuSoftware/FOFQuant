@@ -103,7 +103,10 @@ public class DataUpdate {
         tra.commit();
     }
 
-
+    /**
+     * 更新基金的等级信息
+     * @throws IOException
+     */
     public void updateFundRank() throws IOException {
         FundRankStrategyImpl fundRankStrategy = new FundRankStrategyImpl();
         Map<String, ArrayList<Double>> re = fundRankStrategy.refreshFundRank(TimeType.THREE_YEAR);
@@ -121,30 +124,13 @@ public class DataUpdate {
         se.close();
     }
 
+    /**
+     * 更新基金净值信息
+     * @throws IOException
+     */
     public void updateNetWorth() throws IOException {
-        try {
-            URL url = new URL("http://fundgz.1234567.com.cn/js/270010.js?rt=1472009215144");
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-            conn.setDoInput(true);
-            conn.setDoOutput(true);
-            conn.setInstanceFollowRedirects(true);
-            conn.setRequestProperty("content-type", "text/html");
-            conn.connect();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(conn
-                    .getInputStream(), Charset.forName("utf8")));
-            SAXReader reader1 = new SAXReader();
-            String tem = reader.readLine();
-            System.out.println(tem);
-            Pattern pattern = Pattern.compile("\\{.*\\}");
-            Matcher matcher = pattern.matcher(tem);
-            matcher.find();
-            String content = matcher.group();
-            FundRealTimeInfo fundRealTime = new Gson().fromJson(content, FundRealTimeInfo.class);
-            System.out.println(new Gson().toJson(fundRealTime));
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+            String url="http://fund.eastmoney.com/f10/F10DataApi" +
+                    ".aspx?type=lsjz&code=%s&page=1&per=100000&sdate=%s&edate=%s&rt=%s";
     }
 
 
