@@ -12,7 +12,7 @@ import java.nio.charset.Charset;
  * Created by Daniel on 2016/8/30.
  */
 public class HttpTool {
-    public String getURLContent(String url_str) throws MalformedURLException, IOException {
+    public String getURLContent(String url_str, String charset) throws IOException {
         URL url = new URL(url_str);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
@@ -22,11 +22,13 @@ public class HttpTool {
         conn.setRequestProperty("content-type", "text/html");
         conn.connect();
         BufferedReader reader = new BufferedReader(new InputStreamReader(conn
-                .getInputStream(), Charset.forName("utf8")));
+                .getInputStream(), Charset.forName(charset)));
         String tem;
         String re = "";
-        while ((tem = reader.readLine()) != null)
-            re += tem + "\n";
+        while ((tem = reader.readLine()) != null) {
+            System.out.println(tem);
+            re = re + tem;
+        }
         return re;
     }
 }
