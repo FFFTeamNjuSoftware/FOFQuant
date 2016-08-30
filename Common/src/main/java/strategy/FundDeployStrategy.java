@@ -2,33 +2,48 @@ package strategy;
 
 import java.rmi.RemoteException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Seven on 16/8/29.
  */
 public interface FundDeployStrategy {
+    /**
+     * 获得小类收盘价矩阵
+     * @param funds
+     * @param N
+     * @return
+     * @throws RemoteException
+     */
+    public Map<String, List<Double>> getCodePrices(List<String> funds, int N) throws RemoteException ;
 
     /**
-     * 获得小类所选基金的日收盘价矩阵
+     * 获得小类费率矩阵
      * @param funds
+     * @param N
      * @return
+     * @throws RemoteException
      */
-    public double[][] getFundsProfit(List<String> funds,String startDate,String endDate);
+    public Map<String, List<Double>> getCodeFee(List<String> funds, int N) throws RemoteException;
 
     /**
-     * 获得小类所选基金的费率N*3矩阵
-     * @param funds
+     * 根据代码排名情况获得权重分配
+     * @param codeRank
+     * @param N
+     * @param window
+     * @param hold
      * @return
+     * @throws RemoteException
      */
-    public double[][] getFundsFee(List<String> funds);
+    public void AdjustiveFundDeploy(Map<String, Double> codeRank, int N, int window, int hold) throws RemoteException;
 
-    /**
-     * 获得回测结果,可指定日期
-     * @param funds
-     * @param startDate
-     * @param endDate
-     * @return
-     */
+        /**
+         * 获得回测结果,可指定日期
+         * @param funds
+         * @param startDate
+         * @param endDate
+         * @return
+         */
     public List getWRpturn(List<String> funds,String startDate,String endDate);
 
     /**
