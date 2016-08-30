@@ -1,8 +1,11 @@
 package dataupdate;
 
+import beans.FundJSNetWorth;
 import beans.FundRealTimeInfo;
 import beans.PriceInfo;
 import beans.ProfitRateInfo;
+import blimpl.AnalyseFundJSResult;
+import blimpl.AnalyseFundJSResultImpl;
 import blimpl.BLController;
 import com.google.gson.Gson;
 import dataservice.BaseInfoDataService;
@@ -17,6 +20,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import startup.HibernateBoot;
 import strategyimpl.FundRankStrategyImpl;
+import util.HttpTool;
 import util.TimeType;
 import util.UnitType;
 
@@ -105,6 +109,7 @@ public class DataUpdate {
 
     /**
      * 更新基金的等级信息
+     *
      * @throws IOException
      */
     public void updateFundRank() throws IOException {
@@ -126,20 +131,23 @@ public class DataUpdate {
 
     /**
      * 更新基金净值信息
+     *
      * @throws IOException
      */
     public void updateNetWorth() throws IOException {
-            String url="http://fund.eastmoney.com/f10/F10DataApi" +
-                    ".aspx?type=lsjz&code=%s&page=1&per=100000&sdate=%s&edate=%s&rt=%s";
+        UpdateNetWorthFromJS updateNetWorthFromJS = new UpdateNetWorthFromJS();
+        updateNetWorthFromJS.updateNetWorth("000001", "2015-03-01");
+
     }
 
 
     public static void main(String[] args) throws Exception {
-        HibernateBoot.init();
+//        HibernateBoot.init();
         DataUpdate dataUpdate = new DataUpdate();
 //        dataUpdate.updateQuickinfo();
 //        dataUpdate.updateFundRank();
         dataUpdate.updateNetWorth();
-        HibernateBoot.closeConnection();
+        Thread.sleep(100000);
+//        HibernateBoot.closeConnection();
     }
 }

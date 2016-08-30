@@ -25,7 +25,8 @@ public class FundRealTimeInfoGetter {
         HttpTool httpTool = new HttpTool();
         String url_str = String.format(url_pattern, code, Math.random());
         try {
-            String result = analyseFundJSResult.getJSONContent(httpTool.getURLContent(url_str));
+            String result = analyseFundJSResult.getJSONContent(httpTool.getURLContent(url_str,
+                    "utf-8"));
             return new Gson().fromJson(result, FundRealTimeInfo.class);
         } catch (IOException e) {
             e.printStackTrace();
