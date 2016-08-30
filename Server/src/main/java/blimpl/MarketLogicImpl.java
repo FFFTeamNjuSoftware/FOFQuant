@@ -58,7 +58,8 @@ public class MarketLogicImpl extends UnicastRemoteObject implements MarketLogic 
             if (i == tems.size() - 1) {
                 PriceInfo info = tems.get(i);
                 info.rise = (rise - 1) * 100;
-                NumberOpe.controlDecimal(info, 2);
+                NumberOpe.controlDecimal(info, 4);
+                info.rise = NumberOpe.controlDecimalDouble(info.rise, 2);
                 infos.add(info);
                 break;
             }
@@ -66,7 +67,8 @@ public class MarketLogicImpl extends UnicastRemoteObject implements MarketLogic 
                     .getCalendarByString(tems.get(i + 1).date))) {
                 PriceInfo info = tems.get(i);
                 info.rise = (rise - 1) * 100;
-                NumberOpe.controlDecimal(info, 2);
+                NumberOpe.controlDecimal(info, 4);
+                info.rise = NumberOpe.controlDecimalDouble(info.rise, 2);
                 infos.add(info);
                 rise = 1;
             }
@@ -93,9 +95,9 @@ public class MarketLogicImpl extends UnicastRemoteObject implements MarketLogic 
         List<PriceInfo> infos = getPriceInfo(code, type);
         Collections.sort(infos, (e1, e2) -> e1.date.compareTo(e2.date));
         int startIndex = 0, endIndex = infos.size() - 1;
-        while (startIndex < infos.size()&&startDate.compareTo(infos.get(startIndex).date) > 0  )
+        while (startIndex < infos.size() && startDate.compareTo(infos.get(startIndex).date) > 0)
             startIndex++;
-        while (endIndex >= 0&&endDate.compareTo(infos.get(endIndex).date) < 0  )
+        while (endIndex >= 0 && endDate.compareTo(infos.get(endIndex).date) < 0)
             endIndex--;
         endIndex++;
         if (startIndex >= endIndex)
