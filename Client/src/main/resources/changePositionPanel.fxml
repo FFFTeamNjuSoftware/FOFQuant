@@ -7,7 +7,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="930.0" styleClass="root" stylesheets="@css/stageView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.userUI.portfolioManagementUI.changePositionUIController">
    <children>
-      <ImageView fitHeight="584.0" fitWidth="930.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="584.0" fitWidth="930.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@/images/totalBg.png" />
          </image>
@@ -26,7 +26,7 @@
                </image>
             </ImageView>
             <Label layoutX="135.0" layoutY="5.0" text="持仓权益" textFill="WHITE" />
-            <TableView fx:id="table1" blendMode="LIGHTEN" layoutX="179.0" layoutY="83.0" prefHeight="330.0" prefWidth="266.0">
+            <TableView fx:id="table1" blendMode="LIGHTEN" layoutX="179.0" layoutY="83.0" prefHeight="330.0" prefWidth="333.0">
               <columns>
                 <TableColumn fx:id="table1column1" prefWidth="65.0" text="最近3个月" />
                 <TableColumn fx:id="table1column2" prefWidth="63.0" text="最近6个月" />
