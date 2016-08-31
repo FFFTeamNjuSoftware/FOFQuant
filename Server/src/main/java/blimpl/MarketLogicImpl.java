@@ -114,7 +114,7 @@ public class MarketLogicImpl extends UnicastRemoteObject implements MarketLogic 
     @Override
     public List<ProfitChartInfo> getFundProfitInfoChart(String code, UnitType type, TimeType
             timeType, ChartType chartType) throws RemoteException, ObjectNotFoundException {
-        String[] dates = getDates(timeType);
+        String[] dates = LogicUtil.getDates(timeType);
         List<ProfitChartInfo> chartInfos = new ArrayList<>();
         try {
             List<PriceInfo> fundInfos = getPriceInfo(code, type, dates[0], dates[1]);
@@ -250,34 +250,5 @@ public class MarketLogicImpl extends UnicastRemoteObject implements MarketLogic 
         return profitRateInfo;
     }
 
-    /**
-     * 根据指定类型返回开始日期和结束日期
-     *
-     * @param timeType 时间类型
-     * @return String数组，一次为开始日期和结束日期
-     */
-    private String[] getDates(TimeType timeType) {
-        String[] re = new String[2];
-        Calendar cal = Calendar.getInstance();
-        re[1] = CalendarOperate.formatCalender(cal);
-        switch (timeType) {
-            case ONE_MONTH:
-                cal.add(Calendar.MONTH, -1);
-                break;
-            case THREE_MONTH:
-                cal.add(Calendar.MONTH, -3);
-                break;
-            case ONE_YEAR:
-                cal.add(Calendar.YEAR, -1);
-                break;
-            case THREE_YEAR:
-                cal.add(Calendar.YEAR, -3);
-                break;
-            case SINCE_ESTABLISH:
-                cal.add(Calendar.YEAR, -100);
-                break;
-        }
-        re[0] = CalendarOperate.formatCalender(cal);
-        return re;
-    }
+
 }

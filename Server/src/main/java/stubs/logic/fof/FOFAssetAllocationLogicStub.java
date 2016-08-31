@@ -1,6 +1,7 @@
 package stubs.logic.fof;
 
 import beans.AssetItem;
+import beans.PositionChange;
 import bl.fof.FOFAssetAllocationLogic;
 
 import java.rmi.RemoteException;
@@ -16,6 +17,21 @@ import java.util.Map;
 public class FOFAssetAllocationLogicStub extends UnicastRemoteObject implements FOFAssetAllocationLogic {
     public FOFAssetAllocationLogicStub() throws RemoteException {
 
+    }
+
+
+    @Override
+    public List<PositionChange> getFOFPositionChanges() throws RemoteException {
+        PositionChange positionChange = new PositionChange();
+        positionChange.changeDate = "2016-03-01";
+        positionChange.buyNum = 0;
+        positionChange.buyPrice = 0;
+        positionChange.changeTime = "15:02:01";
+        positionChange.fundCode = "000006";
+        positionChange.fundName = "测试";
+        positionChange.saleNum = 1000;
+        positionChange.salePrice = 1.2;
+        return Arrays.asList(positionChange);
     }
 
     @Override
