@@ -4,18 +4,8 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-<<<<<<< HEAD
-=======
-        <property name="connection.url">
-            <![CDATA[jdbc:mysql://localhost:3306/fofquant?useUnicode=true&characterEncoding=utf8]]>
-        </property>
-        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
-        <property name="connection.username">root</property>
-        <property name="connection.password">123456</property>
->>>>>>> 3e1ab69114b41fb54735405b97e75c7251d71275
         <!--<property name="connection.url">-->
-        <!--<![CDATA[jdbc:mysql://localhost:3306/fofquant?useUnicode=true&characterEncoding=utf8]]>-->
+            <!--<![CDATA[jdbc:mysql://localhost:3306/fofquant?useUnicode=true&characterEncoding=utf8]]>-->
         <!--</property>-->
         <!--<property name="connection.driver_class">com.mysql.jdbc.Driver</property>-->
         <!--<property name="dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>-->

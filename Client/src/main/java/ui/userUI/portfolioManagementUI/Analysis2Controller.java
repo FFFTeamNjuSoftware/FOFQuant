@@ -17,7 +17,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import util.CalendarOperate;
 import util.TimeType;
 
 import java.net.URL;
@@ -155,41 +154,41 @@ public class Analysis2Controller implements Initializable {
 			e.printStackTrace();
 		}
 
-		table1.setItems(FXCollections.observableArrayList(new changePositionUIController.TableData(
-				profitAnalyse_three.totalProfit, profitAnalyse_half.totalProfit, profitAnalyse_year.totalProfit, profitAnalyse_establish.totalProfit), new changePositionUIController.TableData(
-				profitAnalyse_three.relatedTotalProfit, profitAnalyse_half.relatedTotalProfit, profitAnalyse_year.relatedTotalProfit, profitAnalyse_establish.relatedTotalProfit), new changePositionUIController.TableData(
-				profitAnalyse_three.maxRise, profitAnalyse_half.maxRise, profitAnalyse_year.maxRise, profitAnalyse_establish.maxRise), new changePositionUIController.TableData(
-				profitAnalyse_three.maxRiseDays + 0.0, profitAnalyse_half.maxRiseDays + 0.0, profitAnalyse_year.maxRiseDays + 0.0, profitAnalyse_establish.maxRiseDays + 0.0), new changePositionUIController.TableData(
-				profitAnalyse_three.maxRiseRecoverDays + 0.0, profitAnalyse_half.maxRiseRecoverDays + 0.0, profitAnalyse_year.maxRiseRecoverDays + 0.0, profitAnalyse_establish.maxRiseRecoverDays + 0.0), new changePositionUIController.TableData(
-				profitAnalyse_three.minRise, profitAnalyse_half.minRise, profitAnalyse_year.minRise, profitAnalyse_establish.minRise), new changePositionUIController.TableData(
-				profitAnalyse_three.minRiseDays + 0.0, profitAnalyse_half.minRiseDays + 0.0, profitAnalyse_year.minRiseDays + 0.0, profitAnalyse_establish.minRiseDays + 0.0), new changePositionUIController.TableData(
-				profitAnalyse_three.minRiseRecoverDays + 0.0, profitAnalyse_half.minRiseRecoverDays + 0.0, profitAnalyse_year.minRiseRecoverDays + 0.0, profitAnalyse_establish.minRiseRecoverDays + 0.0), new changePositionUIController.TableData(
-				profitAnalyse_three.yearProfitRate, profitAnalyse_half.yearProfitRate, profitAnalyse_year.yearProfitRate, profitAnalyse_establish.yearProfitRate), new changePositionUIController.TableData(
-				profitAnalyse_three.yearRelatedProfitRate, profitAnalyse_half.yearRelatedProfitRate, profitAnalyse_year.yearRelatedProfitRate, profitAnalyse_establish.yearRelatedProfitRate), new changePositionUIController.TableData(
+		table1.setItems(FXCollections.observableArrayList(new TableData(
+				profitAnalyse_three.totalProfit, profitAnalyse_half.totalProfit, profitAnalyse_year.totalProfit, profitAnalyse_establish.totalProfit), new TableData(
+				profitAnalyse_three.relatedTotalProfit, profitAnalyse_half.relatedTotalProfit, profitAnalyse_year.relatedTotalProfit, profitAnalyse_establish.relatedTotalProfit), new TableData(
+				profitAnalyse_three.maxRise, profitAnalyse_half.maxRise, profitAnalyse_year.maxRise, profitAnalyse_establish.maxRise), new TableData(
+				profitAnalyse_three.maxRiseDays + 0.0, profitAnalyse_half.maxRiseDays + 0.0, profitAnalyse_year.maxRiseDays + 0.0, profitAnalyse_establish.maxRiseDays + 0.0), new TableData(
+				profitAnalyse_three.maxRiseRecoverDays + 0.0, profitAnalyse_half.maxRiseRecoverDays + 0.0, profitAnalyse_year.maxRiseRecoverDays + 0.0, profitAnalyse_establish.maxRiseRecoverDays + 0.0), new TableData(
+				profitAnalyse_three.minRise, profitAnalyse_half.minRise, profitAnalyse_year.minRise, profitAnalyse_establish.minRise), new TableData(
+				profitAnalyse_three.minRiseDays + 0.0, profitAnalyse_half.minRiseDays + 0.0, profitAnalyse_year.minRiseDays + 0.0, profitAnalyse_establish.minRiseDays + 0.0), new TableData(
+				profitAnalyse_three.minRiseRecoverDays + 0.0, profitAnalyse_half.minRiseRecoverDays + 0.0, profitAnalyse_year.minRiseRecoverDays + 0.0, profitAnalyse_establish.minRiseRecoverDays + 0.0), new TableData(
+				profitAnalyse_three.yearProfitRate, profitAnalyse_half.yearProfitRate, profitAnalyse_year.yearProfitRate, profitAnalyse_establish.yearProfitRate), new TableData(
+				profitAnalyse_three.yearRelatedProfitRate, profitAnalyse_half.yearRelatedProfitRate, profitAnalyse_year.yearRelatedProfitRate, profitAnalyse_establish.yearRelatedProfitRate), new TableData(
 				profitAnalyse_three.downsideRisk, profitAnalyse_half.downsideRisk, profitAnalyse_year.downsideRisk, profitAnalyse_establish.downsideRisk)));
 
-		table1column1.setCellValueFactory(new PropertyValueFactory<changePositionUIController.TableData, Double>("one"));
-		table1column2.setCellValueFactory(new PropertyValueFactory<changePositionUIController.TableData, Double>("two"));
-		table1column3.setCellValueFactory(new PropertyValueFactory<changePositionUIController.TableData, Double>("three"));
-		table1column4.setCellValueFactory(new PropertyValueFactory<changePositionUIController.TableData, Double>("four"));
+		table1column1.setCellValueFactory(new PropertyValueFactory<TableData, Double>("one"));
+		table1column2.setCellValueFactory(new PropertyValueFactory<TableData, Double>("two"));
+		table1column3.setCellValueFactory(new PropertyValueFactory<TableData, Double>("three"));
+		table1column4.setCellValueFactory(new PropertyValueFactory<TableData, Double>("four"));
 
-		table2.setItems(FXCollections.observableArrayList(new changePositionUIController.TableData(
-				profitAnalyse_three.yearWaveRate, profitAnalyse_half.yearWaveRate, profitAnalyse_year.yearWaveRate, profitAnalyse_establish.yearWaveRate), new changePositionUIController.TableData(
-				profitAnalyse_three.trackingError, profitAnalyse_half.trackingError, profitAnalyse_year.trackingError, profitAnalyse_establish.trackingError), new changePositionUIController.TableData(
-				profitAnalyse_three.correlationCoefficent, profitAnalyse_half.correlationCoefficent, profitAnalyse_year.correlationCoefficent, profitAnalyse_establish.correlationCoefficent), new changePositionUIController.TableData(
-				profitAnalyse_three.alpha, profitAnalyse_half.alpha, profitAnalyse_year.alpha, profitAnalyse_establish.alpha), new changePositionUIController.TableData(
-				profitAnalyse_three.beta, profitAnalyse_half.beta, profitAnalyse_year.beta, profitAnalyse_establish.beta), new changePositionUIController.TableData(
-				profitAnalyse_three.sharpe, profitAnalyse_half.sharpe, profitAnalyse_year.sharpe, profitAnalyse_establish.sharpe), new changePositionUIController.TableData(
-				profitAnalyse_three.treynor, profitAnalyse_half.treynor, profitAnalyse_year.treynor, profitAnalyse_establish.treynor), new changePositionUIController.TableData(
-				profitAnalyse_three.Jensen, profitAnalyse_half.Jensen, profitAnalyse_year.Jensen, profitAnalyse_establish.Jensen), new changePositionUIController.TableData(
-				profitAnalyse_three.R2, profitAnalyse_half.R2, profitAnalyse_year.R2, profitAnalyse_establish.R2), new changePositionUIController.TableData(
-				profitAnalyse_three.semiVariance, profitAnalyse_half.semiVariance, profitAnalyse_year.semiVariance, profitAnalyse_establish.semiVariance), new changePositionUIController.TableData(
+		table2.setItems(FXCollections.observableArrayList(new TableData(
+				profitAnalyse_three.yearWaveRate, profitAnalyse_half.yearWaveRate, profitAnalyse_year.yearWaveRate, profitAnalyse_establish.yearWaveRate), new TableData(
+				profitAnalyse_three.trackingError, profitAnalyse_half.trackingError, profitAnalyse_year.trackingError, profitAnalyse_establish.trackingError), new TableData(
+				profitAnalyse_three.correlationCoefficent, profitAnalyse_half.correlationCoefficent, profitAnalyse_year.correlationCoefficent, profitAnalyse_establish.correlationCoefficent), new TableData(
+				profitAnalyse_three.alpha, profitAnalyse_half.alpha, profitAnalyse_year.alpha, profitAnalyse_establish.alpha), new TableData(
+				profitAnalyse_three.beta, profitAnalyse_half.beta, profitAnalyse_year.beta, profitAnalyse_establish.beta), new TableData(
+				profitAnalyse_three.sharpe, profitAnalyse_half.sharpe, profitAnalyse_year.sharpe, profitAnalyse_establish.sharpe), new TableData(
+				profitAnalyse_three.treynor, profitAnalyse_half.treynor, profitAnalyse_year.treynor, profitAnalyse_establish.treynor), new TableData(
+				profitAnalyse_three.Jensen, profitAnalyse_half.Jensen, profitAnalyse_year.Jensen, profitAnalyse_establish.Jensen), new TableData(
+				profitAnalyse_three.R2, profitAnalyse_half.R2, profitAnalyse_year.R2, profitAnalyse_establish.R2), new TableData(
+				profitAnalyse_three.semiVariance, profitAnalyse_half.semiVariance, profitAnalyse_year.semiVariance, profitAnalyse_establish.semiVariance), new TableData(
 				profitAnalyse_three.sortino, profitAnalyse_half.sortino, profitAnalyse_year.sortino, profitAnalyse_establish.sortino)));
 
-		table2column1.setCellValueFactory(new PropertyValueFactory<changePositionUIController.TableData, Double>("one"));
-		table2column2.setCellValueFactory(new PropertyValueFactory<changePositionUIController.TableData, Double>("two"));
-		table2column3.setCellValueFactory(new PropertyValueFactory<changePositionUIController.TableData, Double>("three"));
-		table2column4.setCellValueFactory(new PropertyValueFactory<changePositionUIController.TableData, Double>("four"));
+		table2column1.setCellValueFactory(new PropertyValueFactory<TableData, Double>("one"));
+		table2column2.setCellValueFactory(new PropertyValueFactory<TableData, Double>("two"));
+		table2column3.setCellValueFactory(new PropertyValueFactory<TableData, Double>("three"));
+		table2column4.setCellValueFactory(new PropertyValueFactory<TableData, Double>("four"));
 
 
 	}

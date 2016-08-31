@@ -7,163 +7,34 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="930.0" styleClass="root" stylesheets="@css/stageView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.userUI.portfolioManagementUI.changePositionUIController">
    <children>
-<<<<<<< HEAD
       <AnchorPane fx:id="changePositionPanel" layoutY="64.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="930.0">
          <children>
-            <TabPane blendMode="LIGHTEN" layoutX="20.0" layoutY="6.0" prefHeight="498.0" prefWidth="890.0" tabClosingPolicy="UNAVAILABLE">
-              <tabs>
-                <Tab text="持仓变化">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <TableView blendMode="LIGHTEN" prefHeight="472.0" prefWidth="890.0">
-                                <columns>
-                                  <TableColumn minWidth="0.0" prefWidth="302.0">
-                                       <columns>
-                                          <TableColumn prefWidth="85.0" resizable="false" text="操作日期" />
-                                        <TableColumn prefWidth="85.0" text="调仓日期" />
-                                          <TableColumn minWidth="0.0" prefWidth="86.0" text="证券代码" />
-                                          <TableColumn prefWidth="75.0" text="证券简称" />
-                                       </columns>
-                                    </TableColumn>
-                                    <TableColumn prefWidth="234.0" text="买入">
-                                       <columns>
-                                          <TableColumn prefWidth="85.0" text="买入数量" />
-                                          <TableColumn prefWidth="85.0" text="买入价格" />
-                                          <TableColumn prefWidth="85.0" text="调整类型" />
-                                       </columns>
-                                    </TableColumn>
-                                    <TableColumn prefWidth="301.0" text="卖出">
-                                       <columns>
-                                          <TableColumn prefWidth="100.0" text="卖出数量" />
-                                          <TableColumn prefWidth="100.0" text="卖出价格" />
-                                          <TableColumn prefWidth="104.0" resizable="false" text="调整类型" />
-                                       </columns>
-                                    </TableColumn>
-                                </columns>
-                              </TableView>
-                           </children>
-                        </AnchorPane>
-                  </content>
-                </Tab>
-                <Tab text="持仓权益">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <TableView blendMode="LIGHTEN" minHeight="-Infinity" minWidth="-Infinity" prefHeight="472.0" prefWidth="890.0">
-                                <columns>
-                                  <TableColumn prefWidth="172.0" resizable="false" text="调仓日期" />
-                                  <TableColumn prefWidth="185.0" text="证券代码" />
-                                    <TableColumn prefWidth="180.0" text="证券简称" />
-                                    <TableColumn prefWidth="170.0" text="权益类型" />
-                                    <TableColumn prefWidth="182.0" resizable="false" text="持仓权益" />
-                                </columns>
-                              </TableView>
-                           </children>
-                        </AnchorPane>
-                  </content>
-                </Tab>
-              </tabs>
-            </TabPane>
-=======
-      <ImageView fitHeight="584.0" fitWidth="930.0" pickOnBounds="true" preserveRatio="true" visible="false">
-         <image>
-            <Image url="@/images/totalBg.png" />
-         </image>
-      </ImageView>
-      <AnchorPane fx:id="changePositionPanel" layoutY="64.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="930.0">
-         <children>
-            <ImageView fitHeight="20.0" fitWidth="70.0" layoutX="44.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@/images/buttonMedium.png" />
-               </image>
-            </ImageView>
-            <Label layoutX="56.0" layoutY="5.0" text="持仓变化" textFill="WHITE" />
-            <ImageView fitHeight="20.0" fitWidth="70.0" layoutX="124.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
-               <image>
-                  <Image url="@/images/buttonMedium.png" />
-               </image>
-            </ImageView>
-            <Label layoutX="135.0" layoutY="5.0" text="持仓权益" textFill="WHITE" />
-            <TableView fx:id="table1" blendMode="LIGHTEN" layoutX="179.0" layoutY="83.0" prefHeight="330.0" prefWidth="333.0">
+            <TableView fx:id="table" layoutX="20.0" layoutY="24.0" prefHeight="472.0" prefWidth="890.0">
               <columns>
-                <TableColumn fx:id="table1column1" prefWidth="65.0" text="最近3个月" />
-                <TableColumn fx:id="table1column2" prefWidth="63.0" text="最近6个月" />
-                  <TableColumn fx:id="table1column3" prefWidth="76.0" text="年初至今" />
-                  <TableColumn fx:id="table1column4" prefWidth="61.0" text="自建立" />
+                <TableColumn minWidth="0.0" prefWidth="302.0">
+                     <columns>
+                        <TableColumn fx:id="opDateColumn" prefWidth="85.0" resizable="false" text="操作日期" />
+                        <TableColumn fx:id="changeDateColumn" prefWidth="85.0" text="调仓日期" />
+                        <TableColumn fx:id="idColumn" minWidth="0.0" prefWidth="86.0" text="证券代码" />
+                        <TableColumn fx:id="nameColumn" prefWidth="75.0" text="证券简称" />
+                     </columns>
+                  </TableColumn>
+                  <TableColumn prefWidth="234.0" text="买入">
+                     <columns>
+                        <TableColumn fx:id="inNumColumn" prefWidth="85.0" text="买入数量" />
+                        <TableColumn fx:id="inPriceColumn" prefWidth="85.0" text="买入价格" />
+                        <TableColumn fx:id="inTypeColumn" prefWidth="85.0" text="调整类型" />
+                     </columns>
+                  </TableColumn>
+                  <TableColumn prefWidth="301.0" text="卖出">
+                     <columns>
+                        <TableColumn fx:id="outNumColumn" prefWidth="100.0" text="卖出数量" />
+                        <TableColumn fx:id="outPriceColumn" prefWidth="100.0" text="卖出价格" />
+                        <TableColumn fx:id="outTypeColumn" prefWidth="104.0" resizable="false" text="调整类型" />
+                     </columns>
+                  </TableColumn>
               </columns>
             </TableView>
-            <TableView fx:id="table2" blendMode="LIGHTEN" layoutX="590.0" layoutY="83.0" prefHeight="330.0" prefWidth="266.0">
-               <columns>
-                  <TableColumn fx:id="table2column1" prefWidth="65.0" text="最近3个月" />
-                  <TableColumn fx:id="table2column2" prefWidth="63.0" text="最近6个月" />
-                  <TableColumn fx:id="table2column3" prefWidth="76.0" text="年初至今" />
-                  <TableColumn fx:id="table2column4" prefWidth="61.0" text="自建立" />
-               </columns>
-            </TableView>
-            <GridPane layoutX="70.0" layoutY="113.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="304.0" prefWidth="108.0">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Label text="总回报" textFill="WHITE" />
-                  <Label text="相对总回报" textFill="WHITE" GridPane.rowIndex="1" />
-                  <Label text="最大涨幅" textFill="WHITE" GridPane.rowIndex="2" />
-                  <Label text="最大涨幅天数" textFill="WHITE" GridPane.rowIndex="3" />
-                  <Label text="最大涨幅复苏期间" textFill="WHITE" GridPane.rowIndex="4" />
-                  <Label text="最大跌幅" textFill="WHITE" GridPane.rowIndex="5" />
-                  <Label text="最大跌幅天数" textFill="WHITE" GridPane.rowIndex="6" />
-                  <Label text="最大跌幅复苏期间" textFill="WHITE" GridPane.rowIndex="7" />
-                  <Label text="年化平均回报" textFill="WHITE" GridPane.rowIndex="8" />
-                  <Label text="年华平均超额回报" textFill="WHITE" GridPane.rowIndex="9" />
-                  <Label text="下行风险" textFill="WHITE" GridPane.rowIndex="10" />
-               </children>
-            </GridPane>
-            <GridPane layoutX="517.0" layoutY="113.0" prefHeight="304.0" prefWidth="72.0">
-               <children>
-                  <Label text="年化波动率" textFill="WHITE" />
-                  <Label text="跟踪误差" textFill="WHITE" GridPane.rowIndex="1" />
-                  <Label text="相关系数" textFill="WHITE" GridPane.rowIndex="2" />
-                  <Label text="Alpha" textFill="WHITE" GridPane.rowIndex="3" />
-                  <Label text="Beta" textFill="WHITE" GridPane.rowIndex="4" />
-                  <Label text="Sharpe" textFill="WHITE" GridPane.rowIndex="5" />
-                  <Label text="Treynor" textFill="WHITE" GridPane.rowIndex="6" />
-                  <Label text="Jensen" textFill="WHITE" GridPane.rowIndex="7" />
-                  <Label text="R2" textFill="WHITE" GridPane.rowIndex="8" />
-                  <Label text="半方差" textFill="WHITE" GridPane.rowIndex="9" />
-                  <Label text="Sortino" textFill="WHITE" GridPane.rowIndex="10" />
-               </children>
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-            </GridPane>
->>>>>>> 3e1ab69114b41fb54735405b97e75c7251d71275
          </children>
       </AnchorPane>
    </children>
