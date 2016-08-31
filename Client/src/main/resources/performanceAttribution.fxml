@@ -27,7 +27,7 @@
                </font>
             </Label>
             <ComboBox fx:id="classification" layoutX="797.0" prefHeight="30.0" prefWidth="123.0" promptText="资产类型" style="-fx-background-color: #057DC8;" />
-            <TableView fx:id="table" layoutX="28.0" layoutY="41.0" prefHeight="464.0" prefWidth="891.0" style="-fx-background-color: transparent;">
+            <TableView fx:id="table" blendMode="LIGHTEN" layoutX="28.0" layoutY="41.0" prefHeight="464.0" prefWidth="891.0" style="-fx-background-color: transparent;">
               <columns>
                 <TableColumn fx:id="category" prefWidth="75.0" text="分类" />
                 <TableColumn fx:id="code" prefWidth="75.0" text="证券代码" />
