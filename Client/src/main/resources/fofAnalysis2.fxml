@@ -23,9 +23,9 @@
                      <padding>
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
-                     <HBox.margin>
+                    <!-- <HBox.margin>
                         <Insets />
-                     </HBox.margin>
+                     </HBox.margin>-->
                   </Label>
                   <ComboBox fx:id="startCb" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="100.0" style="-fx-background-color: #057DC8; -fx-color: #ffffff;">
                      <padding>
@@ -98,10 +98,10 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <padding>
-                  <Insets top="30.0" />
+                  <Insets top="14.0" />
                </padding>
             </GridPane>
-            <TableView fx:id="table1" blendMode="LIGHTEN" prefHeight="330.0" prefWidth="308.0">
+            <TableView fx:id="table1" blendMode="LIGHTEN" prefHeight="330.0" prefWidth="308.0" styleClass="table-row" stylesheets="@css/rowHeight.css">
                <columns>
                   <TableColumn fx:id="table1column1" prefWidth="76.0" text="最近3个月" />
                   <TableColumn fx:id="table1column2" prefWidth="76.0" text="最近6个月" />
@@ -140,10 +140,10 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <padding>
-                  <Insets top="30.0" />
+                  <Insets top="14.0" />
                </padding>
             </GridPane>
-            <TableView fx:id="table2" blendMode="LIGHTEN" prefHeight="330.0" prefWidth="308.0">
+            <TableView fx:id="table2" blendMode="LIGHTEN" prefHeight="330.0" prefWidth="308.0" styleClass="table-row" stylesheets="@css/rowHeight.css">
                <columns>
                   <TableColumn fx:id="table2column1" prefWidth="76.0" text="最近3个月" />
                   <TableColumn fx:id="table2column2" prefWidth="76.0" text="最近6个月" />

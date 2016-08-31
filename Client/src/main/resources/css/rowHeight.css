@@ -1,0 +1,10 @@
+.table-row-cell {
+    -fx-cell-size: 30px;
+    -fx-alignment: CENTER;
+    -fx-text-alignment: center;
+}
+/*
+.table-view  .scroll-bar:vertical{
+    -fx-background-color: #FFFFFF;
+    -fx-opacity: 0.7;
+}*/
