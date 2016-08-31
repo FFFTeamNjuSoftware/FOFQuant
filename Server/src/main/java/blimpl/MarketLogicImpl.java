@@ -7,6 +7,7 @@ import bl.MarketLogic;
 import dataservice.IndexDataService;
 import dataservice.MarketDataService;
 import dataserviceimpl.DataServiceController;
+import entities.NetWorthEntity;
 import exception.ObjectNotFoundException;
 import exception.ParameterException;
 import util.*;
@@ -59,7 +60,6 @@ public class MarketLogicImpl extends UnicastRemoteObject implements MarketLogic 
                 PriceInfo info = tems.get(i);
                 info.rise = (rise - 1) * 100;
                 NumberOpe.controlDecimal(info, 4);
-                info.rise = NumberOpe.controlDecimalDouble(info.rise, 2);
                 infos.add(info);
                 break;
             }
@@ -68,7 +68,6 @@ public class MarketLogicImpl extends UnicastRemoteObject implements MarketLogic 
                 PriceInfo info = tems.get(i);
                 info.rise = (rise - 1) * 100;
                 NumberOpe.controlDecimal(info, 4);
-                info.rise = NumberOpe.controlDecimalDouble(info.rise, 2);
                 infos.add(info);
                 rise = 1;
             }
@@ -131,6 +130,12 @@ public class MarketLogicImpl extends UnicastRemoteObject implements MarketLogic 
             while (szIndex.get(k).date.compareTo(fundInfos.get(0).date) < 0)
                 k++;
             double fund_rise = 1, fundIndex_rise = 1, szIndex_rise = 1;
+            List<NetWorthEntity> netWorthEntities = DataServiceController.getMarketDataService()
+                    .getNetWorth(code, dates[0], dates[1]);
+            double unitWorth = netWorthEntities.get(0).getUnitWorth();
+            double totalWorth = netWorthEntities.get(0).getTotalWorth();
+            double fqWorth = netWorthEntities.get(0).getFqWorth() == null ? 0 : netWorthEntities.get(0)
+                    .getFqWorth();
             for (int j = 0; j < fundInfos.size(); j++) {
                 ProfitChartInfo chartInfo = new ProfitChartInfo();
                 chartInfo.date = fundInfos.get(j).date;
@@ -153,12 +158,24 @@ public class MarketLogicImpl extends UnicastRemoteObject implements MarketLogic 
             }
             for (ProfitChartInfo chartInfo : chartInfos) {
                 for (int d = 0; d < 3; d++) {
-                    if (chartType == ChartType.MILLION_WAVE_CHART) {
-                        chartInfo.values[d] *= 10000;
-                    } else {
-                        chartInfo.values[d] = (chartInfo.values[d] - 1) * 100;
+                    switch (chartType) {
+                        case MILLION_WAVE_CHART:
+                            chartInfo.values[d] *= 10000;
+                            break;
+                        case RATE_CHART:
+                            chartInfo.values[d] = (chartInfo.values[d] - 1) * 100;
+                            break;
+                        case NET_WORTH_PERFORMANCE_FQ:
+                            chartInfo.values[d] *= fqWorth;
+                            break;
+                        case NET_WORTH_PERFORMANCE_TOTAL:
+                            chartInfo.values[d] *= totalWorth;
+                            break;
+                        case NET_WORTH_PERFORMANCE_UNIT:
+                            chartInfo.values[d] *= unitWorth;
+                            break;
                     }
-                    NumberOpe.controlDecimal(chartInfo, 2);
+                    NumberOpe.controlDecimal(chartInfo, 4);
                 }
             }
         } catch (ParameterException e) {

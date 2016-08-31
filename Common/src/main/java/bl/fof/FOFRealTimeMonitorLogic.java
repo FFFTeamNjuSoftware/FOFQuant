@@ -17,6 +17,7 @@ import java.util.List;
 public interface FOFRealTimeMonitorLogic extends Remote {
     /**
      * 获得实时监控的基金信息
+     *
      * @return
      * @throws RemoteException
      */
@@ -24,9 +25,12 @@ public interface FOFRealTimeMonitorLogic extends Remote {
 
     /**
      * 设置业绩基准，大盘指数等
+     *
      * @param indexCode
      * @throws RemoteException
      * @throws ObjectNotFoundException
      */
+
     void setProformanceBase(String indexCode) throws RemoteException, ObjectNotFoundException;
+
 }

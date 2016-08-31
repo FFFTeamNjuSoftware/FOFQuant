@@ -31,6 +31,7 @@
         <mapping class="entities.FundQuickInfosEntity"/>
         <mapping class="entities.CompanyInfoEntity"/>
         <mapping class="entities.ConstParameterEntity"/>
+        <mapping class="entities.FundRealtimeInfoEntity"/>
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hbm2ddl.auto">update</property> -->
     </session-factory>

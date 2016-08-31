@@ -115,7 +115,7 @@ public class UpdateNetWorthFromJS {
                         double field2 = new Double(field2_str);
                         double field3 = new Double(field3_str.substring(0, field3_str.length() - 1));
                         netWorthEntity.setTotalWorth(field2);
-                        netWorthEntity.setDailyRise(field3 / 100);
+                        netWorthEntity.setDailyRise(field3);
                     }
                     se.saveOrUpdate(netWorthEntity);
                 }

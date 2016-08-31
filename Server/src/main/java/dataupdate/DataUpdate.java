@@ -125,10 +125,25 @@ public class DataUpdate {
         List<String> codes = baseInfoDataService.getAllCodes();
         int count = 0;
         for (String code : codes) {
-            System.out.println(count++ + ":" + code);
-            updateNetWorthFromJS.updateNetWorth(code, "1015-03-01");
+            String startDate = baseInfoDataService.getMaxDate(code);
+            startDate = (startDate == null ? "1000-01-01" : startDate);
+            System.out.println(count++ + ":" + code + "," + startDate);
+            updateNetWorthFromJS.updateNetWorth(code, startDate);
         }
+    }
 
+    /**
+     * 更新基金实时信息
+     */
+    public void updateFundRealTimeInfo() {
+        UpdateFundRealTimeFromJS updateFundRealTimeFromJS = new UpdateFundRealTimeFromJS();
+        BaseInfoDataService baseInfoDataService = DataServiceController.getBaseInfoDataService();
+        List<String> codes = baseInfoDataService.getAllCodes();
+        int count = 0;
+        for (String code : codes) {
+            System.out.println(count++ + ":" + code);
+            updateFundRealTimeFromJS.updateFundRealTimeInfo(code);
+        }
     }
 
 
@@ -137,6 +152,7 @@ public class DataUpdate {
         DataUpdate dataUpdate = new DataUpdate();
 //        dataUpdate.updateQuickinfo();
 //        dataUpdate.updateFundRank();
-        dataUpdate.updateNetWorth();
+//        dataUpdate.updateNetWorth();
+        dataUpdate.updateFundRealTimeInfo();
     }
 }
