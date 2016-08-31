@@ -1,13 +1,24 @@
 package util;
 
+import com.google.gson.Gson;
+
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.util.Arrays;
 
 /**
  * Created by Daniel on 2016/8/21.
  */
 public class NumberOpe {
-    public static void controlDecimal(Object obj, int decimalNum) {
+    /**
+     * 将对应对象内的double类型数据保留两位小数
+     * 将会递归处理对象类的支持类型的成员变量对象或数组
+     *
+     * @param obj
+     * @param decimalNum
+     * @param supportType
+     */
+    public static void controlDecimal(Object obj, int decimalNum, Class... supportType) {
         if (obj == null)
             return;
         try {
@@ -31,6 +42,9 @@ public class NumberOpe {
                         double after = controlDecimalDouble(num, decimalNum);
                         field.set(obj, after);
                     }
+                    if (Arrays.asList(supportType).contains(field.getType())) {
+                        controlDecimal(field.get(obj), decimalNum);
+                    }
 
                 }
             }
@@ -46,7 +60,7 @@ public class NumberOpe {
     private static boolean isDoubleType(Class type) {
         return type == double.class || type == Double.class;
     }
-//
+
 //    public static void main(String[] args) {
 //        NumberOpe ope = new NumberOpe();
 //        Test test = new Test();
@@ -61,16 +75,23 @@ public class NumberOpe {
 //        t2.c = 69592.26;
 //        t2.array = new double[]{1.23, 1265.2, 12.1626, 166.6};
 //        test.ta = new Test[]{t2};
+//        Test t3 = new Test();
+//        t3.a = 2;
+//        t3.b = 23.356;
+//        t3.c = 12.2365;
+//
+//        test.tb = t3;
 //        System.out.println(new Gson().toJson(test));
-//        ope.controlDecimal(test, 2);
+//        ope.controlDecimal(test, 2,Test.class);
 //        System.out.println(new Gson().toJson(test));
 //    }
 }
-
+//
 //class Test {
 //    int a;
 //    double b;
 //    Double c;
 //    double[] array;
 //    Test[] ta;
+//    Test tb;
 //}
