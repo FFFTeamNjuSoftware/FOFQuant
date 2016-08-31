@@ -108,6 +108,7 @@ public class CalculateDataHandler {
             result.put(code, priceInfos);
             for (String base : baseCode) {
                 List<PriceInfo> baseInfo = marketLogic.getPriceInfo(base, unitType, startDate, endDate);
+                LogicUtil.alignList(priceInfos, baseInfo);
             }
         } catch (RemoteException e) {
             e.printStackTrace();

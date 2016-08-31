@@ -1,6 +1,7 @@
 package blimpl;
 
 import beans.PriceInfo;
+import bl.MarketLogic;
 import util.CalendarOperate;
 import util.TimeType;
 
@@ -50,17 +51,34 @@ public class LogicUtil {
      * @param base
      * @param target
      */
-    public static void alignList(final List<PriceInfo> base, List<PriceInfo> target) {
-        int k = 0;
-        while (target.get(k).date.compareTo(base.get(0).date) < 0)
-            k++;
-        double rise = 1;
-        for (int i = 0; i < base.size(); i++) {
-            while (k < target.size() && target.get(k).date.compareTo(base.get(i).date) < 0) {
-                if (k != target.size() - 1)
-                    target.get(k + 1).rise = target.get(k).rise * (1 + target.get(k + 1).rise);
-                target.remove(k);
-            }
-        }
+    public static void alignList(final List<PriceInfo> base, final List<PriceInfo> target) {
+//        while (target.get(0).date.compareTo(base.get(0).date) < 0)
+//            target.remove(0);
+//        while (target.get(0).date.compareTo(base.get(0).date) > 0) {
+//        }
+//        for (int i = 0; i < base.size(); i++) {
+//            if (i >= target.size()) {
+//                PriceInfo priceInfo = new PriceInfo();
+//                priceInfo.date = base.get(i).date;
+//                priceInfo.rise = base.get(i).rise;
+//                priceInfo.total_netWorth = base.get(i).total_netWorth;
+//                priceInfo.price = base.get(i).price;
+//                target.add(priceInfo);
+//                continue;
+//            }
+//            while (k < target.size() && target.get(k).date.compareTo(base.get(i).date) < 0) {
+//                if (k != target.size() - 1)
+//                    target.get(k + 1).rise = target.get(k).rise * (1 + target.get(k + 1).rise / 100);
+//                target.remove(k);
+//            }
+//            k++;
+//        }
     }
+
+    public static void main(String[] argss) {
+        MarketLogic marketLogic = BLController.getMarketLogic();
+
+//        List<PriceInfo> priceInfos=marketLogic.getPriceInfo("000001","")
+    }
+
 }
