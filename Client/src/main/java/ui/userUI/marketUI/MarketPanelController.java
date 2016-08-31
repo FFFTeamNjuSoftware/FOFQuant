@@ -156,11 +156,11 @@ public class MarketPanelController implements Initializable {
                     Field field = profitRate.getClass().getDeclaredField(id);
                     field.setAccessible(true);
                     Double temp = field.getDouble(profitRate) * 100;
-                    DecimalFormat df=new DecimalFormat("#.00");
+                    DecimalFormat df = new DecimalFormat("#.00");
                     label.setText(df.format(temp) + "%");
-                    if (temp >= 0) {
+                    if (temp > 0) {
                         label.setStyle(redFill);
-                    } else {
+                    } else if (temp < 0) {
                         label.setStyle(greenFill);
                     }
                 } catch (NoSuchFieldException e) {

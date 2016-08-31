@@ -5,21 +5,16 @@ package ui.userUI.portfolioManagementUI;
  */
 
 import RMIModule.BLInterfaces;
-import beans.FundQuickInfo;
 import beans.PerformanceAttribution;
 import bl.fof.FOFPerformanceAttributionLogic;
 import exception.ObjectNotFoundException;
 import exception.ParameterException;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseButton;
-import javafx.util.Callback;
 import starter.MainUI;
-import ui.userUI.allFundUI.allFundUIController;
 import ui.util.IOHelper;
 import util.FOFUtilInfo;
 
@@ -61,6 +56,9 @@ public class PerformanceAttributionController implements Initializable {
     private TableColumn<PerformanceAttribution, String> category;
 
     private FOFPerformanceAttributionLogic logic;
+
+    private String greenFill = "-fx-text-fill:#9ac94a;";
+    private String redFill = "-fx-text-fill:#eb494d;";
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -137,6 +135,8 @@ public class PerformanceAttributionController implements Initializable {
                 cellData.getValue().periodProfitFinishProfit + ""));
         periodProfitRate.setCellValueFactory(cellData -> new SimpleStringProperty(
                 cellData.getValue().periodProfitRate + ""));
+
+
         table.setRowFactory(tv -> {
             TableRow<PerformanceAttribution> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -149,5 +149,29 @@ public class PerformanceAttributionController implements Initializable {
             return row;
         });
 
+        setColumnColor(periodProfit);
+        setColumnColor(periodProfitFinishProfit);
+        setColumnColor(periodProfitRate);
+    }
+
+    private void setColumnColor(TableColumn<PerformanceAttribution, String> c) {
+        c.setCellFactory(column -> {
+            return new TableCell<PerformanceAttribution, String>() {
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    setGraphic(null);
+                    setText(empty ? "" : getItem().toString());
+                    if (!isEmpty()) {
+                        Double t = Double.parseDouble(item);
+                        if (t > 0) {
+                            c.setStyle(redFill);
+                        } else if (t < 0) {
+                            c.setStyle(greenFill);
+                        }
+                    }
+                }
+            };
+        });
     }
 }
