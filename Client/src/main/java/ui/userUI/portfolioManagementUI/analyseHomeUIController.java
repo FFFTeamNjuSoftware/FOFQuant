@@ -19,8 +19,7 @@ import java.util.ResourceBundle;
  */
 public class analyseHomeUIController implements Initializable {
     private analyseHomeUIController analyseHomeUIController;
-    private generalAnalysisUIController  generalAnalysisUIController =new  generalAnalysisUIController();
-
+    private generalAnalysisUIController generalAnalysisUIController= new generalAnalysisUIController();
     @FXML
     private Button btn1,btn2,btn3,btn4,btn5,btn6,btn7;
     @FXML
@@ -50,41 +49,49 @@ public class analyseHomeUIController implements Initializable {
             });
         }
     }
-    @FXML
-    public void toMonitorPanel(){
-        generalAnalysisUIController.setTab(0);
-        mainUI.changeScene("user_guidePanel","generalAnalysisPanel");
-    }
 
     @FXML
-    public void toAppraisalPanel(){
-        generalAnalysisUIController.setTab(1);
-        mainUI.changeScene("user_guidePanel","generalAnalysisPanel");
-    }
-    @FXML
-    public void toChangePositionPanel(){
-        generalAnalysisUIController.setTab(2);
+    public void toMonitorPanel(){
+        mainUI.setIndex(0);
         mainUI.changeScene("user_guidePanel","generalAnalysisPanel");
     }
     @FXML
     public void toBreakevenPanel(){
-        generalAnalysisUIController.setTab(3);
+        mainUI.setIndex(1);
+        // generalAnalysisUIController.setK(1);
         mainUI.changeScene("user_guidePanel","fofAnalysis2");
     }
 
     @FXML
     public void toAttributionPanel(){
-        generalAnalysisUIController.setTab(4);
-        mainUI.changeScene("user_guidePanel","generalAnalysisPanel");
-    }
-    @FXML
-    public void toAssetAllocationPanel(){
-        generalAnalysisUIController.setTab(5);
+        mainUI.setIndex(2);
+        //  generalAnalysisUIController.setK(2);
         mainUI.changeScene("user_guidePanel","generalAnalysisPanel");
     }
     @FXML
     public void toReturnStatsPanel(){
-        generalAnalysisUIController.setTab(6);
+        mainUI.setIndex(3);
+        //  generalAnalysisUIController.setK(3);
         mainUI.changeScene("user_guidePanel","generalAnalysisPanel");
     }
+    @FXML
+    public void toAssetAllocationPanel(){
+        mainUI.setIndex(4);
+        //   generalAnalysisUIController.setK(4);
+        mainUI.changeScene("user_guidePanel","generalAnalysisPanel");
+    }
+
+    @FXML
+    public void toChangePositionPanel(){
+        mainUI.setIndex(5);
+        //  generalAnalysisUIController.setK(5);
+        mainUI.changeScene("user_guidePanel","generalAnalysisPanel");
+    }
+    @FXML
+    public void toAppraisalPanel(){
+        mainUI.setIndex(6);
+        //  generalAnalysisUIController.setK(6);
+        mainUI.changeScene("user_guidePanel","generalAnalysisPanel");
+    }
+
 }

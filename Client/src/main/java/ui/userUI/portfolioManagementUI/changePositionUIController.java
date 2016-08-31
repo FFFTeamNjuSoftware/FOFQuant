@@ -2,6 +2,8 @@ package ui.userUI.portfolioManagementUI;
 
 import RMIModule.BLInterfaces;
 import beans.FOFProfitAnalyse;
+import beans.PositionChange;
+import bl.fof.FOFAssetAllocationLogic;
 import bl.fof.FOFProfitAnalyseLogic;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -30,21 +32,50 @@ import java.util.ResourceBundle;
 public class changePositionUIController implements Initializable {
     private changePositionUIController instance;
     private BLInterfaces blInterfaces = new BLInterfaces();
-    private FOFProfitAnalyseLogic profitAnalyseLogic;
-    private FOFProfitAnalyse profitAnalyse_three, profitAnalyse_half, profitAnalyse_year,profitAnalyse_establish;
+    private FOFAssetAllocationLogic assetAllocationLogic;
+    private List<PositionChange> positionChangeList;
     @FXML
     private TableView table;
-    //@FXML
-   // private TableColumn<> opDateColumn;
+    @FXML
+    private TableColumn<PositionChange,String> opDateColumn,changeDateColumn,idColumn,nameColumn;
+    @FXML
+    private TableColumn<PositionChange,Number> inNumColumn,inPriceColumn,outNumColumn,outPriceColumn;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         instance = this;
+        assetAllocationLogic = blInterfaces.getFofAssetAllocationLogic();
         initTable();
     }
 
     public void initTable(){
+        try {
+            positionChangeList= assetAllocationLogic.getFOFPositionChanges();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
 
+
+        table.setItems(FXCollections.observableArrayList(positionChangeList));
+
+        opDateColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
+                cellData.getValue().changeDate));
+        changeDateColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
+                cellData.getValue().changeTime));
+        idColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
+                cellData.getValue().fundCode));
+        nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
+                cellData.getValue().fundName));
+
+        inNumColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().buyNum));
+        inPriceColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                        cellData.getValue().buyPrice));
+        outNumColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().saleNum));
+        outPriceColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().salePrice));
     }
 
 }
