@@ -4,21 +4,25 @@ import beans.PriceInfo;
 import beans.ProfitRateInfo;
 import blimpl.BLController;
 import dataservice.BaseInfoDataService;
+import dataservice.MarketDataService;
 import dataserviceimpl.DataServiceController;
 import entities.FundInfosEntity;
 import entities.FundQuickInfosEntity;
 import entities.FundRankEntity;
+import entities.NetWorthEntity;
 import exception.ObjectNotFoundException;
 import exception.ParameterException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import startup.HibernateBoot;
 import strategyimpl.FundRankStrategyImpl;
+import sun.nio.ch.Net;
 import util.TimeType;
 import util.UnitType;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -132,6 +136,46 @@ public class DataUpdate {
         }
     }
 
+    public void updateFqWorth() {
+        BaseInfoDataService baseInfoDataService = DataServiceController.getBaseInfoDataService();
+        List<String> codes = baseInfoDataService.getAllCodes();
+        int count = 0;
+        for (String code : codes) {
+            System.out.println(count++ + ":" + code);
+            updateFqWorth(code);
+        }
+    }
+
+    public void updateFqWorth(String code) {
+        MarketDataService marketDataService = DataServiceController.getMarketDataService();
+        Session se = HibernateBoot.openSession();
+        Transaction transaction = se.beginTransaction();
+        List li = se.createQuery("select max(date) from  NetWorthEntity where code=:code and " +
+                "fqnet is not null").setString("code", code).list();
+        String startDate;
+        if (li == null || li.size() == 0) {
+            startDate = "1000-01-01";
+        } else {
+            startDate = (String) li.get(0);
+        }
+        try {
+            System.out.println(code + "," + startDate);
+            List<NetWorthEntity> netWorthEntities = marketDataService.getNetWorth(code, startDate,
+                    LocalDate.now().toString());
+            double rise = netWorthEntities.get(0).getFqWorth();
+            for (int i = 1; i < netWorthEntities.size(); i++) {
+                NetWorthEntity entity = netWorthEntities.get(i);
+                rise = rise * (1 + entity.getDailyRise() / 100);
+                entity.setFqWorth(rise);
+                se.saveOrUpdate(entity);
+            }
+        } catch (ObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+        transaction.commit();
+        se.close();
+    }
+
     /**
      * 更新基金实时信息
      */
@@ -154,5 +198,6 @@ public class DataUpdate {
 //        dataUpdate.updateFundRank();
 //        dataUpdate.updateNetWorth();
         dataUpdate.updateFundRealTimeInfo();
+//        dataUpdate.updateFqWorth();
     }
 }

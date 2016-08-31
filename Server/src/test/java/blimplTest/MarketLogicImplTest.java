@@ -112,7 +112,7 @@ public class MarketLogicImplTest {
     public void testGetFundProfitInfoChart() throws Exception {
         List<ProfitChartInfo> infos = marketLogic.getFundProfitInfoChart("000001", UnitType.DAY,
                 TimeType.THREE_MONTH,
-                ChartType.RATE_CHART);
+                ChartType.NET_WORTH_PERFORMANCE_UNIT);
         infos.stream().forEach(e -> System.out.println(new Gson().toJson(e)));
     }
 

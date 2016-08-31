@@ -18,7 +18,7 @@ public class UpdateFundRealTimeFromJS {
     /**
      * 最大线程数量
      */
-    private final int maxThreadNum = 40;
+    private final int maxThreadNum = 80;
     private int currentThreadNum;
     private Condition hasFreeTreadNum;
     private Lock lock;
@@ -44,6 +44,7 @@ public class UpdateFundRealTimeFromJS {
         UpdateFundRealTimeRunnable updateFundRealTimeRunnable = new UpdateFundRealTimeRunnable(code);
         Thread thread = new Thread(updateFundRealTimeRunnable);
         thread.start();
+        currentThreadNum++;
         lock.unlock();
 
     }
@@ -74,12 +75,12 @@ public class UpdateFundRealTimeFromJS {
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
+                se.close();
                 lock.lock();
                 currentThreadNum--;
                 if (currentThreadNum < maxThreadNum)
                     hasFreeTreadNum.signalAll();
                 lock.unlock();
-                se.close();
             }
         }
     }

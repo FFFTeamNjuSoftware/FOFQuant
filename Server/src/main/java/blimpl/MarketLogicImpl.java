@@ -175,8 +175,8 @@ public class MarketLogicImpl extends UnicastRemoteObject implements MarketLogic 
                             chartInfo.values[d] *= unitWorth;
                             break;
                     }
-                    NumberOpe.controlDecimal(chartInfo, 4);
                 }
+                NumberOpe.controlDecimal(chartInfo, 4);
             }
         } catch (ParameterException e) {
             e.printStackTrace();

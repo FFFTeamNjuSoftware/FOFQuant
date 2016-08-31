@@ -4,6 +4,7 @@ import beans.FundRealTimeInfo;
 import blimpl.AnalyseFundJSResult;
 import blimpl.AnalyseFundJSResultImpl;
 import com.google.gson.Gson;
+import exception.ObjectExistedException;
 import util.HttpTool;
 
 import java.io.IOException;
@@ -21,7 +22,7 @@ public class FundRealTimeInfoGetter {
         analyseFundJSResult = new AnalyseFundJSResultImpl();
     }
 
-    public FundRealTimeInfo getFundRealTimeInfo(String code) {
+    public FundRealTimeInfo getFundRealTimeInfo(String code) throws ObjectExistedException {
         HttpTool httpTool = new HttpTool();
         String url_str = String.format(url_pattern, code, Math.random());
         try {
@@ -30,8 +31,8 @@ public class FundRealTimeInfoGetter {
             return new Gson().fromJson(result, FundRealTimeInfo.class);
         } catch (IOException e) {
             e.printStackTrace();
+            throw new ObjectExistedException("fundinfo not found" + code);
         }
-        return null;
     }
 }
 
