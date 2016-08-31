@@ -13,21 +13,20 @@ import java.util.Map;
 public class DateConstrainGenerator {
     static DateConstraint dayConstraint, weekConstraint, monthConstraint, quarterConstraint,
             yearConstraint;
-    static final int[] field = {Calendar.YEAR, Calendar.MONTH, Calendar.WEEK_OF_MONTH};
+    static final int[] field = {Calendar.YEAR, Calendar.MONTH, Calendar.WEEK_OF_YEAR};
 
     static Map<UnitType, DateConstraint> map;
 
     static {
         dayConstraint = (e1, e2) -> true;
-        yearConstraint = (d1, d2) -> isSameField(d1, d2, field[0]);
-        monthConstraint = (d1, d2) -> isSameField(d1, d2, field[1]);
-        weekConstraint = (d1, d2) -> isSameField(d1, d2, field[2]);
+        yearConstraint = (d1, d2) -> isNotSameField(d1, d2, field[0]);
+        monthConstraint = (d1, d2) -> isNotSameField(d1, d2, field[0], field[1]);
+        weekConstraint = (d1, d2) -> isNotSameField(d1, d2, field[0], field[2]);
         quarterConstraint = (d1, d2) -> {
             if (d1.get(Calendar.YEAR) != d2.get(Calendar.YEAR)) return true;
             return d1.get(Calendar.MONTH) / 3 != d2.get(Calendar.MONTH) / 3;
         };
         map = new HashMap<>();
-
         map.put(UnitType.DAY, dayConstraint);
         map.put(UnitType.WEEK, weekConstraint);
         map.put(UnitType.MONTH, monthConstraint);
@@ -36,13 +35,10 @@ public class DateConstrainGenerator {
 
     }
 
-    static boolean isSameField(Calendar d1, Calendar d2, int calendarField) {
-        for (int i = 0; i < field.length; i++) {
-            if (d1.get(field[i]) != d2.get(field[i]))
+    static boolean isNotSameField(Calendar d1, Calendar d2, int... fields) {
+        for (int field : fields) {
+            if (d1.get(field) != d2.get(field))
                 return true;
-            if (field[i] == calendarField)
-                break;
-
         }
         return false;
     }

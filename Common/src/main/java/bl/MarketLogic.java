@@ -86,6 +86,5 @@ public interface MarketLogic extends Remote {
     public List<ProfitChartInfo> getFundProfitInfoChart(String code, UnitType type, TimeType
             timeType, ChartType chartType) throws RemoteException, ObjectNotFoundException;
 
-
 }
 

@@ -3,30 +3,29 @@ package dataupdate;
 import beans.PriceInfo;
 import beans.ProfitRateInfo;
 import blimpl.BLController;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.annotations.JsonAdapter;
-import com.mathworks.toolbox.javabuilder.external.org.json.JSONObject;
 import dataservice.BaseInfoDataService;
+import dataservice.MarketDataService;
 import dataserviceimpl.DataServiceController;
 import entities.FundInfosEntity;
 import entities.FundQuickInfosEntity;
+import entities.FundRankEntity;
+import entities.NetWorthEntity;
 import exception.ObjectNotFoundException;
 import exception.ParameterException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import startup.HibernateBoot;
+import strategyimpl.FundRankStrategyImpl;
+import sun.nio.ch.Net;
+import util.TimeType;
 import util.UnitType;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.charset.Charset;
 import java.rmi.RemoteException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Daniel on 2016/8/20.
@@ -97,40 +96,97 @@ public class DataUpdate {
         tra.commit();
     }
 
-
+    /**
+     * 更新基金的等级信息
+     *
+     * @throws IOException
+     */
     public void updateFundRank() throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(DataUpdate.class
-                .getResourceAsStream("/extra_info/rank.txt")));
-        String tem;
+        FundRankStrategyImpl fundRankStrategy = new FundRankStrategyImpl();
+        Map<String, ArrayList<Double>> re = fundRankStrategy.refreshFundRank(TimeType.THREE_YEAR);
         Session se = HibernateBoot.openSession();
-        while ((tem = reader.readLine()) != null) {
-            String[] strs = tem.split(",");
-            System.out.println(strs[0] + "," + strs[1]);
-            se.createSQLQuery(String.format("UPDATE fund_infos set rank=%s WHERE code='%s'",
-                    strs[1].substring(0, 1), strs[0])).executeUpdate();
+        Transaction transaction = se.beginTransaction();
+        for (String key : re.keySet()) {
+            FundRankEntity fundRankEntity = new FundRankEntity();
+            fundRankEntity.setCode(key);
+            fundRankEntity.setMrar(re.get(key).get(0));
+            fundRankEntity.setGrade(re.get(key).get(1));
+            fundRankEntity.setRank(re.get(key).get(2));
+            se.saveOrUpdate(fundRankEntity);
         }
+        transaction.commit();
         se.close();
     }
 
+    /**
+     * 更新基金净值信息
+     *
+     * @throws IOException
+     */
     public void updateNetWorth() throws IOException {
+        UpdateNetWorthFromJS updateNetWorthFromJS = new UpdateNetWorthFromJS();
+        BaseInfoDataService baseInfoDataService = DataServiceController.getBaseInfoDataService();
+        List<String> codes = baseInfoDataService.getAllCodes();
+        int count = 0;
+        for (String code : codes) {
+            String startDate = baseInfoDataService.getMaxDate(code);
+            startDate = (startDate == null ? "1000-01-01" : startDate);
+            System.out.println(count++ + ":" + code + "," + startDate);
+            updateNetWorthFromJS.updateNetWorth(code, startDate);
+        }
+    }
+
+    public void updateFqWorth() {
+        BaseInfoDataService baseInfoDataService = DataServiceController.getBaseInfoDataService();
+        List<String> codes = baseInfoDataService.getAllCodes();
+        int count = 0;
+        for (String code : codes) {
+            System.out.println(count++ + ":" + code);
+            updateFqWorth(code);
+        }
+    }
+
+    public void updateFqWorth(String code) {
+        MarketDataService marketDataService = DataServiceController.getMarketDataService();
+        Session se = HibernateBoot.openSession();
+        Transaction transaction = se.beginTransaction();
+        List li = se.createQuery("select max(date) from  NetWorthEntity where code=:code and " +
+                "fqnet is not null").setString("code", code).list();
+        String startDate;
+        if (li == null || li.size() == 0) {
+            startDate = "1000-01-01";
+        } else {
+            startDate = (String) li.get(0);
+        }
         try {
-            URL url = new URL("http://fund.eastmoney.com/f10/F10DataApi" +
-                    ".aspx?type=lsjz&code=000001&page=1&per=100000&sdate=&edate=");
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-            conn.setDoInput(true);
-            conn.setDoOutput(true);
-            conn.setInstanceFollowRedirects(true);
-            conn.setRequestProperty("content-type", "text/html");
-            conn.connect();
-            BufferedReader reader=new BufferedReader(new InputStreamReader(conn
-                    .getInputStream(), Charset.forName("gb2312")));
-            String tem;
-            while((tem=reader.readLine())!=null){
-                System.out.println(tem);
+            System.out.println(code + "," + startDate);
+            List<NetWorthEntity> netWorthEntities = marketDataService.getNetWorth(code, startDate,
+                    LocalDate.now().toString());
+            double rise = netWorthEntities.get(0).getFqWorth();
+            for (int i = 1; i < netWorthEntities.size(); i++) {
+                NetWorthEntity entity = netWorthEntities.get(i);
+                rise = rise * (1 + entity.getDailyRise() / 100);
+                entity.setFqWorth(rise);
+                se.saveOrUpdate(entity);
             }
-        } catch (MalformedURLException e) {
+        } catch (ObjectNotFoundException e) {
             e.printStackTrace();
+        }
+        transaction.commit();
+        se.close();
+    }
+
+    /**
+     * 更新基金实时信息
+     */
+    public void updateFundRealTimeInfo() {
+        UpdateFundRealTimeFromJS updateFundRealTimeFromJS = new UpdateFundRealTimeFromJS();
+        BaseInfoDataService baseInfoDataService = DataServiceController.getBaseInfoDataService();
+        List<String> codes = baseInfoDataService.getAllCodes();
+        int count = 0;
+        for (String code : codes) {
+            System.out.println(count++ + ":" + code);
+            updateFundRealTimeFromJS.updateFundRealTimeInfo(code);
         }
     }
 
@@ -140,7 +196,8 @@ public class DataUpdate {
         DataUpdate dataUpdate = new DataUpdate();
 //        dataUpdate.updateQuickinfo();
 //        dataUpdate.updateFundRank();
-        dataUpdate.updateNetWorth();
-        HibernateBoot.closeConnection();
+//        dataUpdate.updateNetWorth();
+        dataUpdate.updateFundRealTimeInfo();
+//        dataUpdate.updateFqWorth();
     }
 }

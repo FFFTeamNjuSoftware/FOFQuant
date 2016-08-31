@@ -15,9 +15,9 @@ public class NumberOpe {
                 int length = Array.getLength(obj);
                 for (int i = 0; i < length; i++) {
                     if (isDoubleType(obj.getClass().getComponentType())) {
-                        Array.set(obj, i, controlDecimalDouble((double) Array.get(obj, i), 2));
+                        Array.set(obj, i, controlDecimalDouble((double) Array.get(obj, i), decimalNum));
                     } else {
-                        controlDecimal(Array.get(obj, i), 2);
+                        controlDecimal(Array.get(obj, i), decimalNum);
                     }
                 }
             } else {

@@ -9,16 +9,16 @@ import java.sql.Date;
  * Created by Daniel on 2016/8/16.
  */
 public class NetWorthEntityPK implements Serializable {
-    private Date date;
+    private String date;
     private String code;
 
     @Column(name = "date", nullable = false)
     @Id
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

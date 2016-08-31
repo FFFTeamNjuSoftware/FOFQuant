@@ -10,15 +10,15 @@ import java.sql.Date;
 @Table(name = "net_worth", schema = "fofquant", catalog = "")
 @IdClass(NetWorthEntityPK.class)
 public class NetWorthEntity {
-    private Date date;
+    private String date;
     private String code;
     private Double unitWorth;
     private Double totalWorth;
     private Double dailyRise;
     private Double fqWorth;
 
-    @Id
-    @Column(name = "fqnet", nullable = false)
+    @Basic
+    @Column(name = "fqnet", nullable = true)
     public Double getFqWorth() {
         return fqWorth;
     }
@@ -29,11 +29,11 @@ public class NetWorthEntity {
 
     @Id
     @Column(name = "date", nullable = false)
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

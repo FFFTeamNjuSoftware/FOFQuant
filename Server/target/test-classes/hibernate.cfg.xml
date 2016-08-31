@@ -18,7 +18,7 @@
         <!--<property name="dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>-->
         <!--<property name="connection.username">cdb_outerroot</property>-->
         <!--<property name="connection.password">fff123456</property>-->
-
+        <mapping class="entities.FundRankEntity"/>
         <mapping class="entities.AssetAllocationEntity"/>
         <mapping class="entities.FundInfosEntity"/>
         <mapping class="entities.IndustryHoldInfoEntity"/>
@@ -31,6 +31,7 @@
         <mapping class="entities.FundQuickInfosEntity"/>
         <mapping class="entities.CompanyInfoEntity"/>
         <mapping class="entities.ConstParameterEntity"/>
+        <mapping class="entities.FundRealtimeInfoEntity"/>
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hbm2ddl.auto">update</property> -->
     </session-factory>

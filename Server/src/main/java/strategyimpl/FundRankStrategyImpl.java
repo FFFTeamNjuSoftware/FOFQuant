@@ -119,35 +119,41 @@ public class FundRankStrategyImpl implements FundRankStrategy {
 
         Map<String,ArrayList<Double>> rank=new HashMap<>();
         List<ArrayList<String>> sectorTypes=baseInfoLogic.getRankSectorType();
-        List<FundQuickInfo> fundQuickInfos=new ArrayList<>();
-        for (int i=0;i<sectorTypes.size();i++){
-            System.out.println("!!!!!!!!!正在处理"+sectorTypes.get(i)+"类型的基金!!!!!!!!!!!!!!");
-            //  去掉保本型和货币型
-            try {
-                for(int sec=0;sec<sectorTypes.get(i).size();sec++) {
-                    fundQuickInfos.addAll(baseInfoLogic.getFundQuickInfo(sectorTypes.get(i).get(sec)));
-                }
-            } catch (ObjectNotFoundException e) {
-                System.out.println("没有"+sectorTypes.get(i)+" 类型对应的数据");
-            }
 
-            Map<String,Double> index=new HashMap<>();
-            String code="";
-            for (int j=0;j<fundQuickInfos.size();j++){
-                code=fundQuickInfos.get(j).code;
-                double mrar=0.0;
+        for (int i=0;i<sectorTypes.size();i++) {
+            System.out.println("!!!!!!!!!正在处理" + sectorTypes.get(i) + "类型的基金!!!!!!!!!!!!!!");
+            //  去掉保本型和货币型
+            List<FundQuickInfo> fundQuickInfos = new ArrayList<>();
+            for (int sec = 0; sec < sectorTypes.get(i).size(); sec++) {
                 try {
-                     mrar=this.getMRAR(code,timeType,endDate);
-                } catch (ParameterException e) {
-                    System.out.println("startdate在"+endDate+"之前");
-                     continue;
+                    fundQuickInfos.addAll(baseInfoLogic.getFundQuickInfo(sectorTypes.get(i).get(sec)));
                 } catch (ObjectNotFoundException e) {
-                    System.out.println("没有"+code+" 类型对应的数据");
+//                        System.out.println("没有"+sectorTypes.get(i).get(sec)+"类型对应的数据:(");
                     continue;
                 }
-                index.put(code,mrar);
             }
-            rank.putAll(this.Sequence(index));
+
+            Map<String, Double> index = new HashMap<>();
+            String code = "";
+            for (int j = 0; j < fundQuickInfos.size(); j++) {
+                code = fundQuickInfos.get(j).code;
+                double mrar;
+                try {
+                    mrar = this.getMRAR(code, timeType, endDate);
+                } catch (ParameterException e) {
+                    System.out.println("startdate在" + endDate + "之前");
+                    continue;
+                } catch (ObjectNotFoundException e) {
+//                    System.out.println("没有"+code+" 类型对应的数据");
+                    continue;
+                }
+                index.put(code, mrar);
+            }
+            System.out.println(index.keySet().size()+"!!!");
+            Map<String, ArrayList<Double>> sortedIndex = this.Sequence(index);
+            System.out.println(sortedIndex.keySet().size() + "!!!" + sectorTypes.get(i));
+            rank.putAll(sortedIndex);
+            System.out.println(rank.keySet().size()+"  !!!  ");
         }
         return rank;
     }
@@ -171,6 +177,7 @@ public class FundRankStrategyImpl implements FundRankStrategy {
 
         //计算对应等级
         int size=fundCodes.size();
+        int grade=1;
         for (int i=0;i<size;i++){
             String code=fundCodes.get(i).getKey();
             int fundRank=0;
@@ -187,7 +194,9 @@ public class FundRankStrategyImpl implements FundRankStrategy {
             }
             ArrayList<Double> sta=new ArrayList<>();
             sta.add(fundCodes.get(i).getValue());
+            sta.add(Double.valueOf(grade));
             sta.add(Double.valueOf(fundRank));
+            grade++;
             rank.put(code,sta);
         }
         return rank;

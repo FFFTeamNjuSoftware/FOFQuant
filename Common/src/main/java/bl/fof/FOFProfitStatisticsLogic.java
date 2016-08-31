@@ -4,6 +4,7 @@ import beans.PriceInfo;
 import beans.ProfitStatisticsInfo;
 import exception.ObjectNotFoundException;
 import exception.ParameterException;
+import util.UnitType;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -40,7 +41,12 @@ public interface FOFProfitStatisticsLogic extends Remote {
      */
     void setProformanceBase(String indexCode) throws RemoteException, ObjectNotFoundException;
 
-    void setUnitType() throws RemoteException;
+    /**
+     * 设置统计周期
+     * @param unitType
+     * @throws RemoteException
+     */
+    void setUnitType(UnitType unitType) throws RemoteException;
 
     /**
      * 获得回报统计展示的信息

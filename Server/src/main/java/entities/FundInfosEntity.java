@@ -25,6 +25,7 @@ public class FundInfosEntity {
     private String company;
     private Double trusteeFee;
     private Double saleServiceFee;
+    private Integer rank;
 
     @Basic
     @Column(name = "rank", nullable = true, length = 10)
@@ -36,7 +37,6 @@ public class FundInfosEntity {
         this.rank = rank;
     }
 
-    private Integer rank;
 
     @Id
     @Column(name = "code", nullable = false, length = 255)

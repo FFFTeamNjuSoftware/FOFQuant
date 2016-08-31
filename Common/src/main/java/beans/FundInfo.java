@@ -58,5 +58,9 @@ public class FundInfo implements Serializable {
      * 风险收益特性
      */
     public String risk_feature;
+    /**
+     * 基金评级
+     */
+    public int rank;
 
 }
