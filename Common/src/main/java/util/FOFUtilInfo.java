@@ -14,12 +14,16 @@ public class FOFUtilInfo {
     /**
      * 业绩基准
      */
-    public static Map<String,String> performanceBaseInfo;
+    public static Map<String, String> performanceBaseInfo;
 
-    static{
-        performanceBaseInfo=new HashMap<>();
-        performanceBaseInfo.put("沪深300","I000300");
-        performanceBaseInfo.put("上证综指","I000001");
-        performanceBaseInfo.put("上证基金指数","I000011");
+    /**
+     * FOF的代码
+     */
+
+    static {
+        performanceBaseInfo = new HashMap<>();
+        performanceBaseInfo.put("沪深300", "I000300");
+        performanceBaseInfo.put("上证综指", "I000001");
+        performanceBaseInfo.put("上证基金指数", "I000011");
     }
 }

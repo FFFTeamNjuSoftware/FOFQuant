@@ -46,39 +46,68 @@ public class LogicUtil {
     /**
      * 将target向base对其
      * 运行后两个List的长度应该是一样的
-     * 其中target在某个日期缺失的信息由base中当天的信息代替
+     * 其中target在某个日期缺失的信息由这段时间最邻近的值代替
      *
      * @param base
      * @param target
      */
     public static void alignList(final List<PriceInfo> base, final List<PriceInfo> target) {
-//        while (target.get(0).date.compareTo(base.get(0).date) < 0)
-//            target.remove(0);
-//        while (target.get(0).date.compareTo(base.get(0).date) > 0) {
-//        }
-//        for (int i = 0; i < base.size(); i++) {
-//            if (i >= target.size()) {
-//                PriceInfo priceInfo = new PriceInfo();
-//                priceInfo.date = base.get(i).date;
-//                priceInfo.rise = base.get(i).rise;
-//                priceInfo.total_netWorth = base.get(i).total_netWorth;
-//                priceInfo.price = base.get(i).price;
-//                target.add(priceInfo);
-//                continue;
-//            }
-//            while (k < target.size() && target.get(k).date.compareTo(base.get(i).date) < 0) {
-//                if (k != target.size() - 1)
-//                    target.get(k + 1).rise = target.get(k).rise * (1 + target.get(k + 1).rise / 100);
-//                target.remove(k);
-//            }
-//            k++;
-//        }
+        while (target.get(0).date.compareTo(base.get(0).date) < 0)
+            target.remove(0);
+        int t = 0;
+        while (target.get(0).date.compareTo(base.get(t).date) > 0) {
+            t++;
+        }
+        target.addAll(0, base.subList(0, t));
+        for (int i = 0; i < base.size(); i++) {
+            if (i >= target.size()) {
+                PriceInfo priceInfo = target.get(target.size() - 1).copy();
+                priceInfo.date = base.get(i).date;
+                target.add(priceInfo);
+                continue;
+            }
+            while (target.get(i).date.compareTo(base.get(i).date) < 0) {
+                if (i != target.size() - 1)
+                    target.get(i + 1).rise = target.get(i).rise * (1 + target.get(i + 1).rise / 100);
+                target.remove(i);
+            }
+        }
     }
 
-    public static void main(String[] argss) {
-        MarketLogic marketLogic = BLController.getMarketLogic();
-
-//        List<PriceInfo> priceInfos=marketLogic.getPriceInfo("000001","")
+    /**
+     * 交换两个Priceinfo信息
+     *
+     * @param info1
+     * @param info2
+     */
+    public static void swapPriceInfo(final PriceInfo info1, final PriceInfo info2) {
+        PriceInfo temInfo = info1;
+        info1.date = info2.date;
+        info1.total_netWorth = info2.total_netWorth;
+        info1.rise = info2.rise;
+        info1.price = info2.price;
+        info2.date = temInfo.date;
+        info2.total_netWorth = temInfo.total_netWorth;
+        info2.rise = temInfo.rise;
+        info2.price = temInfo.price;
     }
+
+    /**
+     * 计算标准差
+     *
+     * @param numbers
+     * @param ave
+     * @return
+     */
+    public static double standardDeviation(List<Double> numbers, double ave) {
+        double sum = 0;
+        for (Double num : numbers) {
+            sum += (num - ave) * (num - ave);
+        }
+        sum = sum / (numbers.size() - 1);
+        sum = Math.pow(sum, 0.5);
+        return sum;
+    }
+
 
 }

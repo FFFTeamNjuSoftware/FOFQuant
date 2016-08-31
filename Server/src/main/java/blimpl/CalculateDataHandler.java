@@ -80,6 +80,37 @@ public class CalculateDataHandler {
     }
 
     /**
+     * 设置时间区间，会导致之前设置的startDate和endDate失效
+     *
+     * @param timeType
+     * @return
+     */
+    public CalculateDataHandler setTimeType(TimeType timeType) {
+        this.timeType = timeType;
+        cleanDate();
+        return this;
+    }
+
+    /**
+     * 清空startDate和endDate设置
+     * @return
+     */
+    public CalculateDataHandler cleanDate() {
+        startDate = endDate = null;
+        return this;
+    }
+
+    /**
+     * 设置单位
+     * @param type
+     * @return
+     */
+    public CalculateDataHandler setUnitType(UnitType type){
+        this.unitType=type;
+        return this;
+    }
+
+    /**
      * 设定开始日期，默认结束日期到现在
      *
      * @param startDate
@@ -109,7 +140,9 @@ public class CalculateDataHandler {
             for (String base : baseCode) {
                 List<PriceInfo> baseInfo = marketLogic.getPriceInfo(base, unitType, startDate, endDate);
                 LogicUtil.alignList(priceInfos, baseInfo);
+                result.put(base, baseInfo);
             }
+            return result;
         } catch (RemoteException e) {
             e.printStackTrace();
         } catch (ParameterException e) {
