@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.*?>
 <?import javafx.geometry.*?>
 <?import java.lang.*?>
@@ -17,41 +19,15 @@
    <children>
       <AnchorPane layoutY="64.0" prefHeight="520.0" prefWidth="930.0">
          <children>
-            <HBox layoutX="47.0" prefHeight="24.0" prefWidth="808.0">
+            <HBox layoutX="44.0" prefHeight="24.0" prefWidth="828.0">
                <children>
-                  <Label fx:id="startDateLb" layoutY="5.0" prefHeight="25.0" prefWidth="48.0" text="开始日期">
-                     <padding>
-                        <Insets bottom="5.0" top="5.0" />
-                     </padding>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </Label>
-                  <ComboBox fx:id="startCb" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="100.0" style="-fx-background-color: #057DC8; -fx-color: #ffffff;">
-                     <padding>
-                        <Insets left="20.0" />
-                     </padding>
-                     <HBox.margin>
-                        <Insets left="20.0" right="20.0" />
-                     </HBox.margin>
-                  </ComboBox>
-                  <Label fx:id="endDateLb" prefHeight="14.0" prefWidth="48.0" text="结束日期">
-                     <padding>
-                        <Insets bottom="5.0" top="5.0" />
-                     </padding>
-                  </Label>
-                  <ComboBox fx:id="endCb" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="100.0" style="-fx-background-color: #057DC8; -fx-color: #ffffff;">
-                     <padding>
-                        <Insets left="20.0" right="20.0" />
-                     </padding>
-                     <HBox.margin>
-                        <Insets left="20.0" right="274.0" />
-                     </HBox.margin>
-                  </ComboBox>
                   <Label fx:id="gradeLb" prefHeight="14.0" prefWidth="48.0" text="业绩基准">
                      <padding>
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
+                     <HBox.margin>
+                        <Insets left="658.0" />
+                     </HBox.margin>
                   </Label>
                   <ComboBox fx:id="gradeCb" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="100.0" style="-fx-background-color: #057DC8; -fx-color: #ffffff;">
                      <padding>
@@ -63,95 +39,125 @@
                   </ComboBox>
                </children>
             </HBox>
+            <HBox layoutX="44.0" layoutY="34.0" prefHeight="238.0" prefWidth="828.0" visible="false">
+               <children>
+                  <TableView fx:id="netWorthTable" blendMode="LIGHTEN" minHeight="-Infinity" minWidth="-Infinity" prefHeight="238.0" prefWidth="828.0">
+                     <columns>
+                        <TableColumn fx:id="categoryCm" maxWidth="65.0" minWidth="20.0" prefWidth="65.0" resizable="false" text="分类" />
+                        <TableColumn fx:id="codeCm" maxWidth="100.0" minWidth="20.0" prefWidth="100.0" text="证券代码" />
+                        <TableColumn fx:id="abbreviationCm" maxWidth="85.0" minWidth="20.0" prefWidth="85.0" text="证券简称" />
+                        <TableColumn fx:id="latestPriceCm" maxWidth="90.0" minWidth="20.0" prefWidth="90.0" text="最新价" />
+                        <TableColumn fx:id="changeCm" maxWidth="80.0" minWidth="20.0" text="涨跌" />
+                        <TableColumn fx:id="quoteChangeCm" maxWidth="62.0" minWidth="20.0" prefWidth="62.0" text="涨跌幅" />
+                        <TableColumn fx:id="positionNumCm" maxWidth="62.0" minWidth="20.0" prefWidth="62.0" text="持仓数量" />
+                        <TableColumn fx:id="positionValueCm" maxWidth="100.0" minWidth="20.0" prefWidth="100.0" text="持仓市值（元）" />
+                        <TableColumn fx:id="latestWeightCm" maxWidth="76.0" minWidth="20.0" prefWidth="76.0" text="最新权重" />
+                        <TableColumn fx:id="nowBreakevenCm" maxWidth="85.0" minWidth="20.0" prefWidth="85.0" text="当日盈亏（元）" />
+                        <TableColumn fx:id="floatCm" maxWidth="37.0" minWidth="20.0" prefWidth="37.0" text="浮动" />
+                     </columns>
+                  </TableView>
+               </children>
+            </HBox>
+            <AnchorPane layoutY="274.0" prefHeight="246.0" prefWidth="930.0">
+               <children>
+                  <Line endX="930.0" />
+                  <HBox layoutX="277.0" layoutY="5.0" prefHeight="25.0" prefWidth="376.0">
+                     <children>
+                        <Label fx:id="displayNameLb" prefHeight="25.0" prefWidth="217.0" text="中国宝安 （000009.SZ)" textFill="#fcf246">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="25.0" prefWidth="217.0" text="——  基金净值表现" textFill="#f6f7f8">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <VBox layoutX="44.0" layoutY="43.0" prefHeight="200.0" prefWidth="828.0">
+                     <children>
+                        <HBox prefHeight="20.0" prefWidth="828.0">
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                           <children>
+                              <ComboBox fx:id="chartCb2" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="70.0" style="-fx-background-color: #057DC8; -fx-color: #ffffff;">
+                                 <padding>
+                                    <Insets left="30.0" right="20.0" />
+                                 </padding>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </ComboBox>
+                              <ComboBox fx:id="chartCb3" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="70.0" style="-fx-background-color: #057DC8; -fx-color: #ffffff;">
+                                 <padding>
+                                    <Insets left="30.0" right="20.0" />
+                                 </padding>
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </ComboBox>
+                              <Label prefHeight="20.0" prefWidth="25.0" text="—" textFill="#935563">
+                                 <HBox.margin>
+                                    <Insets left="348.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="redLineLb" text="中国宝安" textFill="#f6f7f8">
+                                 <padding>
+                                    <Insets bottom="2.0" top="3.0" />
+                                 </padding>
+                              </Label>
+                              <Label prefHeight="20.0" prefWidth="25.0" text="—" textFill="#2a83b5">
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="buleLineLb" text="中国宝安基准" textFill="#f6f7f8">
+                                 <padding>
+                                    <Insets bottom="2.0" top="3.0" />
+                                 </padding>
+                              </Label>
+                              <Label prefHeight="20.0" prefWidth="25.0" text="—" textFill="#62905c">
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="greenLineLb" text="沪深300" textFill="#f6f7f8">
+                                 <padding>
+                                    <Insets bottom="2.0" top="3.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <LineChart fx:id="netWorthChart" prefHeight="180.0" prefWidth="828.0">
+                          <xAxis>
+                            <CategoryAxis fx:id="categoryAxis" prefHeight="16.0" prefWidth="807.0" side="BOTTOM" tickLabelRotation="0.5" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis fx:id="numAxis" side="LEFT" />
+                          </yAxis>
+                        </LineChart>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
-      <HBox layoutX="47.0" layoutY="124.0" prefHeight="310.0" prefWidth="828.0">
-         <children>
-            <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="304.0" prefWidth="108.0">
-               <children>
-                  <Label text="总回报" textFill="WHITE" />
-                  <Label text="相对总回报" textFill="WHITE" GridPane.rowIndex="1" />
-                  <Label text="最大涨幅" textFill="WHITE" GridPane.rowIndex="2" />
-                  <Label text="最大涨幅天数" textFill="WHITE" GridPane.rowIndex="3" />
-                  <Label text="最大涨幅复苏期间" textFill="WHITE" GridPane.rowIndex="4" />
-                  <Label text="最大跌幅" textFill="WHITE" GridPane.rowIndex="5" />
-                  <Label text="最大跌幅天数" textFill="WHITE" GridPane.rowIndex="6" />
-                  <Label text="最大跌幅复苏期间" textFill="WHITE" GridPane.rowIndex="7" />
-                  <Label text="年化平均回报" textFill="WHITE" GridPane.rowIndex="8" />
-                  <Label text="年华平均超额回报" textFill="WHITE" GridPane.rowIndex="9" />
-                  <Label text="下行风险" textFill="WHITE" GridPane.rowIndex="10" />
-               </children>
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <padding>
-                  <Insets top="30.0" />
-               </padding>
-            </GridPane>
-            <TableView fx:id="table1" blendMode="LIGHTEN" prefHeight="330.0" prefWidth="308.0">
-               <columns>
-                  <TableColumn fx:id="table1column1" prefWidth="76.0" text="最近3个月" />
-                  <TableColumn fx:id="table1column2" prefWidth="76.0" text="最近6个月" />
-                  <TableColumn fx:id="table1column3" prefWidth="76.0" text="年初至今" />
-                  <TableColumn fx:id="table1column4" prefWidth="76.0" text="自建立" />
-               </columns>
-            </TableView>
-            <GridPane prefHeight="304.0" prefWidth="80.0">
-               <children>
-                  <Label text="年化波动率" textFill="WHITE" />
-                  <Label text="跟踪误差" textFill="WHITE" GridPane.rowIndex="1" />
-                  <Label text="相关系数" textFill="WHITE" GridPane.rowIndex="2" />
-                  <Label text="Alpha" textFill="WHITE" GridPane.rowIndex="3" />
-                  <Label text="Beta" textFill="WHITE" GridPane.rowIndex="4" />
-                  <Label text="Sharpe" textFill="WHITE" GridPane.rowIndex="5" />
-                  <Label text="Treynor" textFill="WHITE" GridPane.rowIndex="6" />
-                  <Label text="Jensen" textFill="WHITE" GridPane.rowIndex="7" />
-                  <Label text="R2" textFill="WHITE" GridPane.rowIndex="8" />
-                  <Label text="半方差" textFill="WHITE" GridPane.rowIndex="9" />
-                  <Label text="Sortino" textFill="WHITE" GridPane.rowIndex="10" />
-               </children>
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <padding>
-                  <Insets top="30.0" />
-               </padding>
-            </GridPane>
-            <TableView fx:id="table2" blendMode="LIGHTEN" prefHeight="330.0" prefWidth="308.0">
-               <columns>
-                  <TableColumn fx:id="table2column1" prefWidth="76.0" text="最近3个月" />
-                  <TableColumn fx:id="table2column2" prefWidth="76.0" text="最近6个月" />
-                  <TableColumn fx:id="table2column3" prefWidth="76.0" text="年初至今" />
-                  <TableColumn fx:id="table2column4" prefWidth="76.0" text="自建立" />
-               </columns>
-            </TableView>
-         </children>
-      </HBox>
    </children>
 </AnchorPane>

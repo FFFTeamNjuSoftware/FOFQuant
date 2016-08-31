@@ -1,6 +1,7 @@
 package bl.fof;
 
 import beans.AssetItem;
+import beans.PositionChange;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -27,6 +28,13 @@ public interface FOFAssetAllocationLogic extends Remote {
      * @return
      */
     List<AssetItem> getFOFAssetAllocation()throws RemoteException;
+
+    /**
+     * 获得持仓变化情况
+     * @return
+     * @throws RemoteException
+     */
+    List<PositionChange> getFOFPositionChanges() throws RemoteException;
     /**
      * 获得大类配置权重情况
      * @return

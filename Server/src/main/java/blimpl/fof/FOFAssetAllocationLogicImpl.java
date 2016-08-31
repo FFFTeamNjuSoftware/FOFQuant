@@ -1,6 +1,7 @@
 package blimpl.fof;
 
 import beans.AssetItem;
+import beans.PositionChange;
 import bl.fof.FOFAssetAllocationLogic;
 
 import java.rmi.RemoteException;
@@ -37,6 +38,11 @@ public class FOFAssetAllocationLogicImpl extends UnicastRemoteObject implements
     @Override
     public void setDate(String date) {
 
+    }
+
+    @Override
+    public List<PositionChange> getFOFPositionChanges() throws RemoteException {
+        return null;
     }
 
     @Override

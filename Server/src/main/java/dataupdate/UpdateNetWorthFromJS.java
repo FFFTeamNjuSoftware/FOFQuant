@@ -1,8 +1,6 @@
 package dataupdate;
 
 import beans.FundJSNetWorth;
-import blimpl.AnalyseFundJSResult;
-import blimpl.AnalyseFundJSResultImpl;
 import com.google.gson.Gson;
 import entities.NetWorthEntity;
 import org.dom4j.Document;

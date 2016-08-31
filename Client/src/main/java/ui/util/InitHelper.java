@@ -5,10 +5,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import starter.MainUI;
 
+import static util.FOFUtilInfo.performanceBaseInfo;
+
 /**
  * Created by OptimusPrime on 2016/8/27.
  */
 public class InitHelper {
+
+	public static final String[] referType = (String[]) performanceBaseInfo.keySet().toArray(new String[performanceBaseInfo.keySet().size()]);
 	public static void beautifyImageViews(ImageView[] imageViews) {
 		for (int i = 0; i < imageViews.length; i++) {
 			ImageView tempImage = imageViews[i];

@@ -1,7 +1,6 @@
 package dataupdate;
 
 import beans.FundRealTimeInfo;
-import blimpl.fof.FundRealTimeInfoGetter;
 import entities.FundRealtimeInfoEntity;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
