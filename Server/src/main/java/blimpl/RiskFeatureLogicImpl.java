@@ -61,7 +61,7 @@ public class RiskFeatureLogicImpl extends UnicastRemoteObject implements RiskFea
     @Override
     public double getJansen(String code) throws RemoteException {
         try {
-            MWNumericArray base = getBasePrice();
+            MWNumericArray base = getBasePrice("I000300");
             MWNumericArray fund = getFundRise(code);
             ConstParameter constParameter = baseInfoLogic.getConstaParameteer();
             Object[] objs = MatlabBoot.getCalculateTool().calJensen(1, fund, base, constParameter
@@ -76,7 +76,7 @@ public class RiskFeatureLogicImpl extends UnicastRemoteObject implements RiskFea
     @Override
     public double getTreynor(String code) throws RemoteException {
         try {
-            MWNumericArray base = getBasePrice();
+            MWNumericArray base = getBasePrice("I000300");
             MWNumericArray fund = getFundRise(code);
             ConstParameter constParameter = baseInfoLogic.getConstaParameteer();
             Object[] objs = MatlabBoot.getCalculateTool().calTreynor(1, fund, base, constParameter
@@ -107,8 +107,8 @@ public class RiskFeatureLogicImpl extends UnicastRemoteObject implements RiskFea
                 .map(e -> e.rise / 100).collect(Collectors.toList()));
     }
 
-    private MWNumericArray getBasePrice() throws Exception {
-        return TypeConverter.convertList(marketLogic.getPriceInfo("I000300", UnitType.DAY, 252)
+    private MWNumericArray getBasePrice(String code) throws Exception {
+        return TypeConverter.convertList(marketLogic.getPriceInfo(code, UnitType.DAY, 252)
                 .stream().map(e -> e.rise / 100).collect(Collectors.toList()));
     }
 }

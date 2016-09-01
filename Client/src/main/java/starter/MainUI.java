@@ -37,6 +37,8 @@ import java.util.concurrent.TimeUnit;
  * Created by tj on 2016/8/17.
  */
 public class MainUI extends Application {
+
+
 	public MainUI() {
 	}
 
@@ -53,7 +55,7 @@ public class MainUI extends Application {
 	private final double normalHeight = 768;
 
 	private BaseInfoLogic baseInfoLogic;
-
+	public static int index=0;
 
 	public static double sizeRatio;
 	public static int s = -1;
@@ -114,6 +116,13 @@ public class MainUI extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
+	}
+
+	public void setIndex(int i){
+		index=i;
+	}
+	public static int getIndex(){
+		return index;
 	}
 
 	/**

@@ -151,7 +151,7 @@ public class DataUpdate {
         Session se = HibernateBoot.openSession();
         Transaction transaction = se.beginTransaction();
         List li = se.createQuery("select max(date) from  NetWorthEntity where code=:code and " +
-                "fqnet is not null").setString("code", code).list();
+                "fqWorth is not null").setString("code", code).list();
         String startDate;
         if (li == null || li.size() == 0) {
             startDate = "1000-01-01";
@@ -194,10 +194,10 @@ public class DataUpdate {
     public static void main(String[] args) throws Exception {
         HibernateBoot.init();
         DataUpdate dataUpdate = new DataUpdate();
-//        dataUpdate.updateQuickinfo();
+        dataUpdate.updateQuickinfo();
 //        dataUpdate.updateFundRank();
 //        dataUpdate.updateNetWorth();
-        dataUpdate.updateFundRealTimeInfo();
+//        dataUpdate.updateFundRealTimeInfo();
 //        dataUpdate.updateFqWorth();
     }
 }

@@ -78,8 +78,7 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <TabPane fx:id="tabPanel" layoutY="64.0" prefHeight="520.0" prefWidth="930.0" tabClosingPolicy="UNAVAILABLE" />
-      <Button fx:id="backBtn" onAction="#toAnalyseHomePanel" layoutX="14.0" layoutY="27.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="23.0" prefWidth="23.0" style="-fx-background-color: transparent;" textFill="WHITE" />
+      <Button fx:id="backBtn" layoutX="14.0" layoutY="27.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toAnalyseHomePanel" prefHeight="23.0" prefWidth="23.0" style="-fx-background-color: transparent;" textFill="WHITE" />
       <Button fx:id="tab1Btn" layoutX="43.0" layoutY="22.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="114.0" style="-fx-background-color: transparent;" textFill="WHITE" />
       <Button fx:id="tab6Btn" layoutX="684.0" layoutY="22.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="114.0" style="-fx-background-color: transparent;" textFill="WHITE" />
       <Button fx:id="tab4Btn" layoutX="424.0" layoutY="22.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="114.0" style="-fx-background-color: transparent;" textFill="WHITE" />
@@ -92,5 +91,6 @@
          </font>
       </Label>
       <Button fx:id="tab7Btn" layoutX="814.0" layoutY="22.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="114.0" style="-fx-background-color: transparent;" textFill="WHITE" />
+      <AnchorPane fx:id="contentPanel" layoutY="64.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="930.0" />
    </children>
 </AnchorPane>

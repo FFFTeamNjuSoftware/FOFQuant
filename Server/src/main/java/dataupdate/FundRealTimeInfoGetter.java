@@ -1,15 +1,13 @@
-package blimpl.fof;
+package dataupdate;
 
 import beans.FundRealTimeInfo;
-import blimpl.AnalyseFundJSResult;
-import blimpl.AnalyseFundJSResultImpl;
+import dataupdate.AnalyseFundJSResult;
+import dataupdate.AnalyseFundJSResultImpl;
 import com.google.gson.Gson;
 import exception.ObjectExistedException;
 import util.HttpTool;
 
 import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by Daniel on 2016/8/30.

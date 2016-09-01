@@ -2,7 +2,7 @@ package blimpl.fofTest;
 
 import bl.BaseInfoLogic;
 import blimpl.BLController;
-import blimpl.fof.FundRealTimeInfoGetter;
+import dataupdate.FundRealTimeInfoGetter;
 import com.google.gson.Gson;
 import org.junit.After;
 import org.junit.Before;

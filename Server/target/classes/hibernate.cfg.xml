@@ -12,12 +12,20 @@
         <property name="connection.username">root</property>
         <property name="connection.password">123456</property>
         <!--<property name="connection.url">-->
+<<<<<<< HEAD
             <!--<![CDATA[jdbc:mysql://57be9e812240b.sh.cdb.myqcloud.com:4970/fofquant?useUnicode=true&characterEncoding=utf8]]>-->
+=======
+        <!--<![CDATA[jdbc:mysql://57be9e812240b.sh.cdb.myqcloud.com:4970/fofquant?useUnicode=true&characterEncoding=utf8]]>-->
+>>>>>>> origin/master
         <!--</property>-->
         <!--<property name="connection.driver_class">com.mysql.jdbc.Driver</property>-->
         <!--<property name="dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>-->
         <!--<property name="connection.username">cdb_outerroot</property>-->
         <!--<property name="connection.password">fff123456</property>-->
+<<<<<<< HEAD
+=======
+        <mapping class="entities.FundRankEntity"/>
+>>>>>>> origin/master
         <mapping class="entities.AssetAllocationEntity"/>
         <mapping class="entities.FundInfosEntity"/>
         <mapping class="entities.IndustryHoldInfoEntity"/>
@@ -30,7 +38,6 @@
         <mapping class="entities.FundQuickInfosEntity"/>
         <mapping class="entities.CompanyInfoEntity"/>
         <mapping class="entities.ConstParameterEntity"/>
-        <mapping class="entities.FundRankEntity"/>
         <mapping class="entities.FundRealtimeInfoEntity"/>
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hbm2ddl.auto">update</property> -->

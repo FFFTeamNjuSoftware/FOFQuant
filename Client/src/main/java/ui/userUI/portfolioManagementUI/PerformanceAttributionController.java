@@ -54,6 +54,12 @@ public class PerformanceAttributionController implements Initializable {
     private TableColumn<PerformanceAttribution, String> periodProfitRate;
     @FXML
     private TableColumn<PerformanceAttribution, String> category;
+    @FXML
+    private TableColumn<PerformanceAttribution, String> beginingPerValue;
+    @FXML
+    private TableColumn<PerformanceAttribution, String> beginingHoldNum;
+    @FXML
+    private TableColumn<PerformanceAttribution, String> beginingTotalValue;
 
     private FOFPerformanceAttributionLogic logic;
 
@@ -135,7 +141,12 @@ public class PerformanceAttributionController implements Initializable {
                 cellData.getValue().periodProfitFinishProfit + ""));
         periodProfitRate.setCellValueFactory(cellData -> new SimpleStringProperty(
                 cellData.getValue().periodProfitRate + ""));
-
+        beginingPerValue.setCellValueFactory(cellData -> new SimpleStringProperty(
+                cellData.getValue().beginingPerValue + ""));
+        beginingHoldNum.setCellValueFactory(cellData -> new SimpleStringProperty(
+                cellData.getValue().beginingHoldNum + ""));
+        beginingTotalValue.setCellValueFactory(cellData -> new SimpleStringProperty(
+                cellData.getValue().beginingTotalValue + ""));
 
         table.setRowFactory(tv -> {
             TableRow<PerformanceAttribution> row = new TableRow<>();

@@ -32,6 +32,10 @@
     -fx-background-color: #FFFFFF;
      -fx-opacity: 0.7;
 }
+.table-view  .scroll-bar:horizontal{
+    -fx-background-color: #FFFFFF;
+    -fx-opacity: 0.7;
+}
 .table-view .column-header .label {
     -fx-font-size: 12px;
     -fx-font-family: "Arial";
@@ -102,3 +106,7 @@
 /*.list-view{*/
     /*-fx-background-image: url("../images/buildFundBt.png");*/
 /*}*/
+#performanceTable  .scroll-bar:horizontal{
+    -fx-background-color: #FFFFFF;
+    -fx-opacity: 0.7;
+}

@@ -1,10 +1,9 @@
 package startup;
 
 import CalculateTool.CalculateTool;
-import com.google.gson.Gson;
 import com.mathworks.toolbox.javabuilder.MWException;
 import com.mathworks.toolbox.javabuilder.MWNumericArray;
-import exception.NotInitialedExcepiton;
+import exception.NotInitialedException;
 import matlabtool.TypeConverter;
 
 import java.util.Arrays;
@@ -24,13 +23,13 @@ public class MatlabBoot {
         }
     }
 
-    public static CalculateTool getCalculateTool() throws NotInitialedExcepiton {
+    public static CalculateTool getCalculateTool() throws NotInitialedException {
         if (calculateTool == null)
-            throw new NotInitialedExcepiton("matlab class IndexCal has not initialed");
+            throw new NotInitialedException("matlab class IndexCal has not initialed");
         return calculateTool;
     }
 
-    public static void main(String[] args) throws NotInitialedExcepiton {
+    public static void main(String[] args) throws NotInitialedException {
         List<Double> doubleList = Arrays.asList(1.2, 1.3, 0.5, 1.6, 1.4, 1.12, 0.92);
         MWNumericArray mwNumericArray = TypeConverter.convertList(doubleList);
         try {

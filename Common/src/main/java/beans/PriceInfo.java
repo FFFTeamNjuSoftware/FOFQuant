@@ -26,4 +26,13 @@ public class PriceInfo implements Serializable {
      * 累计净值（基金有，指数没有）
      */
     public double total_netWorth;
+
+    public PriceInfo copy() {
+        PriceInfo info = new PriceInfo();
+        info.date = this.date;
+        info.price = this.price;
+        info.rise = this.rise;
+        info.total_netWorth = this.total_netWorth;
+        return info;
+    }
 }

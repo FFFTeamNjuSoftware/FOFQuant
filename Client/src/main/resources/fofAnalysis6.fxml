@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="930.0" styleClass="root" stylesheets="@css/stageView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.userUI.portfolioManagementUI.changePositionUIController">
+   <children>
+      <TableView fx:id="table" blendMode="LIGHTEN" layoutX="24.0" layoutY="17.0" prefHeight="472.0" prefWidth="882.0">
+        <columns>
+          <TableColumn minWidth="0.0" prefWidth="436.0">
+               <columns>
+                  <TableColumn fx:id="opDateColumn" prefWidth="110.0" resizable="false" text="操作日期" />
+                  <TableColumn fx:id="changeDateColumn" prefWidth="110.0" text="调仓日期" />
+                  <TableColumn fx:id="idColumn" minWidth="0.0" prefWidth="100.0" text="证券代码" />
+                  <TableColumn fx:id="nameColumn" prefWidth="120.0" text="证券简称" />
+               </columns>
+            </TableColumn>
+            <TableColumn prefWidth="154.0" text="买入">
+               <columns>
+                  <TableColumn fx:id="inNumColumn" prefWidth="100.0" text="买入数量" />
+                  <TableColumn fx:id="inPriceColumn" prefWidth="120.0" text="买入价格" />
+               </columns>
+            </TableColumn>
+            <TableColumn minWidth="0.0" prefWidth="222.0" text="卖出">
+               <columns>
+                  <TableColumn fx:id="outNumColumn" prefWidth="100.0" text="卖出数量" />
+                  <TableColumn fx:id="outPriceColumn" prefWidth="120.0" resizable="false" text="卖出价格" />
+               </columns>
+            </TableColumn>
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
