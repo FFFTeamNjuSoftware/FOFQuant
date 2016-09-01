@@ -30,7 +30,7 @@ public class PositionChangeEntity {
     }
 
     @Basic
-    @Column(name = "changeDate", nullable = true, length = 255)
+    @Column(name = "fof_code", nullable = true, length = 255)
     public String getFofCode() {
         return fofCode;
     }
