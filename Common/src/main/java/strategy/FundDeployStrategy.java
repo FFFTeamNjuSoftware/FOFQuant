@@ -27,7 +27,7 @@ public interface FundDeployStrategy {
     public Map<String, List<Double>> getCodeFee(List<String> funds, int N) throws RemoteException;
 
     /**
-     * 根据代码排名情况获得权重分配
+     * 根据代码排名情况获得权重分配后组合的夏普比率
      * @param codeRank
      * @param N
      * @param window
@@ -35,7 +35,7 @@ public interface FundDeployStrategy {
      * @return
      * @throws RemoteException
      */
-    public void AdjustiveFundDeploy(List<String> codeRank, int N, int window, int hold) throws RemoteException;
+    public double calSharpe(List<String> codeRank, int N, int window, int hold) throws RemoteException;
 
         /**
          * 获得回测结果,可指定日期

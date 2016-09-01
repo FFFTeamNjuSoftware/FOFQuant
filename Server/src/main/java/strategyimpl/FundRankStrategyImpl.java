@@ -159,6 +159,11 @@ public class FundRankStrategyImpl implements FundRankStrategy {
         return rank;
     }
 
+    @Override
+    public double getRiskIndex(String fundcode, TimeType timeType) throws RemoteException {
+        return 0;
+    }
+
     public Map<String,ArrayList<Double>> Sequence(Map<String,Double> index){
         Map<String,ArrayList<Double>> rank=new HashMap<>();
         List<Map.Entry<String,Double>> fundCodes=new ArrayList<Map.Entry<String, Double>>(index.entrySet());
@@ -201,33 +206,6 @@ public class FundRankStrategyImpl implements FundRankStrategy {
             rank.put(code,sta);
         }
         return rank;
-    }
-
-
-    @Override
-    public double getRiskIndex(String fundcode, TimeType timeType) throws RemoteException{
-        double returnRate=0.0;
-        double noRiskRate=0.0;
-        int month=0;
-        switch (timeType){
-            case THREE_YEAR:
-                month=12*3;
-                break;
-            default:
-                month=12;
-        }
-        //获得同类基金的个数N
-        int N=1;
-        double tr=0.0;
-        double dtr=0.0;
-        double dr=0.0;
-//        for(int i=0;i<month;i++) {
-//            returnRate = this.getFundReturnRate(fundcode,i+1,timeType);
-//            noRiskRate=this.getFundNoRiskRate(fundcode,i+1);
-//            tr=(returnRate-noRiskRate<0)?(returnRate-noRiskRate):0;
-//            dtr=-tr/month;
-//        }
-        return 0;
     }
 
 
