@@ -3,8 +3,8 @@ package exception;
 /**
  * Created by Daniel on 2016/8/18.
  */
-public class NotInitialedExcepiton extends AbstractException {
-    public NotInitialedExcepiton(String message) {
+public class NotInitialedException extends AbstractException {
+    public NotInitialedException(String message) {
         setMessage(message);
     }
 
