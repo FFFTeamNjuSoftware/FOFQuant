@@ -80,13 +80,14 @@ public class Analysis2Controller implements Initializable {
 	public void initComboboxes() {
 //		this gradeCombobox
 		gradeCb.setItems(FXCollections.observableArrayList(InitHelper.referType));
+		gradeCb.getSelectionModel().selectFirst();
 		gradeCb.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				if (!oldValue.equals(newValue)) {
-					String indexCode = performanceBaseInfo.get(newValue);
 					try {
-						profitAnalyseLogic.setProformanceBase(indexCode);
+						profitAnalyseLogic.setProformanceBase(performanceBaseInfo.get(newValue));
+						initTable();
 					} catch (RemoteException e) {
 						e.printStackTrace();
 					} catch (ObjectNotFoundException e) {
@@ -97,7 +98,6 @@ public class Analysis2Controller implements Initializable {
 			}
 
 		});
-		gradeCb.getSelectionModel().selectFirst();
 
 
 		LocalDateTime nowLocalDate = LocalDateTime.now();
@@ -140,8 +140,6 @@ public class Analysis2Controller implements Initializable {
 		endCb.setItems(FXCollections.observableArrayList(endDateList));
 		endCb.getSelectionModel().selectFirst();
 		endCb.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Date>() {
-
-
 			@Override
 			public void changed(ObservableValue<? extends Date> observable, Date oldValue, Date newValue) {
 				if (!oldValue.toString().equals(newValue.toString())) {
@@ -172,7 +170,7 @@ public class Analysis2Controller implements Initializable {
 
 		try {
 			profitAnalyse_three = profitAnalyseLogic.getFOFProfitAnalyse(TimeType.THREE_MONTH);
-			profitAnalyse_half = profitAnalyseLogic.getFOFProfitAnalyse(TimeType.SIS_MONTH);
+			profitAnalyse_half = profitAnalyseLogic.getFOFProfitAnalyse(TimeType.SIX_MONTH);
 			profitAnalyse_year = profitAnalyseLogic.getFOFProfitAnalyse(TimeType.SIN_THIS_YEAR);
 			profitAnalyse_establish = profitAnalyseLogic.getFOFProfitAnalyse(TimeType.SINCE_ESTABLISH);
 		} catch (RemoteException e) {

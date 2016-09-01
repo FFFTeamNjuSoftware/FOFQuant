@@ -53,7 +53,7 @@ public class analyseHomeUIController implements Initializable {
     @FXML
     public void toMonitorPanel(){
         generalAnalysisUIController.setTab(0);
-        mainUI.changeScene("user_guidePanel","generalAnalysisPanel");
+        mainUI.changeScene("user_guidePanel","fofAnalysis1");
     }
 
     @FXML

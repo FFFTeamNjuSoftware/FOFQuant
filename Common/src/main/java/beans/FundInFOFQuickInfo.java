@@ -11,22 +11,18 @@ public class FundInFOFQuickInfo implements Serializable {
      */
     public String fundCode;
     /**
+     * 基金名字
+     */
+    public String fundName;
+     /**
      * 更新时间
      */
     public String time;
     /**
-     * 基金名字
-     */
-    public String fundName;
-    /**
      * 基金类型
      */
     public String fundType;
-    /**
-     * 预测净值
-     */
-    public double predictNetValue;
-    /**
+     /**
      * 预测涨跌
      */
     public double predictRiseValue;
@@ -35,9 +31,17 @@ public class FundInFOFQuickInfo implements Serializable {
      */
     public double predictRise;
     /**
+     * 预测净值
+     */
+    public double predictNetValue;
+       /**
      * 持有量
      */
     public double holdNum;
+    /**
+     * 持仓成本
+     */
+    public double cost;
     /**
      * 持仓市值
      */
@@ -70,9 +74,6 @@ public class FundInFOFQuickInfo implements Serializable {
      * 已实现盈亏
      */
     public double finishedProfit;
-    /**
-     * 持仓成本
-     */
-    public double cost;
+    
 
 }

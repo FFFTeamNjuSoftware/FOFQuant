@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.*?>
-<?import javafx.geometry.*?>
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="930.0" styleClass="root" stylesheets="@css/stageView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.userUI.portfolioManagementUI.Analysis2Controller">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="930.0" styleClass="root" stylesheets="@css/stageView.css" xmlns="http://javafx.com/javafx/8.0.71" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.userUI.portfolioManagementUI.Analysis1Controller">
    <children>
       <AnchorPane layoutY="64.0" prefHeight="520.0" prefWidth="930.0">
          <children>
@@ -26,38 +25,40 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                      <HBox.margin>
-                        <Insets left="658.0" />
+                        <Insets left="638.0" />
                      </HBox.margin>
                   </Label>
-                  <ComboBox fx:id="gradeCb" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="100.0" style="-fx-background-color: #057DC8; -fx-color: #ffffff;">
-                     <padding>
+                  <ComboBox fx:id="gradeCb" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="120.0" style="-fx-background-color: #057DC8; -fx-color: #ffffff;">
+                     <!--<padding>
                         <Insets left="30.0" right="20.0" />
-                     </padding>
+                     </padding>-->
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
                   </ComboBox>
                </children>
             </HBox>
-            <HBox layoutX="44.0" layoutY="34.0" prefHeight="238.0" prefWidth="828.0" visible="false">
-               <children>
-                  <TableView fx:id="netWorthTable" blendMode="LIGHTEN" minHeight="-Infinity" minWidth="-Infinity" prefHeight="238.0" prefWidth="828.0">
-                     <columns>
-                        <TableColumn fx:id="categoryCm" maxWidth="65.0" minWidth="20.0" prefWidth="65.0" resizable="false" text="分类" />
-                        <TableColumn fx:id="codeCm" maxWidth="100.0" minWidth="20.0" prefWidth="100.0" text="证券代码" />
-                        <TableColumn fx:id="abbreviationCm" maxWidth="85.0" minWidth="20.0" prefWidth="85.0" text="证券简称" />
-                        <TableColumn fx:id="latestPriceCm" maxWidth="90.0" minWidth="20.0" prefWidth="90.0" text="最新价" />
-                        <TableColumn fx:id="changeCm" maxWidth="80.0" minWidth="20.0" text="涨跌" />
-                        <TableColumn fx:id="quoteChangeCm" maxWidth="62.0" minWidth="20.0" prefWidth="62.0" text="涨跌幅" />
-                        <TableColumn fx:id="positionNumCm" maxWidth="62.0" minWidth="20.0" prefWidth="62.0" text="持仓数量" />
-                        <TableColumn fx:id="positionValueCm" maxWidth="100.0" minWidth="20.0" prefWidth="100.0" text="持仓市值（元）" />
-                        <TableColumn fx:id="latestWeightCm" maxWidth="76.0" minWidth="20.0" prefWidth="76.0" text="最新权重" />
-                        <TableColumn fx:id="nowBreakevenCm" maxWidth="85.0" minWidth="20.0" prefWidth="85.0" text="当日盈亏（元）" />
-                        <TableColumn fx:id="floatCm" maxWidth="37.0" minWidth="20.0" prefWidth="37.0" text="浮动" />
-                     </columns>
-                  </TableView>
-               </children>
-            </HBox>
+            <TableView fx:id="netWorthTable" blendMode="LIGHTEN" layoutX="52.0" layoutY="36.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="238.0" prefWidth="828.0">
+               <columns>
+                  <TableColumn fx:id="fundCodeCm" maxWidth="100.0" minWidth="20.0" prefWidth="100.0" text="基金代码" />
+                  <TableColumn fx:id="fundNameCm" maxWidth="85.0" minWidth="20.0" prefWidth="85.0" text="基金简称" />
+                  <TableColumn fx:id="fundTypeCm" maxWidth="90.0" minWidth="20.0" prefWidth="90.0" text="基金类型" />
+                  <TableColumn fx:id="timeCm" prefWidth="75.0" text="更新日期" />
+                  <TableColumn fx:id="predictRiseValueCm" maxWidth="80.0" minWidth="20.0" text="预测涨跌" />
+                  <TableColumn fx:id="predictRiseCm" maxWidth="62.0" minWidth="20.0" prefWidth="62.0" text="预测涨跌幅" />
+                  <TableColumn fx:id="predictNetValueCm" prefWidth="75.0" text="预测净值" />
+                  <TableColumn fx:id="holdNumCm" maxWidth="62.0" minWidth="20.0" prefWidth="62.0" text="持仓数量" />
+                  <TableColumn fx:id="costCm" maxWidth="65.0" minWidth="20.0" prefWidth="65.0" resizable="false" text="持仓成本" />
+                  <TableColumn fx:id="positionValueCm" maxWidth="100.0" minWidth="20.0" prefWidth="100.0" text="持仓市值（元）" />
+                  <TableColumn fx:id="newestWeightCm" maxWidth="76.0" minWidth="20.0" prefWidth="76.0" text="最新权重" />
+                  <TableColumn fx:id="dayProfitCm" maxWidth="85.0" minWidth="20.0" prefWidth="85.0" text="当日盈亏（元）" />
+                  <TableColumn fx:id="floatProfitCm" maxWidth="37.0" minWidth="20.0" prefWidth="37.0" text="浮动盈亏" />
+                  <TableColumn fx:id="floatProfitRatioCm" prefWidth="75.0" text="浮动盈亏率" />
+                  <TableColumn fx:id="totalProfitCm" prefWidth="75.0" text="累计盈亏" />
+                  <TableColumn fx:id="totalProfitRatioCm" prefWidth="75.0" text="累计盈亏率" />
+                  <TableColumn prefWidth="75.0" text="已实现盈亏" />
+               </columns>
+            </TableView>
             <AnchorPane layoutY="274.0" prefHeight="246.0" prefWidth="930.0">
                <children>
                   <Line endX="930.0" />
@@ -88,25 +89,27 @@
                               <Insets bottom="10.0" />
                            </VBox.margin>
                            <children>
-                              <ComboBox fx:id="chartCb2" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="70.0" style="-fx-background-color: #057DC8; -fx-color: #ffffff;">
-                                 <padding>
+                              <ComboBox fx:id="chartCb1" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="70.0" style="-fx-background-color: #057DC8; -fx-color: #ffffff;">
+                                 <!--<padding>
                                     <Insets left="30.0" right="20.0" />
-                                 </padding>
+                                 </padding>-->
+                              </ComboBox>
+                              <ComboBox fx:id="chartCb2" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="70.0" style="-fx-background-color: #057DC8; -fx-color: #ffffff;">
+                                 <!--<padding>
+                                    <Insets left="30.0" right="20.0" />
+                                 </padding>-->
                                  <HBox.margin>
-                                    <Insets />
+                                    <Insets left="10.0" />
                                  </HBox.margin>
                               </ComboBox>
-                              <ComboBox fx:id="chartCb3" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="70.0" style="-fx-background-color: #057DC8; -fx-color: #ffffff;">
-                                 <padding>
-                                    <Insets left="30.0" right="20.0" />
-                                 </padding>
+                              <ComboBox fx:id="chartCb3" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="90.0" style="-fx-background-color: #057DC8; -fx-color: #ffffff;">
                                  <HBox.margin>
                                     <Insets left="10.0" />
                                  </HBox.margin>
                               </ComboBox>
                               <Label prefHeight="20.0" prefWidth="25.0" text="—" textFill="#935563">
                                  <HBox.margin>
-                                    <Insets left="348.0" />
+                                    <Insets left="320.0" />
                                  </HBox.margin>
                                  <font>
                                     <Font size="14.0" />
