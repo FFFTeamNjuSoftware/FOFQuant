@@ -120,8 +120,8 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
         //调用小类matlab策略
         //策略返回w矩阵和rpturn数组
         //rpturn数组计算出对应的Sharpe比率
-        int adjust=Math.floor((length-window)/hold);
-        double[][] w=new double[20][N];
+        int adjust=(int)Math.floor((length-window)/hold);
+        double[][] w=new double[adjust][N];
 
         double sharpe=0.0;
 
