@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="930.0" styleClass="root" stylesheets="@css/stageView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Line endX="930.0" layoutY="272.0" stroke="#bbbbbb" />
+      <Label layoutX="29.0" styleClass=".tab-label" text="基金走势" textFill="WHITE">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="118.0" styleClass=".tab-label" text="组合透视" textFill="WHITE">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="29.0" layoutY="28.0" prefHeight="15.0" prefWidth="869.0" style="-fx-background-color: #23A3F3;" text="-权益类基金" textFill="WHITE">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="31.0" layoutY="161.0" prefHeight="15.0" prefWidth="869.0" style="-fx-background-color: #23A3F3;" text="+固定收益类基金" textFill="WHITE">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Label>
+      <TableView blendMode="LIGHTEN" layoutX="29.0" layoutY="47.0" prefHeight="112.0" prefWidth="869.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn prefWidth="50.0" text="YTD" />
+            <TableColumn prefWidth="50.0" text="3月" />
+            <TableColumn prefWidth="50.0" text="6月" />
+            <TableColumn prefWidth="50.0" text="1年" />
+            <TableColumn prefWidth="50.0" text="2年" />
+            <TableColumn prefWidth="50.0" text="3年" />
+            <TableColumn prefWidth="50.0" text="5年" />
+            <TableColumn prefWidth="50.0" text="总回报" />
+            <TableColumn prefWidth="69.0" text="年化回报" />
+        </columns>
+      </TableView>
+      <TableView blendMode="LIGHTEN" layoutX="31.0" layoutY="180.0" prefHeight="89.0" prefWidth="869.0">
+         <columns>
+            <TableColumn prefWidth="75.0" text="C1" />
+            <TableColumn prefWidth="50.0" text="YTD" />
+            <TableColumn prefWidth="50.0" text="3月" />
+            <TableColumn prefWidth="50.0" text="6月" />
+            <TableColumn prefWidth="50.0" text="1年" />
+            <TableColumn prefWidth="50.0" text="2年" />
+            <TableColumn prefWidth="50.0" text="3年" />
+            <TableColumn prefWidth="50.0" text="5年" />
+            <TableColumn prefWidth="50.0" text="总回报" />
+            <TableColumn prefWidth="69.0" text="年化回报" />
+         </columns>
+      </TableView>
+      <AnchorPane layoutY="272.0" prefHeight="248.0" prefWidth="467.0">
+         <children>
+            <Label layoutX="149.0" layoutY="4.0" text="权益类基金净值表现" textFill="WHITE">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <ComboBox layoutX="14.0" layoutY="34.0" prefHeight="30.0" prefWidth="135.0" promptText="复权单位净值" style="-fx-background-color: #23A3F3;" />
+            <ComboBox layoutX="166.0" layoutY="34.0" prefHeight="30.0" prefWidth="68.0" promptText="周" style="-fx-background-color: #23A3F3;" />
+            <ComboBox layoutX="255.0" layoutY="34.0" prefHeight="30.0" prefWidth="78.0" promptText="1M" style="-fx-background-color: #23A3F3;" />
+            <LineChart layoutX="13.0" layoutY="86.0" prefHeight="125.0" prefWidth="441.0">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </LineChart>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="467.0" layoutY="272.0" prefHeight="248.0" prefWidth="467.0">
+         <children>
+            <Label layoutX="149.0" layoutY="4.0" text="固定收益类基金净值表现" textFill="WHITE">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <ComboBox layoutX="14.0" layoutY="34.0" prefHeight="30.0" prefWidth="135.0" promptText="复权单位净值" style="-fx-background-color: #23A3F3;" />
+            <ComboBox layoutX="166.0" layoutY="34.0" prefHeight="30.0" prefWidth="68.0" promptText="周" style="-fx-background-color: #23A3F3;" />
+            <ComboBox layoutX="255.0" layoutY="34.0" prefHeight="30.0" prefWidth="78.0" promptText="1M" style="-fx-background-color: #23A3F3;" />
+            <LineChart layoutX="13.0" layoutY="86.0" prefHeight="125.0" prefWidth="441.0">
+               <xAxis>
+                  <CategoryAxis side="BOTTOM" />
+               </xAxis>
+               <yAxis>
+                  <NumberAxis side="LEFT" />
+               </yAxis>
+            </LineChart>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
