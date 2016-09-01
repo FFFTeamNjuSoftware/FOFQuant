@@ -16,6 +16,7 @@ public class StartUp {
 //                FOFProfitAnalyse fofProfitAnalyse = BLInterfaces.getFofProfitAnalyseLogic().getFOFProfitAnalyse
 //                        (TimeType.ONE_MONTH);
 //                System.out.println(new Gson().toJson(fofProfitAnalyse));
+        System.out.println(BLInterfaces.getFofRealTimeMonitorLogic().getFundInFOFQuickinfo().get(0).holdValue);
         System.out.println(LocalTime.now());
         double alpha = BLInterfaces.getProfitFeatureLogic().getAlpha("000001");
         double beta = BLInterfaces.getRiskFeature().getBeta("000001");
