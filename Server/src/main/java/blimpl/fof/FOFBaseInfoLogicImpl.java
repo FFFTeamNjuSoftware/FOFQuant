@@ -8,6 +8,7 @@ import bl.fof.FOFBaseInfoLogic;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Daniel on 2016/8/26.
@@ -28,6 +29,12 @@ public class FOFBaseInfoLogicImpl extends UnicastRemoteObject implements FOFBase
             }
         return instance;
     }
+
+    @Override
+    public Map<String, List<String>> getFundCodeInFOF() throws RemoteException {
+        return null;
+    }
+
     @Override
     public FOFQuickInfo getFOFQuickInfo() throws RemoteException {
         return null;
@@ -42,4 +49,6 @@ public class FOFBaseInfoLogicImpl extends UnicastRemoteObject implements FOFBase
     public List<PriceInfo> getFOFPriceInfos() throws RemoteException {
         return null;
     }
+
+
 }
