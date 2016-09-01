@@ -70,7 +70,9 @@ public class MarketLogicImplTest {
      */
     @Test
     public void testGetPriceInfoForCodeTypeCounts() throws Exception {
-//TODO: Test goes here...
+        System.out.println(marketLogic.getPriceInfo("000001", UnitType.DAY,252).size());
+        marketLogic.getPriceInfo("000001", UnitType.DAY,252).forEach(e -> System.out
+                .println("YEAR" + new Gson().toJson(e)));
     }
 
     /**

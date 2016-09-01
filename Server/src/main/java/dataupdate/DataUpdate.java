@@ -195,9 +195,9 @@ public class DataUpdate {
         HibernateBoot.init();
         DataUpdate dataUpdate = new DataUpdate();
 //        dataUpdate.updateQuickinfo();
-        dataUpdate.updateFundRank();
+//        dataUpdate.updateFundRank();
 //        dataUpdate.updateNetWorth();
 //        dataUpdate.updateFundRealTimeInfo();
-//        dataUpdate.updateFqWorth();
+        dataUpdate.updateFqWorth();
     }
 }

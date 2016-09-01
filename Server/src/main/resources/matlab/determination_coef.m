@@ -1,13 +1,13 @@
-function re = determination_coef( x,y )
+function R2 = determination_coef( x,y )
 %UNTITLED3 Summary of this function goes here
 %   Detailed explanation goes here
-length=size(x,2);
-segema_x=starndarDeviation(x);
-segema_y=starndarDeviation(y);
-x_ave=mean(x);
-y_ave=mean(y);
-cov_xy=sum((x-x_ave).*(y-y_ave))/(length-1);
-re=cov_xy/(segema_x*segema_y);
-re=re^2;
+[a,b]=regressionEquation( x,y );
+n=size(x,2);
+ave_x=sum(x)/n;
+ave_y=sum(y)/n;
+SStot=sum((y-ave_y).^2);
+SSreg=sum((b*x+a-ave_y).^2);
+SSres=sum((y-b*x-a).^2);
+R2=1-SSres/SStot;
 end
 

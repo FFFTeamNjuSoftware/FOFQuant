@@ -1,9 +1,10 @@
-function [ alpha,beta ] = singleIndexModule( base,data,Rf)
+function [ alpha,beta ] = singleIndexModule( base,data,Rf,T)
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
 n=size(base,2);
-yearProfit=sum(data)/n*252;
-baseYearProfit=sum(base)/n*252;
+times=252/T;
+yearProfit=sum(data)/n*times;
+baseYearProfit=sum(base)/n*times;
 ave_base=sum(base)/n;
 ave_data=sum(data)/n;
 cov_bd=sum((base-ave_base).*(data-ave_data))/(n-1);

@@ -28,7 +28,6 @@ public class TypeConverter {
     }
 
     public static double[] getDoubleResults(Object[] objs, int resultNumber) {
-        List<MWNumericArray> mwNumericArrays = new ArrayList<>();
         double[] result = new double[resultNumber];
         for (int i = 0; i < resultNumber; i++) {
             result[i] = ((MWNumericArray) objs[i]).getDouble(1);

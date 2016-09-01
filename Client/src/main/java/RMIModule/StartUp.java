@@ -1,5 +1,13 @@
 package RMIModule;
 
+import beans.FOFProfitAnalyse;
+import bl.fof.FOFProfitAnalyseLogic;
+import bl.fof.FOFProfitStatisticsLogic;
+import com.google.gson.Gson;
+import util.FOFUtilInfo;
+import util.IndexCodeInfo;
+import util.TimeType;
+
 import java.time.LocalTime;
 
 /**
@@ -16,16 +24,19 @@ public class StartUp {
 //                FOFProfitAnalyse fofProfitAnalyse = BLInterfaces.getFofProfitAnalyseLogic().getFOFProfitAnalyse
 //                        (TimeType.ONE_MONTH);
 //                System.out.println(new Gson().toJson(fofProfitAnalyse));
-        System.out.println(BLInterfaces.getFofRealTimeMonitorLogic().getFundInFOFQuickinfo().get(0).holdValue);
         System.out.println(LocalTime.now());
         double alpha = BLInterfaces.getProfitFeatureLogic().getAlpha("000001");
         double beta = BLInterfaces.getRiskFeature().getBeta("000001");
         double sd = BLInterfaces.getRiskFeature().getStandardDeviation("000001");
         double sharpe = BLInterfaces.getRiskFeature().getSharpe("000001");
+        FOFProfitAnalyseLogic fofProfitAnalyseLogic=BLInterfaces.getFofProfitAnalyseLogic();
+        fofProfitAnalyseLogic.setProformanceBase(FOFUtilInfo.performanceBaseInfo.get("沪深300"));
+        FOFProfitAnalyse fofProfitAnalyse = fofProfitAnalyseLogic.getFOFProfitAnalyse(TimeType.THREE_MONTH);
         System.out.println(LocalTime.now());
         System.out.println(sd);
         System.out.println(sharpe);
         System.out.println(alpha + "," + beta);
+        System.out.println(new Gson().toJson(fofProfitAnalyse));
         System.out.println("success");
     }
 }

@@ -161,7 +161,7 @@ public class CalculateDataHandler {
         Map<String, List<Double>> result = new HashMap<>();
         for (String key : priceInfos.keySet()) {
             List<PriceInfo> priceInfo = priceInfos.get(key);
-            result.put(key, priceInfo.stream().map(e -> e.rise).collect(Collectors.toList()));
+            result.put(key, priceInfo.stream().map(e -> e.rise/100).collect(Collectors.toList()));
         }
         return result;
     }

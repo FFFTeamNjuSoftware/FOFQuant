@@ -33,6 +33,11 @@ public class DataServiceController {
         public IndexDataService getIndexDataService() {
             return new IndexDataServiceImpl();
         }
+
+        @Override
+        public FOFDataService getFOFDataService() {
+            return new FOFDataServiceImpl();
+        }
     };
     private static DataServiceCreator stubCreator = new DataServiceCreator() {
         @Override
@@ -58,6 +63,11 @@ public class DataServiceController {
         @Override
         public IndexDataService getIndexDataService() {
             return new IndexDataServiceStub();
+        }
+
+        @Override
+        public FOFDataService getFOFDataService() {
+            return new FOFDataServiceImpl();
         }
     };
 

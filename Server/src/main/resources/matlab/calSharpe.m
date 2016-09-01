@@ -1,8 +1,9 @@
-function sharpe = calSharpe( data,Rf )
+function sharpe = calSharpe( data,Rf,T )
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 b=size(data,2);
-yearProfit=sum(data)/b*252;
-sharpe=(yearProfit-Rf)/yearWaveRate(data);
+times=252/T;
+yearProfit=sum(data)/b*times;
+sharpe=(yearProfit-Rf)/yearWaveRate(data,T);
 end
 

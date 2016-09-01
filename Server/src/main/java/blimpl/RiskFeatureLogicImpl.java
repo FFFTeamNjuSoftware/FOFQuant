@@ -65,7 +65,7 @@ public class RiskFeatureLogicImpl extends UnicastRemoteObject implements RiskFea
             MWNumericArray fund = getFundRise(code);
             ConstParameter constParameter = baseInfoLogic.getConstaParameteer();
             Object[] objs = MatlabBoot.getCalculateTool().calJensen(1, fund, base, constParameter
-                    .noRiskProfit / 100);
+                    .noRiskProfit / 100, 1.0);
             return ((MWNumericArray) objs[0]).getDouble(1);
         } catch (Exception e) {
             e.printStackTrace();
@@ -80,7 +80,7 @@ public class RiskFeatureLogicImpl extends UnicastRemoteObject implements RiskFea
             MWNumericArray fund = getFundRise(code);
             ConstParameter constParameter = baseInfoLogic.getConstaParameteer();
             Object[] objs = MatlabBoot.getCalculateTool().calTreynor(1, fund, base, constParameter
-                    .noRiskProfit / 100);
+                    .noRiskProfit / 100, 1.0);
             return ((MWNumericArray) objs[0]).getDouble(1);
         } catch (Exception e) {
             e.printStackTrace();
@@ -94,7 +94,7 @@ public class RiskFeatureLogicImpl extends UnicastRemoteObject implements RiskFea
             MWNumericArray fund = getFundRise(code);
             ConstParameter constParameter = baseInfoLogic.getConstaParameteer();
             Object[] objs = MatlabBoot.getCalculateTool().calSharpe(1, fund, constParameter
-                    .noRiskProfit / 100);
+                    .noRiskProfit / 100, 1.0);
             return ((MWNumericArray) objs[0]).getDouble(1);
         } catch (Exception e) {
             e.printStackTrace();

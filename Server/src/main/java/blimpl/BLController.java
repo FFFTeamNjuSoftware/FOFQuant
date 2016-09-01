@@ -227,8 +227,8 @@ public class BLController {
         //    currentCreator = stubCreator;
           currentCreator = trueCreator;
 
-        currentFOFCreator=fofStubCreator;
-//        currentFOFCreator=fofTrueCreator;
+//        currentFOFCreator=fofStubCreator;
+        currentFOFCreator=fofTrueCreator;
     }
 
     public static BaseInfoLogic getBaseInfoLogic() {
