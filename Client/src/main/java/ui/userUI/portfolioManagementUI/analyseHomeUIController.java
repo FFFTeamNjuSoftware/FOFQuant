@@ -18,6 +18,7 @@ import java.util.ResourceBundle;
  * Created by QiHan on 2016/8/26.
  */
 public class analyseHomeUIController implements Initializable {
+    public static final String GENERAL_ANALYSIS_PANEL = "generalAnalysisPanel";
     private analyseHomeUIController analyseHomeUIController;
     private generalAnalysisUIController generalAnalysisUIController= new generalAnalysisUIController();
     @FXML
@@ -53,13 +54,13 @@ public class analyseHomeUIController implements Initializable {
     @FXML
     public void toMonitorPanel(){
         mainUI.setIndex(0);
-        mainUI.changeScene("user_guidePanel","fofAnalysis1");
+        mainUI.changeScene("user_guidePanel","generalAnalysisPanel");
     }
     @FXML
     public void toBreakevenPanel(){
         mainUI.setIndex(1);
         // generalAnalysisUIController.setK(1);
-        mainUI.changeScene("user_guidePanel","fofAnalysis2");
+        mainUI.changeScene("user_guidePanel","generalAnalysisPanel");
     }
 
     @FXML

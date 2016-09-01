@@ -50,7 +50,6 @@ public class generalAnalysisUIController implements Initializable {
                 images[i].setVisible(false);
             }
          }
-
          String panelName="fofAnalysis"+(k+1);
          AnchorPane pane = FXMLHelper.loadPanel(panelName);
          contentPanel.getChildren().addAll(pane);
@@ -86,7 +85,6 @@ public class generalAnalysisUIController implements Initializable {
 
 
     }
-
 
     @FXML
     private void toAnalyseHomePanel() {
