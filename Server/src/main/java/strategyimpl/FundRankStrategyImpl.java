@@ -111,6 +111,7 @@ public class FundRankStrategyImpl implements FundRankStrategy {
 
     public Map<String ,ArrayList<Double>> refreshFundRank(TimeType timeType) throws RemoteException{
         Map<String,ArrayList<Double>> rank=this.getFundRankByDate(timeType,CalendarOperate.formatCalender(Calendar.getInstance()));
+        System.out.println("END");
         return rank;
     }
 
