@@ -7,6 +7,7 @@ import bl.MarketLogic;
 import blimpl.BLController;
 import dataservice.BaseInfoDataService;
 import dataserviceimpl.DataServiceController;
+import entities.FundDeployEntity;
 import entities.FundInfosEntity;
 import entities.FundRankEntity;
 import exception.ObjectNotFoundException;
@@ -29,7 +30,7 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
     private BaseInfoDataService baseInfoDataService;
     private BaseInfoLogic baseInfoLogic;
     private MarketLogic marketLogic;
-    private String startDate = "2011-01-01";
+    private String startDate = "2013-01-01";
     private String endDate = "2015-12-31";
 
     public FundDeployStrategyImpl() {
@@ -70,16 +71,18 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
             List<String> sortedCodes = this.sort(fixProfitRank);
             int[] windows = {90, 180, 360};
             int[] holds = {30, 60, 90};
-            int N;
+            List<Double> sharpes=new ArrayList<>();
 //            for (int window : windows) {
 //                for (int hold : holds) {
-                    for (N = 2; N <= 6; N++) {
-                        System.out.println(N+"begin");
-                        this.AdjustiveFundDeploy(sortedCodes, N, 360, 30);
-
+                    for (int N = 2; N <= 6; N++) {
+//                        System.out.println(N+"begin");
+                        double sharpe=this.calSharpe(sortedCodes, N, 360, 30);
+                        FundDeployEntity fundDeployEntity=new FundDeployEntity();
+                        sharpes.add(sharpe);
                     }
 //                }
 //            }
+            //对sharpe数组进行排序
         } catch (ObjectNotFoundException e) {
             e.printStackTrace();
         }
@@ -92,7 +95,7 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
     }
 
     @Override
-    public void AdjustiveFundDeploy(List<String> sortedCodes, int N, int window, int hold) throws RemoteException {
+    public double calSharpe(List<String> sortedCodes, int N, int window, int hold) throws RemoteException {
         //读取系统中前N只固定收益型股票的2013.12-2015.12收盘价数据,每只基金对应的费率
         if (sortedCodes.size() < N) {
             N = sortedCodes.size();
@@ -100,6 +103,7 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
         Map<String, List<Double>> codePrices = this.getCodePrices(sortedCodes, N);
         Map<String, List<Double>> codeFee = this.getCodeFee(sortedCodes, N);
 
+        //算出最少包含的天数
         int length=0;
         for(String codePrice:codePrices.keySet()){
             if(length==0) {
@@ -112,7 +116,16 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
         }
 
         this.writeToTXT(codePrices,codeFee,N,window,hold,length);
+        //根据codePrices和codeFee生成dataPrice和dataFee矩阵
+        //调用小类matlab策略
+        //策略返回w矩阵和rpturn数组
+        //rpturn数组计算出对应的Sharpe比率
+        int adjust=Math.floor((length-window)/hold);
+        double[][] w=new double[20][N];
 
+        double sharpe=0.0;
+
+        return sharpe;
     }
 
     public Map<String, List<Double>> getCodePrices(List<String> funds, int N) throws RemoteException {
@@ -125,9 +138,11 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
                 //<基金,收盘价序列>
                 List<Double> prices = new ArrayList<>();
                 for (int j = 0; j < priceInfos.size(); j++) {
+//                    System.out.print(priceInfos.get(j).date+"  ");
                     prices.add(priceInfos.get(j).price);
                 }
                 codePrices.put(code, prices);
+                System.out.println(code);
                 i++;
             }
 
@@ -200,7 +215,7 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
                 for (String fundcode : codePrices.keySet()) {
                     double close = codePrices.get(fundcode).get(day);
                     if(day==0) {
-                        System.out.print(close+"  ");
+                        System.out.println(close+"  "+fundcode);
                     }
                     bufferedWriter.write(close + " ");
                     if (day == 0) {
