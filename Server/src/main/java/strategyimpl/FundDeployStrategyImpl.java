@@ -29,7 +29,7 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
     private BaseInfoDataService baseInfoDataService;
     private BaseInfoLogic baseInfoLogic;
     private MarketLogic marketLogic;
-    private String startDate = "2013-12-31";
+    private String startDate = "2011-01-01";
     private String endDate = "2015-12-31";
 
     public FundDeployStrategyImpl() {
@@ -48,7 +48,7 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
     @Override
     public List DefaultFundDeploy() throws RemoteException {
         //获得系统中所有固定收益类基金的排名
-        List<FundQuickInfo> fundQuickInfos = null;
+        List<FundQuickInfo> fundQuickInfos;
         try {
             fundQuickInfos = baseInfoLogic.getFundQuickInfo(SectorType.FIX_PROFIT_TYPE);
             HashMap<String, Double> fixProfitRank = new HashMap<>();
@@ -58,9 +58,9 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
                 try {
                     code = fundQuickInfo.code;
                     fundRankEntity = baseInfoDataService.getFundRankInfo(code);
-                    Double rank = fundRankEntity.getRank();
-                    if (rank != null) {
-                        fixProfitRank.put(code, rank);
+                    Double grade = fundRankEntity.getGrade();
+                    if (grade != null) {
+                        fixProfitRank.put(code, grade);
                     }
                 } catch (ObjectNotFoundException e) {
                     continue;
@@ -99,6 +99,7 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
         }
         Map<String, List<Double>> codePrices = this.getCodePrices(sortedCodes, N);
         Map<String, List<Double>> codeFee = this.getCodeFee(sortedCodes, N);
+
         int length=0;
         for(String codePrice:codePrices.keySet()){
             if(length==0) {
@@ -116,9 +117,7 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
 
     public Map<String, List<Double>> getCodePrices(List<String> funds, int N) throws RemoteException {
         Map<String, List<Double>> codePrices = new HashMap<>();
-        int size = 0;
         try {
-            size = marketLogic.getPriceInfo(funds.get(0), UnitType.DAY, startDate, endDate).size();
             int i = 0;
             while (i < N) {
                 String code = funds.get(i);
@@ -197,10 +196,12 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
             FileWriter feeFileWriter = new FileWriter(feeFile.getName());
             BufferedWriter bufferedWriter1 = new BufferedWriter(feeFileWriter);
 
-            System.out.println(length+"codePriceSize!!!");
             for (int day = 0; day < length; day++) {
                 for (String fundcode : codePrices.keySet()) {
                     double close = codePrices.get(fundcode).get(day);
+                    if(day==0) {
+                        System.out.print(close+"  ");
+                    }
                     bufferedWriter.write(close + " ");
                     if (day == 0) {
                         for (int i = 0; i < 3; i++) {
@@ -233,13 +234,15 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
 //                }else{
 //                    return 1;
 //                }
-                return o2.getValue().compareTo(o1.getValue());
+                return o1.getValue().compareTo(o2.getValue());
             }
         });
         List<String> codesAfterSort=new ArrayList<>();
+        System.out.println("Sorting codes!");
         for(int i=0;i<fundCodes.size();i++) {
             codesAfterSort.add(fundCodes.get(i).getKey());
         }
+        System.out.println("End Sorting");
         return codesAfterSort;
     }
 
