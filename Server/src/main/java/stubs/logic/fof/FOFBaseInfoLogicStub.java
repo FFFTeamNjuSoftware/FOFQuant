@@ -3,11 +3,14 @@ package stubs.logic.fof;
 import beans.FOFQuickInfo;
 import beans.PriceInfo;
 import bl.fof.FOFBaseInfoLogic;
+import util.SectorType;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Daniel on 2016/8/28.
@@ -32,6 +35,14 @@ public class FOFBaseInfoLogicStub extends UnicastRemoteObject implements FOFBase
     @Override
     public FOFQuickInfo getFOFQuickInfo(String code) throws RemoteException {
         return getFOFQuickInfo();
+    }
+
+    @Override
+    public Map<String, List<String>> getFundCodeInFOF() throws RemoteException {
+        Map<String, List<String>> infos = new HashMap<>();
+        infos.put(SectorType.FIX_PROFIT_TYPE, Arrays.asList("002441", "519061", "519060"));
+        infos.put(SectorType.RIGHTS_TYPE, Arrays.asList("165525", "512880", "162107", "002588"));
+        return infos;
     }
 
     @Override

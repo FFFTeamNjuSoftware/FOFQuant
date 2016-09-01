@@ -149,11 +149,11 @@ public class FundRankStrategyImpl implements FundRankStrategy {
                 }
                 index.put(code, mrar);
             }
-            System.out.println(index.keySet().size()+"!!!");
+
             Map<String, ArrayList<Double>> sortedIndex = this.Sequence(index);
-            System.out.println(sortedIndex.keySet().size() + "!!!" + sectorTypes.get(i));
+
             rank.putAll(sortedIndex);
-            System.out.println(rank.keySet().size()+"  !!!  ");
+
         }
         return rank;
     }

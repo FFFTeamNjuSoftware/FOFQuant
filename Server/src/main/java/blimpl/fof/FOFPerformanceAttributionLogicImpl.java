@@ -15,6 +15,10 @@ import java.util.List;
  */
 public class FOFPerformanceAttributionLogicImpl extends UnicastRemoteObject implements
         FOFPerformanceAttributionLogic {
+    private String startDate;
+    private String endDate;
+    private String baseCode;
+    private String fof_code;
 
     private FOFPerformanceAttributionLogicImpl() throws RemoteException {
 
@@ -31,19 +35,20 @@ public class FOFPerformanceAttributionLogicImpl extends UnicastRemoteObject impl
             }
         return instance;
     }
+
     @Override
     public void setStartDate(String startDate) throws ParameterException, RemoteException {
-
+        this.startDate = startDate;
     }
 
     @Override
     public void setEndDate(String endDate) throws ParameterException, RemoteException {
-
+        this.endDate = endDate;
     }
 
     @Override
     public void setProformanceBase(String indexCode) throws RemoteException, ObjectNotFoundException {
-
+        this.baseCode = indexCode;
     }
 
     @Override

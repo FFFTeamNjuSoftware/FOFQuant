@@ -1,5 +1,7 @@
 package bl;
 
+import beans.InvestStyleAnalyse;
+import beans.RiskProfitIndex;
 import exception.ObjectNotFoundException;
 
 import java.rmi.Remote;
@@ -48,4 +50,23 @@ public interface ProfitFeatureLogic extends Remote {
      * @throws RemoteException
      */
     public double getEnsembleAveProfitRate(String code) throws RemoteException, ObjectNotFoundException;
+
+    /**
+     * 获得风险收益指数
+     * @param code
+     * @return
+     * @throws RemoteException
+     * @throws ObjectNotFoundException
+     */
+    RiskProfitIndex getRiskProfitIndex(String code) throws RemoteException,ObjectNotFoundException;
+
+    /**
+     * 获得投资风格分析
+     * @param code
+     * @return
+     * @throws RemoteException
+     * @throws ObjectNotFoundException
+     */
+    InvestStyleAnalyse getInvestStyleAnalyse(String code) throws RemoteException,
+            ObjectNotFoundException;
 }

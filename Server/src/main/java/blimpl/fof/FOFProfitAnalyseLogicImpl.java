@@ -1,9 +1,12 @@
 package blimpl.fof;
 
 import CalculateTool.CalculateTool;
+import beans.ConstParameter;
 import beans.FOFProfitAnalyse;
 import bl.fof.FOFProfitAnalyseLogic;
+import blimpl.BLController;
 import blimpl.CalculateDataHandler;
+import com.mathworks.toolbox.javabuilder.MWException;
 import com.mathworks.toolbox.javabuilder.MWNumericArray;
 import exception.NotInitialedException;
 import exception.ObjectNotFoundException;
@@ -14,7 +17,6 @@ import util.FOFUtilInfo;
 import util.IndexCodeInfo;
 import util.TimeType;
 
-import java.lang.reflect.Type;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
@@ -152,10 +154,22 @@ public class FOFProfitAnalyseLogicImpl extends UnicastRemoteObject implements FO
             CalculateTool calculateTool = MatlabBoot.getCalculateTool();
             MWNumericArray fof_info_mwn = TypeConverter.convertList(fof_info);
             MWNumericArray base_info_mwn = TypeConverter.convertList(base_info);
-
+            ConstParameter constParameter = BLController.getBaseInfoLogic().getConstaParameteer();
+            double[] alphaBeta = TypeConverter.getDoubleResults(calculateTool.singleIndexModule(2, base_info_mwn,
+                    fof_info_mwn, constParameter.noRiskProfit), 2);
+            fofProfitAnalyse.alpha = alphaBeta[0];
+            fofProfitAnalyse.beta = alphaBeta[1];
+            fofProfitAnalyse.treynor = TypeConverter.getSingleDoubleResult(calculateTool.calTreynor(1,
+                    fof_info_mwn, base_info_mwn));
+            fofProfitAnalyse.sharpe = TypeConverter.getSingleDoubleResult(calculateTool.calSharpe
+                    (1, base_info_mwn, constParameter.noRiskProfit));
+            fofProfitAnalyse.yearWaveRate = TypeConverter.getSingleDoubleResult(calculateTool
+                    .yearWaveRate(1, fof_info_mwn));
         } catch (ObjectNotFoundException e) {
             e.printStackTrace();
         } catch (NotInitialedException e) {
+            e.printStackTrace();
+        } catch (MWException e) {
             e.printStackTrace();
         }
         return null;

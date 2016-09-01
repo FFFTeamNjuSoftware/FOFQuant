@@ -1,6 +1,9 @@
 package stubs.logic;
 
+import beans.InvestStyleAnalyse;
+import beans.RiskProfitIndex;
 import bl.ProfitFeatureLogic;
+import exception.ObjectNotFoundException;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -30,5 +33,15 @@ public class ProfitFeatureLogicStub extends UnicastRemoteObject implements Profi
     @Override
     public double getEnsembleAveProfitRate(String code) throws RemoteException {
         return 4;
+    }
+
+    @Override
+    public RiskProfitIndex getRiskProfitIndex(String code) throws RemoteException, ObjectNotFoundException {
+        return null;
+    }
+
+    @Override
+    public InvestStyleAnalyse getInvestStyleAnalyse(String code) throws RemoteException, ObjectNotFoundException {
+        return null;
     }
 }
