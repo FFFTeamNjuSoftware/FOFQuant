@@ -1,6 +1,8 @@
 package blimpl;
 
+import beans.InvestStyleAnalyse;
 import beans.PriceInfo;
+import beans.RiskProfitIndex;
 import bl.MarketLogic;
 import bl.ProfitFeatureLogic;
 import exception.ObjectNotFoundException;
@@ -91,5 +93,15 @@ public class ProfitFeatureLogicImpl extends UnicastRemoteObject implements Profi
         }
         ave_rise = Math.pow(ave_rise, 1.0 / n) - 1;
         return NumberOpe.controlDecimalDouble(ave_rise, 2);
+    }
+
+    @Override
+    public RiskProfitIndex getRiskProfitIndex(String code) throws RemoteException, ObjectNotFoundException {
+        return null;
+    }
+
+    @Override
+    public InvestStyleAnalyse getInvestStyleAnalyse(String code) throws RemoteException, ObjectNotFoundException {
+        return null;
     }
 }
