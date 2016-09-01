@@ -111,6 +111,7 @@ public class FundRankStrategyImpl implements FundRankStrategy {
 
     public Map<String ,ArrayList<Double>> refreshFundRank(TimeType timeType) throws RemoteException{
         Map<String,ArrayList<Double>> rank=this.getFundRankByDate(timeType,CalendarOperate.formatCalender(Calendar.getInstance()));
+        System.out.println("END");
         return rank;
     }
 
@@ -149,11 +150,11 @@ public class FundRankStrategyImpl implements FundRankStrategy {
                 }
                 index.put(code, mrar);
             }
-            System.out.println(index.keySet().size()+"!!!");
+
             Map<String, ArrayList<Double>> sortedIndex = this.Sequence(index);
-            System.out.println(sortedIndex.keySet().size() + "!!!" + sectorTypes.get(i));
+
             rank.putAll(sortedIndex);
-            System.out.println(rank.keySet().size()+"  !!!  ");
+
         }
         return rank;
     }

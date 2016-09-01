@@ -95,4 +95,5 @@ public class FOFProfitAnalyse implements Serializable {
      * 詹森系数
      */
     public double Jensen;
+
 }

@@ -23,7 +23,6 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
-import javafx.util.StringConverter;
 import ui.util.InitHelper;
 import util.ChartType;
 import util.TimeType;
@@ -32,7 +31,6 @@ import util.UnitType;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.List;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 import static util.FOFUtilInfo.performanceBaseInfo;
@@ -63,7 +61,7 @@ public class Analysis1Controller implements Initializable {
 	@FXML
 	private ComboBox<TimeType> chartCb3;
 	@FXML
-	private NumberAxis numberAxis;
+	private NumberAxis numAxis;
 	@FXML
 	private CategoryAxis categoryAxis;
 	private Analysis1Controller analysis1Controller;
@@ -260,8 +258,8 @@ public class Analysis1Controller implements Initializable {
 			categoryAxis.setTickLabelsVisible(true);
 //        categoryAxis.setTickLength(10);
 
-			numberAxis.setTickUnit(1);
-			numberAxis.setForceZeroInRange(false);
+			numAxis.setTickUnit(1);
+			numAxis.setForceZeroInRange(false);
 
 			System.out.println();
 
@@ -285,7 +283,8 @@ public class Analysis1Controller implements Initializable {
 						int selectedIndex=TableRowControl.this.getIndex();
 						String fundCode=fundCodeCm.getCellData(selectedIndex);
 						String fundName=fundNameCm.getCellData(selectedIndex);
-						displayNameLb.setText(fundName+" ("+fundCode+") ");
+						displayNameLb.setText(fundName+" ( "+fundCode+" ) ");
+						redLineLb.setText(fundName);
 						initNetWorthChart(fundCode);
 
 //						selectedIndex = TableRowControl.this.getIndex();

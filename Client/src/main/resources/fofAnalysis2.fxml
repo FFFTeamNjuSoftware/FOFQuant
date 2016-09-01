@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -11,9 +15,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="930.0" styleClass="root" stylesheets="@css/stageView.css" xmlns="http://javafx.com/javafx/8.0.71" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.userUI.portfolioManagementUI.Analysis2Controller">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="930.0" styleClass="root" stylesheets="@css/stageView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.userUI.portfolioManagementUI.Analysis2Controller">
    <children>
-      <AnchorPane layoutY="64.0" prefHeight="520.0" prefWidth="930.0">
+      <AnchorPane prefHeight="520.0" prefWidth="930.0">
          <children>
             <HBox layoutX="47.0" prefHeight="24.0" prefWidth="808.0">
                <children>
@@ -25,27 +29,33 @@
                         <Insets />
                      </HBox.margin>-->
                   </Label>
-                  <ComboBox fx:id="startCb" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="100.0" style="-fx-background-color: #057DC8; -fx-color: #ffffff;">
+                  <ComboBox fx:id="startCb" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="110.0" style="-fx-background-color: #057DC8; -fx-color: #ffffff;">
                      <HBox.margin>
-                        <Insets left="20.0" right="20.0" />
+                        <Insets left="20.0" />
                      </HBox.margin>
                   </ComboBox>
                   <Label fx:id="endDateLb" prefHeight="14.0" prefWidth="48.0" text="结束日期">
                      <padding>
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
-                  </Label>
-                  <ComboBox fx:id="endCb" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="100.0" style="-fx-background-color: #057DC8; -fx-color: #ffffff;">
                      <HBox.margin>
-                        <Insets left="20.0" right="274.0" />
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Label>
+                  <ComboBox fx:id="endCb" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="110.0" style="-fx-background-color: #057DC8; -fx-color: #ffffff;">
+                     <HBox.margin>
+                        <Insets left="20.0" />
                      </HBox.margin>
                   </ComboBox>
                   <Label fx:id="gradeLb" prefHeight="14.0" prefWidth="48.0" text="业绩基准">
                      <padding>
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
+                     <HBox.margin>
+                        <Insets left="244.0" />
+                     </HBox.margin>
                   </Label>
-                  <ComboBox fx:id="gradeCb" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="100.0" style="-fx-background-color: #057DC8; -fx-color: #ffffff;">
+                  <ComboBox fx:id="gradeCb" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="120.0" style="-fx-background-color: #057DC8; -fx-color: #ffffff;">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
@@ -54,7 +64,7 @@
             </HBox>
          </children>
       </AnchorPane>
-      <HBox layoutX="47.0" layoutY="124.0" prefHeight="310.0" prefWidth="828.0">
+      <HBox layoutX="47.0" layoutY="60.0" prefHeight="310.0" prefWidth="828.0">
          <children>
             <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="304.0" prefWidth="108.0">
                <children>

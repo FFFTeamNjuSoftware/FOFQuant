@@ -1,9 +1,10 @@
-function re = calTreynor( data,base,Rf )
+function re = calTreynor( data,base,Rf,T)
 %UNTITLED3 Summary of this function goes here
 %   Detailed explanation goes here
-[alpha,beta]=singleIndexModule(base,data);
+[alpha,beta]=singleIndexModule(base,data,Rf,T);
 b=size(data,2);
-profit=sum(data)/b*252;
+times=252/T;
+profit=sum(data)/b*times;
 re=(profit-Rf)/beta;
 end
 

@@ -3,6 +3,7 @@ package ui.userUI.portfolioManagementUI;
 import RMIModule.BLInterfaces;
 import beans.FOFProfitAnalyse;
 import beans.FOFQuickInfo;
+import bl.fof.FOFBaseInfoLogic;
 import bl.fof.FOFProfitAnalyseLogic;
 import exception.ObjectNotFoundException;
 import exception.ParameterException;
@@ -37,47 +38,50 @@ import static util.FOFUtilInfo.performanceBaseInfo;
  */
 public class Analysis2Controller implements Initializable {
 	@FXML
-	private ComboBox<Date> startCb, endCb;
+	private ComboBox<LocalDate> startCb, endCb;
 	@FXML
 	private ComboBox<String> gradeCb;
 	@FXML
 	private Label startDateLb, endDateLb;
 	private Analysis2Controller analysis2Controller;
 	private FOFProfitAnalyseLogic profitAnalyseLogic;
+	private FOFBaseInfoLogic fofBaseInfoLogic;
 	private FOFProfitAnalyse profitAnalyse_three, profitAnalyse_half, profitAnalyse_year, profitAnalyse_establish;
 	@FXML
 	private TableView table1, table2;
 	@FXML
 	private TableColumn table1column1, table1column2, table1column3, table1column4, table2column1, table2column2, table2column3, table2column4;
+	private FOFQuickInfo fofQuickInfo;
 
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		this.analysis2Controller = this;
 		this.profitAnalyseLogic = BLInterfaces.getFofProfitAnalyseLogic();
-		table1.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-		table2.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-		table1.addEventFilter(ScrollEvent.SCROLL,new EventHandler<ScrollEvent>() {
-			@Override
-			public void handle(ScrollEvent event) {
-				if (event.getDeltaX() != 0) {
-					event.consume();
-				}
-			}
-		});
-		table2.addEventFilter(ScrollEvent.SCROLL,new EventHandler<ScrollEvent>() {
-			@Override
-			public void handle(ScrollEvent event) {
-				if (event.getDeltaX() != 0) {
-					event.consume();
-				}
-			}
-		});
+		this.fofBaseInfoLogic=BLInterfaces.getFofBaseInfoLogic();
+
+
+//		table1.addEventFilter(ScrollEvent.SCROLL,new EventHandler<ScrollEvent>() {
+//			@Override
+//			public void handle(ScrollEvent event) {
+//				if (event.getDeltaX() != 0) {
+//					event.consume();
+//				}
+//			}
+//		});
+//		table2.addEventFilter(ScrollEvent.SCROLL,new EventHandler<ScrollEvent>() {
+//			@Override
+//			public void handle(ScrollEvent event) {
+//				if (event.getDeltaX() != 0) {
+//					event.consume();
+//				}
+//			}
+//		});
 		initComboboxes();
 		initTable();
 	}
 
-	public void initComboboxes() {
+	public void initComboboxes()  {
 //		this gradeCombobox
 		gradeCb.setItems(FXCollections.observableArrayList(InitHelper.referType));
 		gradeCb.getSelectionModel().selectFirst();
@@ -93,64 +97,66 @@ public class Analysis2Controller implements Initializable {
 					} catch (ObjectNotFoundException e) {
 						e.printStackTrace();
 					}
-					initTable();
 				}
 			}
 
 		});
-
-
-		LocalDateTime nowLocalDate = LocalDateTime.now();
 //		init startCombobox
-		LocalDateTime startTempDate = nowLocalDate.minusDays(90);
-		List<Date> startDateList = new ArrayList<Date>();
-		int i = 0;
+		try {
+			fofQuickInfo=fofBaseInfoLogic.getFOFQuickInfo();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		LocalDate nowDate=LocalDate.now();
+		LocalDate  nowLocalDate=LocalDate.parse(fofQuickInfo.establish_date);
+		LocalDate startTempDate=nowLocalDate;
+		List<LocalDate> startDateList = new ArrayList<LocalDate>();
 		do {
-			startDateList.add(Date.from(startTempDate.atZone(ZoneId.systemDefault()).toInstant()));
+			startDateList.add(startTempDate);
 			startTempDate = startTempDate.plusDays(1);
-			i++;
-		} while (i < 30);
+		} while (startTempDate.isBefore(nowDate));
 		startCb.setItems(FXCollections.observableArrayList(startDateList));
 		startCb.getSelectionModel().selectFirst();
-		startCb.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Date>() {
+		startCb.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<LocalDate>() {
+
 			@Override
-			public void changed(ObservableValue<? extends Date> observable, Date oldValue, Date newValue) {
-				if (!oldValue.toString().equals(newValue.toString())) {
-					try {
-						profitAnalyseLogic.setStartDate(newValue.toString());
-					} catch (RemoteException e) {
-						e.printStackTrace();
-					} catch (ParameterException e) {
-						e.printStackTrace();
-					}
+			public void changed(ObservableValue<? extends LocalDate> observable, LocalDate oldValue, LocalDate newValue) {
+				try {
+					profitAnalyseLogic.setStartDate(newValue.toString());
 					initTable();
+				} catch (ParameterException e) {
+					e.printStackTrace();
+				} catch (RemoteException e) {
+					e.printStackTrace();
 				}
 			}
 		});
 
+
 //		init endCombobox
-		List<Date> endDateList = new ArrayList<Date>();
-		LocalDateTime endTempDate = nowLocalDate;
-		int j = 0;
-		do {
-			endDateList.add(Date.from(endTempDate.atZone(ZoneId.systemDefault()).toInstant()));
-			endTempDate = endTempDate.minusDays(1);
-			j++;
-		} while (j < 30);
+		List<LocalDate> endDateList = startDateList;
+		Collections.sort(endDateList, new Comparator<LocalDate>() {
+			@Override
+			public int compare(LocalDate o1, LocalDate o2) {
+				if(o1.isBefore(o2)){
+					return 1;
+				}else{
+					return -1;
+				}
+			}
+		});
 		endCb.setItems(FXCollections.observableArrayList(endDateList));
 		endCb.getSelectionModel().selectFirst();
-		endCb.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Date>() {
+		endCb.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<LocalDate>() {
 			@Override
-			public void changed(ObservableValue<? extends Date> observable, Date oldValue, Date newValue) {
-				if (!oldValue.toString().equals(newValue.toString())) {
-					try {
-						profitAnalyseLogic.setEndDate(newValue.toString());
-					} catch (RemoteException e) {
-						e.printStackTrace();
-					} catch (ParameterException e) {
-						e.printStackTrace();
-					}
+			public void changed(ObservableValue<? extends LocalDate> observable, LocalDate oldValue, LocalDate newValue) {
+				try {
+					profitAnalyseLogic.setEndDate(newValue.toString());
 					initTable();
+				} catch (ParameterException e) {
+					e.printStackTrace();
+				} catch (RemoteException e) {
+					e.printStackTrace();
 				}
 			}
 		});
@@ -167,7 +173,12 @@ public class Analysis2Controller implements Initializable {
 	}
 
 	public void initTable() {
-
+		if(table1.getItems()!=null){
+			table1.getItems().clear();
+		}
+		if(table2.getItems()!=null){
+			table2.getItems().clear();
+		}
 		try {
 			profitAnalyse_three = profitAnalyseLogic.getFOFProfitAnalyse(TimeType.THREE_MONTH);
 			profitAnalyse_half = profitAnalyseLogic.getFOFProfitAnalyse(TimeType.SIX_MONTH);
@@ -176,6 +187,9 @@ public class Analysis2Controller implements Initializable {
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
+		System.out.println("profitAnalyse_three.test:"+profitAnalyse_three.alpha+"--"+LocalDateTime.now());
+		table1.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+		table2.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
 		table1.setItems(FXCollections.observableArrayList(new TableData(
 				profitAnalyse_three.totalProfit, profitAnalyse_half.totalProfit, profitAnalyse_year.totalProfit, profitAnalyse_establish.totalProfit), new TableData(
