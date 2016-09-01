@@ -32,12 +32,17 @@ public class AlphaBetaCal {
             ConstParameter constParameter = baseInfoLogic.getConstaParameteer();
             Object[] objs = MatlabBoot.getCalculateTool().singleIndexModule(2, TypeConverter
                     .convertList(base), TypeConverter.convertList(data), constParameter
-                    .noRiskProfit / 100);
+                    .noRiskProfit / 100, 1.0);
             double[] re = new double[2];
+            System.out.println("————————————————————");
+            for(Object obj:objs)
+                System.out.println(obj);
+            System.out.println("————————————————————");
             MWNumericArray array = (MWNumericArray) objs[0];
             MWNumericArray array1 = (MWNumericArray) objs[1];
             re[0] = array.getDouble(1);
             re[1] = array1.getDouble(1);
+            System.out.println(re[0] + "," + re[1]);
             return re;
         } catch (NotInitialedException e) {
             e.printStackTrace();

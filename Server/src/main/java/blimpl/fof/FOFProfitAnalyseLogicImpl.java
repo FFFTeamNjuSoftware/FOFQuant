@@ -15,8 +15,10 @@ import matlabtool.TypeConverter;
 import startup.MatlabBoot;
 import util.FOFUtilInfo;
 import util.IndexCodeInfo;
+import util.NumberOpe;
 import util.TimeType;
 
+import java.lang.reflect.Type;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
@@ -33,7 +35,7 @@ public class FOFProfitAnalyseLogicImpl extends UnicastRemoteObject implements FO
 
     private FOFProfitAnalyseLogicImpl() throws RemoteException {
         fof_code = FOFUtilInfo.FOF_CODE;
-
+        baseCode = "I000300";
     }
 
     private static FOFProfitAnalyseLogic instance;
@@ -96,7 +98,6 @@ public class FOFProfitAnalyseLogicImpl extends UnicastRemoteObject implements FO
                 if (fofRise >= 0) {
                     if (sign >= 0) {
                         sequence_num++;
-                        sign = fofRise;
                     } else {
                         int tem_sequence = i - 1 - last_min_rise_index;
                         max_drop_recover_num = (tem_sequence > max_drop_recover_num)
@@ -104,12 +105,11 @@ public class FOFProfitAnalyseLogicImpl extends UnicastRemoteObject implements FO
                         last_min_rise_index = i - 1;
                         max_drop_sequence_num = (sequence_num > max_drop_sequence_num)
                                 ? sequence_num : max_drop_sequence_num;
-
+                        sequence_num = 1;
                     }
                 } else {
                     if (sign < 0) {
                         sequence_num++;
-                        sign = fofRise;
                     } else {
                         int tem_sequence = i - 1 - last_max_rise_index;
                         max_rise_recover_num = (tem_sequence > max_rise_recover_num)
@@ -117,8 +117,10 @@ public class FOFProfitAnalyseLogicImpl extends UnicastRemoteObject implements FO
                         last_max_rise_index = i - 1;
                         max_rise_sequence_num = (sequence_num > max_rise_sequence_num)
                                 ? sequence_num : max_rise_sequence_num;
+                        sequence_num = 1;
                     }
                 }
+                sign = fofRise;
             }
             int i = fof_info.size() - 1;
             while (true) {
@@ -140,31 +142,44 @@ public class FOFProfitAnalyseLogicImpl extends UnicastRemoteObject implements FO
                 i--;
             }
             FOFProfitAnalyse fofProfitAnalyse = new FOFProfitAnalyse();
-            fofProfitAnalyse.totalProfit = total_profit;
-            fofProfitAnalyse.relatedTotalProfit = releted_total_profit;
+            fofProfitAnalyse.totalProfit = total_profit * 100;
+            fofProfitAnalyse.relatedTotalProfit = releted_total_profit * 100;
             fofProfitAnalyse.maxRise = max_rise;
             fofProfitAnalyse.minRise = min_rise;
             fofProfitAnalyse.maxRiseDays = max_rise_sequence_num;
             fofProfitAnalyse.minRiseDays = max_drop_sequence_num;
             fofProfitAnalyse.maxRiseRecoverDays = max_rise_recover_num;
             fofProfitAnalyse.minRiseRecoverDays = max_drop_recover_num;
-            fofProfitAnalyse.yearProfitRate = total_profit / fof_info.size() * 252;
-            fofProfitAnalyse.yearRelatedProfitRate = releted_total_profit / fof_info.size() * 252;
+            fofProfitAnalyse.yearProfitRate = total_profit / fof_info.size() * 252 * 100;
+            fofProfitAnalyse.yearRelatedProfitRate = releted_total_profit / fof_info.size() *
+                    252 * 100;
 
             CalculateTool calculateTool = MatlabBoot.getCalculateTool();
             MWNumericArray fof_info_mwn = TypeConverter.convertList(fof_info);
             MWNumericArray base_info_mwn = TypeConverter.convertList(base_info);
             ConstParameter constParameter = BLController.getBaseInfoLogic().getConstaParameteer();
             double[] alphaBeta = TypeConverter.getDoubleResults(calculateTool.singleIndexModule(2, base_info_mwn,
-                    fof_info_mwn, constParameter.noRiskProfit), 2);
-            fofProfitAnalyse.alpha = alphaBeta[0];
-            fofProfitAnalyse.beta = alphaBeta[1];
+                    fof_info_mwn, constParameter.noRiskProfit / 100, 1.0), 2);
+            fofProfitAnalyse.alpha = alphaBeta[0] ;
+            fofProfitAnalyse.beta = alphaBeta[1] ;
             fofProfitAnalyse.treynor = TypeConverter.getSingleDoubleResult(calculateTool.calTreynor(1,
-                    fof_info_mwn, base_info_mwn));
+                    fof_info_mwn, base_info_mwn, constParameter.noRiskProfit / 100, 1.0)) ;
             fofProfitAnalyse.sharpe = TypeConverter.getSingleDoubleResult(calculateTool.calSharpe
-                    (1, base_info_mwn, constParameter.noRiskProfit));
+                    (1, fof_info_mwn, constParameter.noRiskProfit / 100, 1.0)) ;
             fofProfitAnalyse.yearWaveRate = TypeConverter.getSingleDoubleResult(calculateTool
-                    .yearWaveRate(1, fof_info_mwn));
+                    .yearWaveRate(1, fof_info_mwn, 1.0)) ;
+            fofProfitAnalyse.correlationCoefficent = TypeConverter.getSingleDoubleResult
+                    (calculateTool.relatedIndex(1, base_info_mwn, fof_info_mwn)) ;
+            fofProfitAnalyse.R2 = TypeConverter.getSingleDoubleResult(calculateTool
+                    .determination_coef(1, fof_info_mwn, base_info_mwn)) ;
+            fofProfitAnalyse.sortino = TypeConverter.getSingleDoubleResult(calculateTool
+                    .calSortino(1, fof_info_mwn, constParameter.noRiskProfit / 100, 1.0));
+            fofProfitAnalyse.trackingError = TypeConverter.getSingleDoubleResult(calculateTool
+                    .trackingError(1, base_info_mwn, fof_info_mwn));
+            fofProfitAnalyse.Jensen = TypeConverter.getSingleDoubleResult(calculateTool.calJensen
+                    (1, fof_info_mwn, base_info_mwn, constParameter.noRiskProfit / 100, 1.0));
+            NumberOpe.controlDecimal(fofProfitAnalyse, 2);
+            return fofProfitAnalyse;
         } catch (ObjectNotFoundException e) {
             e.printStackTrace();
         } catch (NotInitialedException e) {

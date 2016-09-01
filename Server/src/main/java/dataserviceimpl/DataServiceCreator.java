@@ -15,4 +15,6 @@ public interface DataServiceCreator {
     UserDataService getUserDataService();
 
     IndexDataService getIndexDataService();
+
+    FOFDataService getFOFDataService();
 }
