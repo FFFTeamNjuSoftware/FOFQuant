@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
@@ -14,9 +21,9 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="930.0" styleClass="root" stylesheets="@css/stageView.css" xmlns="http://javafx.com/javafx/8.0.71" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.userUI.portfolioManagementUI.Analysis1Controller">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="930.0" styleClass="root" stylesheets="@css/stageView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.userUI.portfolioManagementUI.Analysis1Controller">
    <children>
-      <AnchorPane layoutY="64.0" prefHeight="520.0" prefWidth="930.0">
+      <AnchorPane prefHeight="520.0" prefWidth="930.0">
          <children>
             <HBox layoutX="44.0" prefHeight="24.0" prefWidth="828.0">
                <children>
@@ -40,23 +47,23 @@
             </HBox>
             <TableView fx:id="netWorthTable" blendMode="LIGHTEN" layoutX="52.0" layoutY="36.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="238.0" prefWidth="828.0">
                <columns>
-                  <TableColumn fx:id="fundCodeCm" maxWidth="100.0" minWidth="20.0" prefWidth="100.0" text="基金代码" />
+                  <TableColumn fx:id="fundCodeCm" maxWidth="100.0" minWidth="20.0" prefWidth="70.0" text="基金代码" />
                   <TableColumn fx:id="fundNameCm" maxWidth="85.0" minWidth="20.0" prefWidth="85.0" text="基金简称" />
                   <TableColumn fx:id="fundTypeCm" maxWidth="90.0" minWidth="20.0" prefWidth="90.0" text="基金类型" />
-                  <TableColumn fx:id="timeCm" prefWidth="75.0" text="更新日期" />
-                  <TableColumn fx:id="predictRiseValueCm" maxWidth="80.0" minWidth="20.0" text="预测涨跌" />
-                  <TableColumn fx:id="predictRiseCm" maxWidth="62.0" minWidth="20.0" prefWidth="62.0" text="预测涨跌幅" />
+                  <TableColumn fx:id="timeCm" prefWidth="90.0" text="更新日期" />
+                  <TableColumn fx:id="predictRiseValueCm" maxWidth="80.0" minWidth="20.0" prefWidth="75.0" text="预测涨跌" />
+                  <TableColumn fx:id="predictRiseCm" maxWidth="90.0" minWidth="20.0" text="预测涨跌幅" />
                   <TableColumn fx:id="predictNetValueCm" prefWidth="75.0" text="预测净值" />
                   <TableColumn fx:id="holdNumCm" maxWidth="62.0" minWidth="20.0" prefWidth="62.0" text="持仓数量" />
                   <TableColumn fx:id="costCm" maxWidth="65.0" minWidth="20.0" prefWidth="65.0" resizable="false" text="持仓成本" />
-                  <TableColumn fx:id="positionValueCm" maxWidth="100.0" minWidth="20.0" prefWidth="100.0" text="持仓市值（元）" />
+                  <TableColumn fx:id="holdValueCm" maxWidth="100.0" minWidth="20.0" prefWidth="70.0" text="持仓市值" />
                   <TableColumn fx:id="newestWeightCm" maxWidth="76.0" minWidth="20.0" prefWidth="76.0" text="最新权重" />
-                  <TableColumn fx:id="dayProfitCm" maxWidth="85.0" minWidth="20.0" prefWidth="85.0" text="当日盈亏（元）" />
+                  <TableColumn fx:id="dayProfitCm" maxWidth="85.0" minWidth="20.0" prefWidth="85.0" text="当日盈亏s" />
                   <TableColumn fx:id="floatProfitCm" maxWidth="37.0" minWidth="20.0" prefWidth="37.0" text="浮动盈亏" />
                   <TableColumn fx:id="floatProfitRatioCm" prefWidth="75.0" text="浮动盈亏率" />
                   <TableColumn fx:id="totalProfitCm" prefWidth="75.0" text="累计盈亏" />
                   <TableColumn fx:id="totalProfitRatioCm" prefWidth="75.0" text="累计盈亏率" />
-                  <TableColumn prefWidth="75.0" text="已实现盈亏" />
+                  <TableColumn fx:id="finishedProfitCm" prefWidth="75.0" text="已实现盈亏" />
                </columns>
             </TableView>
             <AnchorPane layoutY="274.0" prefHeight="246.0" prefWidth="930.0">
@@ -109,7 +116,7 @@
                               </ComboBox>
                               <Label prefHeight="20.0" prefWidth="25.0" text="—" textFill="#935563">
                                  <HBox.margin>
-                                    <Insets left="320.0" />
+                                    <Insets left="310.0" />
                                  </HBox.margin>
                                  <font>
                                     <Font size="14.0" />
@@ -128,7 +135,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="buleLineLb" text="中国宝安基准" textFill="#f6f7f8">
+                              <Label fx:id="buleLineLb" text="基金基准" textFill="#f6f7f8">
                                  <padding>
                                     <Insets bottom="2.0" top="3.0" />
                                  </padding>
@@ -150,7 +157,8 @@
                         </HBox>
                         <LineChart fx:id="netWorthChart" prefHeight="180.0" prefWidth="828.0">
                           <xAxis>
-                            <CategoryAxis fx:id="categoryAxis" prefHeight="16.0" prefWidth="807.0" side="BOTTOM" tickLabelRotation="0.5" />
+                             <!--prefHeight="24.0" prefWidth="811.0"-->
+                            <CategoryAxis fx:id="categoryAxis" side="BOTTOM" tickLabelRotation="0.5" />
                           </xAxis>
                           <yAxis>
                             <NumberAxis fx:id="numAxis" side="LEFT" />
