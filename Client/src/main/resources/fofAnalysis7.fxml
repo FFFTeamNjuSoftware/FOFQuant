@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="930.0" styleClass="root" stylesheets="@css/stageView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.userUI.portfolioManagementUI.performanceEvaluationController">
+   <children>
+      <ImageView fx:id="image1" fitHeight="30.0" fitWidth="96.0" layoutX="24.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/images/buttonMedium.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="image2" fitHeight="30.0" fitWidth="96.0" layoutX="133.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@/images/buttonMedium.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="36.0" layoutY="16.0" text="风险收益指标" textFill="WHITE" />
+      <Label layoutX="145.0" layoutY="16.0" text="投资风格分析" textFill="WHITE" />
+      <Button fx:id="btn1" layoutX="26.0" layoutY="9.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="29.0" prefWidth="96.0" style="-fx-background-color: transparent;" textFill="WHITE" />
+      <Button fx:id="btn2" layoutX="133.0" layoutY="8.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="29.0" prefWidth="96.0" style="-fx-background-color: transparent;" textFill="WHITE" />
+      <AnchorPane fx:id="panel" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="470.0" prefWidth="930.0" />
+   </children>
+</AnchorPane>
