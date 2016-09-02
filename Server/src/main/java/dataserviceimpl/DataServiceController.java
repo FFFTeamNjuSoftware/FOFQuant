@@ -98,4 +98,8 @@ public class DataServiceController {
     public static IndexDataService getIndexDataService() {
         return currentCreator.getIndexDataService();
     }
+
+    public static FOFDataService getFOFDataService(){
+        return currentCreator.getFOFDataService();
+    };
 }

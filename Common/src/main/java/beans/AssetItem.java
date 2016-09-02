@@ -17,17 +17,37 @@ public class AssetItem implements Serializable {
     /**
      * 持有量
      */
-    public double holdValue;
+    public double endHoldNum;
+    /**
+     * 持有市值
+     */
+    public double endHoldValue;
     /**
      * 持有比率
      */
-    public double ratio;
+    public double endHoldRatio;
     /**
-     * 总回报
+     * 期末市价
      */
-    public double totalProfit;
+    public double endNetWorth;
     /**
-     * 总回报率
+     * 期间回报
      */
-    public double totalProfitRate;
+    public double periodProfit;
+    /**
+     * 期间回报率
+     */
+    public double periodProfitRate;
+    /**
+     * 期间浮动盈亏
+     */
+    public double periodFloatProfit;
+    /**
+     * 回报贡献
+     */
+    public double profitRatio;
+    /**
+     * 单位回报（回报贡献率/持有比率）
+     */
+    public double unitProfit;
 }

@@ -139,4 +139,33 @@ public class Converter {
         constParameter.noRiskProfit = entity.getNoRiskProfit();
         return constParameter;
     }
+
+    public static PositionChange convertPositionChange(PositionChangeEntity entity) {
+        PositionChange positionChange = new PositionChange();
+        positionChange.buyNum = entity.getBuyNum();
+        positionChange.buyPrice = entity.getBuyPrice();
+        positionChange.changeDate = entity.getChangeDate();
+        positionChange.changeTime = entity.getChangeTime();
+        positionChange.fundCode = entity.getFundCode();
+        positionChange.saleNum = entity.getSaleNum();
+        positionChange.fundName = entity.getFundName();
+        positionChange.salePrice = entity.getSalePrice();
+        return positionChange;
+    }
+
+    public static AssetItem convertFOFAssetAllocation(FofAssetAllocationEntity entity){
+        AssetItem assetItem=new AssetItem();
+        assetItem.code=entity.getFundCode();
+        assetItem.name=entity.getFundName();
+        assetItem.endHoldNum=entity.getEndHoldNum();
+        assetItem.endHoldRatio=entity.getEndHoldRatio();
+        assetItem.endHoldValue=entity.getEndHoldValue();
+        assetItem.endNetWorth=entity.getEndNetWorth();
+        assetItem.periodFloatProfit=entity.getPeriodFloatProfit();
+        assetItem.periodProfit=entity.getPeriodProfit();
+        assetItem.periodProfitRate=entity.getPeriodProfitRate();
+        assetItem.profitRatio=entity.getProfitRatio();
+        assetItem.unitProfit=entity.getUnitProfit();
+        return assetItem;
+    }
 }
