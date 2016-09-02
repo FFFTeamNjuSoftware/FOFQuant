@@ -77,7 +77,7 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
                     for (int N = 2; N <= 6; N++) {
 //                        System.out.println(N+"begin");
                         double sharpe=this.calSharpe(sortedCodes, N, 360, 30);
-                        FundDeployEntity fundDeployEntity=new FundDeployEntity();
+                       // FundDeployEntity fundDeployEntity=new FundDeployEntity();
                         sharpes.add(sharpe);
                     }
 //                }
