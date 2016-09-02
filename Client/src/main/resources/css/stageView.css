@@ -85,10 +85,12 @@
 .chart-series-line0 {
     -fx-stroke:transparent;
     -fx-stroke-width: 0.1px;
+    -fx-color:#ffff0f;
 }
 .chart-series-line1 {
     -fx-stroke:transparent;
     -fx-stroke-width: 0.1px;
+    -fx-color:#ff0fff;
 }
 
 .chart-line-symbol {
@@ -110,3 +112,5 @@
     -fx-background-color: #FFFFFF;
     -fx-opacity: 0.7;
 }
+
+

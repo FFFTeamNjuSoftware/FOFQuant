@@ -5,9 +5,11 @@ package beans;
  */
 
 /**
- * 风险收益指标
+ * 风险收益指标 b
  */
 public class RiskProfitIndex {
+    public String code;
+    public String name;
     public double alpha;
     public double beta;
     public double sharpe;
