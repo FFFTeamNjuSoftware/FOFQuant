@@ -46,6 +46,9 @@ public class FOFPerformanceAttributionLogicStub extends UnicastRemoteObject impl
         performanceAttribution.periodProfit = 20.5;
         performanceAttribution.periodProfitFinishProfit = 12002;
         performanceAttribution.periodProfitRate = 10.5;
+        performanceAttribution.beginingHoldRatio = 0.5;
+        performanceAttribution.endingHoldRatio = 1.0;
+        performanceAttribution.unitProfit = 100;
         return Arrays.asList(performanceAttribution);
     }
 }

@@ -1,8 +1,9 @@
 package blimpl.fof;
 
 import beans.PerformanceAttribution;
-import bl.fof.FOFGenerateLogic;
 import bl.fof.FOFPerformanceAttributionLogic;
+import dataservice.FOFDataService;
+import dataserviceimpl.DataServiceController;
 import exception.ObjectNotFoundException;
 import exception.ParameterException;
 
@@ -19,9 +20,10 @@ public class FOFPerformanceAttributionLogicImpl extends UnicastRemoteObject impl
     private String endDate;
     private String baseCode;
     private String fof_code;
+    private FOFDataService fofDataService;
 
     private FOFPerformanceAttributionLogicImpl() throws RemoteException {
-
+        fofDataService = DataServiceController.getFOFDataService();
     }
 
     private static FOFPerformanceAttributionLogic instance;
