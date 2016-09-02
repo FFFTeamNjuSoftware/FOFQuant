@@ -1,5 +1,6 @@
 package bl.fof;
 
+import beans.FOFHistoryInfo;
 import beans.FOFQuickInfo;
 import beans.PriceInfo;
 
@@ -32,4 +33,11 @@ public interface FOFBaseInfoLogic extends Remote {
      * @throws RemoteException
      */
     Map<String,List<String>> getFundCodeInFOF() throws RemoteException;
+
+    /**
+     * 获得fof组合的历史数据
+     * @return
+     * @throws RemoteException
+     */
+    List<FOFHistoryInfo> getFOFHistoryInfo() throws RemoteException;
 }

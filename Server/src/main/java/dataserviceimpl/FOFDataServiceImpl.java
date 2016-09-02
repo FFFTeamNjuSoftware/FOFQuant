@@ -1,6 +1,5 @@
 package dataserviceimpl;
 
-import beans.PositionChange;
 import dataservice.FOFDataService;
 import entities.FofAssetAllocationEntity;
 import entities.FofHoldInfoEntity;
@@ -53,6 +52,19 @@ public class FOFDataServiceImpl implements FOFDataService {
         Session se = HibernateBoot.openSession();
         List<?> li = se.createQuery("from FofHoldInfoEntity where fofId=:fofCode order by date")
                 .setString("fofCode", fof_code).list();
+        se.close();
+        if (li == null || li.size() == 0)
+            throw new ObjectNotFoundException("can't find " + FofHoldInfoEntity.class
+                    .getSimpleName() + ":" + fof_code);
+        return li.stream().map(e -> (FofHoldInfoEntity) e).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<FofHoldInfoEntity> getFofHoldInfos(String fof_code, String startDate, String endDate) throws ObjectNotFoundException {
+        Session se = HibernateBoot.openSession();
+        List<?> li = se.createQuery("from FofHoldInfoEntity where fofId=:fofCode and date between" +
+                " :startDate And :endDate order by date").setString("startDate", startDate)
+                .setString("endDate", endDate).setString("fofCode", fof_code).list();
         se.close();
         if (li == null || li.size() == 0)
             throw new ObjectNotFoundException("can't find " + FofHoldInfoEntity.class
