@@ -32,6 +32,10 @@
         <mapping class="entities.CompanyInfoEntity"/>
         <mapping class="entities.ConstParameterEntity"/>
         <mapping class="entities.FundRealtimeInfoEntity"/>
+        <mapping class="entities.FofAssetAllocationEntity"/>
+        <mapping class="entities.FofHoldInfoEntity"/>
+        <mapping class="entities.FofInfoEntity"/>
+        <mapping class="entities.PositionChangeEntity"/>
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hbm2ddl.auto">update</property> -->
     </session-factory>
