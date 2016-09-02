@@ -51,6 +51,8 @@ public interface BaseInfoLogic extends Remote {
      */
     public List<ArrayList<String>> getRankSectorType() throws RemoteException;
 
+    List<String> getSectorCodes(String sectorId) throws RemoteException;
+
     /**
      * 获得基金的快速信息，用于榜单展示
      *

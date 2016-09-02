@@ -23,6 +23,11 @@ public class BaseInfoLogicStub extends UnicastRemoteObject implements BaseInfoLo
     }
 
     @Override
+    public List<String> getSectorCodes(String sectorId) throws RemoteException {
+        return null;
+    }
+
+    @Override
     public List<ArrayList<String>> getRankSectorType() throws RemoteException {
         return null;
     }

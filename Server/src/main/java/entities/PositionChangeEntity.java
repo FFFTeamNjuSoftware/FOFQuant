@@ -18,6 +18,7 @@ public class PositionChangeEntity {
     private Double saleNum;
     private Double salePrice;
     private String fofCode;
+    private Integer isHandle;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -34,6 +35,7 @@ public class PositionChangeEntity {
     public String getFofCode() {
         return fofCode;
     }
+
     public void setFofCode(String fofCode) {
         this.fofCode = fofCode;
     }
@@ -156,5 +158,15 @@ public class PositionChangeEntity {
         result = 31 * result + (saleNum != null ? saleNum.hashCode() : 0);
         result = 31 * result + (salePrice != null ? salePrice.hashCode() : 0);
         return result;
+    }
+
+    @Basic
+    @Column(name = "isHandle", nullable = true,length = 10)
+    public Integer getIsHandle() {
+        return isHandle;
+    }
+
+    public void setIsHandle(Integer isHandle) {
+        this.isHandle = isHandle;
     }
 }

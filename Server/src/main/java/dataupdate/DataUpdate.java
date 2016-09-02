@@ -1,5 +1,6 @@
 package dataupdate;
 
+import beans.HoldingInfo;
 import beans.PriceInfo;
 import beans.ProfitRateInfo;
 import blimpl.BLController;
@@ -135,6 +136,7 @@ public class DataUpdate {
             updateNetWorthFromJS.updateNetWorth(code, startDate);
         }
     }
+
 
     public void updateFqWorth() {
         BaseInfoDataService baseInfoDataService = DataServiceController.getBaseInfoDataService();

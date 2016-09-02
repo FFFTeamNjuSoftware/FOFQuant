@@ -2,6 +2,7 @@ package blimpl.fof;
 
 import beans.PerformanceAttribution;
 import bl.fof.FOFPerformanceAttributionLogic;
+import dataservice.BaseInfoDataService;
 import dataservice.FOFDataService;
 import dataserviceimpl.DataServiceController;
 import entities.FofHoldInfoEntity;
@@ -10,9 +11,7 @@ import exception.ParameterException;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -25,9 +24,11 @@ public class FOFPerformanceAttributionLogicImpl extends UnicastRemoteObject impl
     private String baseCode;
     private String fof_code;
     private FOFDataService fofDataService;
+    private BaseInfoDataService baseInfoDataService;
 
     private FOFPerformanceAttributionLogicImpl() throws RemoteException {
         fofDataService = DataServiceController.getFOFDataService();
+        baseInfoDataService = DataServiceController.getBaseInfoDataService();
     }
 
     private static FOFPerformanceAttributionLogic instance;
@@ -61,9 +62,38 @@ public class FOFPerformanceAttributionLogicImpl extends UnicastRemoteObject impl
     public List<PerformanceAttribution> getPerformanceAttribution() throws RemoteException {
         try {
             List<FofHoldInfoEntity> entities = fofDataService.getFofHoldInfos(fof_code, startDate, endDate);
-            List<String> allCodes = new ArrayList<>();
-            Map<String, List<FofHoldInfoEntity>> codeInfo = entities.stream().collect(Collectors
+            Map<String, List<FofHoldInfoEntity>> infoByCode = entities.stream().collect(Collectors
                     .groupingBy(e -> e.getFundId()));
+            Set<String> allCodes = infoByCode.keySet();
+            List<PerformanceAttribution> performanceAttributions = new ArrayList<>();
+            for (String code : allCodes) {
+                PerformanceAttribution performanceAttribution = new PerformanceAttribution();
+                performanceAttribution.fundCode = code;
+                performanceAttribution.fundName = baseInfoDataService.getFundInfo(code)
+                        .getSimpleName();
+                List<FofHoldInfoEntity> fofHoldInfoEntities = infoByCode.get(code);
+                Collections.sort(fofHoldInfoEntities, (e1, e2) -> e1.getDate().compareTo(e2.getDate()));
+                FofHoldInfoEntity firstHold = fofHoldInfoEntities.get(0);
+                FofHoldInfoEntity endHold = fofHoldInfoEntities.get(fofHoldInfoEntities.size() - 1);
+                performanceAttribution.beginingHoldNum = firstHold.getHoldNum();
+                performanceAttribution.beginingPerValue = firstHold.getNetWorth();
+                performanceAttribution.beginingTotalValue = firstHold.getHoldValue();
+                performanceAttribution.beginingHoldRatio = firstHold.getRatio();
+                performanceAttribution.endingHoldNum = endHold.getHoldNum();
+                performanceAttribution.endingPerValue = endHold.getNetWorth();
+                performanceAttribution.endingHoldRatio = endHold.getRatio();
+                performanceAttribution.endingTotalValue = endHold.getHoldValue();
+                performanceAttribution.periodProfit = endHold.getTotalProfit() - firstHold
+                        .getTotalProfit();
+                performanceAttribution.periodProfitRate = endHold.getTotalProfitRatio() - firstHold
+                        .getTotalProfitRatio();
+                performanceAttribution.periodProfitFinishProfit = endHold.getFinishedProfit()
+                        - firstHold.getFinishedProfit();
+                //// TODO: 2016/9/2 unitProfit
+                performanceAttribution.unitProfit=0;
+                performanceAttributions.add(performanceAttribution);
+            }
+            return performanceAttributions;
         } catch (ObjectNotFoundException e) {
             e.printStackTrace();
         }

@@ -74,6 +74,4 @@ public class FundInFOFQuickInfo implements Serializable {
      * 已实现盈亏
      */
     public double finishedProfit;
-    
-
 }

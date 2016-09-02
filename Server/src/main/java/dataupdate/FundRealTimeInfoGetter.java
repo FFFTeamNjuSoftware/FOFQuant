@@ -5,6 +5,7 @@ import dataupdate.AnalyseFundJSResult;
 import dataupdate.AnalyseFundJSResultImpl;
 import com.google.gson.Gson;
 import exception.ObjectExistedException;
+import exception.ObjectNotFoundException;
 import util.HttpTool;
 
 import java.io.IOException;
@@ -20,7 +21,7 @@ public class FundRealTimeInfoGetter {
         analyseFundJSResult = new AnalyseFundJSResultImpl();
     }
 
-    public FundRealTimeInfo getFundRealTimeInfo(String code) throws ObjectExistedException {
+    public FundRealTimeInfo getFundRealTimeInfo(String code) throws ObjectNotFoundException {
         HttpTool httpTool = new HttpTool();
         String url_str = String.format(url_pattern, code, Math.random());
         try {
@@ -29,7 +30,7 @@ public class FundRealTimeInfoGetter {
             return new Gson().fromJson(result, FundRealTimeInfo.class);
         } catch (IOException e) {
             e.printStackTrace();
-            throw new ObjectExistedException("fundinfo not found" + code);
+            throw new ObjectNotFoundException("fundinfo not found" + code);
         }
     }
 }

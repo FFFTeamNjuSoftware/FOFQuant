@@ -4,10 +4,8 @@ package dataservice;
  * Created by st0001 on 2016/9/1.
  */
 
-import entities.FofAssetAllocationEntity;
-import entities.FofHoldInfoEntity;
-import entities.FofInfoEntity;
-import entities.PositionChangeEntity;
+import beans.PositionChange;
+import entities.*;
 import exception.ObjectNotFoundException;
 
 import java.util.List;
@@ -33,6 +31,24 @@ public interface FOFDataService {
     FofInfoEntity getFofInfoEntity(String fof_code) throws ObjectNotFoundException;
 
     /**
+     * 获得fof组合的历史信息
+     *
+     * @param fof_code
+     * @return
+     * @throws ObjectNotFoundException
+     */
+    List<FofHistoryInfoEntity> getFofHistoryInfos(String fof_code) throws ObjectNotFoundException;
+
+    /**
+     * 获得最新的FOF历史信息
+     *
+     * @param fof_code
+     * @return
+     * @throws ObjectNotFoundException
+     */
+    FofHistoryInfoEntity getNewestHistoryInfo(String fof_code) throws ObjectNotFoundException;
+
+    /**
      * 获得FOF的持仓信息
      *
      * @param fof_code
@@ -40,6 +56,31 @@ public interface FOFDataService {
      * @throws ObjectNotFoundException
      */
     List<FofHoldInfoEntity> getFofHoldInfos(String fof_code) throws ObjectNotFoundException;
+
+    /**
+     * 获得FOF的调整请求
+     * @param fof_code
+     * @return
+     * @throws ObjectNotFoundException
+     */
+    List<PositionChangeEntity> getPositionChangeRequest(String fof_code) throws ObjectNotFoundException;
+
+    /**
+     * 获得FOF的开仓信息
+     * @param fof_code
+     * @return
+     */
+    List<FofEstablishInfoEntity> getFofEstablishInfo(String fof_code) throws ObjectNotFoundException;
+
+    /**
+     * 获得最新FOF的持仓信息
+     *
+     * @param fof_code
+     * @return
+     * @throws ObjectNotFoundException
+     */
+    List<FofHoldInfoEntity> getNewestFofHoldInfos(String fof_code) throws ObjectNotFoundException;
+
 
 
     /**

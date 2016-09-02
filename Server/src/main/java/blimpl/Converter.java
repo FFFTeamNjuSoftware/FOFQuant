@@ -168,4 +168,14 @@ public class Converter {
         assetItem.unitProfit=entity.getUnitProfit();
         return assetItem;
     }
+
+    public static FOFQuickInfo convertFOFQuickinfo(FofInfoEntity entity){
+        FOFQuickInfo fofQuickInfo=new FOFQuickInfo();
+        fofQuickInfo.code=entity.getFofId();
+        fofQuickInfo.name=entity.getFofName();
+        fofQuickInfo.netWorth=entity.getNetWorth();
+        fofQuickInfo.totalProfit=entity.getTotalProfit();
+        fofQuickInfo.establish_date=entity.getEstablishDate();
+        return fofQuickInfo;
+    }
 }

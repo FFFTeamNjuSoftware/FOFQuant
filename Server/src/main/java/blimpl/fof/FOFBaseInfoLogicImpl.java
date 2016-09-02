@@ -3,8 +3,14 @@ package blimpl.fof;
 import beans.FOFHistoryInfo;
 import beans.FOFQuickInfo;
 import beans.PriceInfo;
-import bl.fof.FOFAssetAllocationLogic;
 import bl.fof.FOFBaseInfoLogic;
+import blimpl.BLController;
+import blimpl.Converter;
+import dataservice.FOFDataService;
+import dataserviceimpl.DataServiceController;
+import exception.ObjectNotFoundException;
+import util.FOFUtilInfo;
+import util.UnitType;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -14,9 +20,13 @@ import java.util.Map;
 /**
  * Created by Daniel on 2016/8/26.
  */
-public class FOFBaseInfoLogicImpl extends UnicastRemoteObject implements FOFBaseInfoLogic{
-    private FOFBaseInfoLogicImpl() throws RemoteException {
+public class FOFBaseInfoLogicImpl extends UnicastRemoteObject implements FOFBaseInfoLogic {
+    private FOFDataService fofDataService;
+    private String fof_code;
 
+    private FOFBaseInfoLogicImpl() throws RemoteException {
+        fofDataService = DataServiceController.getFOFDataService();
+        fof_code = FOFUtilInfo.FOF_CODE;
     }
 
     private static FOFBaseInfoLogic instance;
@@ -43,16 +53,26 @@ public class FOFBaseInfoLogicImpl extends UnicastRemoteObject implements FOFBase
 
     @Override
     public FOFQuickInfo getFOFQuickInfo() throws RemoteException {
-        return null;
+        return getFOFQuickInfo(fof_code);
     }
 
     @Override
     public FOFQuickInfo getFOFQuickInfo(String code) throws RemoteException {
+        try {
+            return Converter.convertFOFQuickinfo(fofDataService.getFofInfoEntity(code));
+        } catch (ObjectNotFoundException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
     @Override
     public List<PriceInfo> getFOFPriceInfos() throws RemoteException {
+        try {
+            return BLController.getMarketLogic().getPriceInfo(fof_code, UnitType.DAY);
+        } catch (ObjectNotFoundException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 

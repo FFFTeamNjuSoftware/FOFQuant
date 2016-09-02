@@ -55,27 +55,37 @@ public class BaseInfoLogicImpl extends UnicastRemoteObject implements BaseInfoLo
     }
 
     @Override
+    public List<String> getSectorCodes(String sectorId) throws RemoteException {
+        try {
+            return baseInfoDataService.getSectorCodes(sectorId);
+        } catch (ObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public List<ArrayList<String>> getRankSectorType() throws RemoteException {
-        List<ArrayList<String>> sectorTypes=new ArrayList<>();
-        ArrayList<String> fixprofit=new ArrayList<>();
+        List<ArrayList<String>> sectorTypes = new ArrayList<>();
+        ArrayList<String> fixprofit = new ArrayList<>();
         fixprofit.add(SectorType.BOND_TYPE);
         sectorTypes.add(fixprofit);
 
-        ArrayList<String> right=new ArrayList<>();
+        ArrayList<String> right = new ArrayList<>();
         right.add(SectorType.STOCK_TYPE);
         right.add(SectorType.MIX_TYPE);
         sectorTypes.add(right);
 
-        ArrayList<String> indexType=new ArrayList<>();
+        ArrayList<String> indexType = new ArrayList<>();
         indexType.add(SectorType.INDEX_TYPE);
         sectorTypes.add(indexType);
-        ArrayList<String> etfType=new ArrayList<>();
+        ArrayList<String> etfType = new ArrayList<>();
         etfType.add(SectorType.ETF_TYPE);
         sectorTypes.add(etfType);
-        ArrayList<String> lofType=new ArrayList<>();
+        ArrayList<String> lofType = new ArrayList<>();
         lofType.add(SectorType.LOF_TYPE);
         sectorTypes.add(lofType);
-        ArrayList<String> openType=new ArrayList<>();
+        ArrayList<String> openType = new ArrayList<>();
         openType.add(SectorType.OTHER_TYPE);
         sectorTypes.add(openType);
 //        ArrayList<String> qdiiType=new ArrayList<>();

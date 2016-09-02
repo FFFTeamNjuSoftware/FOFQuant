@@ -16,9 +16,7 @@ public class FofInfoEntity {
     private Double netAsset;
     private Double scale;
     private Double netWorth;
-
-
-
+    private Double totalProfit;
 
     @Id
     @Column(name = "fof_id", nullable = false, length = 255)
@@ -30,12 +28,12 @@ public class FofInfoEntity {
         this.fofId = fofId;
     }
 
-
     @Basic
-    @Column(name = "net_worth", nullable = true)
+    @Column(name = "net_worth", nullable = true, precision = 0)
     public Double getNetWorth() {
         return netWorth;
     }
+
     public void setNetWorth(Double netWorth) {
         this.netWorth = netWorth;
     }
@@ -132,5 +130,15 @@ public class FofInfoEntity {
         result = 31 * result + (netAsset != null ? netAsset.hashCode() : 0);
         result = 31 * result + (scale != null ? scale.hashCode() : 0);
         return result;
+    }
+
+    @Basic
+    @Column(name = "total_profit", nullable = true, precision = 0)
+    public Double getTotalProfit() {
+        return totalProfit;
+    }
+
+    public void setTotalProfit(Double totalProfit) {
+        this.totalProfit = totalProfit;
     }
 }

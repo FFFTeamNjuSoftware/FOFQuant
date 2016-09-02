@@ -21,6 +21,7 @@ public class FofHoldInfoEntity {
     private Double totalProfit;
     private Double totalProfitRatio;
     private Double finishedProfit;
+    private Double netWorth;
 
     @Id
     @Column(name = "fof_id", nullable = false, length = 255)
@@ -187,5 +188,15 @@ public class FofHoldInfoEntity {
         result = 31 * result + (totalProfitRatio != null ? totalProfitRatio.hashCode() : 0);
         result = 31 * result + (finishedProfit != null ? finishedProfit.hashCode() : 0);
         return result;
+    }
+
+    @Basic
+    @Column(name = "net_worth", nullable = true, precision = 0)
+    public Double getNetWorth() {
+        return netWorth;
+    }
+
+    public void setNetWorth(Double netWorth) {
+        this.netWorth = netWorth;
     }
 }

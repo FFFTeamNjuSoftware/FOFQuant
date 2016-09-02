@@ -1,7 +1,8 @@
 package blimpl;
 
 import beans.PriceInfo;
-import bl.MarketLogic;
+import entities.FofEstablishInfoEntity;
+import exception.ObjectNotFoundException;
 import util.CalendarOperate;
 import util.TimeType;
 
@@ -107,6 +108,16 @@ public class LogicUtil {
         sum = sum / (numbers.size() - 1);
         sum = Math.pow(sum, 0.5);
         return sum;
+    }
+
+    public static FofEstablishInfoEntity getFofEstablishByFundCode
+            (List<FofEstablishInfoEntity> establishInfoEntities, String fundCode) throws
+            ObjectNotFoundException {
+        for (FofEstablishInfoEntity fofEstablishInfoEntity : establishInfoEntities) {
+            if (fofEstablishInfoEntity.getFofCode().equals(fundCode))
+                return fofEstablishInfoEntity;
+        }
+        throw new ObjectNotFoundException("can't find FofEstablishInfo of :" + fundCode);
     }
 
 

@@ -1,10 +1,7 @@
 package dataserviceimpl;
 
 import dataservice.FOFDataService;
-import entities.FofAssetAllocationEntity;
-import entities.FofHoldInfoEntity;
-import entities.FofInfoEntity;
-import entities.PositionChangeEntity;
+import entities.*;
 import exception.ObjectNotFoundException;
 import org.hibernate.Session;
 import startup.HibernateBoot;
@@ -20,6 +17,7 @@ public class FOFDataServiceImpl implements FOFDataService {
     protected FOFDataServiceImpl() {
 
     }
+
 
     @Override
     public List<FofAssetAllocationEntity> getFOFAssetAllocation(String fof_code) throws ObjectNotFoundException {
@@ -73,14 +71,77 @@ public class FOFDataServiceImpl implements FOFDataService {
     }
 
     @Override
+    public List<FofHoldInfoEntity> getNewestFofHoldInfos(String fof_code) throws ObjectNotFoundException {
+        Session se = HibernateBoot.openSession();
+        List<?> li = se.createQuery("from FofHoldInfoEntity where fofId=:fofCode and date in " +
+                "(select max(date) from FofHoldInfoEntity )").setString("fofCode", fof_code).list();
+        se.close();
+        if (li == null || li.size() == 0)
+            throw new ObjectNotFoundException("can't find " + FofHoldInfoEntity.class
+                    .getSimpleName() + ":" + fof_code);
+        return li.stream().map(e -> (FofHoldInfoEntity) e).collect(Collectors.toList());
+    }
+
+    @Override
     public List<PositionChangeEntity> getPositionChange(String fof_code) throws ObjectNotFoundException {
         Session se = HibernateBoot.openSession();
-        List<?> li = se.createQuery("from PositionChangeEntity where fofCode=:fofCode").setString
-                ("fofCode", fof_code).list();
+        List<?> li = se.createQuery("from PositionChangeEntity where fofCode=:fofCode and isHandle!=0")
+                .setString("fofCode", fof_code).list();
         se.close();
         if (li == null || li.size() == 0)
             throw new ObjectNotFoundException("can't find " + PositionChangeEntity.class
                     .getSimpleName() + ":" + fof_code);
         return li.stream().map(e -> (PositionChangeEntity) e).collect(Collectors.toList());
+    }
+
+
+    @Override
+    public List<PositionChangeEntity> getPositionChangeRequest(String fof_code) throws
+            ObjectNotFoundException {
+        Session se = HibernateBoot.openSession();
+        List<?> li = se.createQuery("from PositionChangeEntity where fofCode=:fofCode and isHandle=0")
+                .setString("fofCode", fof_code).list();
+        se.close();
+        if (li == null || li.size() == 0)
+            throw new ObjectNotFoundException("can't find " + PositionChangeEntity.class
+                    .getSimpleName() + ":" + fof_code);
+        return li.stream().map(e -> (PositionChangeEntity) e).collect(Collectors.toList());
+    }
+
+
+    @Override
+    public List<FofHistoryInfoEntity> getFofHistoryInfos(String fof_code) throws ObjectNotFoundException {
+        Session se = HibernateBoot.openSession();
+        List<?> li = se.createQuery("from FofHistoryInfoEntity where fofId=:fofCode order by " +
+                "date").setString("fofCode", fof_code).list();
+        se.close();
+        if (li == null || li.size() == 0)
+            throw new ObjectNotFoundException("can't find " + FofHistoryInfoEntity.class
+                    .getSimpleName() + ":" + fof_code);
+        return li.stream().map(e -> (FofHistoryInfoEntity) e).collect(Collectors.toList());
+    }
+
+    @Override
+    public FofHistoryInfoEntity getNewestHistoryInfo(String fof_code) throws ObjectNotFoundException {
+        Session se = HibernateBoot.openSession();
+        List<?> li = se.createQuery("from FofHistoryInfoEntity where fofId=:fofCode and date in " +
+                "(select max(date) from FofHistoryInfoEntity )").setString("fofCode", fof_code).list();
+        se.close();
+        if (li == null || li.size() == 0)
+            throw new ObjectNotFoundException("can't find " + FofHoldInfoEntity.class
+                    .getSimpleName() + ":" + fof_code);
+        return (FofHistoryInfoEntity) li.get(0);
+    }
+
+    @Override
+    public List<FofEstablishInfoEntity> getFofEstablishInfo(String fof_code) throws ObjectNotFoundException{
+        Session se = HibernateBoot.openSession();
+        List<?> li = se.createQuery("from FofEstablishInfoEntity where fofCode=:fofCode").setString("fofCode",
+                fof_code).list();
+        se.close();
+        if (li == null || li.size() == 0)
+            throw new ObjectNotFoundException("can't find " + FofHoldInfoEntity.class
+                    .getSimpleName() + ":" + fof_code);
+        return li.stream().map(e -> (FofEstablishInfoEntity) e).collect(Collectors.toList());
     }
 }
