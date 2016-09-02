@@ -27,6 +27,10 @@ public class PerformanceAttribution implements Serializable {
      */
     public double beginingTotalValue;
     /**
+     * 期初比率
+     */
+    public double beginingHoldRatio;
+    /**
      * 期末市价
      */
     public double endingPerValue;
@@ -39,6 +43,10 @@ public class PerformanceAttribution implements Serializable {
      */
     public double endingTotalValue;
     /**
+     * 期末比率
+     */
+    public double endingHoldRatio;
+    /**
      * 本期盈亏
      */
     public double periodProfit;
@@ -50,4 +58,8 @@ public class PerformanceAttribution implements Serializable {
      * 本期已实现盈亏
      */
     public double periodProfitFinishProfit;
+    /**
+     * 单位回报
+     */
+    public double unitProfit;
 }
