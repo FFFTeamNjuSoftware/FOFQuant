@@ -1,6 +1,7 @@
 package strategyimplTest;
 
 import beans.PriceInfo;
+import bl.BaseInfoLogic;
 import bl.MarketLogic;
 import blimpl.BLController;
 import org.junit.Before;
@@ -24,11 +25,14 @@ import java.util.Map;
 public class FundRankStrategyImplTest {
     FundRankStrategy fundRankStrategy;
     MarketLogic marketLogic;
+    private BaseInfoLogic baseInfoLogic;
+
     @Before
     public void before() throws Exception{
         HibernateBoot.init();
         fundRankStrategy=new FundRankStrategyImpl();
         marketLogic= BLController.getMarketLogic();
+        baseInfoLogic=BLController.getBaseInfoLogic();
     }
 
     @Test
@@ -74,9 +78,11 @@ public class FundRankStrategyImplTest {
         FileWriter fileWriter=new FileWriter(file.getName());
         BufferedWriter bufferedWriter=new BufferedWriter(fileWriter);
         for(String str:maps.keySet() ){
-            String data=str+","+maps.get(str).get(1) +"\n";
+            String data=str+","+maps.get(str).get(1) +","+maps.get(str).get(2)+"\n";
             bufferedWriter.write(data);
         };
         bufferedWriter.close();
+
+
     }
 }

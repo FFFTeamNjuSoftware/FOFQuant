@@ -76,7 +76,7 @@ public class BaseInfoLogicImpl extends UnicastRemoteObject implements BaseInfoLo
         lofType.add(SectorType.LOF_TYPE);
         sectorTypes.add(lofType);
         ArrayList<String> openType=new ArrayList<>();
-        openType.add(SectorType.OPEN_TYPE);
+        openType.add(SectorType.OTHER_TYPE);
         sectorTypes.add(openType);
 //        ArrayList<String> qdiiType=new ArrayList<>();
 //        qdiiType.add(SectorType.QDII_TYPE);
