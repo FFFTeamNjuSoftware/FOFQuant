@@ -1,5 +1,6 @@
 package blimpl.fof;
 
+import beans.FOFHistoryInfo;
 import beans.FOFQuickInfo;
 import beans.PriceInfo;
 import bl.fof.FOFAssetAllocationLogic;
@@ -28,6 +29,11 @@ public class FOFBaseInfoLogicImpl extends UnicastRemoteObject implements FOFBase
                 e.printStackTrace();
             }
         return instance;
+    }
+
+    @Override
+    public List<FOFHistoryInfo> getFOFHistoryInfo() throws RemoteException {
+        return null;
     }
 
     @Override

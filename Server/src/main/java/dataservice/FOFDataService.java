@@ -17,7 +17,6 @@ import java.util.List;
  */
 public interface FOFDataService {
     /**
-     *
      * @param fof_code
      * @return
      * @throws ObjectNotFoundException
@@ -41,6 +40,17 @@ public interface FOFDataService {
      * @throws ObjectNotFoundException
      */
     List<FofHoldInfoEntity> getFofHoldInfos(String fof_code) throws ObjectNotFoundException;
+
+
+    /**
+     * 获得FOF的持仓信息
+     *
+     * @param fof_code
+     * @return
+     * @throws ObjectNotFoundException
+     */
+    List<FofHoldInfoEntity> getFofHoldInfos(String fof_code, String startDate, String endDate) throws
+            ObjectNotFoundException;
 
     /**
      * 获得仓位变动信息

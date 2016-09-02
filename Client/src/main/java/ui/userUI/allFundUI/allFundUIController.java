@@ -82,6 +82,7 @@ public class allFundUIController implements Initializable {
     private String selectedType;
     private String greenFill = "-fx-text-fill:#9ac94a;";
     private String redFill = "-fx-text-fill:#eb494d;";
+    private String yellowFill="-fx-text-fill:#FFF850;";
 
     private String[] basicTypes = {"固定收益类", "权益类", "其他类"};
     private String[] marketTypes = {"开放式基金", "股票型开放式基金", "债券型开放式基金",
@@ -161,24 +162,8 @@ public class allFundUIController implements Initializable {
                 cellData.getValue().code));
         full_nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
                 cellData.getValue().simple_name));
+        full_nameColumn.setStyle(yellowFill);
 
-//        full_nameColumn.setCellFactory(new Callback<TableColumn<FundQuickInfo, String>, TableCell<FundQuickInfo, String>>() {
-//            @Override
-//            public TableCell<FundQuickInfo, String> call(TableColumn<FundQuickInfo, String> arg0) {
-//                return new TableCell<FundQuickInfo, String>() {
-//                    ObservableValue ov1;
-//                    @Override
-//                    protected void updateItem(String item, boolean empty) {
-//                        super.updateItem(item, empty);
-//                        if (this.getIndex() < fundQuickInfoList.size()) {
-//                            if(!isEmpty()){
-//                                this.setStyle(redFill);
-//                            }
-//                        }
-//                    }
-//                };
-//            }
-//        });
         daily_riseColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(
                 cellData.getValue().daily_rise));
         current_netWorthColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(
@@ -200,6 +185,16 @@ public class allFundUIController implements Initializable {
         yearRateColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(
                 cellData.getValue().yearRate));
 
+        setColumnColor(daily_riseColumn);
+        setColumnColor(current_netWorthColumn);
+        setColumnColor(nearOneMonthColumn);
+        setColumnColor( nearThreeMonthColumn);
+        setColumnColor(nearSixMonthColumn);
+        setColumnColor(nearOneYearColumn);
+        setColumnColor(nearThreeYearColumn);
+        setColumnColor(nearFiveYearColumn);
+        setColumnColor(sinceEstablishColumn);
+        setColumnColor(yearRateColumn);
 
     }
 
@@ -465,6 +460,27 @@ public class allFundUIController implements Initializable {
                 }
             });
         }
+    }
+
+    private void setColumnColor(TableColumn<FundQuickInfo, Number> c) {
+        c.setCellFactory(column -> {
+            return new TableCell<FundQuickInfo, Number>() {
+                @Override
+                protected void updateItem(Number item, boolean empty) {
+                    super.updateItem(item, empty);
+                    setGraphic(null);
+                    setText(empty ? "" : getItem().toString());
+                    if (!isEmpty()) {
+                        Double t = item.doubleValue();
+                        if (t > 0) {
+                            c.setStyle(redFill);
+                        } else if (t < 0) {
+                            c.setStyle(greenFill);
+                        }
+                    }
+                }
+            };
+        });
     }
 }
 
