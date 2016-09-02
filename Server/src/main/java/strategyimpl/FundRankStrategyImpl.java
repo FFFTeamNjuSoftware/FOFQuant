@@ -166,20 +166,23 @@ public class FundRankStrategyImpl implements FundRankStrategy {
         return 0;
     }
 
-    private List<FundQuickInfo> removeQDII(List<FundQuickInfo> fundQuickInfos){
+    private List<FundQuickInfo> removeQDII(List<FundQuickInfo> fundQuickInfos) throws RemoteException{
+        List<FundQuickInfo> removeInfo=new ArrayList<>();
         try {
             List<FundQuickInfo> qdiis=baseInfoLogic.getFundQuickInfo(SectorType.QDII_TYPE);
             for(FundQuickInfo qdii:qdiis){
-                if(fundQuickInfos.contains(qdii)){
-                    System.out.println(qdii.code+"remove");
-                    fundQuickInfos.remove(qdii);
+                String code=qdii.code;
+                for(FundQuickInfo fundQuickInfo:fundQuickInfos){
+                    if((fundQuickInfo.code).equals(code)){
+//                        System.out.println(qdii.code + "remove");
+                        removeInfo.add(fundQuickInfo);
+                    }
                 }
             }
-        } catch (RemoteException e) {
-            e.printStackTrace();
         } catch (ObjectNotFoundException e) {
             e.printStackTrace();
         }
+        fundQuickInfos.removeAll(removeInfo);
         return fundQuickInfos;
     }
 

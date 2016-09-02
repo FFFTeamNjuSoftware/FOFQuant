@@ -1,6 +1,5 @@
 package strategyimplTest;
 
-import beans.FundQuickInfo;
 import beans.PriceInfo;
 import bl.BaseInfoLogic;
 import bl.MarketLogic;
@@ -10,7 +9,6 @@ import org.junit.Test;
 import startup.HibernateBoot;
 import strategy.FundRankStrategy;
 import strategyimpl.FundRankStrategyImpl;
-import util.SectorType;
 import util.TimeType;
 import util.UnitType;
 
@@ -67,20 +65,6 @@ public class FundRankStrategyImplTest {
     @Test
     public void refreshFundRank() throws Exception {
         this.getFundRankByDate();
-
-        File file=new File("qdii.txt");
-        if(!file.exists()){
-            file.createNewFile();
-        }
-        FileWriter fileWriter=new FileWriter(file.getName());
-        BufferedWriter bufferedWriter=new BufferedWriter(fileWriter);
-        List<FundQuickInfo> fundQuickInfos=baseInfoLogic.getFundQuickInfo(SectorType.QDII_TYPE);
-        for(FundQuickInfo fundQuickInfo:fundQuickInfos){
-            String data=fundQuickInfo.code;
-            bufferedWriter.write(data+"\n");
-        };
-        bufferedWriter.close();
-
     }
 
     @Test

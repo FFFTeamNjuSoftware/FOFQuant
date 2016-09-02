@@ -50,7 +50,7 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
         //获得系统中所有固定收益类基金的排名
         List<FundQuickInfo> fundQuickInfos;
         try {
-            fundQuickInfos = baseInfoLogic.getFundQuickInfo(SectorType.BOND_TYPE);
+            fundQuickInfos = baseInfoLogic.getFundQuickInfo(SectorType.FIX_PROFIT_TYPE);
             HashMap<String, Double> fixProfitRank = new HashMap<>();
             FundRankEntity fundRankEntity;
             for (FundQuickInfo fundQuickInfo : fundQuickInfos) {
