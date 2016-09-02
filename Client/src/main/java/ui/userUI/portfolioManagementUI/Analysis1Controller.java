@@ -2,6 +2,8 @@ package ui.userUI.portfolioManagementUI;
 
 import RMIModule.BLInterfaces;
 import beans.FundInFOFQuickInfo;
+import beans.FundQuickInfo;
+import beans.PerformanceAttribution;
 import beans.ProfitChartInfo;
 import bl.MarketLogic;
 import bl.fof.FOFRealTimeMonitorLogic;
@@ -46,12 +48,12 @@ public class Analysis1Controller implements Initializable {
 	@FXML
 	private LineChart netWorthChart;
 	@FXML
-	private TableColumn<FundInFOFQuickInfo, String> fundCodeCm, fundNameCm, timeCm, fundTypeCm;
+	private TableColumn<FundInFOFQuickInfo, String> fundCodeCm, fundNameCm, timeCm, fundTypeCm,
+			predictRiseCm,predictRiseValueCm,floatProfitCm,floatProfitRatioCm,
+			totalProfitCm,totalProfitRatioCm,dayProfitCm,finishedProfitCm;
 	@FXML
-	private TableColumn<FundInFOFQuickInfo, Number> predictRiseValueCm, predictRiseCm,
-			predictNetValueCm, holdNumCm, costCm, holdValueCm, newestWeightCm,
-			dayProfitCm, floatProfitCm, floatProfitRatioCm,
-			totalProfitCm, totalProfitRatioCm, finishedProfitCm;
+	private TableColumn<FundInFOFQuickInfo, Number>
+			predictNetValueCm,holdNumCm, costCm, holdValueCm, newestWeightCm;
 	@FXML
 	private ComboBox<String> gradeCb;
 	@FXML
@@ -77,6 +79,9 @@ public class Analysis1Controller implements Initializable {
 	private ChartType[] chartTypes = {ChartType.NET_WORTH_PERFORMANCE_FQ, ChartType.NET_WORTH_PERFORMANCE_UNIT, ChartType.NET_WORTH_PERFORMANCE_TOTAL};
 	private String selectFundcode=null;
 
+	private String greenFill = "-fx-text-fill:#9ac94a;";
+	private String redFill = "-fx-text-fill:#eb494d;";
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		this.analysis1Controller = this;
@@ -84,7 +89,6 @@ public class Analysis1Controller implements Initializable {
 		fofRealTimeMonitorLogic = BLInterfaces.getFofRealTimeMonitorLogic();
 		initComboboxes();
 		initTable();
-		initLabel();
 //		initNetWorthChart("000001");
 	}
 
@@ -194,10 +198,10 @@ public class Analysis1Controller implements Initializable {
 					cellData.getValue().time));
 			fundTypeCm.setCellValueFactory(cellData -> new SimpleStringProperty(
 					cellData.getValue().fundType));
-			predictRiseValueCm.setCellValueFactory(cellData -> new SimpleDoubleProperty(
-					cellData.getValue().predictRiseValue));
-			predictRiseCm.setCellValueFactory(cellData -> new SimpleDoubleProperty(
-					cellData.getValue().predictRise));
+			predictRiseValueCm.setCellValueFactory(cellData -> new SimpleStringProperty(
+					cellData.getValue().predictRiseValue+""));
+			predictRiseCm.setCellValueFactory(cellData -> new SimpleStringProperty(
+					cellData.getValue().predictRise+"%"));
 			predictNetValueCm.setCellValueFactory(cellData -> new SimpleDoubleProperty(
 					cellData.getValue().predictNetValue));
 			holdNumCm.setCellValueFactory(cellData -> new SimpleDoubleProperty(
@@ -208,25 +212,58 @@ public class Analysis1Controller implements Initializable {
 					cellData.getValue().holdValue));
 			newestWeightCm.setCellValueFactory(cellData -> new SimpleDoubleProperty(
 					cellData.getValue().newestWeight));
-			dayProfitCm.setCellValueFactory(cellData -> new SimpleDoubleProperty(
-					cellData.getValue().dayProfit));
-			floatProfitCm.setCellValueFactory(cellData -> new SimpleDoubleProperty(
-					cellData.getValue().floatProfit));
-			floatProfitRatioCm.setCellValueFactory(cellData -> new SimpleDoubleProperty(
-					cellData.getValue().floatProfitRatio));
-			totalProfitCm.setCellValueFactory(cellData -> new SimpleDoubleProperty(
-					cellData.getValue().totalProfit));
-			totalProfitRatioCm.setCellValueFactory(cellData -> new SimpleDoubleProperty(
-					cellData.getValue().totalProfitRatio));
-			finishedProfitCm.setCellValueFactory(cellData -> new SimpleDoubleProperty(
-					cellData.getValue().finishedProfit));
+			dayProfitCm.setCellValueFactory(cellData -> new SimpleStringProperty(
+					cellData.getValue().dayProfit+""));
+			floatProfitCm.setCellValueFactory(cellData -> new SimpleStringProperty(
+					cellData.getValue().floatProfit+""));
+			floatProfitRatioCm.setCellValueFactory(cellData -> new SimpleStringProperty(
+					cellData.getValue().floatProfitRatio+"%"));
+			totalProfitCm.setCellValueFactory(cellData -> new SimpleStringProperty(
+					cellData.getValue().totalProfit+""));
+			totalProfitRatioCm.setCellValueFactory(cellData -> new SimpleStringProperty(
+					cellData.getValue().totalProfitRatio+"%"));
+			finishedProfitCm.setCellValueFactory(cellData -> new SimpleStringProperty(
+					cellData.getValue().finishedProfit+""));
 		}
+//		TableColumn<FundInFOFQuickInfo,String>[] cs={predictRiseCm,predictRiseValueCm,floatProfitCm,floatProfitRatioCm,totalProfitCm,totalProfitRatioCm,dayProfitCm,finishedProfitCm};
+		setColumnColor(predictRiseValueCm);
+		setColumnColor(predictRiseCm);
+		setColumnColor(floatProfitRatioCm);
+		setColumnColor(floatProfitCm);
+		setColumnColor(totalProfitRatioCm);
+		setColumnColor(totalProfitCm);
+		setColumnColor(dayProfitCm);
+		setColumnColor(finishedProfitCm);
+
 	}
 
 
-	public void initLabel() {
-	}
 
+	private void setColumnColor(TableColumn<FundInFOFQuickInfo, String> c) {
+//		for(int i=0;i<cs.length;i++){
+//			TableColumn<FundQuickInfo,String> c=cs[i];
+			c.setCellFactory(column -> {
+				return new TableCell<FundInFOFQuickInfo, String>() {
+					@Override
+					protected void updateItem(String item, boolean empty) {
+						super.updateItem(item, empty);
+						setGraphic(null);
+						setText(empty ? "" : getItem().toString());
+						if (!isEmpty()) {
+							item = item.split("%")[0];
+							Double t = Double.parseDouble(item);
+							if (t > 0) {
+								c.setStyle(redFill);
+							} else if (t < 0) {
+								c.setStyle(greenFill);
+							}
+						}
+					}
+				};
+			});
+//		}
+
+	}
 	public void initNetWorthChart(String fundCode) {
 		if(fundCode!=null){
 			if(netWorthChart.getData()!=null){

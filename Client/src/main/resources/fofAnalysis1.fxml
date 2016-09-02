@@ -50,7 +50,7 @@
                   <TableColumn fx:id="fundCodeCm" maxWidth="100.0" minWidth="20.0" prefWidth="70.0" text="基金代码" />
                   <TableColumn fx:id="fundNameCm" maxWidth="85.0" minWidth="20.0" prefWidth="85.0" text="基金简称" />
                   <TableColumn fx:id="fundTypeCm" maxWidth="90.0" minWidth="20.0" prefWidth="90.0" text="基金类型" />
-                  <TableColumn fx:id="timeCm" prefWidth="90.0" text="更新日期" />
+                  <TableColumn fx:id="timeCm" maxWidth="110.0" prefWidth="100.0" text="更新日期" />
                   <TableColumn fx:id="predictRiseValueCm" maxWidth="80.0" minWidth="20.0" prefWidth="75.0" text="预测涨跌" />
                   <TableColumn fx:id="predictRiseCm" maxWidth="90.0" minWidth="20.0" text="预测涨跌幅" />
                   <TableColumn fx:id="predictNetValueCm" prefWidth="75.0" text="预测净值" />
@@ -58,11 +58,11 @@
                   <TableColumn fx:id="costCm" maxWidth="65.0" minWidth="20.0" prefWidth="65.0" resizable="false" text="持仓成本" />
                   <TableColumn fx:id="holdValueCm" maxWidth="100.0" minWidth="20.0" prefWidth="70.0" text="持仓市值" />
                   <TableColumn fx:id="newestWeightCm" maxWidth="76.0" minWidth="20.0" prefWidth="76.0" text="最新权重" />
-                  <TableColumn fx:id="dayProfitCm" maxWidth="85.0" minWidth="20.0" prefWidth="85.0" text="当日盈亏s" />
-                  <TableColumn fx:id="floatProfitCm" maxWidth="37.0" minWidth="20.0" prefWidth="37.0" text="浮动盈亏" />
+                  <TableColumn fx:id="dayProfitCm" maxWidth="85.0" minWidth="20.0" prefWidth="85.0" text="当日盈亏" />
+                  <TableColumn fx:id="floatProfitCm" maxWidth="62.0" minWidth="20.0" prefWidth="62.0" text="浮动盈亏" />
                   <TableColumn fx:id="floatProfitRatioCm" prefWidth="75.0" text="浮动盈亏率" />
-                  <TableColumn fx:id="totalProfitCm" prefWidth="75.0" text="累计盈亏" />
-                  <TableColumn fx:id="totalProfitRatioCm" prefWidth="75.0" text="累计盈亏率" />
+                  <TableColumn fx:id="totalProfitCm" maxWidth="100.0" prefWidth="75.0" text="累计盈亏" />
+                  <TableColumn fx:id="totalProfitRatioCm" maxWidth="100.0" prefWidth="75.0" text="累计盈亏率" />
                   <TableColumn fx:id="finishedProfitCm" prefWidth="75.0" text="已实现盈亏" />
                </columns>
             </TableView>

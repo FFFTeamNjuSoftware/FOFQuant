@@ -3,7 +3,11 @@ package ui.userUI.portfolioManagementUI;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.AreaChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -28,6 +32,14 @@ public class analyseHomeUIController implements Initializable {
 
     private MainUI mainUI;
 
+    @FXML
+    private NumberAxis numAxis;
+    @FXML
+    private CategoryAxis categoryAxis;
+    @FXML
+    private AreaChart areaChart;
+    @FXML
+    private Label redLineLb,blueLineLb;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         analyseHomeUIController=this;
@@ -93,6 +105,12 @@ public class analyseHomeUIController implements Initializable {
         mainUI.setIndex(6);
         //  generalAnalysisUIController.setK(6);
         mainUI.changeScene("user_guidePanel","generalAnalysisPanel");
+    }
+    public void initAreaChart(){
+
+    }
+    public void getFOFHistoryInfo(){
+        
     }
 
 }
