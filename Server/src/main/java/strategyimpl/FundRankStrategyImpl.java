@@ -10,6 +10,7 @@ import exception.ObjectNotFoundException;
 import exception.ParameterException;
 import strategy.FundRankStrategy;
 import util.CalendarOperate;
+import util.SectorType;
 import util.TimeType;
 import util.UnitType;
 
@@ -128,6 +129,7 @@ public class FundRankStrategyImpl implements FundRankStrategy {
             for (int sec = 0; sec < sectorTypes.get(i).size(); sec++) {
                 try {
                     fundQuickInfos.addAll(baseInfoLogic.getFundQuickInfo(sectorTypes.get(i).get(sec)));
+                    fundQuickInfos.removeAll(baseInfoLogic.getFundQuickInfo(SectorType.QDII_TYPE));
                 } catch (ObjectNotFoundException e) {
 //                        System.out.println("没有"+sectorTypes.get(i).get(sec)+"类型对应的数据:(");
                     continue;
@@ -148,12 +150,17 @@ public class FundRankStrategyImpl implements FundRankStrategy {
 //                    System.out.println("没有"+code+" 类型对应的数据");
                     continue;
                 }
-                index.put(code, mrar);
             }
 
             Map<String, ArrayList<Double>> sortedIndex = this.Sequence(index);
-
-            rank.putAll(sortedIndex);
+            for(String newcode:sortedIndex.keySet()) {
+                if(!rank.containsKey(newcode)){
+                    rank.put(newcode,sortedIndex.get(newcode));
+                }else{
+                    System.out.println(newcode);
+                }
+            }
+//            rank.putAll(sortedIndex);
 
         }
         return rank;
@@ -203,6 +210,7 @@ public class FundRankStrategyImpl implements FundRankStrategy {
             sta.add(Double.valueOf(grade));
             sta.add(Double.valueOf(fundRank));
             grade++;
+
             rank.put(code,sta);
         }
         return rank;

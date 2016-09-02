@@ -7,7 +7,6 @@ import bl.MarketLogic;
 import blimpl.BLController;
 import dataservice.BaseInfoDataService;
 import dataserviceimpl.DataServiceController;
-import entities.FundDeployEntity;
 import entities.FundInfosEntity;
 import entities.FundRankEntity;
 import exception.ObjectNotFoundException;
@@ -77,7 +76,7 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
                     for (int N = 2; N <= 6; N++) {
 //                        System.out.println(N+"begin");
                         double sharpe=this.calSharpe(sortedCodes, N, 360, 30);
-                        FundDeployEntity fundDeployEntity=new FundDeployEntity();
+//                        FundDeployEntity fundDeployEntity=new FundDeployEntity();
                         sharpes.add(sharpe);
                     }
 //                }
@@ -120,9 +119,13 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
         //调用小类matlab策略
         //策略返回w矩阵和rpturn数组
         //rpturn数组计算出对应的Sharpe比率
+        List<String> codes=new ArrayList<>();
         int adjust=(int)Math.floor((length-window)/hold);
         double[][] w=new double[adjust][N];
+        for (String code:codes){
+            Map<String,Double> propotion=new HashMap<>();
 
+        }
         double sharpe=0.0;
 
         return sharpe;
