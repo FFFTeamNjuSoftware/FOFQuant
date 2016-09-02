@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -158,11 +160,60 @@
             <Button fx:id="btn4" layoutX="413.0" layoutY="122.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toReturnStatsPanel" prefHeight="120.0" prefWidth="100.0" style="-fx-background-color: transparent;" textFill="WHITE" />
          </children>
       </AnchorPane>
-      <Label fx:id="label2" layoutX="315.0" layoutY="318.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="29.0" prefWidth="300.0" text="总回报（全球投资组合管理演示）" textFill="WHITE">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <AnchorPane fx:id="chartPanel" layoutY="356.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="229.0" prefWidth="930.0" />
+      <HBox layoutY="318.0" prefHeight="29.0" prefWidth="930.0">
+         <children>
+            <Label fx:id="label2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="29.0" prefWidth="300.0" text="总回报（全球投资组合管理演示）" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="315.0" />
+               </HBox.margin>
+            </Label>
+            <Label prefHeight="20.0" prefWidth="25.0" text="—" textFill="#935563">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <padding>
+                  <Insets bottom="6.0" top="3.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets left="68.0" />
+               </HBox.margin>
+            </Label>
+            <Label fx:id="redLineLb" text="总资产（元）" textFill="#f6f7f8">
+               <padding>
+                  <Insets bottom="4.0" top="5.0" />
+               </padding>
+            </Label>
+            <Label prefHeight="20.0" prefWidth="25.0" text="—" textFill="#2a83b5">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <padding>
+                  <Insets bottom="6.0" top="3.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets left="16.0" />
+               </HBox.margin>
+            </Label>
+            <Label fx:id="blueLineLb" text="总回报（%）" textFill="#f6f7f8">
+               <padding>
+                  <Insets bottom="4.0" top="5.0" />
+               </padding>
+            </Label>
+         </children>
+      </HBox>
+      <AnchorPane fx:id="fundAreaChart" layoutY="356.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="229.0" prefWidth="930.0">
+         <children>
+            <AreaChart fx:id="areaChart" layoutX="40.0" prefHeight="229.0" prefWidth="850.0">
+              <xAxis>
+                <CategoryAxis fx:id="categeoryAxis" side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis fx:id="numAxis" side="LEFT" />
+              </yAxis>
+            </AreaChart>
+         </children></AnchorPane>
    </children>
 </AnchorPane>

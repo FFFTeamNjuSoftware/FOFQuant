@@ -1,14 +1,19 @@
 package blimpl.fof;
 
 import beans.PerformanceAttribution;
-import bl.fof.FOFGenerateLogic;
 import bl.fof.FOFPerformanceAttributionLogic;
+import dataservice.FOFDataService;
+import dataserviceimpl.DataServiceController;
+import entities.FofHoldInfoEntity;
 import exception.ObjectNotFoundException;
 import exception.ParameterException;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by Daniel on 2016/8/26.
@@ -19,9 +24,10 @@ public class FOFPerformanceAttributionLogicImpl extends UnicastRemoteObject impl
     private String endDate;
     private String baseCode;
     private String fof_code;
+    private FOFDataService fofDataService;
 
     private FOFPerformanceAttributionLogicImpl() throws RemoteException {
-
+        fofDataService = DataServiceController.getFOFDataService();
     }
 
     private static FOFPerformanceAttributionLogic instance;
@@ -53,6 +59,14 @@ public class FOFPerformanceAttributionLogicImpl extends UnicastRemoteObject impl
 
     @Override
     public List<PerformanceAttribution> getPerformanceAttribution() throws RemoteException {
-        return null;
+        try {
+            List<FofHoldInfoEntity> entities = fofDataService.getFofHoldInfos(fof_code, startDate, endDate);
+            List<String> allCodes = new ArrayList<>();
+            Map<String, List<FofHoldInfoEntity>> codeInfo = entities.stream().collect(Collectors
+                    .groupingBy(e -> e.getFundId()));
+        } catch (ObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
     }
 }

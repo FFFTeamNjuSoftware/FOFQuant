@@ -10,10 +10,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -41,6 +38,8 @@ public class changePositionUIController implements Initializable {
     @FXML
     private TableColumn<PositionChange,Number> inNumColumn,inPriceColumn,outNumColumn,outPriceColumn;
 
+    private String greenFill = "-fx-text-fill:#9ac94a;";
+    private String redFill = "-fx-text-fill:#eb494d;";
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -76,6 +75,10 @@ public class changePositionUIController implements Initializable {
                 cellData.getValue().saleNum));
         outPriceColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(
                 cellData.getValue().salePrice));
+        inNumColumn.setStyle(redFill);
+        inPriceColumn.setStyle(redFill);
+        outNumColumn.setStyle(greenFill);
+        outPriceColumn.setStyle(greenFill);
     }
 
 }

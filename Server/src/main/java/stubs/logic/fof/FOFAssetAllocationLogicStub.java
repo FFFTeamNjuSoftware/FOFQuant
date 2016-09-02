@@ -49,10 +49,14 @@ public class FOFAssetAllocationLogicStub extends UnicastRemoteObject implements 
         AssetItem item = new AssetItem();
         item.code = "000001";
         item.name = "测试";
-        item.holdValue = 10023.12;
-        item.ratio = 10.0;
-        item.totalProfit = 5.2;
-        item.totalProfitRate = 30.2;
+        item.endHoldNum = 1564;
+        item.endNetWorth = 10.5;
+        item.endHoldValue = 10023.12;
+        item.endHoldRatio = 10.0;
+        item.periodProfit = 1235.0;
+        item.periodFloatProfit = 1023.4;
+        item.unitProfit = 10.2;
+        item.periodProfitRate = 5.2;
         return Arrays.asList(item);
     }
 

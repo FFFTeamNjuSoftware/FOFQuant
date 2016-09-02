@@ -28,6 +28,10 @@ public class ProfitRateInfo implements Serializable {
      */
     public double nearOneYear;
     /**
+     * 近两年
+     */
+    public double nearTwoYear;
+    /**
      * 近三年
      */
     public double nearThreeYear;
@@ -35,6 +39,10 @@ public class ProfitRateInfo implements Serializable {
      * 近五年
      */
     public double nearFiveYear;
+    /**
+     * 年初至今
+     */
+    public double sinceThisYear;
     /**
      * 自建立
      */

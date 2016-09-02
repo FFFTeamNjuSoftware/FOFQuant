@@ -20,6 +20,8 @@ public class FofAssetAllocationEntity {
     private Double periodFloatProfit;
     private Double periodProfitRate;
     private Double profitRatio;
+    private Double endHoldRatio;
+    private Double unitProfit;
 
     @Id
     @Column(name = "fof_id", nullable = false, length = 255)
@@ -176,5 +178,25 @@ public class FofAssetAllocationEntity {
         result = 31 * result + (periodProfitRate != null ? periodProfitRate.hashCode() : 0);
         result = 31 * result + (profitRatio != null ? profitRatio.hashCode() : 0);
         return result;
+    }
+
+    @Basic
+    @Column(name = "endHoldRatio", nullable = true, precision = 0)
+    public Double getEndHoldRatio() {
+        return endHoldRatio;
+    }
+
+    public void setEndHoldRatio(Double endHoldRatio) {
+        this.endHoldRatio = endHoldRatio;
+    }
+
+    @Basic
+    @Column(name = "unitProfit", nullable = true, precision = 0)
+    public Double getUnitProfit() {
+        return unitProfit;
+    }
+
+    public void setUnitProfit(Double unitProfit) {
+        this.unitProfit = unitProfit;
     }
 }

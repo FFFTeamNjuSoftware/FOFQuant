@@ -1,8 +1,10 @@
 package stubs.logic.fof;
 
+import beans.FOFHistoryInfo;
 import beans.FOFQuickInfo;
 import beans.PriceInfo;
 import bl.fof.FOFBaseInfoLogic;
+import util.FOFUtilInfo;
 import util.SectorType;
 
 import java.rmi.RemoteException;
@@ -18,6 +20,20 @@ import java.util.Map;
 public class FOFBaseInfoLogicStub extends UnicastRemoteObject implements FOFBaseInfoLogic {
     public FOFBaseInfoLogicStub() throws RemoteException {
 
+    }
+
+    @Override
+    public List<FOFHistoryInfo> getFOFHistoryInfo() throws RemoteException {
+        FOFHistoryInfo fofHistoryInfo = new FOFHistoryInfo();
+        fofHistoryInfo.fofId = FOFUtilInfo.FOF_CODE;
+        fofHistoryInfo.date = "2016-03-01";
+        fofHistoryInfo.dailyProfit = 132523;
+        fofHistoryInfo.dailyProfitRate = 0.12;
+        fofHistoryInfo.scale = 2356154;
+        fofHistoryInfo.totalProfit = 123564;
+        fofHistoryInfo.totalProfitRate = 15;
+        fofHistoryInfo.totalValue = 12335623;
+        return Arrays.asList(fofHistoryInfo);
     }
 
     @Override

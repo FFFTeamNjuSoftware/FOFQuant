@@ -209,19 +209,26 @@ public class MarketLogicImpl extends UnicastRemoteObject implements MarketLogic 
         calendar.add(Calendar.YEAR, -1);
         String oneYear = CalendarOperate.formatCalender(calendar);
         calendar = Calendar.getInstance();
+        calendar.add(Calendar.YEAR, -2);
+        String twoYear = CalendarOperate.formatCalender(calendar);
+        calendar = Calendar.getInstance();
         calendar.add(Calendar.YEAR, -3);
         String threeYear = CalendarOperate.formatCalender(calendar);
         calendar = Calendar.getInstance();
         calendar.add(Calendar.YEAR, -5);
         String fiveYear = CalendarOperate.formatCalender(calendar);
+        calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_YEAR, 1);
+        String thisYear = CalendarOperate.formatCalender(calendar);
         Map<String, Double> dateProfitInfo = new HashMap<>();
         dateProfitInfo.put(oneMonth, 1.0);
         dateProfitInfo.put(threeMonth, 1.0);
         dateProfitInfo.put(sixMonth, 1.0);
         dateProfitInfo.put(oneYear, 1.0);
+        dateProfitInfo.put(twoYear, 1.0);
         dateProfitInfo.put(threeYear, 1.0);
         dateProfitInfo.put(fiveYear, 1.0);
-
+        dateProfitInfo.put(thisYear, 1.0);
 
         for (PriceInfo info : infos) {
             dateProfitInfo.forEach((key, value) -> {
@@ -245,6 +252,8 @@ public class MarketLogicImpl extends UnicastRemoteObject implements MarketLogic 
         profitRateInfo.nearThreeYear = (dateProfitInfo.get(threeYear) - 1) * 100;
         profitRateInfo.nearFiveYear = (dateProfitInfo.get(fiveYear) - 1) * 100;
         profitRateInfo.yearRate = yearRate;
+        profitRateInfo.nearTwoYear = (dateProfitInfo.get(twoYear) - 1) * 100;
+        profitRateInfo.sinceThisYear = (dateProfitInfo.get(thisYear) - 1) * 100;
         profitRateInfo.sinceEstablish = sinceEstablish * 100;
         NumberOpe.controlDecimal(profitRateInfo, 2);
         return profitRateInfo;
