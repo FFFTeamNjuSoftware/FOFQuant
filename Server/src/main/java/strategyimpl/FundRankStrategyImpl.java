@@ -129,40 +129,35 @@ public class FundRankStrategyImpl implements FundRankStrategy {
             for (int sec = 0; sec < sectorTypes.get(i).size(); sec++) {
                 try {
                     fundQuickInfos.addAll(baseInfoLogic.getFundQuickInfo(sectorTypes.get(i).get(sec)));
-                    fundQuickInfos.removeAll(baseInfoLogic.getFundQuickInfo(SectorType.QDII_TYPE));
+//                    fundQuickInfos.removeAll(baseInfoLogic.getFundQuickInfo(SectorType.QDII_TYPE));
+                    fundQuickInfos=this.removeQDII(fundQuickInfos);
                 } catch (ObjectNotFoundException e) {
 //                        System.out.println("没有"+sectorTypes.get(i).get(sec)+"类型对应的数据:(");
                     continue;
                 }
             }
-
-            Map<String, Double> index = new HashMap<>();
-            String code = "";
-            for (int j = 0; j < fundQuickInfos.size(); j++) {
-                code = fundQuickInfos.get(j).code;
-                double mrar;
-                try {
-                    mrar = this.getMRAR(code, timeType, endDate);
-                } catch (ParameterException e) {
-                    System.out.println("startdate在" + endDate + "之前");
-                    continue;
-                } catch (ObjectNotFoundException e) {
+                Map<String, Double> index = new HashMap<>();
+                String code = "";
+                for (int j = 0; j < fundQuickInfos.size(); j++) {
+                    code = fundQuickInfos.get(j).code;
+                    double mrar;
+                    try {
+                        mrar = this.getMRAR(code, timeType, endDate);
+                        index.put(code,mrar);
+                    } catch (ParameterException e) {
+                        System.out.println("startdate在" + endDate + "之前");
+                        continue;
+                    } catch (ObjectNotFoundException e) {
 //                    System.out.println("没有"+code+" 类型对应的数据");
-                    continue;
+                        continue;
+                    }
                 }
-            }
 
-            Map<String, ArrayList<Double>> sortedIndex = this.Sequence(index);
-            for(String newcode:sortedIndex.keySet()) {
-                if(!rank.containsKey(newcode)){
-                    rank.put(newcode,sortedIndex.get(newcode));
-                }else{
-                    System.out.println(newcode);
-                }
-            }
-//            rank.putAll(sortedIndex);
+                Map<String, ArrayList<Double>> sortedIndex = this.Sequence(index);
+                rank.putAll(sortedIndex);
 
         }
+        System.out.println("rank has"+rank.size());
         return rank;
     }
 
@@ -171,7 +166,24 @@ public class FundRankStrategyImpl implements FundRankStrategy {
         return 0;
     }
 
-    public Map<String,ArrayList<Double>> Sequence(Map<String,Double> index){
+    private List<FundQuickInfo> removeQDII(List<FundQuickInfo> fundQuickInfos){
+        try {
+            List<FundQuickInfo> qdiis=baseInfoLogic.getFundQuickInfo(SectorType.QDII_TYPE);
+            for(FundQuickInfo qdii:qdiis){
+                if(fundQuickInfos.contains(qdii)){
+                    System.out.println(qdii.code+"remove");
+                    fundQuickInfos.remove(qdii);
+                }
+            }
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (ObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+        return fundQuickInfos;
+    }
+
+    private Map<String,ArrayList<Double>> Sequence(Map<String,Double> index){
         Map<String,ArrayList<Double>> rank=new HashMap<>();
         List<Map.Entry<String,Double>> fundCodes=new ArrayList<Map.Entry<String, Double>>(index.entrySet());
         //按照降序排序
