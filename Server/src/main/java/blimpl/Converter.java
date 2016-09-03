@@ -187,5 +187,6 @@ public class Converter {
         fundDeploy.window=entity.getWindow();
         fundDeploy.hold=entity.getHold();
         fundDeploy.sharpe=entity.getSharpe();
+        return fundDeploy;
     }
 }
