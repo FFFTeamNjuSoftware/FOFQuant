@@ -5,9 +5,7 @@ function[w,rpturn]=riskyParity(dataset,datafee,N,window,hold)
 % N为标的资产的个数,可相应更改,建立收益率矩阵 
 dataset=dataset(:,1:N);
 datafee=datafee(:,1:3);
-display(dataset);
-display(datafee);
-returndata=zeros(length(dataset)-1,N);
+returndata=zeros(length(dataset),N);
 for i=1:N
     for j=1:(length(dataset)-1)
         returndata(j,i)=(dataset(j+1,i)-dataset(j,i))/dataset(j,i); 
@@ -28,7 +26,9 @@ for i=1:adjust
     orignalr=returndata(1+hold*(i-1):window+hold*(i-1),:); 
     algor=orignalr*algow;
     rmatrix=[orignalr,algor]; 
-    covmatrix=cov(rmatrix);
+%     covmatrix=cov(rmatrix);
+    rmatrix_mu=rmatrix-ones(length(rmatrix),1)*mean(rmatrix);
+    covmatrix=(rmatrix_mu'*rmatrix_mu)./(length(rmatrix)-1);
     for j=1:N 
         beta(j)=covmatrix(j,N+1)/covmatrix(N+1,N+1); 
         mul(j)=algow(j)*beta(j)-1/N; 
@@ -42,8 +42,10 @@ for i=1:adjust
         end
         algow=invbeta/sum(invbeta); 
         algor=orignalr*algow'; 
-        rmatrix=[orignalr,algor]; 
-        covmatrix=cov(rmatrix);
+        rmatrix=[orignalr,algor];
+        rmatrix_mu=rmatrix-ones(length(rmatrix),1)*mean(rmatrix);
+        covmatrix=(rmatrix_mu'*rmatrix_mu)./(length(rmatrix)-1);
+%         covmatrix=cov(rmatrix);
         for t=1:N 
             beta(t)=covmatrix(t,N+1)/covmatrix(N+1,N+1); 
             mul(t)=algow(t)*beta(t)-1/N;
@@ -62,9 +64,9 @@ for i=1:adjust
     for j=1:N 
     %N 个基金 
         dailyret(:,j)=returndata((window+1)+hold*(i-1):(hold+window)+hold*(i-1),j)+ones(hold,1);
-        monthlyret(i,j)=prod(dailyret(:,j))-1-sum(datafee(j,:)');
+        monthlyret(i,j)=prod(dailyret(:,j))-1-sum(datafee(j,:)')/100;
         %收益率剔除基金费率得持有期的净利率
     end
 end
-rpturn=sum((w.*monthlyret)');
+rpturn=sum((w.*monthlyret)')';
 end
