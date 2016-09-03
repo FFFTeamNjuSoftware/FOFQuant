@@ -1,18 +1,22 @@
 package strategyimpl;
 
+import beans.FundDeploy;
 import beans.FundQuickInfo;
 import beans.PriceInfo;
 import bl.BaseInfoLogic;
 import bl.MarketLogic;
 import blimpl.BLController;
+import blimpl.Converter;
+import com.mathworks.toolbox.javabuilder.MWClassID;
+import com.mathworks.toolbox.javabuilder.MWNumericArray;
 import dataservice.BaseInfoDataService;
 import dataserviceimpl.DataServiceController;
+import entities.FundDeployEntity;
 import entities.FundInfosEntity;
 import entities.FundRankEntity;
 import exception.ObjectNotFoundException;
 import exception.ParameterException;
 import strategy.FundDeployStrategy;
-import util.SectorType;
 import util.UnitType;
 
 import java.io.BufferedWriter;
@@ -29,8 +33,10 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
     private BaseInfoDataService baseInfoDataService;
     private BaseInfoLogic baseInfoLogic;
     private MarketLogic marketLogic;
-    private String startDate = "2013-01-01";
-    private String endDate = "2015-12-31";
+    private String start = "2013-01-01";
+    private String end = "2015-12-31";
+    private int[] windows = {90, 180, 360};
+    private int[] holds = {30, 60, 90};
 
     public FundDeployStrategyImpl() {
         baseInfoDataService = DataServiceController.getBaseInfoDataService();
@@ -38,103 +44,8 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
         marketLogic = BLController.getMarketLogic();
     }
 
-
     @Override
-    public List getWRpturn(List<String> funds, String startDate, String endDate) {
-        return null;
-    }
-
-
-    @Override
-    public List DefaultFundDeploy() throws RemoteException {
-        //获得系统中所有固定收益类基金的排名
-        List<FundQuickInfo> fundQuickInfos;
-        try {
-            fundQuickInfos = baseInfoLogic.getFundQuickInfo(SectorType.FIX_PROFIT_TYPE);
-            HashMap<String, Double> fixProfitRank = new HashMap<>();
-            FundRankEntity fundRankEntity;
-            for (FundQuickInfo fundQuickInfo : fundQuickInfos) {
-                String code = "";
-                try {
-                    code = fundQuickInfo.code;
-                    fundRankEntity = baseInfoDataService.getFundRankInfo(code);
-                    Double grade = fundRankEntity.getGrade();
-                    if (grade != null) {
-                        fixProfitRank.put(code, grade);
-                    }
-                } catch (ObjectNotFoundException e) {
-                    continue;
-                }
-            }
-            //排序
-            List<String> sortedCodes = this.sort(fixProfitRank);
-            int[] windows = {90, 180, 360};
-            int[] holds = {30, 60, 90};
-            List<Double> sharpes=new ArrayList<>();
-//            for (int window : windows) {
-//                for (int hold : holds) {
-                    for (int N = 2; N <= 6; N++) {
-//                        System.out.println(N+"begin");
-                        double sharpe=this.calSharpe(sortedCodes, N, 360, 30);
-
-                       // FundDeployEntity fundDeployEntity=new FundDeployEntity();
-
-                        sharpes.add(sharpe);
-                    }
-//                }
-//            }
-            //对sharpe数组进行排序
-        } catch (ObjectNotFoundException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
-    public List CustomizedFundDeploy(List<String> funds) {
-        return null;
-    }
-
-    @Override
-    public double calSharpe(List<String> sortedCodes, int N, int window, int hold) throws RemoteException {
-        //读取系统中前N只固定收益型股票的2013.12-2015.12收盘价数据,每只基金对应的费率
-        if (sortedCodes.size() < N) {
-            N = sortedCodes.size();
-        }
-        Map<String, List<Double>> codePrices = this.getCodePrices(sortedCodes, N);
-        Map<String, List<Double>> codeFee = this.getCodeFee(sortedCodes, N);
-
-        //算出最少包含的天数
-        int length=0;
-        for(String codePrice:codePrices.keySet()){
-            if(length==0) {
-                length = codePrices.get(codePrice).size();
-            }else{
-                if (length>codePrices.get(codePrice).size()){
-                    length=codePrices.get(codePrice).size();
-                }
-            }
-        }
-
-//        this.writeToTXT(codePrices,codeFee,N,window,hold,length);
-
-        //根据codePrices,codeFee,N,window,hold生成dataPrice和dataFee矩阵
-        //调用小类matlab策略
-        //策略返回w矩阵和rpturn数组
-        //rpturn数组计算出对应的Sharpe比率
-        List<String> codes=new ArrayList<>();
-        int adjust=(int)Math.floor((length-window)/hold);
-        double[][] w=new double[adjust][N];
-        for (String code:codes){
-            Map<String,Double> propotion=new HashMap<>();
-
-        }
-        double sharpe=0.0;
-
-        return sharpe;
-    }
-
-    public Map<String, List<Double>> getCodePrices(List<String> funds, int N) throws RemoteException {
+    public Map<String, List<Double>> getCodePrices(List<String> funds, int N,String startDate,String endDate) throws RemoteException {
         Map<String, List<Double>> codePrices = new HashMap<>();
         try {
             int i = 0;
@@ -160,6 +71,7 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
         return codePrices;
     }
 
+    @Override
     public Map<String, List<Double>> getCodeFee(List<String> funds, int N) throws RemoteException {
         Map<String, List<Double>> codeFee = new HashMap<>();
         int size = 0;
@@ -195,6 +107,124 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
             e.printStackTrace();
         }
         return codeFee;
+    }
+
+
+    @Override
+    public FundDeploy calSharpe(List<String> sortedCodes, int N, int window, int hold, String startDate, String endDate) throws RemoteException {
+        //读取系统中前N只固定收益型股票的2013.12-2015.12收盘价数据,每只基金对应的费率
+        if (sortedCodes.size() < N) {
+            N = sortedCodes.size();
+        }
+        Map<String, List<Double>> codePrices = this.getCodePrices(sortedCodes, N, startDate, endDate);
+        Map<String, List<Double>> codeFee = this.getCodeFee(sortedCodes, N);
+
+        //算出最少包含的天数
+        int length = 0;
+        for (String codePrice : codePrices.keySet()) {
+            if (length == 0) {
+                length = codePrices.get(codePrice).size();
+            } else {
+                if (length > codePrices.get(codePrice).size()) {
+                    length = codePrices.get(codePrice).size();
+                }
+            }
+        }
+        //        this.writeToTXT(codePrices,codeFee,N,window,hold,length);
+        double[][] price=new double[length][N];
+        double[][] fee=new double[N][3];
+        List<String> codes=new ArrayList<>();
+        int index=0;
+        for(String code:codePrices.keySet()){
+            for(int i=0;i<length;i++) {
+                price[index][i] = codePrices.get(code).get(i);
+            }
+            for(int j=0;j<3;j++){
+                fee[index][j]=codeFee.get(code).get(j);
+            }
+            codes.add(code);
+            index++;
+        }
+        //根据prices,fee,N,window,hold生成dataPrice和dataFee矩阵
+        //调用小类matlab策略
+        //策略返回w矩阵,rpturn数组,Sharpe比率
+        //rpturn数组计算出对应的Sharpe比率
+        MWNumericArray prices=new MWNumericArray(price, MWClassID.DOUBLE);
+        MWNumericArray fees=new MWNumericArray(fee,MWClassID.DOUBLE);
+        Object[] objs=new Object[3];
+//        Object[] objs= MatlabBoot.getCalculateTool().(3,prices,fees,N,window,hold);
+
+        double[][] w=(double[][])((MWNumericArray)objs[0]).toDoubleArray();
+        double[] rpturn = (double[])((MWNumericArray)objs[1]).toDoubleArray();
+        double sharpe = (double)objs[2];
+        List<Map<String, Double>> proportions = new ArrayList<>();
+
+        for (int i = 0; i < rpturn.length; i++){
+            Map<String, Double> proportion = new HashMap<>();
+            for (int j=0;j<N;j++) {
+                //w中每一行存储每一只基金对应的权重
+                double p = w[i][j];
+                proportion.put(sortedCodes.get(j),p);
+            }
+            proportions.add(proportion);
+        }
+        FundDeployEntity fundDeployEntity=new FundDeployEntity(proportions,N,rpturn,window,hold,sharpe);
+
+        return Converter.convertFundDeployEntity(fundDeployEntity);
+    }
+
+    @Override
+    public FundDeploy CustomizedFundDeploy(List<String> funds,String startDate,String endDate) throws RemoteException{
+        List<FundDeploy> fundDeploys=new ArrayList<>();
+        for (int window : windows) {
+            for (int hold : holds) {
+                for (int N = 2; N <= 6; N++) {
+                     FundDeploy fundDeploy=this.calSharpe(funds,N,window,hold,startDate,endDate);
+                     fundDeploys.add(fundDeploy);
+                }
+            }
+        }
+        //选出夏普比率值最高的组合
+        FundDeploy result=fundDeploys.get(0);
+        double sharpe=0;
+        for(FundDeploy fundDeploy:fundDeploys){
+              if(fundDeploy.sharpe>sharpe){
+                  sharpe=fundDeploy.sharpe;
+                  result=fundDeploy;
+              }
+        }
+        return result;
+    }
+
+    @Override
+    public FundDeploy DefaultFundDeploy(String sectorType) throws RemoteException {
+        //获得系统中所有固定收益类基金的排名
+        List<FundQuickInfo> fundQuickInfos;
+        FundDeploy fundDeploy=new FundDeploy();
+        try {
+            fundQuickInfos = baseInfoLogic.getFundQuickInfo(sectorType);
+            HashMap<String, Double> fixProfitRank = new HashMap<>();
+            FundRankEntity fundRankEntity;
+            for (FundQuickInfo fundQuickInfo : fundQuickInfos) {
+                String code = "";
+                try {
+                    code = fundQuickInfo.code;
+                    fundRankEntity = baseInfoDataService.getFundRankInfo(code);
+                    Double grade = fundRankEntity.getGrade();
+                    if (grade != null) {
+                        fixProfitRank.put(code, grade);
+                    }
+                } catch (ObjectNotFoundException e) {
+                    continue;
+                }
+            }
+            //排序
+            List<String> sortedCodes = this.sort(fixProfitRank);
+            fundDeploy=this.CustomizedFundDeploy(sortedCodes,start,end);
+        } catch (ObjectNotFoundException e) {
+            System.out.println("系统无法进行小类配置");
+        }
+        return fundDeploy;
     }
 
     private void writeToTXT(Map<String,List<Double>> codePrices,Map<String, List<Double>> codeFee,int N,int window,int hold,int length) {
@@ -248,13 +278,6 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
         Collections.sort(fundCodes, new Comparator<Map.Entry<String, Double>>() {
             @Override
             public int compare(Map.Entry<String, Double> o1, Map.Entry<String, Double> o2) {
-//                if(o2.getValue()>o1.getValue()){
-//                    return -1;
-//                }else if (o2.getValue()==o1.getValue()){
-//                    return 0;
-//                }else{
-//                    return 1;
-//                }
                 return o1.getValue().compareTo(o2.getValue());
             }
         });

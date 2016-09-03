@@ -178,4 +178,14 @@ public class Converter {
         fofQuickInfo.establish_date=entity.getEstablishDate();
         return fofQuickInfo;
     }
+
+    public static FundDeploy convertFundDeployEntity(FundDeployEntity entity){
+        FundDeploy fundDeploy=new FundDeploy();
+        fundDeploy.proportion=entity.getProportion();
+        fundDeploy.fundNum=entity.getFundNum();
+        fundDeploy.rpturn=entity.getRpturn();
+        fundDeploy.window=entity.getWindow();
+        fundDeploy.hold=entity.getHold();
+        fundDeploy.sharpe=entity.getSharpe();
+    }
 }

@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import strategy.FundDeployStrategy;
 import strategyimpl.FundDeployStrategyImpl;
+import util.SectorType;
 
 /**
  * Created by Seven on 16/8/30.
@@ -33,7 +34,8 @@ public class FundDeployStrategyImplTest {
 
     @Test
     public void defaultFundDeploy() throws Exception {
-        fundDeployStrategy.DefaultFundDeploy();
+        fundDeployStrategy.DefaultFundDeploy(SectorType.FIX_PROFIT_TYPE);
+        fundDeployStrategy.DefaultFundDeploy(SectorType.RIGHTS_TYPE);
     }
 
     @Test
