@@ -116,8 +116,9 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
             }
         }
 
-        this.writeToTXT(codePrices,codeFee,N,window,hold,length);
-        //根据codePrices和codeFee生成dataPrice和dataFee矩阵
+//        this.writeToTXT(codePrices,codeFee,N,window,hold,length);
+
+        //根据codePrices,codeFee,N,window,hold生成dataPrice和dataFee矩阵
         //调用小类matlab策略
         //策略返回w矩阵和rpturn数组
         //rpturn数组计算出对应的Sharpe比率

@@ -123,7 +123,7 @@ public class FundRankStrategyImpl implements FundRankStrategy {
         List<ArrayList<String>> sectorTypes=baseInfoLogic.getRankSectorType();
 
         for (int i=0;i<sectorTypes.size();i++) {
-            System.out.println("!!!!!!!!!正在处理" + sectorTypes.get(i) + "类型的基金!!!!!!!!!!!!!!");
+//            System.out.println("!!!!!!!!!正在处理" + sectorTypes.get(i) + "类型的基金!!!!!!!!!!!!!!");
             //  去掉保本型和货币型
             List<FundQuickInfo> fundQuickInfos = new ArrayList<>();
             for (int sec = 0; sec < sectorTypes.get(i).size(); sec++) {
