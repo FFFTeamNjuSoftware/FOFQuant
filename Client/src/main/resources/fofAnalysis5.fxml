@@ -44,44 +44,17 @@
             <TableColumn id="yearRate" prefWidth="69.0" text="年化回报" />
         </columns>
       </TableView>
-      <AnchorPane layoutY="272.0" prefHeight="248.0" prefWidth="467.0">
+      <AnchorPane layoutY="272.0" prefHeight="248.0" prefWidth="930.0">
          <children>
-            <Label layoutX="149.0" layoutY="4.0" text="权益类基金净值表现" textFill="WHITE">
+            <Label layoutX="389.0" layoutY="3.0" text="权益类基金净值表现" textFill="WHITE">
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
-            <ComboBox layoutX="14.0" layoutY="34.0" prefHeight="30.0" prefWidth="135.0" promptText="复权单位净值" style="-fx-background-color: #23A3F3;" />
-            <ComboBox layoutX="166.0" layoutY="34.0" prefHeight="30.0" prefWidth="68.0" promptText="周" style="-fx-background-color: #23A3F3;" />
-            <ComboBox layoutX="255.0" layoutY="34.0" prefHeight="30.0" prefWidth="78.0" promptText="1M" style="-fx-background-color: #23A3F3;" />
-            <LineChart layoutX="13.0" layoutY="86.0" prefHeight="125.0" prefWidth="441.0">
-              <xAxis>
-                <CategoryAxis side="BOTTOM" />
-              </xAxis>
-              <yAxis>
-                <NumberAxis side="LEFT" />
-              </yAxis>
-            </LineChart>
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutX="467.0" layoutY="272.0" prefHeight="248.0" prefWidth="467.0">
-         <children>
-            <Label layoutX="149.0" layoutY="4.0" text="固定收益类基金净值表现" textFill="WHITE">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <ComboBox layoutX="14.0" layoutY="34.0" prefHeight="30.0" prefWidth="135.0" promptText="复权单位净值" style="-fx-background-color: #23A3F3;" />
-            <ComboBox layoutX="166.0" layoutY="34.0" prefHeight="30.0" prefWidth="68.0" promptText="周" style="-fx-background-color: #23A3F3;" />
-            <ComboBox layoutX="255.0" layoutY="34.0" prefHeight="30.0" prefWidth="78.0" promptText="1M" style="-fx-background-color: #23A3F3;" />
-            <LineChart layoutX="13.0" layoutY="86.0" prefHeight="125.0" prefWidth="441.0">
-               <xAxis>
-                  <CategoryAxis side="BOTTOM" />
-               </xAxis>
-               <yAxis>
-                  <NumberAxis side="LEFT" />
-               </yAxis>
-            </LineChart>
+            <ComboBox fx:id="chartTypeBox" layoutX="14.0" layoutY="34.0" prefHeight="30.0" prefWidth="90.0" promptText="复权" style="-fx-background-color: #23A3F3;" />
+            <ComboBox fx:id="unitTypeBox" layoutX="147.0" layoutY="34.0" prefHeight="30.0" prefWidth="68.0" promptText="周" style="-fx-background-color: #23A3F3;" />
+            <ComboBox fx:id="timeTypeBox" layoutX="255.0" layoutY="34.0" prefHeight="30.0" prefWidth="118.0" promptText="一个月" style="-fx-background-color: #23A3F3;" />
+            <AnchorPane fx:id="chartPane" layoutX="15.0" layoutY="70.0" prefHeight="171.0" prefWidth="910.0" />
          </children>
       </AnchorPane>
       <TableView fx:id="solidTable" blendMode="LIGHTEN" layoutX="33.0" layoutY="162.0" prefHeight="100.0" prefWidth="869.0">
