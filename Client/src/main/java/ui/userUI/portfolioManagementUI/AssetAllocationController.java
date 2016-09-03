@@ -134,6 +134,7 @@ public class AssetAllocationController implements Initializable {
     }
 
     public void initLineChart(UnitType unitType, TimeType timeType, ChartType chartType) {
+        chartPane.getChildren().clear();
         LineChartGenerator generator = new LineChartGenerator(chartPane, names);
         List<ProfitChartInfo> list = null;
         try {
