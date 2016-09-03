@@ -57,7 +57,15 @@ public class BaseInfoLogicImpl extends UnicastRemoteObject implements BaseInfoLo
     @Override
     public List<String> getSectorCodes(String sectorId) throws RemoteException {
         try {
-            return baseInfoDataService.getSectorCodes(sectorId);
+            if (sectorId.compareTo("000009") <= 0)
+                return baseInfoDataService.getSectorCodes(sectorId);
+            else {
+                List<String> result = new ArrayList<>();
+                for (String str : SectorType.COMPONENT_INFO.get(sectorId)) {
+                    result.addAll(baseInfoDataService.getSectorCodes(str));
+                }
+                return result;
+            }
         } catch (ObjectNotFoundException e) {
             e.printStackTrace();
         }

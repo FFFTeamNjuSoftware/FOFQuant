@@ -153,29 +153,42 @@ public class Converter {
         return positionChange;
     }
 
-    public static AssetItem convertFOFAssetAllocation(FofAssetAllocationEntity entity){
-        AssetItem assetItem=new AssetItem();
-        assetItem.code=entity.getFundCode();
-        assetItem.name=entity.getFundName();
-        assetItem.endHoldNum=entity.getEndHoldNum();
-        assetItem.endHoldRatio=entity.getEndHoldRatio();
-        assetItem.endHoldValue=entity.getEndHoldValue();
-        assetItem.endNetWorth=entity.getEndNetWorth();
-        assetItem.periodFloatProfit=entity.getPeriodFloatProfit();
-        assetItem.periodProfit=entity.getPeriodProfit();
-        assetItem.periodProfitRate=entity.getPeriodProfitRate();
-        assetItem.profitRatio=entity.getProfitRatio();
-        assetItem.unitProfit=entity.getUnitProfit();
+    public static AssetItem convertFOFAssetAllocation(FofAssetAllocationEntity entity) {
+        AssetItem assetItem = new AssetItem();
+        assetItem.code = entity.getFundCode();
+        assetItem.name = entity.getFundName();
+        assetItem.endHoldNum = entity.getEndHoldNum();
+        assetItem.endHoldRatio = entity.getEndHoldRatio();
+        assetItem.endHoldValue = entity.getEndHoldValue();
+        assetItem.endNetWorth = entity.getEndNetWorth();
+        assetItem.periodFloatProfit = entity.getPeriodFloatProfit();
+        assetItem.periodProfit = entity.getPeriodProfit();
+        assetItem.periodProfitRate = entity.getPeriodProfitRate();
+        assetItem.profitRatio = entity.getProfitRatio();
+        assetItem.unitProfit = entity.getUnitProfit();
         return assetItem;
     }
 
-    public static FOFQuickInfo convertFOFQuickinfo(FofInfoEntity entity){
-        FOFQuickInfo fofQuickInfo=new FOFQuickInfo();
-        fofQuickInfo.code=entity.getFofId();
-        fofQuickInfo.name=entity.getFofName();
-        fofQuickInfo.netWorth=entity.getNetWorth();
-        fofQuickInfo.totalProfit=entity.getTotalProfit();
-        fofQuickInfo.establish_date=entity.getEstablishDate();
+    public static FOFQuickInfo convertFOFQuickinfo(FofInfoEntity entity) {
+        FOFQuickInfo fofQuickInfo = new FOFQuickInfo();
+        fofQuickInfo.code = entity.getFofId();
+        fofQuickInfo.name = entity.getFofName();
+        fofQuickInfo.netWorth = entity.getNetWorth();
+        fofQuickInfo.totalProfit = entity.getTotalProfit();
+        fofQuickInfo.establish_date = entity.getEstablishDate();
         return fofQuickInfo;
+    }
+
+    public static FOFHistoryInfo convertFOFHistoryInfo(FofHistoryInfoEntity entity) {
+        FOFHistoryInfo fofHistoryInfo = new FOFHistoryInfo();
+        fofHistoryInfo.totalValue = entity.getTotalValue();
+        fofHistoryInfo.totalProfitRate = entity.getTotalProfitRate();
+        fofHistoryInfo.totalProfit = entity.getTotalProfit();
+        fofHistoryInfo.scale = entity.getScale();
+        fofHistoryInfo.dailyProfit = entity.getDailyProfit();
+        fofHistoryInfo.dailyProfitRate = entity.getDailyProfitRate();
+        fofHistoryInfo.date = entity.getDate();
+        fofHistoryInfo.fofId = entity.getFofId();
+        return fofHistoryInfo;
     }
 }

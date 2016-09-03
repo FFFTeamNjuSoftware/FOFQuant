@@ -8,6 +8,9 @@ import org.junit.Before;
 import org.junit.Test;
 import startup.HibernateBoot;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * FOFBaseInfoLogicImpl Tester.
  *
@@ -41,7 +44,7 @@ public class FOFBaseInfoLogicImplTest {
      */
     @Test
     public void testGetFOFHistoryInfo() throws Exception {
-//TODO: Test goes here... 
+        fofBaseInfoLogic.getFOFHistoryInfo().forEach(e -> System.out.println(new Gson().toJson(e)));
     }
 
     /**
@@ -49,7 +52,11 @@ public class FOFBaseInfoLogicImplTest {
      */
     @Test
     public void testGetFundCodeInFOF() throws Exception {
-//TODO: Test goes here... 
+        Map<String,List<String>> infos=fofBaseInfoLogic.getFundCodeInFOF();
+        for(String str:infos.keySet()){
+            System.out.println("Sector "+str+":");
+            infos.get(str).forEach(System.out::println);
+        }
     }
 
     /**
