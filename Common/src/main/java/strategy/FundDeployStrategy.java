@@ -1,5 +1,7 @@
 package strategy;
 
+import beans.FundDeploy;
+
 import java.rmi.RemoteException;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +17,7 @@ public interface FundDeployStrategy {
      * @return
      * @throws RemoteException
      */
-    public Map<String, List<Double>> getCodePrices(List<String> funds, int N) throws RemoteException ;
+    public Map<String, List<Double>> getCodePrices(List<String> funds, int N,String startDate,String endDate) throws RemoteException ;
 
     /**
      * 获得小类费率矩阵
@@ -28,34 +30,26 @@ public interface FundDeployStrategy {
 
     /**
      * 根据代码排名情况获得权重分配后组合的夏普比率
-     * @param codeRank
+     * @param codes
      * @param N
      * @param window
      * @param hold
      * @return
      * @throws RemoteException
      */
-    public double calSharpe(List<String> codeRank, int N, int window, int hold) throws RemoteException;
-
-        /**
-         * 获得回测结果,可指定日期
-         * @param funds
-         * @param startDate
-         * @param endDate
-         * @return
-         */
-    public List getWRpturn(List<String> funds,String startDate,String endDate);
-
-    /**
-     * 根据系统基金评级计算小类配置结果
-     * @return
-     */
-    public List DefaultFundDeploy() throws RemoteException;
+    public FundDeploy calSharpe(List<String> codes, int N, int window, int hold, String startDate, String endDate) throws RemoteException;
 
     /**
      * 根据自选的基金计算小类配置结果
      * @param funds
      * @return
      */
-    public List CustomizedFundDeploy(List<String> funds);
+    public FundDeploy CustomizedFundDeploy(List<String> funds,String startDate,String endDate) throws RemoteException;
+
+    /**
+     * 根据系统基金评级计算小类配置结果
+     * @return
+     */
+    public FundDeploy DefaultFundDeploy(String sectorType) throws RemoteException;
+
 }
