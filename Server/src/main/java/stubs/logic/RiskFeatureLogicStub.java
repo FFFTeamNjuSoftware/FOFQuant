@@ -18,6 +18,11 @@ public class RiskFeatureLogicStub  extends UnicastRemoteObject implements RiskFe
     }
 
     @Override
+    public double yearWaveRate(String code) throws RemoteException {
+        return 0;
+    }
+
+    @Override
     public double getBeta(String code) throws RemoteException {
         return 2;
     }

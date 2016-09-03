@@ -30,4 +30,6 @@ public interface MarketDataService {
     public List<NetWorthEntity> getNetWorth(String code,  String startDate, String
             endDate) throws ObjectNotFoundException;
 
+    NetWorthEntity getNewestNetWorth(String code) throws ObjectNotFoundException;
+
 }

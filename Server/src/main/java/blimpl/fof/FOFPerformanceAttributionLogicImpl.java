@@ -8,6 +8,8 @@ import dataserviceimpl.DataServiceController;
 import entities.FofHoldInfoEntity;
 import exception.ObjectNotFoundException;
 import exception.ParameterException;
+import util.FOFUtilInfo;
+import util.NumberOpe;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -29,6 +31,7 @@ public class FOFPerformanceAttributionLogicImpl extends UnicastRemoteObject impl
     private FOFPerformanceAttributionLogicImpl() throws RemoteException {
         fofDataService = DataServiceController.getFOFDataService();
         baseInfoDataService = DataServiceController.getBaseInfoDataService();
+        fof_code = FOFUtilInfo.FOF_CODE;
     }
 
     private static FOFPerformanceAttributionLogic instance;
@@ -90,7 +93,8 @@ public class FOFPerformanceAttributionLogicImpl extends UnicastRemoteObject impl
                 performanceAttribution.periodProfitFinishProfit = endHold.getFinishedProfit()
                         - firstHold.getFinishedProfit();
                 //// TODO: 2016/9/2 unitProfit
-                performanceAttribution.unitProfit=0;
+                performanceAttribution.unitProfit = 0;
+                NumberOpe.controlDecimal(performanceAttribution, 4);
                 performanceAttributions.add(performanceAttribution);
             }
             return performanceAttributions;

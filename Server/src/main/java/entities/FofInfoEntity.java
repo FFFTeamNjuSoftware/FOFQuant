@@ -17,6 +17,7 @@ public class FofInfoEntity {
     private Double scale;
     private Double netWorth;
     private Double totalProfit;
+    private Double currentCost;
 
     @Id
     @Column(name = "fof_id", nullable = false, length = 255)
@@ -140,5 +141,15 @@ public class FofInfoEntity {
 
     public void setTotalProfit(Double totalProfit) {
         this.totalProfit = totalProfit;
+    }
+
+    @Basic
+    @Column(name = "current_cost", nullable = true, precision = 0)
+    public Double getCurrentCost() {
+        return currentCost;
+    }
+
+    public void setCurrentCost(Double currentCost) {
+        this.currentCost = currentCost;
     }
 }

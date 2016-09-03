@@ -196,10 +196,10 @@ public class DataUpdate {
     public static void main(String[] args) throws Exception {
         HibernateBoot.init();
         DataUpdate dataUpdate = new DataUpdate();
-//        dataUpdate.updateQuickinfo();
-        dataUpdate.updateFundRank();
+        dataUpdate.updateQuickinfo();
+//        dataUpdate.updateFundRank();
 //        dataUpdate.updateNetWorth();
 //        dataUpdate.updateFundRealTimeInfo();
-//        dataUpdate.updateFqWorth();
+        dataUpdate.updateFqWorth();
     }
 }

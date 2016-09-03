@@ -47,4 +47,16 @@ public class MarketDataServiceImpl implements MarketDataService {
         }
         return entities;
     }
+
+    @Override
+    public NetWorthEntity getNewestNetWorth(String code) throws ObjectNotFoundException {
+        Session se = HibernateBoot.openSession();
+        List<?> li = se.createQuery("from NetWorthEntity where code=:code and date in " +
+                "(select max(date) from NetWorthEntity where code=:code)").setString("code", code).list();
+        se.close();
+        if (li == null || li.size() == 0)
+            throw new ObjectNotFoundException("can't find " + NetWorthEntity.class
+                    .getSimpleName() + ":" + code);
+        return (NetWorthEntity) li.get(0);
+    }
 }

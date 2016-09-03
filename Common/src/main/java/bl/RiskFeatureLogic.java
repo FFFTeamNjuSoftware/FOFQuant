@@ -50,4 +50,12 @@ public interface RiskFeatureLogic extends Remote {
      * @throws RemoteException
      */
     public double getSharpe(String code) throws RemoteException;
+
+    /**
+     * 年化波动率
+     * @param code
+     * @return
+     * @throws RemoteException
+     */
+    double yearWaveRate(String code) throws RemoteException;
 }

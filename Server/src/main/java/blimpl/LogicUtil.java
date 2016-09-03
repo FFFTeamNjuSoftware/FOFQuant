@@ -2,6 +2,8 @@ package blimpl;
 
 import beans.PriceInfo;
 import entities.FofEstablishInfoEntity;
+import entities.FofHoldInfoEntity;
+import entities.NetWorthEntity;
 import exception.ObjectNotFoundException;
 import util.CalendarOperate;
 import util.TimeType;
@@ -114,10 +116,29 @@ public class LogicUtil {
             (List<FofEstablishInfoEntity> establishInfoEntities, String fundCode) throws
             ObjectNotFoundException {
         for (FofEstablishInfoEntity fofEstablishInfoEntity : establishInfoEntities) {
-            if (fofEstablishInfoEntity.getFofCode().equals(fundCode))
+            if (fofEstablishInfoEntity.getFundCode().equals(fundCode))
                 return fofEstablishInfoEntity;
         }
         throw new ObjectNotFoundException("can't find FofEstablishInfo of :" + fundCode);
+    }
+
+    public static FofHoldInfoEntity getFofHoldInfoByFundCode(List<FofHoldInfoEntity> entities,
+                                                             String fundCode) throws
+            ObjectNotFoundException {
+        for (FofHoldInfoEntity fofHoldInfoEntity : entities) {
+            if (fofHoldInfoEntity.getFundId().equals(fundCode)) {
+                return fofHoldInfoEntity;
+            }
+        }
+        throw new ObjectNotFoundException("can't find FofHoldInfo of:" + fundCode);
+    }
+
+    public static NetWorthEntity getNetWorthByDate(List<NetWorthEntity> entities, String date) {
+        for (NetWorthEntity entity : entities) {
+            if (entity.getDate().equals(date))
+                return entity;
+        }
+        return null;
     }
 
 

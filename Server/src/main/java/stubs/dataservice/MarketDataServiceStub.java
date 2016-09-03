@@ -26,6 +26,11 @@ public class MarketDataServiceStub implements MarketDataService {
     }
 
     @Override
+    public NetWorthEntity getNewestNetWorth(String code) throws ObjectNotFoundException {
+        return null;
+    }
+
+    @Override
     public List<NetWorthEntity> getNetWorth(String code, String startDate, String endDate) throws ObjectNotFoundException {
         List<NetWorthEntity> netWorthEntityList = new ArrayList<NetWorthEntity>();
         NetWorthEntity netWorthEntity = new NetWorthEntity();

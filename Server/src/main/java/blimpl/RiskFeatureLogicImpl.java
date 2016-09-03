@@ -37,6 +37,18 @@ public class RiskFeatureLogicImpl extends UnicastRemoteObject implements RiskFea
     }
 
     @Override
+    public double yearWaveRate(String code) throws RemoteException {
+        try {
+            MWNumericArray array = getFundRise(code);
+            Object[] objs = MatlabBoot.getCalculateTool().yearWaveRate(1, array, 1.0);
+            return ((MWNumericArray) objs[0]).getDouble(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    @Override
     public double getStandardDeviation(String code) throws RemoteException {
         try {
             MWNumericArray array = getFundRise(code);

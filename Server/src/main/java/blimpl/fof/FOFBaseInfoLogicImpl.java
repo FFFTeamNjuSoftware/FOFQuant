@@ -10,6 +10,7 @@ import dataservice.FOFDataService;
 import dataserviceimpl.DataServiceController;
 import exception.ObjectNotFoundException;
 import util.FOFUtilInfo;
+import util.NumberOpe;
 import util.UnitType;
 
 import java.rmi.RemoteException;
@@ -59,7 +60,10 @@ public class FOFBaseInfoLogicImpl extends UnicastRemoteObject implements FOFBase
     @Override
     public FOFQuickInfo getFOFQuickInfo(String code) throws RemoteException {
         try {
-            return Converter.convertFOFQuickinfo(fofDataService.getFofInfoEntity(code));
+            FOFQuickInfo quickInfo = Converter.convertFOFQuickinfo(fofDataService.getFofInfoEntity
+                    (code));
+            NumberOpe.controlDecimal(quickInfo, 2);
+            return quickInfo;
         } catch (ObjectNotFoundException e) {
             e.printStackTrace();
         }

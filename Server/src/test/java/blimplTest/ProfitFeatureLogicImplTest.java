@@ -1,7 +1,9 @@
 package blimplTest;
 
+import beans.RiskProfitIndex;
 import bl.ProfitFeatureLogic;
 import blimpl.BLController;
+import com.google.gson.Gson;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,8 +22,8 @@ public class ProfitFeatureLogicImplTest {
 
     @Before
     public void before() throws Exception {
-        HibernateBoot.init();
         MatlabBoot.init();
+        HibernateBoot.init();
         profitFeatureLogic = BLController.getProfitFeatureLogic();
     }
 
@@ -60,7 +62,8 @@ public class ProfitFeatureLogicImplTest {
      */
     @Test
     public void testRiskProfitRate() throws Exception {
-//TODO: Test goes here... 
+        RiskProfitIndex riskProfitIndex = profitFeatureLogic.getRiskProfitIndex("000001");
+        System.out.println(new Gson().toJson(riskProfitIndex));
     }
 
     /**
@@ -73,4 +76,4 @@ public class ProfitFeatureLogicImplTest {
     }
 
 
-} 
+}

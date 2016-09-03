@@ -19,7 +19,7 @@ public class FOFUtilInfo {
     /**
      * FOF的代码
      */
-    public static final String FOF_CODE = "000001";
+    public static final String FOF_CODE = "F000001";
 
     static {
         performanceBaseInfo = new HashMap<>();

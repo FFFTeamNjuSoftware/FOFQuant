@@ -10,8 +10,10 @@ import dataupdate.FundRealTimeInfoGetter;
 import entities.FofEstablishInfoEntity;
 import entities.FofHistoryInfoEntity;
 import entities.FofHoldInfoEntity;
+import entities.FofInfoEntity;
 import exception.ObjectNotFoundException;
 import util.FOFUtilInfo;
+import util.NumberOpe;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -50,6 +52,7 @@ public class FOFRealTimeMonitorLogicImpl extends UnicastRemoteObject implements 
             List<FofHoldInfoEntity> holdInfos = fofDataService.getNewestFofHoldInfos(fof_code);
             FundRealTimeInfoGetter fundRealTimeInfoGetter = new FundRealTimeInfoGetter();
             FofHistoryInfoEntity fofHistoryInfoEntity = fofDataService.getNewestHistoryInfo(fof_code);
+            FofInfoEntity fofInfoEntity = fofDataService.getFofInfoEntity(fof_code);
             List<FofEstablishInfoEntity> fofEstablishInfoEntities = fofDataService.getFofEstablishInfo
                     (fof_code);
             double total_value = fofHistoryInfoEntity.getTotalValue();
@@ -68,25 +71,25 @@ public class FOFRealTimeMonitorLogicImpl extends UnicastRemoteObject implements 
                 fundInFOFQuickInfo.time = fundRealTimeInfo.gztime;
                 fundInFOFQuickInfo.predictRise = fundRealTimeInfo.gszzl;
                 fundInFOFQuickInfo.holdNum = holdInfo.getHoldNum();
-                fundInFOFQuickInfo.dayProfit = (fundRealTimeInfo.gsz - fofEstablishInfoEntity
-                        .getBuyPrice()) * holdInfo.getHoldNum() - fofEstablishInfoEntity.getOtherFee();
+                fundInFOFQuickInfo.holdValue = fundRealTimeInfo.gsz * holdInfo.getHoldNum();
+                fundInFOFQuickInfo.dayProfit = (fundRealTimeInfo.gsz - fundRealTimeInfo.dwjz) * holdInfo
+                        .getHoldNum() - fofEstablishInfoEntity.getOtherFee();
                 fundInFOFQuickInfo.totalProfit = isSameDay ? holdInfo.getTotalProfit() : holdInfo
                         .getTotalProfit() + fundInFOFQuickInfo.dayProfit;
-                fundInFOFQuickInfo.totalProfitRatio = fundInFOFQuickInfo
-                        .totalProfit / fofEstablishInfoEntity.getCost();
+                fundInFOFQuickInfo.totalProfitRatio = ((1 + holdInfo.getTotalProfitRatio() / 100) *
+                        (1 + fundInFOFQuickInfo.predictRise / 100) - 1) * 100;
                 fundInFOFQuickInfo.predictRiseValue = fundRealTimeInfo.dwjz * rise;
                 fundInFOFQuickInfo.finishedProfit = holdInfo.getFinishedProfit();
-                fundInFOFQuickInfo.floatProfit = (fundRealTimeInfo.gsz - fofEstablishInfoEntity
-                        .getBuyPrice()) * holdInfo.getHoldNum() - fofEstablishInfoEntity.getOtherFee();
+                fundInFOFQuickInfo.floatProfit = holdInfo.getFloatProfit() + fundInFOFQuickInfo.dayProfit;
                 fundInFOFQuickInfo.floatProfitRatio = fundInFOFQuickInfo
-                        .floatProfit / fofEstablishInfoEntity.getCost();
-                fundInFOFQuickInfo.holdValue = fundRealTimeInfo.gsz * holdInfo.getHoldNum();
+                        .floatProfit / fofInfoEntity.getCurrentCost() * 100;
                 if (!isSameDay)
                     total_value += fundInFOFQuickInfo.dayProfit;
                 result.add(fundInFOFQuickInfo);
             }
             for (FundInFOFQuickInfo fundInFOFQuickInfo : result) {
                 fundInFOFQuickInfo.newestWeight = fundInFOFQuickInfo.holdValue / total_value * 100;
+                NumberOpe.controlDecimal(fundInFOFQuickInfo, 4);
             }
             return result;
         } catch (ObjectNotFoundException e) {

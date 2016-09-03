@@ -5,6 +5,10 @@ import beans.PriceInfo;
 import beans.RiskProfitIndex;
 import bl.MarketLogic;
 import bl.ProfitFeatureLogic;
+import bl.RiskFeatureLogic;
+import dataservice.BaseInfoDataService;
+import dataserviceimpl.DataServiceController;
+import entities.FundInfosEntity;
 import exception.ObjectNotFoundException;
 import exception.ParameterException;
 import util.CalendarOperate;
@@ -23,9 +27,11 @@ public class ProfitFeatureLogicImpl extends UnicastRemoteObject implements Profi
 
     private static ProfitFeatureLogic instance;
     private MarketLogic marketLogic;
+    private BaseInfoDataService baseInfoDataService;
 
     private ProfitFeatureLogicImpl() throws RemoteException {
         marketLogic = BLController.getMarketLogic();
+        baseInfoDataService = DataServiceController.getBaseInfoDataService();
     }
 
     public static ProfitFeatureLogic getInstance() {
@@ -97,7 +103,23 @@ public class ProfitFeatureLogicImpl extends UnicastRemoteObject implements Profi
 
     @Override
     public RiskProfitIndex getRiskProfitIndex(String code) throws RemoteException, ObjectNotFoundException {
-        return null;
+        RiskFeatureLogic riskFeatureLogic = BLController.getRiskFeatureLogic();
+        RiskProfitIndex riskProfitIndex = new RiskProfitIndex();
+        riskProfitIndex.alpha = getAlpha(code);
+        riskProfitIndex.beta = riskFeatureLogic.getBeta(code);
+        riskProfitIndex.aveProfit = aveProfitRate(code);
+        riskProfitIndex.code = code;
+        riskProfitIndex.jensen = riskFeatureLogic.getJansen(code);
+        riskProfitIndex.profitSd = riskFeatureLogic.getStandardDeviation(code);
+        riskProfitIndex.treynor = riskFeatureLogic.getTreynor(code);
+        riskProfitIndex.sharpe = riskFeatureLogic.getSharpe(code);
+        riskProfitIndex.yearWaveRate = riskFeatureLogic.yearWaveRate(code);
+        FundInfosEntity fundInfosEntity = baseInfoDataService.getFundInfo(code);
+        riskProfitIndex.name = fundInfosEntity.getSimpleName();
+        riskProfitIndex.investType = fundInfosEntity.getInvestType();
+        riskProfitIndex.manageCompany = baseInfoDataService.getCompanyInfo(fundInfosEntity
+                .getCompany()).getCompanyName();
+        return riskProfitIndex;
     }
 
     @Override
