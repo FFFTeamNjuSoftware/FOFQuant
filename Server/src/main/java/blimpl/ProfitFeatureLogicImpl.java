@@ -124,6 +124,21 @@ public class ProfitFeatureLogicImpl extends UnicastRemoteObject implements Profi
 
     @Override
     public InvestStyleAnalyse getInvestStyleAnalyse(String code) throws RemoteException, ObjectNotFoundException {
-        return null;
+        InvestStyleAnalyse investStyleAnalyse = new InvestStyleAnalyse();
+        FundInfosEntity fundInfosEntity = baseInfoDataService.getFundInfo(code);
+        investStyleAnalyse.code = code;
+        investStyleAnalyse.name = fundInfosEntity.getSimpleName();
+        investStyleAnalyse.aveHoldTime = 0;
+        investStyleAnalyse.holdNetWorthRate = 0;
+        investStyleAnalyse.holdProfitRate = 0;
+        investStyleAnalyse.investStyle = "test";
+        investStyleAnalyse.manageCompany = baseInfoDataService.getCompanyInfo(fundInfosEntity
+                .getCompany()).getCompanyName();
+        investStyleAnalyse.topFiveIndustryRate = 0;
+        investStyleAnalyse.topTenIndustryRate = 0;
+        investStyleAnalyse.topTenStockRate = 0;
+        investStyleAnalyse.topThreeIndustryRate = 0;
+        investStyleAnalyse.investType = "test";
+        return investStyleAnalyse;
     }
 }
