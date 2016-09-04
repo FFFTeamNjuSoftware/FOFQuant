@@ -43,6 +43,8 @@ public interface FOFBaseInfoLogic extends Remote {
 
     /**
      * 获得最新的权重信息
+     * 第一层map是大类配置对应，第二层是具体基金对应的权重
+     * 合计可能没到100，因为还有现金
      * @return
      * @throws RemoteException
      */

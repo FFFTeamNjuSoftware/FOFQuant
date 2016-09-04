@@ -1,4 +1,4 @@
-package entities;
+package beans;
 
 import java.util.Map;
 
@@ -9,7 +9,7 @@ public class CPPIMarketDeployEntity {
     Map<String,Double> proportion;
     double sumTradeFee;
 
-    public CPPIMarketDeployEntity(Map<String,Double> proportion,double sumTradeFee){
+    public CPPIMarketDeployEntity(Map<String,Double> proportion, double sumTradeFee){
             this.proportion=proportion;
             this.sumTradeFee=sumTradeFee;
     }

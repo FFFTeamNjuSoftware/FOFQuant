@@ -6,7 +6,7 @@ import bl.MarketLogic;
 import blimpl.BLController;
 import com.mathworks.toolbox.javabuilder.MWClassID;
 import com.mathworks.toolbox.javabuilder.MWNumericArray;
-import entities.CPPIMarketDeployEntity;
+import beans.CPPIMarketDeployEntity;
 import exception.ObjectNotFoundException;
 import exception.ParameterException;
 import strategy.MarketDeployStrategy;

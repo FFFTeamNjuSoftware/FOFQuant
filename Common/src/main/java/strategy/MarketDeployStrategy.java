@@ -1,6 +1,6 @@
 package strategy;
 
-import entities.CPPIMarketDeployEntity;
+import beans.CPPIMarketDeployEntity;
 
 import java.rmi.RemoteException;
 
