@@ -9,6 +9,7 @@ import exception.ObjectNotFoundException;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TreeItem;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -33,22 +34,18 @@ public class performanceEvaluationController implements Initializable {
     @FXML
     private Button btn1,btn2;
 
-
     private performanceEvaluationController instance;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         instance = this;
-        init();
+        initStep();
     }
 
-    private void init(){
+    private void initStep(){
         Button[] buttons= new Button[]{btn1,btn2};
         ImageView[] images = new ImageView[]{image1,image2};
         for ( int i =0; i < buttons.length; i++) {
             int j = i;
-//            buttons[i].addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
-//                images[j].setVisible(true);
-//            });
             buttons[i].addEventHandler(MouseEvent.MOUSE_PRESSED, (MouseEvent e) -> {
                 images[j].setVisible(true);
                 for (int s = 0; s < buttons.length; s++) {
