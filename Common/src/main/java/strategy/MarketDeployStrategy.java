@@ -9,7 +9,7 @@ import java.rmi.RemoteException;
  */
 public interface MarketDeployStrategy {
     /**
-     * 当前CPPI策略
+     * 当前日期开始生成CPPI策略
      * @param PortValue 产品组合初始值
      * @param RiskMulti CPPI策略风险乘数
      * @param GuaranteeRatio 产品保本率
@@ -18,7 +18,7 @@ public interface MarketDeployStrategy {
     public CPPIMarketDeploy DefaultCPPIDeploy(double PortValue, double RiskMulti, double GuaranteeRatio) throws RemoteException;
 
     /**
-     * 回测区间CPPI策略
+     * 回测区间的CPPI策略
      * @param PortValue
      * @param RiskMulti
      * @param GuaranteeRatio

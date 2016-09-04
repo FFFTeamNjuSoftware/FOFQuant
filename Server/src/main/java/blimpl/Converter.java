@@ -211,6 +211,7 @@ public class Converter {
         cppiMarketDeploy.sumTradeFee=entity.getSumTradeFee();
         cppiMarketDeploy.profit=entity.getProfit();
         cppiMarketDeploy.adjustCycle=entity.getAdjustCycle();
+        cppiMarketDeploy.profit=entity.getProfit();
         return cppiMarketDeploy;
     }
 }

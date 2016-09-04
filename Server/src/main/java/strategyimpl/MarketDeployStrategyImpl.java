@@ -33,9 +33,8 @@ public class MarketDeployStrategyImpl implements MarketDeployStrategy{
 
     @Override
     public CPPIMarketDeploy DefaultCPPIDeploy(double portValue, double riskMulti, double guaranteeRatio) throws RemoteException{
-        String start="2013-01-01";
-        String end= CalendarOperate.formatCalender(Calendar.getInstance());
-        CPPIMarketDeploy cppiMarketDeploy=this.CustomizedCPPIDeploy(portValue,riskMulti,guaranteeRatio,start,end);
+        String start= CalendarOperate.formatCalender(Calendar.getInstance());
+        CPPIMarketDeploy cppiMarketDeploy=this.CustomizedCPPIDeploy(portValue,riskMulti,guaranteeRatio,start,start);
         return cppiMarketDeploy;
     }
 
@@ -66,30 +65,37 @@ public class MarketDeployStrategyImpl implements MarketDeployStrategy{
             for(int i=0;i<adjustCycle.length;i++) {
                 //调用CPPI策略matlab代码
                 Object[] cppiResult = new Object[6];
-//            cppiResult= MatlabBoot.getCalculateTool().(portValue,riskMulti,guaranteeRatio,tradeDayTimeLong,tradeDayOfYear,adjustCycle[i],risklessReturn,tradeFee,sData);
-//            F:数组，第t个数据为t时刻安全底线
+                //TODO
+//              cppiResult= MatlabBoot.getCalculateTool().(portValue,riskMulti,guaranteeRatio,tradeDayTimeLong,tradeDayOfYear,adjustCycle[i],risklessReturn,tradeFee,sData);
+                //F:数组，第t个数据为t时刻安全底线
                 double[] F = (double[]) ((MWNumericArray) cppiResult[0]).toDoubleArray();
-//            E:数组，第t个数据为t时刻可投风险资产上限
+                //E:数组，第t个数据为t时刻可投风险资产上限
                 double[] E = (double[]) ((MWNumericArray) cppiResult[1]).toDoubleArray();
-//            A:数组，第t个数据为t时刻产品净值
+                //A:数组，第t个数据为t时刻产品净值
                 double[] A = (double[]) ((MWNumericArray) cppiResult[2]).toDoubleArray();
-//            G:数组，第t个数据为t时刻可投无g风险资产下限
+                //G:数组，第t个数据为t时刻可投无风险资产下限
                 double[] G = (double[]) ((MWNumericArray) cppiResult[3]).toDoubleArray();
-//            SumTradeFee：总交易费用
+                //SumTradeFee：总交易费用
                 double sumTradeFee = (double) cppiResult[4];
-//            portFeez:组合交易是否出现平仓，0未 1出现
+                //portFeez:组合交易是否出现平仓，0未 1出现
                 double portFeez = (double) cppiResult[5];
 
-                //计算收益率
+                //计算总体收益率
                 double profit = (A[size - 1] - A[0]) / A[0];
+                //计算每日收益率
+                List<Double> profits=new ArrayList<>();
+                for(int index=0;index<size;index++){
+                    double dayProfit=(E[index]/A[index])*sData[index];
+                    profits.add(dayProfit);
+                }
 
-                //计算比重,单位为%
-                double riskRate = E[0] / A[0];
-                double risklessRate = G[0] / A[0];
+                //计算比重,以第一天为准,单位为%
+                double riskRate = E[0] / A[0]*100;
+                double risklessRate = G[0] / A[0]*100;
                 Map<String, Double> proportion = new HashMap<>();
                 proportion.put(SectorType.FIX_PROFIT_TYPE, risklessRate);
                 proportion.put(SectorType.RIGHTS_TYPE, riskRate);
-                CPPIMarketDeployEntity cppiMarketDeployEntity=new CPPIMarketDeployEntity(proportion, sumTradeFee,profit,adjustCycle[i]);
+                CPPIMarketDeployEntity cppiMarketDeployEntity=new CPPIMarketDeployEntity(proportion, profits,sumTradeFee,profit,adjustCycle[i]);
                 cppiMarketDeployEntities.add(cppiMarketDeployEntity);
             }
         } catch (ObjectNotFoundException e) {
