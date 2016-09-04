@@ -173,9 +173,10 @@ public class Converter {
         FOFQuickInfo fofQuickInfo = new FOFQuickInfo();
         fofQuickInfo.code = entity.getFofId();
         fofQuickInfo.name = entity.getFofName();
-        fofQuickInfo.netWorth = entity.getNetWorth();
+        fofQuickInfo.netAsset = entity.getNetAsset();
         fofQuickInfo.totalProfit = entity.getTotalProfit();
         fofQuickInfo.establish_date = entity.getEstablishDate();
+        fofQuickInfo.netWorth = entity.getNetWorth();
         return fofQuickInfo;
     }
 

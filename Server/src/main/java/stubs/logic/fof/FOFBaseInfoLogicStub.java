@@ -42,7 +42,7 @@ public class FOFBaseInfoLogicStub extends UnicastRemoteObject implements FOFBase
         quickInfo.code = "0001";
         quickInfo.name = "我的FOF";
         quickInfo.establish_date = "2016-08-28";
-        quickInfo.netWorth = 2626021561.0;
+        quickInfo.netAsset = 2626021561.0;
         quickInfo.performanceBase = "沪深300";
         quickInfo.totalProfit = 20;
         return quickInfo;

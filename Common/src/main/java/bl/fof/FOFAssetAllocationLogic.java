@@ -40,4 +40,5 @@ public interface FOFAssetAllocationLogic extends Remote {
      * @return
      */
     Map<String,Double> getWeights()throws RemoteException;
+
 }

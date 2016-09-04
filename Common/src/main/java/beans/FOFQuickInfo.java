@@ -25,9 +25,13 @@ public class FOFQuickInfo implements Serializable {
     /**
      * 净资产
      */
-    public double netWorth;
+    public double netAsset;
     /**
      * 总回报
      */
     public double totalProfit;
+    /**
+     * 单位净值
+     */
+    public double netWorth;
 }
