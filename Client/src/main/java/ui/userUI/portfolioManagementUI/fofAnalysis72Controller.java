@@ -8,12 +8,13 @@ import bl.fof.FOFBaseInfoLogic;
 import exception.ObjectNotFoundException;
 import javafx.beans.property.ReadOnlyDoubleWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.TreeTableView;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -36,13 +37,16 @@ public class fofAnalysis72Controller  implements Initializable {
     private List<String> data1List = new ArrayList<String>();
     private List<String> data2List = new ArrayList<String>();
     @FXML
-    private TreeTableView treeTable;
+    private AnchorPane panel;
     @FXML
-    private TreeTableColumn<InvestStyleAnalyse,String> codeColumn,nameColumn,styleColumn,typeColumn,coColumn;
+    private TableView table;
     @FXML
-    private TreeTableColumn<InvestStyleAnalyse,Number> yearColumn,winColumn,clearColumn,tenStockColumn,threeColumn,
+    private TableColumn<InvestStyleAnalyse,String> codeColumn,nameColumn,styleColumn,typeColumn,coColumn;
+    @FXML
+    private TableColumn<InvestStyleAnalyse,Number> yearColumn,winColumn,clearColumn,tenStockColumn,threeColumn,
                                             fiveColumn,tenIndustrySColumn;
-
+    private String[] types = new String[]{"权益类", "固定收益类"};
+    private TitledPane[] tps = new TitledPane[types.length];
     private fofAnalysis72Controller instance;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -54,19 +58,30 @@ public class fofAnalysis72Controller  implements Initializable {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        System.out.println("....72..");
-        initTable();
+        initBack();
+    }
+    private void initBack(){
+        TableView table1 = initTable(0);
+        InvestStyleAnalyse = new InvestStyleAnalyse();
+        table.getItems().clear();
+     //   TableView table2 = initTable(1);
+        TableView[] tables = new TableView[]{table1,null};
+        final Accordion accordion =new Accordion ();
+
+        for (int i = 0; i <types.length; i++) {
+            tps[i] = new TitledPane(types[i],tables[i]);
+        }
+        accordion.getPanes().addAll(tps);
+        accordion.setLayoutX(30);
+        accordion.setLayoutY(20);
+        accordion.setMaxHeight(400);
+        accordion.setPrefWidth(865);
+        accordion.setStyle("-fx-background-color: transparent;");
+        accordion.setExpandedPane(tps[0]);
+        panel.getChildren().addAll(accordion);
     }
 
-    public void initTable(){
-        //"权益类""固定收益类"
-        final TreeItem<String> childNode1 = new TreeItem<>("权益类");
-        final TreeItem<String> childNode2 = new TreeItem<>("固定收益类");
-
-        childNode1.setExpanded(true);
-        childNode2.setExpanded(true);
-        //Adding tree items to the root
-
+    private TableView initTable(int i){
         //投资风格分析
         data1List = mapList.get("000011");
         data2List = mapList.get("000012");
@@ -76,8 +91,9 @@ public class fofAnalysis72Controller  implements Initializable {
                 InvestStyleAnalyse = profitFeatureLogic.getInvestStyleAnalyse(code);
                 investStyleAnalyseList1.add(InvestStyleAnalyse);
             }
-            for(String code:data2List){
-                InvestStyleAnalyse = profitFeatureLogic.getInvestStyleAnalyse(code);
+            for(String code1:data2List){
+                System.out.println();
+                InvestStyleAnalyse = profitFeatureLogic.getInvestStyleAnalyse(code1);
                 investStyleAnalyseList2.add(InvestStyleAnalyse);
             }
         } catch (RemoteException e) {
@@ -85,62 +101,36 @@ public class fofAnalysis72Controller  implements Initializable {
         } catch (ObjectNotFoundException e) {
             e.printStackTrace();
         }
+        if(i==0) {
+            table.setItems(FXCollections.observableArrayList(investStyleAnalyseList1));
+        }else if(i==1){
+            table.setItems(FXCollections.observableArrayList(investStyleAnalyseList2));
+        }
 
-        investStyleAnalyseList1.stream().forEach((InvestStyleAnalyse) -> {
-            childNode1.getChildren().add(new TreeItem<>());
-        });
-        investStyleAnalyseList2.stream().forEach((InvestStyleAnalyse) -> {
-            childNode2.getChildren().add(new TreeItem<>());
-        });
-        codeColumn.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<InvestStyleAnalyse, String> param) ->
-                        new ReadOnlyStringWrapper(param.getValue().getValue().code)
-        );
-        nameColumn.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<InvestStyleAnalyse, String> param) ->
-                        new ReadOnlyStringWrapper(param.getValue().getValue().name)
-        );
-        styleColumn.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<InvestStyleAnalyse, String> param) ->
-                        new ReadOnlyStringWrapper(param.getValue().getValue().investStyle)
-        );
-        typeColumn.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<InvestStyleAnalyse, String> param) ->
-                        new ReadOnlyStringWrapper(param.getValue().getValue().investType)
-        );
-        coColumn.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<InvestStyleAnalyse, String> param) ->
-                        new ReadOnlyStringWrapper(param.getValue().getValue().manageCompany)
-        );
-        yearColumn.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<InvestStyleAnalyse, Number> param) ->
-                        new ReadOnlyDoubleWrapper(param.getValue().getValue().aveHoldTime)
-        );
-        winColumn.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<InvestStyleAnalyse, Number> param) ->
-                        new ReadOnlyDoubleWrapper(param.getValue().getValue().holdProfitRate)
-        );
-        clearColumn.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<InvestStyleAnalyse, Number> param) ->
-                        new ReadOnlyDoubleWrapper(param.getValue().getValue().holdNetWorthRate)
-        );
-        tenStockColumn.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<InvestStyleAnalyse, Number> param) ->
-                        new ReadOnlyDoubleWrapper(param.getValue().getValue().topTenStockRate)
-        );
-        threeColumn.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<InvestStyleAnalyse, Number> param) ->
-                        new ReadOnlyDoubleWrapper(param.getValue().getValue().topThreeIndustryRate)
-        );
-        fiveColumn.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<InvestStyleAnalyse, Number> param) ->
-                        new ReadOnlyDoubleWrapper(param.getValue().getValue().topFiveIndustryRate)
-        );
-        tenIndustrySColumn.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<InvestStyleAnalyse, Number> param) ->
-                        new ReadOnlyDoubleWrapper(param.getValue().getValue().topTenIndustryRate)
-        );
-
-
+        codeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
+                cellData.getValue().code));
+        nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
+                cellData.getValue().name));
+        styleColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
+                cellData.getValue().investStyle));
+        typeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
+                cellData.getValue().investType));
+        coColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
+                cellData.getValue().manageCompany));
+        yearColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().aveHoldTime));
+        winColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().holdProfitRate));
+        clearColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().holdNetWorthRate));
+        tenStockColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().topTenStockRate));
+        threeColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().topThreeIndustryRate));
+        fiveColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().topFiveIndustryRate));
+        tenIndustrySColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().topTenIndustryRate));
+        return table;
     }
 }

@@ -8,22 +8,22 @@
 
 <AnchorPane fx:id="panel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="470.0" prefWidth="930.0" styleClass="root" stylesheets="@css/stageView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.userUI.portfolioManagementUI.fofAnalysis71Controller">
    <children>
-      <TreeTableView fx:id="treeTable" layoutX="21.0" layoutY="14.0" prefHeight="426.0" prefWidth="887.0">
+      <TableView fx:id="table"  layoutX="21.0" layoutY="14.0" prefHeight="426.0" prefWidth="887.0">
         <columns>
-          <TreeTableColumn fx:id="codeColumn" prefWidth="89.0" resizable="false" text="证券代码" />
-          <TreeTableColumn fx:id="nameColumn" prefWidth="96.0" text="证券简称" />
-            <TreeTableColumn fx:id="alphaColumn" prefWidth="65.0" text="alpha" />
-            <TreeTableColumn fx:id="betaColumn" prefWidth="65.0" text="beta" />
-            <TreeTableColumn fx:id="sharpColumn" prefWidth="65.0" text="sharpe" />
-            <TreeTableColumn fx:id="treynorColumn" prefWidth="65.0" text="treynor" />
-            <TreeTableColumn fx:id="jensenColumn" prefWidth="65.0" text="jensen" />
-            <TreeTableColumn fx:id="aveBenefitColumn" prefWidth="105.0" text="平均收益率（%）" />
-            <TreeTableColumn fx:id="aveRiskColumn" prefWidth="125.0" text="平均风险收益率（%）" />
-            <TreeTableColumn fx:id="benefitSColumn" prefWidth="105.0" text="收益标准差（%）" />
-            <TreeTableColumn fx:id="yearSColumn" prefWidth="125.0" text="年化收益标准差（%）" />
-            <TreeTableColumn fx:id="typeColumn" prefWidth="75.0" text="投资类型" />
-            <TreeTableColumn fx:id="coColumn" prefWidth="75.0" resizable="false" text="管理公司" />
+          <TableColumn fx:id="codeColumn" prefWidth="89.0" resizable="false" text="证券代码" />
+          <TableColumn fx:id="nameColumn" prefWidth="96.0" text="证券简称" />
+            <TableColumn fx:id="alphaColumn" prefWidth="65.0" text="alpha" />
+            <TableColumn fx:id="betaColumn" prefWidth="65.0" text="beta" />
+            <TableColumn fx:id="sharpColumn" prefWidth="65.0" text="sharpe" />
+            <TableColumn fx:id="treynorColumn" prefWidth="65.0" text="treynor" />
+            <TableColumn fx:id="jensenColumn" prefWidth="65.0" text="jensen" />
+            <TableColumn fx:id="aveBenefitColumn" prefWidth="105.0" text="平均收益率（%）" />
+            <TableColumn fx:id="aveRiskColumn" prefWidth="125.0" text="平均风险收益率（%）" />
+            <TableColumn fx:id="benefitSColumn" prefWidth="105.0" text="收益标准差（%）" />
+            <TableColumn fx:id="yearSColumn" prefWidth="125.0" text="年化收益标准差（%）" />
+            <TableColumn fx:id="typeColumn" prefWidth="75.0" text="投资类型" />
+            <TableColumn fx:id="coColumn" prefWidth="75.0" resizable="false" text="管理公司" />
         </columns>
-      </TreeTableView>
+      </TableView>
    </children>
 </AnchorPane>

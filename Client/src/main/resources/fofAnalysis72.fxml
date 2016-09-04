@@ -8,21 +8,21 @@
 
 <AnchorPane fx:id="panel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="470.0" prefWidth="930.0" styleClass="root" stylesheets="@css/stageView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.userUI.portfolioManagementUI.fofAnalysis72Controller">
    <children>
-      <TreeTableView fx:id="treeTable" layoutX="21.0" layoutY="14.0" prefHeight="426.0" prefWidth="887.0">
+      <TableView fx:id="table"  layoutX="21.0" layoutY="14.0" prefHeight="426.0" prefWidth="887.0">
         <columns>
-          <TreeTableColumn fx:id="codeColumn" prefWidth="89.0" resizable="false" text="证券代码" />
-          <TreeTableColumn fx:id="nameColumn" prefWidth="96.0" text="证券简称" />
-            <TreeTableColumn fx:id="styleColumn" prefWidth="75.0" text="投资风格" />
-            <TreeTableColumn fx:id="yearColumn" prefWidth="125.0" text="平均持仓时间（年）" />
-            <TreeTableColumn fx:id="winColumn" prefWidth="85.0" text="持股市盈率" />
-            <TreeTableColumn fx:id="clearColumn" prefWidth="85.0" text="持股市净率" />
-            <TreeTableColumn fx:id="tenStockColumn" prefWidth="115.0" text="前10股票占比（%）" />
-            <TreeTableColumn fx:id="threeColumn" prefWidth="115.0" text="前3行业占比（%）" />
-            <TreeTableColumn fx:id="fiveColumn" prefWidth="115.0" text="前5行业占比（%）" />
-            <TreeTableColumn fx:id="tenIndustrySColumn" prefWidth="115.0" text="前10行业占比（%）" />
-            <TreeTableColumn fx:id="typeColumn" prefWidth="75.0" text="投资类型" />
-            <TreeTableColumn fx:id="coColumn" prefWidth="75.0" resizable="false" text="管理公司" />
+          <TableColumn fx:id="codeColumn" prefWidth="89.0" resizable="false" text="证券代码" />
+          <TableColumn fx:id="nameColumn" prefWidth="96.0" text="证券简称" />
+            <TableColumn fx:id="styleColumn" prefWidth="75.0" text="投资风格" />
+            <TableColumn fx:id="yearColumn" prefWidth="125.0" text="平均持仓时间（年）" />
+            <TableColumn fx:id="winColumn" prefWidth="85.0" text="持股市盈率" />
+            <TableColumn fx:id="clearColumn" prefWidth="85.0" text="持股市净率" />
+            <TableColumn fx:id="tenStockColumn" prefWidth="115.0" text="前10股票占比（%）" />
+            <TableColumn fx:id="threeColumn" prefWidth="115.0" text="前3行业占比（%）" />
+            <TableColumn fx:id="fiveColumn" prefWidth="115.0" text="前5行业占比（%）" />
+            <TableColumn fx:id="tenIndustrySColumn" prefWidth="115.0" text="前10行业占比（%）" />
+            <TableColumn fx:id="typeColumn" prefWidth="75.0" text="投资类型" />
+            <TableColumn fx:id="coColumn" prefWidth="75.0" resizable="false" text="管理公司" />
         </columns>
-      </TreeTableView>
+      </TableView>
    </children>
 </AnchorPane>
