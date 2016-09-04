@@ -21,7 +21,7 @@
          <children>
             <HBox layoutX="47.0" prefHeight="24.0" prefWidth="808.0">
                <children>
-                  <Label fx:id="startDateLb" layoutY="5.0" prefHeight="25.0" prefWidth="48.0" text="开始日期">
+                  <Label fx:id="startDateLb" layoutY="5.0" prefHeight="25.0" prefWidth="48.0" text="开始日期" textFill="WHITE">
                      <padding>
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
@@ -34,7 +34,7 @@
                         <Insets left="20.0" />
                      </HBox.margin>
                   </ComboBox>
-                  <Label fx:id="endDateLb" prefHeight="14.0" prefWidth="48.0" text="结束日期">
+                  <Label fx:id="endDateLb" prefHeight="14.0" prefWidth="48.0" text="结束日期" textFill="WHITE">
                      <padding>
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
@@ -47,7 +47,7 @@
                         <Insets left="20.0" />
                      </HBox.margin>
                   </ComboBox>
-                  <Label fx:id="gradeLb" prefHeight="14.0" prefWidth="48.0" text="业绩基准">
+                  <Label fx:id="gradeLb" prefHeight="14.0" prefWidth="48.0" text="业绩基准" textFill="WHITE">
                      <padding>
                         <Insets bottom="5.0" top="5.0" />
                      </padding>

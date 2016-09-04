@@ -204,28 +204,16 @@
             </Label>
          </children>
       </HBox>
-      <AnchorPane fx:id="areaChartPanel" layoutX="40.0" layoutY="356.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="229.0" prefWidth="850.0">
+      <AnchorPane fx:id="fundAreaChart" layoutY="356.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="229.0" prefWidth="930.0">
          <children>
-            <AreaChart fx:id="areaChart" maxHeight="229.0" maxWidth="827.0" minHeight="229.0" minWidth="827.0" prefHeight="229.0" prefWidth="827.0" styleClass="chart-series-line0" stylesheets="@css/areaChartView.css">
+            <AreaChart fx:id="areaChart" layoutX="40.0" prefHeight="229.0" prefWidth="850.0">
               <xAxis>
-                <CategoryAxis fx:id="categoryAxis" maxHeight="23.0" maxWidth="780.0" minHeight="23.0" minWidth="780.0" prefHeight="23.0" prefWidth="780.0" side="BOTTOM" />
+                <CategoryAxis fx:id="categeoryAxis" side="BOTTOM" />
               </xAxis>
               <yAxis>
-                <NumberAxis fx:id="numAxis" maxHeight="225.0" maxWidth="47.0" minHeight="225.0" minWidth="47.0" prefHeight="225.0" prefWidth="47.0" side="LEFT" />
+                <NumberAxis fx:id="numAxis" side="LEFT" />
               </yAxis>
-                <!--<yAxis>
-                    <NumberAxis fx:id="numAxis2" side="RIGHT"/>
-                </yAxis>-->
             </AreaChart>
-            <AreaChart fx:id="areaChart1" layoutX="48.0" maxHeight="229.0" maxWidth="800.0" minHeight="229.0" minWidth="800.0" prefHeight="229.0" prefWidth="800.0" styleClass="chart-series-line1" stylesheets="@css/areaChartView.css">
-               <xAxis>
-                  <CategoryAxis fx:id="categoryAxis1" maxHeight="23.0" maxWidth="780.0" minHeight="23.0" minWidth="780.0" opacity="0.0" prefHeight="23.0" prefWidth="778.0" side="BOTTOM" />
-               </xAxis>
-               <yAxis>
-                  <NumberAxis fx:id="numAxis1" maxHeight="225.0" maxWidth="22.0" minHeight="225.0" minWidth="22.0" prefHeight="225.0" prefWidth="22.0" side="RIGHT" />
-               </yAxis>
-            </AreaChart>
-         </children>
-      </AnchorPane>
+         </children></AnchorPane>
    </children>
 </AnchorPane>
