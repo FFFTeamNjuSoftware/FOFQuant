@@ -11,4 +11,9 @@ public class CPPIMarketDeploy {
     大类基金配置比重
      */
     Map<String,Double> proportion;
+
+    /*
+    总交易费用
+     */
+    double sumTradeFee;
 }
