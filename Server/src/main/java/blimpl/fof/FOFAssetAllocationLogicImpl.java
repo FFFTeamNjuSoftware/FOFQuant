@@ -77,4 +77,9 @@ public class FOFAssetAllocationLogicImpl extends UnicastRemoteObject implements
     public Map<String, Double> getWeights() {
         return null;
     }
+
+    @Override
+    public void changePosition(Map<String, Double> newWeight) {
+
+    }
 }
