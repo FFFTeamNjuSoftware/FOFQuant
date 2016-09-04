@@ -1,11 +1,12 @@
 package beans;
 
+import java.io.Serializable;
 import java.util.Map;
 
 /**
  * Created by Seven on 16/9/4.
  */
-public class CPPIMarketDeployEntity {
+public class CPPIMarketDeployEntity implements Serializable {
     Map<String,Double> proportion;
     double sumTradeFee;
 
