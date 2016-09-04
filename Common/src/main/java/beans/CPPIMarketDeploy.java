@@ -11,10 +11,20 @@ public class CPPIMarketDeploy  implements Serializable {
     /*
     大类基金配置比重
      */
-    Map<String,Double> proportion;
+    public Map<String,Double> proportion;
 
     /*
     总交易费用
      */
-    double sumTradeFee;
+    public double sumTradeFee;
+
+    /*
+    总收益
+     */
+    public double profit;
+
+    /*
+     调整周期
+     */
+    public int adjustCycle;
 }

@@ -1,6 +1,6 @@
 package strategy;
 
-import beans.CPPIMarketDeployEntity;
+import beans.CPPIMarketDeploy;
 
 import java.rmi.RemoteException;
 
@@ -15,7 +15,7 @@ public interface MarketDeployStrategy {
      * @param GuaranteeRatio 产品保本率
      * @return
      */
-    public CPPIMarketDeployEntity DefaultCPPIDeploy(double PortValue,double RiskMulti,double GuaranteeRatio) throws RemoteException;
+    public CPPIMarketDeploy DefaultCPPIDeploy(double PortValue, double RiskMulti, double GuaranteeRatio) throws RemoteException;
 
     /**
      * 回测区间CPPI策略
@@ -26,5 +26,5 @@ public interface MarketDeployStrategy {
      * @param endDate
      * @return
      */
-    public CPPIMarketDeployEntity CustomizedCPPIDeploy(double PortValue, double RiskMulti, double GuaranteeRatio, String startDate, String endDate) throws RemoteException;
+    public CPPIMarketDeploy CustomizedCPPIDeploy(double PortValue, double RiskMulti, double GuaranteeRatio, String startDate, String endDate) throws RemoteException;
 }

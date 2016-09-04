@@ -204,4 +204,13 @@ public class Converter {
         fundDeploy.strategy=entity.getStrategy();
         return fundDeploy;
     }
+
+    public static CPPIMarketDeploy convertCPPIMarketDeployEntity(CPPIMarketDeployEntity entity){
+        CPPIMarketDeploy cppiMarketDeploy=new CPPIMarketDeploy();
+        cppiMarketDeploy.proportion=entity.getProportion();
+        cppiMarketDeploy.sumTradeFee=entity.getSumTradeFee();
+        cppiMarketDeploy.profit=entity.getProfit();
+        cppiMarketDeploy.adjustCycle=entity.getAdjustCycle();
+        return cppiMarketDeploy;
+    }
 }
