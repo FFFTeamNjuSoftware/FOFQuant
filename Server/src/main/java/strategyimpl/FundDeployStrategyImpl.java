@@ -17,6 +17,8 @@ import entities.FundRankEntity;
 import exception.ObjectNotFoundException;
 import exception.ParameterException;
 import strategy.FundDeployStrategy;
+import util.CalendarOperate;
+import util.StrategyType;
 import util.UnitType;
 
 import java.io.BufferedWriter;
@@ -33,8 +35,6 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
     private BaseInfoDataService baseInfoDataService;
     private BaseInfoLogic baseInfoLogic;
     private MarketLogic marketLogic;
-    private String start = "2013-01-01";
-    private String end = "2015-12-31";
     private int[] windows = {90, 180, 360};
     private int[] holds = {30, 60, 90};
 
@@ -112,7 +112,6 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
 
     @Override
     public FundDeploy calSharpe(List<String> sortedCodes, int N, int window, int hold, String startDate, String endDate) throws RemoteException {
-        //读取系统中前N只固定收益型股票的2013.12-2015.12收盘价数据,每只基金对应的费率
         if (sortedCodes.size() < N) {
             N = sortedCodes.size();
         }
@@ -149,28 +148,36 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
         //调用小类matlab策略
         //策略返回w矩阵,rpturn数组,Sharpe比率
         //rpturn数组计算出对应的Sharpe比率
+        //TODO
+        List<FundDeploy> fundDeploys=new ArrayList<>();
         MWNumericArray prices=new MWNumericArray(price, MWClassID.DOUBLE);
         MWNumericArray fees=new MWNumericArray(fee,MWClassID.DOUBLE);
-        Object[] objs=new Object[3];
-//        Object[] objs= MatlabBoot.getCalculateTool().(3,prices,fees,N,window,hold);
 
-        double[][] w=(double[][])((MWNumericArray)objs[0]).toDoubleArray();
-        double[] rpturn = (double[])((MWNumericArray)objs[1]).toDoubleArray();
-        double sharpe = (double)objs[2];
-        List<Map<String, Double>> proportions = new ArrayList<>();
+        //风险平价策略
+         Object[] risky=new Object[3];
+//       Object[] risky= MatlabBoot.getCalculateTool().(3,prices,fees,N,window,hold);
+       fundDeploys.add(this.convertResult(risky,codes,N,window,hold,StrategyType.FUND_RISKY_PARITY));
 
-        for (int i = 0; i < rpturn.length; i++){
-            Map<String, Double> proportion = new HashMap<>();
-            for (int j=0;j<N;j++) {
-                //w中每一行存储每一只基金对应的权重
-                double p = w[i][j];
-                proportion.put(sortedCodes.get(j),p);
+        //1/N策略
+        Object[] equal=new Object[3];
+//        Object[] equal= MatlabBoot.getCalculateTool().(3,prices,fees,N,window,hold);
+        fundDeploys.add(this.convertResult(equal,codes,N,window,hold,StrategyType.EQUAL));
+
+        //动量策略
+        Object[] momentum=new Object[3];
+//        Object[] momentum=MatlabBoot.getCalculateTool().(3,prices,fees,N,window,hold);
+        fundDeploys.add(this.convertResult(momentum,codes,N,window,hold,StrategyType.MOMENTUM));
+
+        //选出夏普比率最高的配置结果
+        FundDeploy result=fundDeploys.get(0);
+        double sharpe=0;
+        for(FundDeploy fundDeploy:fundDeploys){
+            if(fundDeploy.sharpe>sharpe){
+                sharpe=fundDeploy.sharpe;
+                result=fundDeploy;
             }
-            proportions.add(proportion);
         }
-        FundDeployEntity fundDeployEntity=new FundDeployEntity(proportions,N,rpturn,window,hold,sharpe);
-
-        return Converter.convertFundDeployEntity(fundDeployEntity);
+        return result;
     }
 
     @Override
@@ -220,6 +227,9 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
             }
             //排序
             List<String> sortedCodes = this.sort(fixProfitRank);
+            String start="2013-01-01";
+            String end=CalendarOperate.formatCalender(Calendar.getInstance());
+            //根据当前组合确定窗口期和持有期
             fundDeploy=this.CustomizedFundDeploy(sortedCodes,start,end);
         } catch (ObjectNotFoundException e) {
             System.out.println("系统无法进行小类配置");
@@ -269,6 +279,26 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    //转化matlab返回值
+    private FundDeploy convertResult(Object[] objs,List<String> codes,int N,int window,int hold,StrategyType strategyType){
+        double[][] w=(double[][])((MWNumericArray)objs[0]).toDoubleArray();
+        double[] rpturn = (double[])((MWNumericArray)objs[1]).toDoubleArray();
+        double rsharpe = (double)objs[2];
+        List<Map<String, Double>> proportions = new ArrayList<>();
+
+        for (int i = 0; i < rpturn.length; i++){
+            Map<String, Double> proportion = new HashMap<>();
+            for (int j=0;j<N;j++) {
+                //w中每一行存储每一只基金对应的权重
+                double p = w[i][j];
+                proportion.put(codes.get(j),p);
+            }
+            proportions.add(proportion);
+        }
+        FundDeployEntity fundDeployEntity=new FundDeployEntity(proportions,N,rpturn,window,hold,rsharpe, strategyType);
+        return Converter.convertFundDeployEntity(fundDeployEntity);
     }
 
     //排序

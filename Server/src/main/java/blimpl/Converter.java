@@ -173,9 +173,10 @@ public class Converter {
         FOFQuickInfo fofQuickInfo = new FOFQuickInfo();
         fofQuickInfo.code = entity.getFofId();
         fofQuickInfo.name = entity.getFofName();
-        fofQuickInfo.netWorth = entity.getNetWorth();
+        fofQuickInfo.netAsset = entity.getNetAsset();
         fofQuickInfo.totalProfit = entity.getTotalProfit();
         fofQuickInfo.establish_date = entity.getEstablishDate();
+        fofQuickInfo.netWorth = entity.getNetWorth();
         return fofQuickInfo;
     }
 
@@ -200,6 +201,7 @@ public class Converter {
         fundDeploy.window = entity.getWindow();
         fundDeploy.hold = entity.getHold();
         fundDeploy.sharpe = entity.getSharpe();
+        fundDeploy.strategy=entity.getStrategy();
         return fundDeploy;
     }
 }

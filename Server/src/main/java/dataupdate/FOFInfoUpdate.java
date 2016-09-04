@@ -205,12 +205,6 @@ public class FOFInfoUpdate {
     }
 
 
-    /**
-     * 更新基金的净值
-     */
-    public void updateNetWorth() {
-
-    }
 
     /**
      * 得到申购总费用

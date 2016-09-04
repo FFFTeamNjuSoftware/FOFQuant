@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="970.0" styleClass="root" stylesheets="@css/stageView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.userUI.allFundUI.allFundUIController">
+    <children>
+        <AnchorPane layoutY="73.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="292.0" prefWidth="970.0">
+            <children>
+                <TableView fx:id="table" blendMode="LIGHTEN" layoutX="50.0" layoutY="34.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="238.0" prefWidth="870.0">
+                    <columns>
+                        <TableColumn fx:id="codeColumn" maxWidth="55.0" minWidth="20.0" prefWidth="55.0" resizable="false" text="代码" />
+                        <TableColumn fx:id="full_nameColumn" maxWidth="100.0" minWidth="20.0" prefWidth="94.0" text="名称" />
+                        <TableColumn fx:id="current_netWorthColumn" maxWidth="70.0" minWidth="20.0" prefWidth="70.0" text="当前净值" />
+                        <TableColumn fx:id="daily_riseColumn" maxWidth="70.0" minWidth="20.0" prefWidth="70.0" text="日涨幅" />
+                        <TableColumn fx:id="nearOneMonthColumn" maxWidth="70.0" minWidth="20.0" prefWidth="70.0" text="近一月" />
+                        <TableColumn fx:id="nearThreeMonthColumn" maxWidth="70.0" minWidth="20.0" prefWidth="70.0" text="近三月" />
+                        <TableColumn fx:id="nearSixMonthColumn" maxWidth="70.0" minWidth="20.0" prefWidth="70.0" text="近半年" />
+                        <TableColumn fx:id="nearOneYearColumn" maxWidth="70.0" minWidth="20.0" prefWidth="70.0" text="近一年" />
+                        <TableColumn fx:id="nearThreeYearColumn" maxWidth="70.0" minWidth="20.0" prefWidth="70.0" text="近三年" />
+                        <TableColumn fx:id="nearFiveYearColumn" maxWidth="70.0" minWidth="20.0" prefWidth="70.0" text="近五年" />
+                        <TableColumn fx:id="sinceEstablishColumn" maxWidth="70.0" minWidth="20.0" prefWidth="70.0" text="自建立" />
+                        <TableColumn fx:id="yearRateColumn" maxWidth="70.0" minWidth="20.0" prefWidth="70.0" resizable="false" text="年化收益" />
+                    </columns>
+                </TableView>
+                <ComboBox fx:id="comboBox" layoutX="49.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="144.0" style="-fx-background-color: #057DC8; -fx-color: #ffffff;" />
+            </children>
+        </AnchorPane>
+        <Label fx:id="tab1" layoutX="54.0" layoutY="24.0" prefHeight="27.0" prefWidth="136.0" text="   基金基础类" textFill="WHITE">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
+        <Label fx:id="tab2" layoutX="219.0" layoutY="24.0" prefHeight="27.0" prefWidth="136.0" text="   基金市场类" textFill="WHITE">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
+    </children>
+</AnchorPane>
