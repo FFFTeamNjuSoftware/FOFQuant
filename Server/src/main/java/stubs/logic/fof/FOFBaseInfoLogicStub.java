@@ -23,6 +23,11 @@ public class FOFBaseInfoLogicStub extends UnicastRemoteObject implements FOFBase
     }
 
     @Override
+    public Map<String, Map<String, Double>> getNewestWeight() throws RemoteException {
+        return null;
+    }
+
+    @Override
     public List<FOFHistoryInfo> getFOFHistoryInfo() throws RemoteException {
         FOFHistoryInfo fofHistoryInfo = new FOFHistoryInfo();
         fofHistoryInfo.fofId = FOFUtilInfo.FOF_CODE;

@@ -40,4 +40,12 @@ public interface FOFBaseInfoLogic extends Remote {
      * @throws RemoteException
      */
     List<FOFHistoryInfo> getFOFHistoryInfo() throws RemoteException;
+
+    /**
+     * 获得最新的权重信息
+     * @return
+     * @throws RemoteException
+     */
+    Map<String,Map<String,Double>> getNewestWeight () throws RemoteException;
+
 }

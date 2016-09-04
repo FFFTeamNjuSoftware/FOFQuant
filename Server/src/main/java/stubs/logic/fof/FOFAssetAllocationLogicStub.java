@@ -21,7 +21,7 @@ public class FOFAssetAllocationLogicStub extends UnicastRemoteObject implements 
 
     @Override
     public void changePosition(Map<String, Double> newWeight) {
-        
+
     }
 
     @Override

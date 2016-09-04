@@ -7,10 +7,10 @@ import bl.BaseInfoLogic;
 import bl.fof.FOFBaseInfoLogic;
 import blimpl.BLController;
 import blimpl.Converter;
-import dataservice.BaseInfoDataService;
 import dataservice.FOFDataService;
 import dataserviceimpl.DataServiceController;
 import entities.FofEstablishInfoEntity;
+import entities.FofHoldInfoEntity;
 import exception.ObjectNotFoundException;
 import util.FOFUtilInfo;
 import util.NumberOpe;
@@ -34,12 +34,38 @@ public class FOFBaseInfoLogicImpl extends UnicastRemoteObject implements FOFBase
     private String fof_code;
 
     private FOFBaseInfoLogicImpl() throws RemoteException {
-        baseInfoLogic=BLController.getBaseInfoLogic();
+        baseInfoLogic = BLController.getBaseInfoLogic();
         fofDataService = DataServiceController.getFOFDataService();
         fof_code = FOFUtilInfo.FOF_CODE;
     }
 
     private static FOFBaseInfoLogic instance;
+
+
+    @Override
+    public Map<String, Map<String, Double>> getNewestWeight() throws RemoteException {
+        try {
+            List<String> fixProfitFundCodes = baseInfoLogic.getSectorCodes(SectorType
+                    .FIX_PROFIT_TYPE);
+            List<String> rightsFundCodes = baseInfoLogic.getSectorCodes(SectorType.RIGHTS_TYPE);
+            List<FofHoldInfoEntity> holdingInfos = fofDataService.getNewestFofHoldInfos(fof_code);
+            Map<String, Map<String, Double>> result = new HashMap<>();
+            result.put(SectorType.FIX_PROFIT_TYPE, new HashMap<>());
+            result.put(SectorType.RIGHTS_TYPE, new HashMap<>());
+            for (FofHoldInfoEntity fofHoldInfoEntity : holdingInfos) {
+                if (fixProfitFundCodes.contains(fofHoldInfoEntity.getFundId()))
+                    result.get(SectorType.FIX_PROFIT_TYPE).put(fofHoldInfoEntity.getFundId(),
+                            NumberOpe.controlDecimalDouble(fofHoldInfoEntity.getRatio(), 2));
+                if (rightsFundCodes.contains(fofHoldInfoEntity.getFundId()))
+                    result.get(SectorType.RIGHTS_TYPE).put(fofHoldInfoEntity.getFundId(),
+                            NumberOpe.controlDecimalDouble(fofHoldInfoEntity.getRatio(), 2));
+            }
+            return result;
+        } catch (ObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     public static FOFBaseInfoLogic getInstance() {
         if (instance == null)
