@@ -1,5 +1,7 @@
 package beans;
 
+import util.StrategyType;
+
 import java.util.List;
 import java.util.Map;
 
@@ -36,4 +38,9 @@ public class FundDeploy {
      夏普比率
      */
     public double sharpe;
+
+    /*
+    策略名称
+     */
+    public StrategyType strategy;
 }
