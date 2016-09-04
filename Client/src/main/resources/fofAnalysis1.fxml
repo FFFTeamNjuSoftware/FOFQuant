@@ -27,7 +27,7 @@
          <children>
             <HBox layoutX="44.0" prefHeight="24.0" prefWidth="828.0">
                <children>
-                  <Label fx:id="gradeLb" prefHeight="14.0" prefWidth="48.0" text="业绩基准">
+                  <Label fx:id="gradeLb" prefHeight="14.0" prefWidth="48.0" text="业绩基准" textFill="WHITE">
                      <padding>
                         <Insets bottom="5.0" top="5.0" />
                      </padding>

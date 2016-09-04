@@ -1,5 +1,7 @@
 package entities;
 
+import util.StrategyType;
+
 import java.util.List;
 import java.util.Map;
 
@@ -16,14 +18,16 @@ public class FundDeployEntity {
     private int window;
     private int hold;
     private double sharpe;
+    private StrategyType strategy;
 
-    public FundDeployEntity(List<Map<String,Double>> proportion, int fundNum, double[] rpturn,int window, int hold, double sharpe){
+    public FundDeployEntity(List<Map<String,Double>> proportion, int fundNum, double[] rpturn,int window, int hold, double sharpe,StrategyType strategy){
         this.proportion=proportion;
         this.fundNum=fundNum;
         this.rpturn=rpturn;
         this.window=window;
         this.hold=hold;
         this.sharpe=sharpe;
+        this.strategy =strategy;
     }
 
     public List<Map<String,Double>> getProportion() { return proportion; }
@@ -47,5 +51,7 @@ public class FundDeployEntity {
     public double getSharpe(){
         return sharpe;
     }
+
+    public StrategyType getStrategy(){return strategy;}
 
 }
