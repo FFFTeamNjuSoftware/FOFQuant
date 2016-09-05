@@ -1,42 +1,141 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="970.0" styleClass="root" stylesheets="@css/stageView.css" xmlns="http://javafx.com/javafx/8.0.71" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.userUI.buildUI.BuildPanel1UIController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="930.0" styleClass="root" stylesheets="@css/stageView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.userUI.buildUI.BuildPanel1UIController">
   <children>
     <ImageView fitHeight="35.0" fitWidth="800.0" layoutX="58.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
       <image>
-        <Image url="@images/navigation1.png" />
+        <Image url="@/images/navigation1.png" />
       </image>
     </ImageView>
     <ImageView fx:id="nextBt1" fitHeight="42.0" fitWidth="82.0" layoutX="777.0" layoutY="502.0" onMouseClicked="#nextBt1Click" pickOnBounds="true" preserveRatio="true">
       <image>
-        <Image url="@images/nextBt.png" />
+        <Image url="@/images/nextBt.png" />
       </image>
     </ImageView>
-    <ImageView fx:id="highRiskBt" fitHeight="70.0" fitWidth="190.0" layoutX="371.0" layoutY="203.0" onMouseClicked="#highRiskBtClick" pickOnBounds="true" preserveRatio="true">
+    <ImageView fx:id="highRiskBt" fitHeight="70.0" fitWidth="190.0" layoutX="380.0" layoutY="203.0" onMouseClicked="#highRiskBtClick" pickOnBounds="true" preserveRatio="true">
       <image>
-        <Image url="@images/highRiskBt.png" />
+        <Image url="@/images/highRiskBt.png" />
       </image>
     </ImageView>
-    <ImageView fx:id="mediumRiskBt" fitHeight="70.0" fitWidth="190.0" layoutX="371.0" layoutY="273.0" onMouseClicked="#mediumRiskBtClick" pickOnBounds="true" preserveRatio="true">
+    <ImageView fx:id="mediumRiskBt" fitHeight="70.0" fitWidth="190.0" layoutX="380.0" layoutY="273.0" onMouseClicked="#mediumRiskBtClick" pickOnBounds="true" preserveRatio="true">
       <image>
-        <Image url="@images/mediumRiskBt.png" />
+        <Image url="@/images/mediumRiskBt.png" />
       </image>
     </ImageView>
-    <ImageView fx:id="lowRiskBt" fitHeight="70.0" fitWidth="190.0" layoutX="371.0" layoutY="343.0" onMouseClicked="#lowRiskBtClick" pickOnBounds="true" preserveRatio="true">
+    <ImageView fx:id="lowRiskBt" fitHeight="70.0" fitWidth="190.0" layoutX="380.0" layoutY="343.0" onMouseClicked="#lowRiskBtClick" pickOnBounds="true" preserveRatio="true">
       <image>
-        <Image url="@images/lowRiskbt.png" />
+        <Image url="@/images/lowRiskbt.png" />
       </image>
     </ImageView>
-      <Label fx:id="warningText" layoutX="385.0" layoutY="430.0" text="请您先选择风险等级" textFill="#eb494d" visible="false">
+      <Label fx:id="warningText" layoutX="385.0" layoutY="540.0" text="请您先选择风险等级" textFill="#eb494d" visible="false">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
+      <Label layoutX="266.0" layoutY="96.0" text="总资产：" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="266.0" layoutY="149.0" text="策略投资：" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="266.0" layoutY="202.0" text="风险系数：" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="assetField" layoutX="380.0" layoutY="87.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="190.0" />
+      <RadioButton fx:id="CPPINode" layoutX="380.0" layoutY="150.0" mnemonicParsing="false" text="CPPI" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </RadioButton>
+      <RadioButton fx:id="levelNode" layoutX="474.0" layoutY="150.0" mnemonicParsing="false" text="风险评级" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </RadioButton>
+      <RadioButton fx:id="customNode" layoutX="380.0" layoutY="431.0" mnemonicParsing="false" text="自定义" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </RadioButton>
+      <GridPane layoutX="608.0" layoutY="211.0" prefHeight="50.0" prefWidth="121.0" visible="false">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="72.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="127.0" minWidth="10.0" prefWidth="49.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="保本额度：" textFill="WHITE" />
+            <Label text="风险乘数：" textFill="WHITE" GridPane.rowIndex="1" />
+         </children>
+      </GridPane>
+      <GridPane layoutX="608.0" layoutY="283.0" prefHeight="50.0" prefWidth="121.0" visible="false">
+         <children>
+            <Label text="保本额度：" textFill="WHITE" />
+            <Label text="风险乘数：" textFill="WHITE" GridPane.rowIndex="1" />
+         </children>
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="72.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="127.0" minWidth="10.0" prefWidth="49.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <GridPane layoutX="608.0" layoutY="353.0" prefHeight="50.0" prefWidth="121.0" visible="false">
+         <children>
+            <Label text="保本额度：" textFill="WHITE" />
+            <Label text="风险乘数：" textFill="WHITE" GridPane.rowIndex="1" />
+         </children>
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="72.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="127.0" minWidth="10.0" prefWidth="49.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <GridPane layoutX="377.0" layoutY="465.0" prefHeight="59.0" prefWidth="190.0">
+         <children>
+            <Label text="保本额度：" textFill="WHITE" />
+            <Label text="风险乘数：" textFill="WHITE" GridPane.rowIndex="1" />
+            <ComboBox fx:id="combobox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="50.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="40.0" />
+               </GridPane.margin>
+            </ComboBox>
+            <Slider minHeight="-Infinity" minWidth="-Infinity" prefHeight="14.0" prefWidth="90.0" GridPane.columnIndex="1" />
+         </children>
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="63.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="127.0" minWidth="10.0" prefWidth="99.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="36.0" minHeight="10.0" prefHeight="27.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="29.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
   </children>
 </AnchorPane>

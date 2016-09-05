@@ -8,7 +8,7 @@
 
 <AnchorPane fx:id="panel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="470.0" prefWidth="930.0" styleClass="root" stylesheets="@css/stageView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.userUI.portfolioManagementUI.fofAnalysis72Controller">
    <children>
-      <TableView fx:id="table"  layoutX="21.0" layoutY="14.0" prefHeight="426.0" prefWidth="887.0">
+      <TableView fx:id="table" blendMode="LIGHTEN" layoutX="21.0" layoutY="267.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="887.0">
         <columns>
           <TableColumn fx:id="codeColumn" prefWidth="89.0" resizable="false" text="证券代码" />
           <TableColumn fx:id="nameColumn" prefWidth="96.0" text="证券简称" />
@@ -21,8 +21,26 @@
             <TableColumn fx:id="fiveColumn" prefWidth="115.0" text="前5行业占比（%）" />
             <TableColumn fx:id="tenIndustrySColumn" prefWidth="115.0" text="前10行业占比（%）" />
             <TableColumn fx:id="typeColumn" prefWidth="75.0" text="投资类型" />
-            <TableColumn fx:id="coColumn" prefWidth="75.0" resizable="false" text="管理公司" />
+            <TableColumn fx:id="coColumn" prefWidth="85.0" resizable="false" text="管理公司" />
         </columns>
       </TableView>
+      <TableView fx:id="table1" blendMode="LIGHTEN" layoutX="21.0" layoutY="43.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="887.0">
+         <columns>
+            <TableColumn fx:id="codeColumn1" prefWidth="89.0" resizable="false" text="证券代码" />
+            <TableColumn fx:id="nameColumn1" prefWidth="96.0" text="证券简称" />
+            <TableColumn fx:id="styleColumn1" prefWidth="75.0" text="投资风格" />
+            <TableColumn fx:id="yearColumn1" prefWidth="125.0" text="平均持仓时间（年）" />
+            <TableColumn fx:id="winColumn1" prefWidth="85.0" text="持股市盈率" />
+            <TableColumn fx:id="clearColumn1" prefWidth="85.0" text="持股市净率" />
+            <TableColumn fx:id="tenStockColumn1" prefWidth="115.0" text="前10股票占比（%）" />
+            <TableColumn fx:id="threeColumn1" prefWidth="115.0" text="前3行业占比（%）" />
+            <TableColumn fx:id="fiveColumn1" prefWidth="115.0" text="前5行业占比（%）" />
+            <TableColumn fx:id="tenIndustrySColumn1" prefWidth="115.0" text="前10行业占比（%）" />
+            <TableColumn fx:id="typeColumn1" prefWidth="75.0" text="投资类型" />
+            <TableColumn fx:id="coColumn1" prefWidth="85.0" resizable="false" text="管理公司" />
+         </columns>
+      </TableView>
+      <Label layoutX="21.0" layoutY="18.0" prefHeight="15.0" prefWidth="887.0" style="-fx-background-color: #23A3F3;" text="权益类" textFill="WHITE" />
+      <Label layoutX="22.0" layoutY="241.0" prefHeight="15.0" prefWidth="887.0" style="-fx-background-color: #23A3F3;" text="固定收益类" textFill="WHITE" />
    </children>
 </AnchorPane>

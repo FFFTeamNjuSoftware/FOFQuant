@@ -36,17 +36,18 @@ public class fofAnalysis72Controller  implements Initializable {
     private Map<String,List<String>> mapList;
     private List<String> data1List = new ArrayList<String>();
     private List<String> data2List = new ArrayList<String>();
+
     @FXML
-    private AnchorPane panel;
+    private TableView table,table1;
     @FXML
-    private TableView table;
-    @FXML
-    private TableColumn<InvestStyleAnalyse,String> codeColumn,nameColumn,styleColumn,typeColumn,coColumn;
+    private TableColumn<InvestStyleAnalyse,String> codeColumn,nameColumn,styleColumn,typeColumn,coColumn,
+            codeColumn1,nameColumn1,styleColumn1,typeColumn1,coColumn1;
     @FXML
     private TableColumn<InvestStyleAnalyse,Number> yearColumn,winColumn,clearColumn,tenStockColumn,threeColumn,
-                                            fiveColumn,tenIndustrySColumn;
-    private String[] types = new String[]{"权益类", "固定收益类"};
-    private TitledPane[] tps = new TitledPane[types.length];
+                                            fiveColumn,tenIndustrySColumn,
+            yearColumn1,winColumn1,clearColumn1,tenStockColumn1,threeColumn1,
+            fiveColumn1,tenIndustrySColumn1;
+
     private fofAnalysis72Controller instance;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -58,30 +59,10 @@ public class fofAnalysis72Controller  implements Initializable {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        initBack();
-    }
-    private void initBack(){
-        TableView table1 = initTable(0);
-        InvestStyleAnalyse = new InvestStyleAnalyse();
-        table.getItems().clear();
-     //   TableView table2 = initTable(1);
-        TableView[] tables = new TableView[]{table1,null};
-        final Accordion accordion =new Accordion ();
-
-        for (int i = 0; i <types.length; i++) {
-            tps[i] = new TitledPane(types[i],tables[i]);
-        }
-        accordion.getPanes().addAll(tps);
-        accordion.setLayoutX(30);
-        accordion.setLayoutY(20);
-        accordion.setMaxHeight(400);
-        accordion.setPrefWidth(865);
-        accordion.setStyle("-fx-background-color: transparent;");
-        accordion.setExpandedPane(tps[0]);
-        panel.getChildren().addAll(accordion);
+        initTable();
     }
 
-    private TableView initTable(int i){
+    private void initTable(){
         //投资风格分析
         data1List = mapList.get("000011");
         data2List = mapList.get("000012");
@@ -101,11 +82,11 @@ public class fofAnalysis72Controller  implements Initializable {
         } catch (ObjectNotFoundException e) {
             e.printStackTrace();
         }
-        if(i==0) {
-            table.setItems(FXCollections.observableArrayList(investStyleAnalyseList1));
-        }else if(i==1){
+
+            table1.setItems(FXCollections.observableArrayList(investStyleAnalyseList1));
+
             table.setItems(FXCollections.observableArrayList(investStyleAnalyseList2));
-        }
+
 
         codeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
                 cellData.getValue().code));
@@ -131,6 +112,31 @@ public class fofAnalysis72Controller  implements Initializable {
                 cellData.getValue().topFiveIndustryRate));
         tenIndustrySColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(
                 cellData.getValue().topTenIndustryRate));
-        return table;
+
+        codeColumn1.setCellValueFactory(cellData -> new SimpleStringProperty(
+                cellData.getValue().code));
+        nameColumn1.setCellValueFactory(cellData -> new SimpleStringProperty(
+                cellData.getValue().name));
+        styleColumn1.setCellValueFactory(cellData -> new SimpleStringProperty(
+                cellData.getValue().investStyle));
+        typeColumn1.setCellValueFactory(cellData -> new SimpleStringProperty(
+                cellData.getValue().investType));
+        coColumn1.setCellValueFactory(cellData -> new SimpleStringProperty(
+                cellData.getValue().manageCompany));
+        yearColumn1.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().aveHoldTime));
+        winColumn1.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().holdProfitRate));
+        clearColumn1.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().holdNetWorthRate));
+        tenStockColumn1.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().topTenStockRate));
+        threeColumn1.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().topThreeIndustryRate));
+        fiveColumn1.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().topFiveIndustryRate));
+        tenIndustrySColumn1.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().topTenIndustryRate));
+
     }
 }

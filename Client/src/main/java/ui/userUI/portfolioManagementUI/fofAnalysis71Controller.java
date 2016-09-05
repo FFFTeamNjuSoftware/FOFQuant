@@ -42,14 +42,15 @@ public class fofAnalysis71Controller implements Initializable {
     @FXML
     private AnchorPane panel;
     @FXML
-    private TableView table;
+    private TableView table,table1;
     @FXML
-    private TableColumn<RiskProfitIndex,String> codeColumn,nameColumn,typeColumn,coColumn;
+    private TableColumn<RiskProfitIndex,String> codeColumn,nameColumn,typeColumn,coColumn,
+            codeColumn1,nameColumn1,typeColumn1,coColumn1;
     @FXML
     private TableColumn<RiskProfitIndex,Number> alphaColumn,betaColumn,sharpColumn,treynorColumn,jensenColumn,
-                                        aveBenefitColumn,aveRiskColumn,benefitSColumn,yearSColumn;
-    private String[] types = new String[]{"权益类", "固定收益类"};
-    private TitledPane[] tps = new TitledPane[types.length];
+                                        aveBenefitColumn,aveRiskColumn,benefitSColumn,yearSColumn,
+            alphaColumn1,betaColumn1,sharpColumn1,treynorColumn1,jensenColumn1,
+            aveBenefitColumn1,aveRiskColumn1,benefitSColumn1,yearSColumn1;
 
     private fofAnalysis71Controller instance;
     @Override
@@ -62,44 +63,21 @@ public class fofAnalysis71Controller implements Initializable {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        initBack();
+        initTable();
     }
 
-    private void initBack(){
-        TableView table1 = initTable(0);
-        riskProfitIndex = new RiskProfitIndex();
-        table.getItems().clear();
-          TableView table2 = initTable(1);
-        TableView[] tables = new TableView[]{table1,table2};
-     //   TableView[] tables = new TableView[]{initTable(0),initTable(1)};
-        final Accordion accordion =new Accordion ();
-
-        for (int i = 0; i <types.length; i++) {
-            tps[i] = new TitledPane(types[i],tables[i]);
-        }
-        accordion.getPanes().addAll(tps);
-        accordion.setLayoutX(30);
-        accordion.setLayoutY(20);
-        accordion.setPrefHeight(400);
-        accordion.setPrefWidth(865);
-        accordion.setStyle("-fx-background-color: transparent;");
-        accordion.setExpandedPane(tps[0]);
-        panel.getChildren().addAll(accordion);
-    }
-    private TableView initTable(int i){
+    private void initTable(){
         //风险收益指数
         data1List = mapList.get("000011");
         data2List = mapList.get("000012");
 
         try {
             for(String code:data1List){
-                System.out.println("...code1..."+code+"......");
                 riskProfitIndex = new RiskProfitIndex();
                 riskProfitIndex = profitFeatureLogic.getRiskProfitIndex(code);
                 riskProfitIndexList1.add(riskProfitIndex);
             }
             for(String code:data2List){
-                System.out.println("...code2..."+code+"......");
                 riskProfitIndex = new RiskProfitIndex();
                 riskProfitIndex = profitFeatureLogic.getRiskProfitIndex(code);
                 riskProfitIndexList2.add(riskProfitIndex);
@@ -109,13 +87,11 @@ public class fofAnalysis71Controller implements Initializable {
         } catch (ObjectNotFoundException e) {
             e.printStackTrace();
         }
-        if(i==0) {
-            table.getItems().clear();
-            table.setItems(FXCollections.observableArrayList(riskProfitIndexList1));
-        }else if(i==1){
-            table.getItems().clear();
-            table.setItems(FXCollections.observableArrayList(riskProfitIndexList2));
-        }
+
+        table1.setItems(FXCollections.observableArrayList(riskProfitIndexList1));
+
+        table.setItems(FXCollections.observableArrayList(riskProfitIndexList2));
+
         codeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
                 cellData.getValue().code));
         nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
@@ -142,6 +118,32 @@ public class fofAnalysis71Controller implements Initializable {
                 cellData.getValue().profitSd));
         yearSColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(
                 cellData.getValue().yearWaveRate));
-        return table;
+
+        codeColumn1.setCellValueFactory(cellData -> new SimpleStringProperty(
+                cellData.getValue().code));
+        nameColumn1.setCellValueFactory(cellData -> new SimpleStringProperty(
+                cellData.getValue().name));
+        typeColumn1.setCellValueFactory(cellData -> new SimpleStringProperty(
+                cellData.getValue().investType));
+        coColumn1.setCellValueFactory(cellData -> new SimpleStringProperty(
+                cellData.getValue().manageCompany));
+        alphaColumn1.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().alpha));
+        betaColumn1.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().beta));
+        sharpColumn1.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().sharpe));
+        treynorColumn1.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().treynor));
+        jensenColumn1.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().jensen));
+        aveBenefitColumn1.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().aveProfit));
+        aveRiskColumn1.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().aveRiskProfit));
+        benefitSColumn1.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().profitSd));
+        yearSColumn1.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().yearWaveRate));
     }
 }
