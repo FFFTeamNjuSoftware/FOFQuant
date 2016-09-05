@@ -222,7 +222,9 @@ public class Converter {
         riskyParityDeploy.rpturn=entity.getRpturn();
         riskyParityDeploy.window=entity.getWindow();
         riskyParityDeploy.hold=entity.getHold();
+        riskyParityDeploy.level=entity.getLevel();
         riskyParityDeploy.sharpe=entity.getSharpe();
         return riskyParityDeploy;
     }
+
 }

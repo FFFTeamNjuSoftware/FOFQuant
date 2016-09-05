@@ -10,6 +10,7 @@ import blimpl.Converter;
 import com.mathworks.toolbox.javabuilder.MWClassID;
 import com.mathworks.toolbox.javabuilder.MWNumericArray;
 import entities.CPPIMarketDeployEntity;
+import entities.RiskyParityDeployEntity;
 import exception.ObjectNotFoundException;
 import exception.ParameterException;
 import strategy.MarketDeployStrategy;
@@ -119,12 +120,74 @@ public class MarketDeployStrategyImpl implements MarketDeployStrategy{
     }
 
     @Override
-    public RiskyParityDeploy DefaultRiskyParityDeploy() {
-        return null;
+    public RiskyParityDeploy DefaultRiskyParityDeploy() throws RemoteException{
+        //511010,885012
+        String start="2013-01-01";
+        String end=CalendarOperate.formatCalender(Calendar.getInstance());
+        RiskyParityDeploy deploy=this.CustomizedRiskyParityDeploy(start,end);
+        return deploy;
     }
 
     @Override
-    public RiskyParityDeploy CustomizedCPPIDeploy(String startDate, String endDate) {
-        return null;
+    public RiskyParityDeploy CustomizedRiskyParityDeploy(String startDate, String endDate) throws RemoteException{
+        String riskylesscode="511010";
+        String riskycode="885012";
+        List<RiskyParityDeployEntity> entities=new ArrayList<>();
+        try {
+            List<PriceInfo> risklessInfo=marketLogic.getPriceInfo(riskylesscode,UnitType.DAY,startDate,endDate);
+            List<PriceInfo> riskInfo=marketLogic.getPriceInfo(riskycode,UnitType.DAY,startDate,endDate);
+            int length=riskInfo.size();
+            if (risklessInfo.size()<riskInfo.size()){
+               length=risklessInfo.size();
+            }
+            double[][] pricedata=new double[length][2];
+            for (int i = 0; i < length; i++) {
+                pricedata[i][0]=risklessInfo.get(i).price;
+                pricedata[i][1]=riskInfo.get(i).price;
+            }
+
+            int[] windows={90,180,360};
+            int[] holds={30,60,90};
+            for(int window:windows){
+                for(int hold:holds){
+                    for(int level=0;level<=5;level++){
+                        MWNumericArray dataset=new MWNumericArray(pricedata,MWClassID.DOUBLE);
+                        Object[] result=new Object[3];
+//            result= MatlabBoot.getCalculateTool().(3,dataset,window,hold,level);
+                        double[][] w=(double[][])((MWNumericArray)result[0]).toDoubleArray();
+                        double[] rpturn=(double[])((MWNumericArray)result[1]).toDoubleArray();
+                        double sharpe=(double)result[2];
+
+                        List<Map<String, Double>> proportions = new ArrayList<>();
+
+                        for (int i = 0; i < rpturn.length; i++){
+                            Map<String, Double> proportion = new HashMap<>();
+                            //w中每一行存储每一只基金对应的权重
+                            proportion.put(riskylesscode,w[i][0]);
+                            proportion.put(riskycode,w[i][1]);
+                            proportions.add(proportion);
+                        }
+                        RiskyParityDeployEntity riskyParityDeployEntity=new RiskyParityDeployEntity(proportions,2,rpturn,window,hold,level,sharpe);
+                        entities.add(riskyParityDeployEntity);
+                    }
+                }
+            }
+        } catch (ObjectNotFoundException e) {
+            e.printStackTrace();
+        } catch (ParameterException e) {
+            e.printStackTrace();
+        }
+
+        double sharpe=0;
+        RiskyParityDeployEntity entity=entities.get(0);
+        for(int i=0;i<entities.size();i++) {
+            if(entities.get(i).getSharpe()>sharpe){
+                sharpe=entities.get(i).getSharpe();
+                entity=entities.get(i);
+            }
+        }
+        return Converter.convertRiskyParityDeployEntity(entity);
     }
+
+
 }

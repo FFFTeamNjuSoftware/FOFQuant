@@ -15,14 +15,17 @@ public class RiskyParityDeployEntity {
     private double[] rpturn;
     private int window;
     private int hold;
+    private int level;
     private double sharpe;
 
-    public RiskyParityDeployEntity(List<Map<String,Double>> proportion,int fundNum,double[] rpturn,int window,int hold,double sharpe){
+
+    public RiskyParityDeployEntity(List<Map<String,Double>> proportion,int fundNum,double[] rpturn,int window,int hold,int level,double sharpe){
         this.proportion=proportion;
         this.fundNum=fundNum;
         this.rpturn=rpturn;
         this.window=window;
         this.hold=hold;
+        this.level=level;
         this.sharpe=sharpe;
     }
 
@@ -44,6 +47,10 @@ public class RiskyParityDeployEntity {
 
     public int getHold(){
         return hold;
+    }
+
+    public int getLevel(){
+        return level;
     }
 
     public double getSharpe(){

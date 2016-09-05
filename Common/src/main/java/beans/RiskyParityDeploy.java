@@ -33,6 +33,11 @@ public class RiskyParityDeploy {
      public int hold;
 
      /*
+     杠杆
+      */
+     public int level;
+
+     /*
      该组合夏普比率
       */
      public double sharpe;
