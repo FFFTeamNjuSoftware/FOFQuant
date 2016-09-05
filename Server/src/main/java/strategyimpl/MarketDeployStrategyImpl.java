@@ -2,6 +2,7 @@ package strategyimpl;
 
 import beans.CPPIMarketDeploy;
 import beans.PriceInfo;
+import beans.RiskyParityDeploy;
 import bl.BaseInfoLogic;
 import bl.MarketLogic;
 import blimpl.BLController;
@@ -115,5 +116,15 @@ public class MarketDeployStrategyImpl implements MarketDeployStrategy{
         }
         
         return Converter.convertCPPIMarketDeployEntity(cppiMarketDeployEntity);
+    }
+
+    @Override
+    public RiskyParityDeploy DefaultRiskyParityDeploy() {
+        return null;
+    }
+
+    @Override
+    public RiskyParityDeploy CustomizedCPPIDeploy(String startDate, String endDate) {
+        return null;
     }
 }

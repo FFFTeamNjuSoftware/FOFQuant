@@ -1,6 +1,7 @@
 package strategy;
 
 import beans.CPPIMarketDeploy;
+import beans.RiskyParityDeploy;
 
 import java.rmi.RemoteException;
 
@@ -27,4 +28,18 @@ public interface MarketDeployStrategy {
      * @return
      */
     public CPPIMarketDeploy CustomizedCPPIDeploy(double PortValue, double RiskMulti, double GuaranteeRatio, String startDate, String endDate) throws RemoteException;
+
+    /**
+     * 当前日期生成的风险平价策略
+     * @return
+     */
+    public RiskyParityDeploy DefaultRiskyParityDeploy();
+
+    /**
+     * 回测区间的风险平价策略
+     * @param startDate
+     * @param endDate
+     * @return
+     */
+    public RiskyParityDeploy CustomizedCPPIDeploy(String startDate,String endDate);
 }

@@ -214,4 +214,15 @@ public class Converter {
         cppiMarketDeploy.profit=entity.getProfit();
         return cppiMarketDeploy;
     }
+
+    public static RiskyParityDeploy convertRiskyParityDeployEntity(RiskyParityDeployEntity entity){
+        RiskyParityDeploy riskyParityDeploy=new RiskyParityDeploy();
+        riskyParityDeploy.proportion=entity.getProportion();
+        riskyParityDeploy.fundNum=entity.getFundNum();
+        riskyParityDeploy.rpturn=entity.getRpturn();
+        riskyParityDeploy.window=entity.getWindow();
+        riskyParityDeploy.hold=entity.getHold();
+        riskyParityDeploy.sharpe=entity.getSharpe();
+        return riskyParityDeploy;
+    }
 }
