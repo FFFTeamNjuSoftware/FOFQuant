@@ -24,7 +24,7 @@
     </ImageView>
     <ImageView fx:id="waiting3" fitHeight="188.0" fitWidth="300.0" layoutX="308.0" layoutY="198.0" pickOnBounds="true" preserveRatio="true">
       <image>
-        <Image url="@images/build3.gif" />
+        <Image url="@images/build2.gif" />
       </image>
     </ImageView>
     <Label layoutX="454.0" layoutY="355.0" text="固定收益类基金" textFill="WHITE">

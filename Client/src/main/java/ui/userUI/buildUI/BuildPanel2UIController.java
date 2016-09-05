@@ -87,7 +87,7 @@ public class BuildPanel2UIController implements Initializable {
 
 	@FXML
 	public void nextBt3Click() {
-		MainUI.getInstance().changeScene("user_guidePanel", "buildPanel4");
+		MainUI.getInstance().changeScene("user_guidePanel", "buildPanel3");
 	}
 
 }
