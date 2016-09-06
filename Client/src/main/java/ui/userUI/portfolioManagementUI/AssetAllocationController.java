@@ -32,13 +32,11 @@ import java.util.ResourceBundle;
 /**
  * Created by tjDu on 2016/9/2.
  */
+
+/**
+ * 资产配置-基金走势
+ */
 public class AssetAllocationController implements Initializable {
-    @FXML
-    private Label combinationTab;
-    @FXML
-    private Label fundTrendTab;
-    @FXML
-    private AnchorPane basicPane;
     @FXML
     private TableView solidTable;
     @FXML
