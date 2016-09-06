@@ -58,4 +58,11 @@ public interface UserLogic extends Remote {
      */
     public void addUser(UserManageInfo userManageInfo) throws RemoteException, ObjectExistedException;
 
+    /**
+     * 删除用户
+     * @param userManageInfo
+     * @throws RemoteException
+     * @throws ObjectNotFoundException
+     */
+    void deleteUser(UserManageInfo userManageInfo) throws RemoteException,ObjectNotFoundException;
 }

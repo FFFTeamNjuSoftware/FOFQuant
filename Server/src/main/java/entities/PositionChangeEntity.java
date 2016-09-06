@@ -21,6 +21,7 @@ public class PositionChangeEntity {
     private Integer isHandle;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;
@@ -161,7 +162,7 @@ public class PositionChangeEntity {
     }
 
     @Basic
-    @Column(name = "isHandle", nullable = true,length = 10)
+    @Column(name = "isHandle", nullable = true, length = 10)
     public Integer getIsHandle() {
         return isHandle;
     }

@@ -71,4 +71,9 @@ public class UserLogicStub extends UnicastRemoteObject implements UserLogic {
     public void addUser(UserManageInfo userManageInfo) throws RemoteException, ObjectExistedException {
 
     }
+
+    @Override
+    public void deleteUser(UserManageInfo userManageInfo) throws RemoteException, ObjectNotFoundException {
+
+    }
 }

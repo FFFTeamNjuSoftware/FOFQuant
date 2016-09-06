@@ -1,5 +1,6 @@
 package dataservice;
 
+import beans.UserManageInfo;
 import entities.UserEntity;
 import exception.ObjectExistedException;
 import exception.ObjectNotFoundException;
@@ -41,5 +42,12 @@ public interface UserDataService {
      * @throws ObjectNotFoundException
      */
     public void updateUser(UserEntity entity) throws ObjectNotFoundException;
+
+    /**
+     * 删除用户
+     * @param entity
+     * @throws ObjectNotFoundException
+     */
+    void deleteUser(UserManageInfo entity) throws  ObjectNotFoundException;
 
 }

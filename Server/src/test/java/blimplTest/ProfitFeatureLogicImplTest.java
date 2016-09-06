@@ -10,6 +10,11 @@ import org.junit.Test;
 import startup.HibernateBoot;
 import startup.MatlabBoot;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * ProfitFeatureLogicImpl Tester.
  *
@@ -62,8 +67,13 @@ public class ProfitFeatureLogicImplTest {
      */
     @Test
     public void testRiskProfitRate() throws Exception {
-        RiskProfitIndex riskProfitIndex = profitFeatureLogic.getRiskProfitIndex("000001");
-        System.out.println(new Gson().toJson(riskProfitIndex));
+        List<String> strs = Arrays.asList("000122", "000131", "092002", "166008", "233005");
+        for (String str : strs) {
+            System.out.println(LocalTime.now());
+            RiskProfitIndex riskProfitIndex = profitFeatureLogic.getRiskProfitIndex(str);
+            System.out.println(new Gson().toJson(riskProfitIndex));
+            System.out.println(LocalTime.now());
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 package dataserviceimpl;
 
+import beans.UserManageInfo;
 import dataservice.UserDataService;
 import entities.UserEntity;
 import exception.ObjectExistedException;
@@ -73,5 +74,20 @@ public class UserDataServiceImpl implements UserDataService {
         } finally {
             se.close();
         }
+    }
+
+    @Override
+    public void deleteUser(UserManageInfo manageInfo) throws ObjectNotFoundException {
+        Session se = HibernateBoot.openSession();
+        UserEntity entity=new UserEntity();
+        entity.setName(manageInfo.name);
+        entity.setGender(manageInfo.gender);
+        entity.setPassword(manageInfo.password);
+        entity.setUsername(manageInfo.username);
+        entity.setUsertype(manageInfo.userType.toString());
+        Transaction transaction=se.beginTransaction();
+        se.delete(entity);
+        transaction.commit();
+        se.close();
     }
 }
