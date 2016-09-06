@@ -1,18 +1,24 @@
 package ui.userUI.portfolioManagementUI;
 
 import RMIModule.BLInterfaces;
+import beans.InvestStyleAnalyse;
 import beans.RiskProfitIndex;
 import bl.ProfitFeatureLogic;
 import bl.fof.FOFBaseInfoLogic;
 import exception.ObjectNotFoundException;
 import javafx.beans.property.ReadOnlyDoubleWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.TreeTableView;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import ui.util.FXMLHelper;
 
+import java.io.WriteAbortedException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -34,12 +40,17 @@ public class fofAnalysis71Controller implements Initializable {
     private List<String> data1List = new ArrayList<String>();
     private List<String> data2List = new ArrayList<String>();
     @FXML
-    private TreeTableView treeTable;
+    private AnchorPane panel;
     @FXML
-    private TreeTableColumn<RiskProfitIndex,String> codeColumn,nameColumn,typeColumn,coColumn;
+    private TableView table,table1;
     @FXML
-    private TreeTableColumn<RiskProfitIndex,Number> alphaColumn,betaColumn,sharpColumn,treynorColumn,jensenColumn,
-                                        aveBenefitColumn,aveRiskColumn,benefitSColumn,yearSColumn;
+    private TableColumn<RiskProfitIndex,String> codeColumn,nameColumn,typeColumn,coColumn,
+            codeColumn1,nameColumn1,typeColumn1,coColumn1;
+    @FXML
+    private TableColumn<RiskProfitIndex,Number> alphaColumn,betaColumn,sharpColumn,treynorColumn,jensenColumn,
+                                        aveBenefitColumn,aveRiskColumn,benefitSColumn,yearSColumn,
+            alphaColumn1,betaColumn1,sharpColumn1,treynorColumn1,jensenColumn1,
+            aveBenefitColumn1,aveRiskColumn1,benefitSColumn1,yearSColumn1;
 
     private fofAnalysis71Controller instance;
     @Override
@@ -52,31 +63,22 @@ public class fofAnalysis71Controller implements Initializable {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        System.out.println("....71..");
         initTable();
     }
 
-    public void initTable(){
-        final TreeItem<String> childNode1 = new TreeItem<>("权益类");
-        final TreeItem<String> childNode2 = new TreeItem<>("固定收益类");
-
-        //Creating the root element
- //       final TreeItem<String> root = new TreeItem<>();
-        childNode1.setExpanded(true);
-        childNode2.setExpanded(true);
-        //Adding tree items to the root
-  //      root.getChildren().setAll(childNode1, childNode2);
-
+    private void initTable(){
         //风险收益指数
         data1List = mapList.get("000011");
         data2List = mapList.get("000012");
 
         try {
             for(String code:data1List){
+                riskProfitIndex = new RiskProfitIndex();
                 riskProfitIndex = profitFeatureLogic.getRiskProfitIndex(code);
                 riskProfitIndexList1.add(riskProfitIndex);
             }
             for(String code:data2List){
+                riskProfitIndex = new RiskProfitIndex();
                 riskProfitIndex = profitFeatureLogic.getRiskProfitIndex(code);
                 riskProfitIndexList2.add(riskProfitIndex);
             }
@@ -86,66 +88,62 @@ public class fofAnalysis71Controller implements Initializable {
             e.printStackTrace();
         }
 
-        riskProfitIndexList1.stream().forEach((RiskProfitIndex) -> {
-            childNode1.getChildren().add(new TreeItem<>());
-        });
+        table1.setItems(FXCollections.observableArrayList(riskProfitIndexList1));
 
-        riskProfitIndexList2.stream().forEach((RiskProfitIndex) -> {
-            childNode2.getChildren().add(new TreeItem<>());
-        });
+        table.setItems(FXCollections.observableArrayList(riskProfitIndexList2));
 
-        codeColumn.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<RiskProfitIndex, String> param) ->
-                        new ReadOnlyStringWrapper(param.getValue().getValue().code)
-        );
-        nameColumn.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<RiskProfitIndex, String> param) ->
-                        new ReadOnlyStringWrapper(param.getValue().getValue().name)
-        );
-        typeColumn.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<RiskProfitIndex, String> param) ->
-                        new ReadOnlyStringWrapper(param.getValue().getValue().investType)
-        );
-        coColumn.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<RiskProfitIndex, String> param) ->
-                        new ReadOnlyStringWrapper(param.getValue().getValue().manageCompany)
-        );
-        alphaColumn.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<RiskProfitIndex, Number> param) ->
-                        new ReadOnlyDoubleWrapper(param.getValue().getValue().alpha)
-        );
-        betaColumn.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<RiskProfitIndex, Number> param) ->
-                        new ReadOnlyDoubleWrapper(param.getValue().getValue().beta)
-        );
-        sharpColumn.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<RiskProfitIndex, Number> param) ->
-                        new ReadOnlyDoubleWrapper(param.getValue().getValue().sharpe)
-        );
-        treynorColumn.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<RiskProfitIndex, Number> param) ->
-                        new ReadOnlyDoubleWrapper(param.getValue().getValue().treynor)
-        );
-        jensenColumn.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<RiskProfitIndex, Number> param) ->
-                        new ReadOnlyDoubleWrapper(param.getValue().getValue().jensen)
-        );
-        aveBenefitColumn.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<RiskProfitIndex, Number> param) ->
-                        new ReadOnlyDoubleWrapper(param.getValue().getValue().aveProfit)
-        );
-        aveRiskColumn.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<RiskProfitIndex, Number> param) ->
-                        new ReadOnlyDoubleWrapper(param.getValue().getValue().aveRiskProfit)
-        );
-        benefitSColumn.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<RiskProfitIndex, Number> param) ->
-                        new ReadOnlyDoubleWrapper(param.getValue().getValue().profitSd)
-        );
-        yearSColumn.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<RiskProfitIndex, Number> param) ->
-                        new ReadOnlyDoubleWrapper(param.getValue().getValue().yearWaveRate)
-        );
+        codeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
+                cellData.getValue().code));
+        nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
+                cellData.getValue().name));
+        typeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
+                cellData.getValue().investType));
+        coColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
+                cellData.getValue().manageCompany));
+        alphaColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().alpha));
+        betaColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().beta));
+        sharpColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().sharpe));
+        treynorColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().treynor));
+        jensenColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().jensen));
+        aveBenefitColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().aveProfit));
+        aveRiskColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().aveRiskProfit));
+        benefitSColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().profitSd));
+        yearSColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().yearWaveRate));
 
+        codeColumn1.setCellValueFactory(cellData -> new SimpleStringProperty(
+                cellData.getValue().code));
+        nameColumn1.setCellValueFactory(cellData -> new SimpleStringProperty(
+                cellData.getValue().name));
+        typeColumn1.setCellValueFactory(cellData -> new SimpleStringProperty(
+                cellData.getValue().investType));
+        coColumn1.setCellValueFactory(cellData -> new SimpleStringProperty(
+                cellData.getValue().manageCompany));
+        alphaColumn1.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().alpha));
+        betaColumn1.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().beta));
+        sharpColumn1.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().sharpe));
+        treynorColumn1.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().treynor));
+        jensenColumn1.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().jensen));
+        aveBenefitColumn1.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().aveProfit));
+        aveRiskColumn1.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().aveRiskProfit));
+        benefitSColumn1.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().profitSd));
+        yearSColumn1.setCellValueFactory(cellData -> new SimpleDoubleProperty(
+                cellData.getValue().yearWaveRate));
     }
 }

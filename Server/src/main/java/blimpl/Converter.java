@@ -204,4 +204,27 @@ public class Converter {
         fundDeploy.strategy=entity.getStrategy();
         return fundDeploy;
     }
+
+    public static CPPIMarketDeploy convertCPPIMarketDeployEntity(CPPIMarketDeployEntity entity){
+        CPPIMarketDeploy cppiMarketDeploy=new CPPIMarketDeploy();
+        cppiMarketDeploy.proportion=entity.getProportion();
+        cppiMarketDeploy.sumTradeFee=entity.getSumTradeFee();
+        cppiMarketDeploy.profit=entity.getProfit();
+        cppiMarketDeploy.adjustCycle=entity.getAdjustCycle();
+        cppiMarketDeploy.profit=entity.getProfit();
+        return cppiMarketDeploy;
+    }
+
+    public static RiskyParityDeploy convertRiskyParityDeployEntity(RiskyParityDeployEntity entity){
+        RiskyParityDeploy riskyParityDeploy=new RiskyParityDeploy();
+        riskyParityDeploy.proportion=entity.getProportion();
+        riskyParityDeploy.fundNum=entity.getFundNum();
+        riskyParityDeploy.rpturn=entity.getRpturn();
+        riskyParityDeploy.window=entity.getWindow();
+        riskyParityDeploy.hold=entity.getHold();
+        riskyParityDeploy.level=entity.getLevel();
+        riskyParityDeploy.sharpe=entity.getSharpe();
+        return riskyParityDeploy;
+    }
+
 }

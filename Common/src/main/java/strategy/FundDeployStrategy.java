@@ -29,7 +29,7 @@ public interface FundDeployStrategy {
     public Map<String, List<Double>> getCodeFee(List<String> funds, int N) throws RemoteException;
 
     /**
-     * 根据代码排名情况获得权重分配后组合的夏普比率
+     * 根据代码排名情况获得策略生成的组合
      * @param codes
      * @param N
      * @param window

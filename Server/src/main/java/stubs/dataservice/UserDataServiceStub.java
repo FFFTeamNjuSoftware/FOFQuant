@@ -1,5 +1,6 @@
 package stubs.dataservice;
 
+import beans.UserManageInfo;
 import dataservice.UserDataService;
 import entities.UserEntity;
 import exception.ObjectExistedException;
@@ -29,6 +30,11 @@ public class UserDataServiceStub implements UserDataService {
 
     @Override
     public void updateUser(UserEntity entity) throws ObjectNotFoundException {
+
+    }
+
+    @Override
+    public void deleteUser(UserManageInfo entity) throws ObjectNotFoundException {
 
     }
 

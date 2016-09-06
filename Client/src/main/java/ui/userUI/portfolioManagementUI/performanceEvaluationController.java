@@ -39,6 +39,8 @@ public class performanceEvaluationController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         instance = this;
         initStep();
+        AnchorPane pane = FXMLHelper.loadPanel("fofAnalysis71");
+        panel.getChildren().addAll(pane);
     }
 
     private void initStep(){

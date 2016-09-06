@@ -62,4 +62,9 @@ public class UserLogicImpl extends UnicastRemoteObject implements UserLogic {
     public void addUser(UserManageInfo userManageInfo) throws RemoteException, ObjectExistedException {
         userService.addUser(Converter.convertUserEntity(userManageInfo));
     }
+
+    @Override
+    public void deleteUser(UserManageInfo userManageInfo) throws RemoteException, ObjectNotFoundException {
+        userService.deleteUser(userManageInfo);
+    }
 }

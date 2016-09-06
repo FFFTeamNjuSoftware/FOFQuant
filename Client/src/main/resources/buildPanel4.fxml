@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="970.0" styleClass="root" stylesheets="@css/stageView.css" xmlns="http://javafx.com/javafx/8.0.71" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.userUI.buildUI.BuildPanel4UIController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="970.0" styleClass="root" stylesheets="@css/stageView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.userUI.buildUI.BuildPanel4UIController">
   <children>
     <ImageView fitHeight="35.0" fitWidth="800.0" layoutX="58.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
       <image>
@@ -16,5 +22,12 @@
         <Image url="@images/completedBt.png" />
       </image>
     </ImageView>
+      <Label layoutX="324.0" layoutY="405.0" text="组合名称：" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="combinationName" layoutX="445.0" layoutY="401.0" promptText="我的组合1" />
+      <AnchorPane fx:id="chartPane" layoutX="40.0" layoutY="71.0" prefHeight="322.0" prefWidth="904.0" />
   </children>
 </AnchorPane>

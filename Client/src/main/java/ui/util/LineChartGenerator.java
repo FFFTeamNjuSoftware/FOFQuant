@@ -34,6 +34,7 @@ public class LineChartGenerator {
         serieses = new ArrayList<>();
         this.pane = pane;
         lineChart = new LineChart<String, Number>(xAxis, yAxis);
+        yAxis.setForceZeroInRange(false);
         for (String name : names) {
             XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
             series.setName(name);

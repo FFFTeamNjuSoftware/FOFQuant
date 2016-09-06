@@ -4,10 +4,12 @@ package beans;
  * Created by Daniel on 2016/8/30.
  */
 
+import java.io.Serializable;
+
 /**
  * 基金的实时数据
  */
-public class FundRealTimeInfo {
+public class FundRealTimeInfo implements Serializable {
     /**
      * 基金代码
      */

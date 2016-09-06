@@ -4,10 +4,12 @@ package beans;
  * Created by Daniel on 2016/8/31.
  */
 
+import java.io.Serializable;
+
 /**
  * 风险收益指标 b
  */
-public class RiskProfitIndex {
+public class RiskProfitIndex implements Serializable{
     public String code;
     public String name;
     public double alpha;

@@ -6,10 +6,12 @@ package beans;
 
 import javafx.beans.property.SimpleStringProperty;
 
+import java.io.Serializable;
+
 /**
  * 为了画图方便
  */
-public class ProfitRateInfo4Code {
+public class ProfitRateInfo4Code implements Serializable {
     /**
      * 基金代码
      */

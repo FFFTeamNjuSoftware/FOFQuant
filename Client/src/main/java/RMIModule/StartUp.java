@@ -25,18 +25,20 @@ public class StartUp {
 //                        (TimeType.ONE_MONTH);
 //                System.out.println(new Gson().toJson(fofProfitAnalyse));
         System.out.println(LocalTime.now());
-        double alpha = BLInterfaces.getProfitFeatureLogic().getAlpha("000001");
-        double beta = BLInterfaces.getRiskFeature().getBeta("000001");
-        double sd = BLInterfaces.getRiskFeature().getStandardDeviation("000001");
-        double sharpe = BLInterfaces.getRiskFeature().getSharpe("000001");
-        FOFProfitAnalyseLogic fofProfitAnalyseLogic=BLInterfaces.getFofProfitAnalyseLogic();
-        fofProfitAnalyseLogic.setProformanceBase(FOFUtilInfo.performanceBaseInfo.get("沪深300"));
-        FOFProfitAnalyse fofProfitAnalyse = fofProfitAnalyseLogic.getFOFProfitAnalyse(TimeType.THREE_MONTH);
-        System.out.println(LocalTime.now());
-        System.out.println(sd);
-        System.out.println(sharpe);
-        System.out.println(alpha + "," + beta);
-        System.out.println(new Gson().toJson(fofProfitAnalyse));
+        System.out.println(new Gson().toJson(BLInterfaces.getProfitFeatureLogic()
+                .getRiskProfitIndex("000122")));
+//        double alpha = BLInterfaces.getProfitFeatureLogic().getAlpha("000001");
+//        double beta = BLInterfaces.getRiskFeature().getBeta("000001");
+//        double sd = BLInterfaces.getRiskFeature().getStandardDeviation("000001");
+//        double sharpe = BLInterfaces.getRiskFeature().getSharpe("000001");
+//        FOFProfitAnalyseLogic fofProfitAnalyseLogic=BLInterfaces.getFofProfitAnalyseLogic();
+//        fofProfitAnalyseLogic.setProformanceBase(FOFUtilInfo.performanceBaseInfo.get("沪深300"));
+//        FOFProfitAnalyse fofProfitAnalyse = fofProfitAnalyseLogic.getFOFProfitAnalyse(TimeType.THREE_MONTH);
+//        System.out.println(LocalTime.now());
+//        System.out.println(sd);
+//        System.out.println(sharpe);
+//        System.out.println(alpha + "," + beta);
+//        System.out.println(new Gson().toJson(fofProfitAnalyse));
         System.out.println("success");
     }
 }
