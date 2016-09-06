@@ -45,5 +45,5 @@ public interface FOFAssetAllocationLogic extends Remote {
      * 权重调整
      * @param newWeight
      */
-    void changePosition(Map<String,Double> newWeight);
+    void changePosition(Map<String,Double> newWeight) throws RemoteException;
 }

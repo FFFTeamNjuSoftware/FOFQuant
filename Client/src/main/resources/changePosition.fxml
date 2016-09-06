@@ -9,38 +9,49 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="970.0" styleClass="root" stylesheets="@css/stageView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.userUI.allFundUI.allFundUIController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="970.0" styleClass="root" stylesheets="@css/stageView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.userUI.portfolioManagementUI.ChangePositionController">
     <children>
-        <AnchorPane layoutY="73.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="292.0" prefWidth="970.0">
+        <Label fx:id="tab1" layoutX="59.0" layoutY="21.0" prefHeight="24.0" prefWidth="88.0" text="仓位调整" textFill="WHITE">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
+      <ImageView fx:id="backImage" fitHeight="23.0" fitWidth="23.0" layoutX="15.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/images/back.png" />
+         </image>
+      </ImageView>
+        <AnchorPane layoutX="60.0" layoutY="71.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="820.0">
             <children>
-                <TableView fx:id="table" blendMode="LIGHTEN" layoutX="50.0" layoutY="34.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="238.0" prefWidth="870.0">
+                <TableView fx:id="changeTable1" blendMode="LIGHTEN" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="405.0" styleClass="table-row-cell2" stylesheets="@css/rowHeight.css">
                     <columns>
-                        <TableColumn fx:id="codeColumn" maxWidth="55.0" minWidth="20.0" prefWidth="55.0" resizable="false" text="代码" />
-                        <TableColumn fx:id="full_nameColumn" maxWidth="100.0" minWidth="20.0" prefWidth="94.0" text="名称" />
-                        <TableColumn fx:id="current_netWorthColumn" maxWidth="70.0" minWidth="20.0" prefWidth="70.0" text="当前净值" />
-                        <TableColumn fx:id="daily_riseColumn" maxWidth="70.0" minWidth="20.0" prefWidth="70.0" text="日涨幅" />
-                        <TableColumn fx:id="nearOneMonthColumn" maxWidth="70.0" minWidth="20.0" prefWidth="70.0" text="近一月" />
-                        <TableColumn fx:id="nearThreeMonthColumn" maxWidth="70.0" minWidth="20.0" prefWidth="70.0" text="近三月" />
-                        <TableColumn fx:id="nearSixMonthColumn" maxWidth="70.0" minWidth="20.0" prefWidth="70.0" text="近半年" />
-                        <TableColumn fx:id="nearOneYearColumn" maxWidth="70.0" minWidth="20.0" prefWidth="70.0" text="近一年" />
-                        <TableColumn fx:id="nearThreeYearColumn" maxWidth="70.0" minWidth="20.0" prefWidth="70.0" text="近三年" />
-                        <TableColumn fx:id="nearFiveYearColumn" maxWidth="70.0" minWidth="20.0" prefWidth="70.0" text="近五年" />
-                        <TableColumn fx:id="sinceEstablishColumn" maxWidth="70.0" minWidth="20.0" prefWidth="70.0" text="自建立" />
-                        <TableColumn fx:id="yearRateColumn" maxWidth="70.0" minWidth="20.0" prefWidth="70.0" resizable="false" text="年化收益" />
+                        <TableColumn fx:id="nameCm1" maxWidth="123.0" minWidth="20.0" prefWidth="120.0" resizable="false" text="基金" />
+                        <TableColumn fx:id="sliderCm1" maxWidth="178.0" minWidth="20.0" prefWidth="178.0" text="调整" />
+                        <TableColumn fx:id="ratioCm1" maxWidth="66.0" minWidth="0.0" prefWidth="66.0" text="比例" />
                     </columns>
                 </TableView>
-                <ComboBox fx:id="comboBox" layoutX="49.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="144.0" style="-fx-background-color: #057DC8; -fx-color: #ffffff;" />
+            <TableView fx:id="changeTable2" blendMode="LIGHTEN" layoutX="415.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="405.0">
+               <columns>
+                  <TableColumn fx:id="nameCm2" maxWidth="120.0" minWidth="20.0" prefWidth="120.0" resizable="false" text="基金" />
+                  <TableColumn fx:id="sliderCm2" maxWidth="178.0" minWidth="20.0" prefWidth="178.0" text="调整" />
+                  <TableColumn fx:id="ratioCm2" maxWidth="169.0" minWidth="0.0" prefWidth="169.0" text="比例" />
+               </columns>
+            </TableView>
             </children>
         </AnchorPane>
-        <Label fx:id="tab1" layoutX="54.0" layoutY="24.0" prefHeight="27.0" prefWidth="136.0" text="   基金基础类" textFill="WHITE">
-            <font>
-                <Font size="20.0" />
-            </font>
-        </Label>
-        <Label fx:id="tab2" layoutX="219.0" layoutY="24.0" prefHeight="27.0" prefWidth="136.0" text="   基金市场类" textFill="WHITE">
-            <font>
-                <Font size="20.0" />
-            </font>
-        </Label>
+      <HBox layoutX="60.0" layoutY="511.0" prefHeight="40.0" prefWidth="820.0">
+         <children>
+            <Label fx:id="tab11" prefHeight="14.0" prefWidth="427.0" text="*注：基金的净值是在每天的15:00确定，所以发出调整请求后悔在下一个15:00之后进行实际调整" textFill="WHITE">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="completedBt" fitHeight="40.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets left="294.0" />
+               </HBox.margin>
+            </ImageView>
+         </children>
+      </HBox>
     </children>
 </AnchorPane>

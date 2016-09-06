@@ -63,7 +63,7 @@ public class FOFAssetAllocationLogicImpl extends UnicastRemoteObject implements
     }
 
     @Override
-    public List<AssetItem> getFOFAssetAllocation() {
+    public List<AssetItem> getFOFAssetAllocation()  throws RemoteException {
         try {
             return fofDataService.getFOFAssetAllocation(fof_code).stream().map
                     (Converter::convertFOFAssetAllocation).collect(Collectors.toList());
@@ -74,12 +74,12 @@ public class FOFAssetAllocationLogicImpl extends UnicastRemoteObject implements
     }
 
     @Override
-    public Map<String, Double> getWeights() {
+    public Map<String, Double> getWeights() throws RemoteException  {
         return null;
     }
 
     @Override
-    public void changePosition(Map<String, Double> newWeight) {
+    public void changePosition(Map<String, Double> newWeight)throws RemoteException  {
 
     }
 }

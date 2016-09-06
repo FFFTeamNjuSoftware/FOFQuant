@@ -43,6 +43,7 @@ public interface FOFBaseInfoLogic extends Remote {
 
     /**
      * 获得最新的权重信息
+     * first String is 权益类（000011），国定收益类（000012）
      * @return
      * @throws RemoteException
      */
