@@ -1,9 +1,11 @@
 package beans;
 
+import java.io.Serializable;
+
 /**
  * Created by Daniel on 2016/9/7.
  */
-public class RiskParameters {
+public class RiskParameters implements Serializable{
     /**
      * 风险乘数
      */
