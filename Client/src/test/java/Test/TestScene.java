@@ -19,21 +19,23 @@ public class TestScene extends Application {
 	public void start(Stage primaryStage) {
 		Slider slider = new Slider();
 		StackPane root = new StackPane(slider);
+		StackPane root1=new StackPane(root);
 		root.setPadding(new Insets(20));
 
-		Scene scene = new Scene(root);
 
+		Scene scene = new Scene(root1);
 		slider.applyCss();
 		slider.layout();
 		Pane thumb = (Pane) slider.lookup(".thumb");
 		Label label = new Label();
 		label.textProperty().bind(slider.valueProperty().asString("%.2f"));
+
 		if(thumb!=null){
 			System.out.println("get thumb successed!");
+			thumb.getChildren().add(label);
 		}else{
 			System.out.println("get thumb failed!");
 		}
-		thumb.getChildren().add(label);
 
 		primaryStage.setScene(scene);
 		primaryStage.show();
