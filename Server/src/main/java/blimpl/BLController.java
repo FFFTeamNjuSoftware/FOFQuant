@@ -120,7 +120,13 @@ public class BLController {
 
         @Override
         public FOFGenerateLogic getFOFGenerateLogic() {
-            return FOFGenerateLogicImpl.getInstance();
+//            return FOFGenerateLogicImpl.getInstance();
+            try {
+                return new FOFGenerateLogicStub();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+            return null;
         }
 
         @Override
@@ -225,10 +231,10 @@ public class BLController {
 
     static {
         //    currentCreator = stubCreator;
-          currentCreator = trueCreator;
+        currentCreator = trueCreator;
 
 //        currentFOFCreator=fofStubCreator;
-        currentFOFCreator=fofTrueCreator;
+        currentFOFCreator = fofTrueCreator;
     }
 
     public static BaseInfoLogic getBaseInfoLogic() {

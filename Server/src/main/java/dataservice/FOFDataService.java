@@ -4,7 +4,6 @@ package dataservice;
  * Created by st0001 on 2016/9/1.
  */
 
-import beans.PositionChange;
 import entities.*;
 import exception.ObjectNotFoundException;
 
@@ -59,6 +58,7 @@ public interface FOFDataService {
 
     /**
      * 获得FOF的调整请求
+     *
      * @param fof_code
      * @return
      * @throws ObjectNotFoundException
@@ -67,6 +67,7 @@ public interface FOFDataService {
 
     /**
      * 获得FOF的开仓信息
+     *
      * @param fof_code
      * @return
      */
@@ -80,7 +81,6 @@ public interface FOFDataService {
      * @throws ObjectNotFoundException
      */
     List<FofHoldInfoEntity> getNewestFofHoldInfos(String fof_code) throws ObjectNotFoundException;
-
 
 
     /**
@@ -101,4 +101,12 @@ public interface FOFDataService {
      * @throws ObjectNotFoundException
      */
     List<PositionChangeEntity> getPositionChange(String fof_code) throws ObjectNotFoundException;
+
+    /**
+     * 保存调仓请求
+     * @param entities
+     * @throws ObjectNotFoundException
+     */
+    void savePositionChangeEntity(List<PositionChangeEntity> entities) throws
+            ObjectNotFoundException;
 }

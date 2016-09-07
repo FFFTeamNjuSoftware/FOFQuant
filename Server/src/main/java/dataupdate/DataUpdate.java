@@ -1,6 +1,5 @@
 package dataupdate;
 
-import beans.HoldingInfo;
 import beans.PriceInfo;
 import beans.ProfitRateInfo;
 import blimpl.BLController;
@@ -17,7 +16,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import startup.HibernateBoot;
 import strategyimpl.FundRankStrategyImpl;
-import sun.nio.ch.Net;
 import util.TimeType;
 import util.UnitType;
 
@@ -125,6 +123,11 @@ public class DataUpdate {
      * @throws IOException
      */
     public void updateNetWorth() throws IOException {
+        updateNetWorthWithFinishOperation(() -> {
+        });
+    }
+
+    public void updateNetWorthWithFinishOperation(Runnable runnable) {
         UpdateNetWorthFromJS updateNetWorthFromJS = new UpdateNetWorthFromJS();
         BaseInfoDataService baseInfoDataService = DataServiceController.getBaseInfoDataService();
         List<String> codes = baseInfoDataService.getAllCodes();
@@ -135,6 +138,8 @@ public class DataUpdate {
             System.out.println(count++ + ":" + code + "," + startDate);
             updateNetWorthFromJS.updateNetWorth(code, startDate);
         }
+        updateNetWorthFromJS.setFinishOperation(runnable);
+        updateNetWorthFromJS.startUpdate();
     }
 
 
@@ -196,10 +201,18 @@ public class DataUpdate {
     public static void main(String[] args) throws Exception {
         HibernateBoot.init();
         DataUpdate dataUpdate = new DataUpdate();
-        dataUpdate.updateQuickinfo();
 //        dataUpdate.updateFundRank();
-//        dataUpdate.updateNetWorth();
+        dataUpdate.updateNetWorthWithFinishOperation(() -> {
+            dataUpdate.updateFqWorth();
+            try {
+                dataUpdate.updateQuickinfo();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            HibernateBoot.closeConnection();
+        });
 //        dataUpdate.updateFundRealTimeInfo();
-        dataUpdate.updateFqWorth();
+//        dataUpdate.updateFqWorth();
+//        dataUpdate.updateQuickinfo();
     }
 }

@@ -1,12 +1,6 @@
 package RMIModule;
 
-import beans.FOFProfitAnalyse;
-import bl.fof.FOFProfitAnalyseLogic;
-import bl.fof.FOFProfitStatisticsLogic;
 import com.google.gson.Gson;
-import util.FOFUtilInfo;
-import util.IndexCodeInfo;
-import util.TimeType;
 
 import java.time.LocalTime;
 
@@ -27,6 +21,12 @@ public class StartUp {
         System.out.println(LocalTime.now());
         System.out.println(new Gson().toJson(BLInterfaces.getProfitFeatureLogic()
                 .getRiskProfitIndex("000122")));
+        System.out.println(new Gson().toJson(BLInterfaces.getFofGenerateLogic()
+                .getLargeClassConfiguration()));
+        System.out.println(new Gson().toJson(BLInterfaces.getFofGenerateLogic()
+                .getSmallClassConfiguration()));
+        System.out.println(new Gson().toJson(BLInterfaces.getFofGenerateLogic()
+                .getTestValues()));
 //        double alpha = BLInterfaces.getProfitFeatureLogic().getAlpha("000001");
 //        double beta = BLInterfaces.getRiskFeature().getBeta("000001");
 //        double sd = BLInterfaces.getRiskFeature().getStandardDeviation("000001");

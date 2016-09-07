@@ -4,6 +4,7 @@ import dataservice.FOFDataService;
 import entities.*;
 import exception.ObjectNotFoundException;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import startup.HibernateBoot;
 
 import java.util.List;
@@ -134,7 +135,7 @@ public class FOFDataServiceImpl implements FOFDataService {
     }
 
     @Override
-    public List<FofEstablishInfoEntity> getFofEstablishInfo(String fof_code) throws ObjectNotFoundException{
+    public List<FofEstablishInfoEntity> getFofEstablishInfo(String fof_code) throws ObjectNotFoundException {
         Session se = HibernateBoot.openSession();
         List<?> li = se.createQuery("from FofEstablishInfoEntity where fofCode=:fofCode").setString("fofCode",
                 fof_code).list();
@@ -143,5 +144,14 @@ public class FOFDataServiceImpl implements FOFDataService {
             throw new ObjectNotFoundException("can't find " + FofHoldInfoEntity.class
                     .getSimpleName() + ":" + fof_code);
         return li.stream().map(e -> (FofEstablishInfoEntity) e).collect(Collectors.toList());
+    }
+
+    @Override
+    public void savePositionChangeEntity(List<PositionChangeEntity> entities) throws ObjectNotFoundException {
+        Session se = HibernateBoot.openSession();
+        Transaction tra = se.beginTransaction();
+        entities.forEach(e -> se.saveOrUpdate(e));
+        tra.commit();
+        se.close();
     }
 }

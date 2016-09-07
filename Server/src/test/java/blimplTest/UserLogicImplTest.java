@@ -1,6 +1,7 @@
 package blimplTest;
 
 import beans.UserInfo;
+import beans.UserManageInfo;
 import bl.UserLogic;
 import blimpl.BLController;
 import com.google.gson.Gson;
@@ -67,7 +68,8 @@ public class UserLogicImplTest {
      */
     @Test
     public void testAddUser() throws Exception {
-//TODO: Test goes here... 
+        UserManageInfo userManageInfo=userLogic.getAllUser().get(0);
+        userLogic.deleteUser(userManageInfo);
     }
 
 

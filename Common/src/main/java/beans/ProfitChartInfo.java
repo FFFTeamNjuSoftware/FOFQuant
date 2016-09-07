@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by Daniel on 2016/8/18.
  */
-public class ProfitChartInfo implements Serializable{
+public class ProfitChartInfo implements Serializable {
     /**
      * 图表需要展示的数据
      */
@@ -19,4 +19,11 @@ public class ProfitChartInfo implements Serializable{
      * 比如在折价溢价和万元波动图中有三个值，分别代表基金、基金指数、沪深300大盘指数
      */
     public double[] values;
+
+    public static ProfitChartInfo getProfitChartInfo(String date, double... values) {
+        ProfitChartInfo profitChartInfo = new ProfitChartInfo();
+        profitChartInfo.date = date;
+        profitChartInfo.values = values;
+        return profitChartInfo;
+    }
 }

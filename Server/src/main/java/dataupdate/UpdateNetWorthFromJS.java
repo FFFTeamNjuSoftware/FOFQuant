@@ -13,6 +13,7 @@ import startup.HibernateBoot;
 import util.HttpTool;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
@@ -30,30 +31,66 @@ public class UpdateNetWorthFromJS {
      */
     private final int maxThreadNum = 40;
     private int currentThreadNum;
+    private int leaveThreadNum;
     private Condition hasFreeTreadNum;
-    private Lock lock;
+    private Lock lock, finishOpe;
+    private Runnable runnable;
+    private boolean dead = false;
+
+    List<Thread> threads;
 
 
     public UpdateNetWorthFromJS() {
         currentThreadNum = 0;
         lock = new ReentrantLock();
+        finishOpe = new ReentrantLock();
         hasFreeTreadNum = lock.newCondition();
+        leaveThreadNum = 0;
+        threads = new ArrayList<>();
     }
 
     public void updateNetWorth(String code, String startDate) {
-        lock.lock();
-        while (currentThreadNum >= maxThreadNum) {
-            try {
-                hasFreeTreadNum.await();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        if (!dead) {
+            UpdateClass updateClass = new UpdateClass(code, startDate);
+            Thread newThread = new Thread(updateClass);
+            threads.add(newThread);
+            leaveThreadNum++;
+        } else {
+            System.out.println("class is dead!!");
         }
-        UpdateClass updateClass = new UpdateClass(code, startDate);
-        Thread newThread = new Thread(updateClass);
-        newThread.start();
-        currentThreadNum++;
-        lock.unlock();
+    }
+
+    public void startUpdate() {
+        dead = true;
+        while (leaveThreadNum > 0) {
+            lock.lock();
+            while (currentThreadNum >= maxThreadNum) {
+                try {
+                    hasFreeTreadNum.await();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            threads.get(0).start();
+            threads.remove(0);
+            leaveThreadNum--;
+            currentThreadNum++;
+            lock.unlock();
+        }
+        finishOperation();
+    }
+
+    public void setFinishOperation(Runnable runnable) {
+        this.runnable = runnable;
+    }
+
+    private void finishOperation() {
+        finishOpe.lock();
+        if (runnable != null) {
+            new Thread(runnable).start();
+            runnable = null;
+        }
+        finishOpe.unlock();
     }
 
     class UpdateClass implements Runnable {
@@ -127,6 +164,9 @@ public class UpdateNetWorthFromJS {
                 currentThreadNum--;
                 if (currentThreadNum < maxThreadNum)
                     hasFreeTreadNum.signalAll();
+                if (currentThreadNum == 0 && leaveThreadNum == 0)
+                    finishOperation();
+                System.out.println("leave thred:" + leaveThreadNum);
                 lock.unlock();
                 se.close();
             }
