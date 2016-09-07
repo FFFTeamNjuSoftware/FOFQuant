@@ -8,6 +8,7 @@ import bl.fof.FOFProfitStatisticsLogic;
 import blimpl.CalculateDataHandler;
 import blimpl.LogicUtil;
 import com.google.gson.Gson;
+import com.sun.org.apache.regexp.internal.RE;
 import exception.ObjectNotFoundException;
 import exception.ParameterException;
 import util.FOFUtilInfo;
@@ -246,7 +247,9 @@ public class FOFProfitStatisticsLogicImpl extends UnicastRemoteObject implements
         calculateDataHandler.setDate(startDate, endDate).setUnitType(unitType).setBaseCode(baseCode);
         try {
             Map<String, List<PriceInfo>> priceInfos = calculateDataHandler.getDatasByPriceInfo();
-            return priceInfos.get(code);
+            List<PriceInfo> result = new ArrayList<>();
+            result.addAll(priceInfos.get(code));
+            return result;
         } catch (ObjectNotFoundException e) {
             e.printStackTrace();
         }
