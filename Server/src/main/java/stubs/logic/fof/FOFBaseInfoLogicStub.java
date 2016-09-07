@@ -28,6 +28,11 @@ public class FOFBaseInfoLogicStub extends UnicastRemoteObject implements FOFBase
     }
 
     @Override
+    public boolean hasGeneratedFofCombination() throws RemoteException {
+        return false;
+    }
+
+    @Override
     public List<FOFHistoryInfo> getFOFHistoryInfo() throws RemoteException {
         FOFHistoryInfo fofHistoryInfo = new FOFHistoryInfo();
         fofHistoryInfo.fofId = FOFUtilInfo.FOF_CODE;

@@ -78,6 +78,17 @@ public class FOFBaseInfoLogicImpl extends UnicastRemoteObject implements FOFBase
     }
 
     @Override
+    public boolean hasGeneratedFofCombination() throws RemoteException {
+        try {
+            fofDataService.getFofInfoEntity(fof_code);
+        } catch (ObjectNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    @Override
     public List<FOFHistoryInfo> getFOFHistoryInfo() throws RemoteException {
         try {
             return fofDataService.getFofHistoryInfos(fof_code).stream().map

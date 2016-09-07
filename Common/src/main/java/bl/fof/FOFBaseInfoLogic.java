@@ -51,4 +51,10 @@ public interface FOFBaseInfoLogic extends Remote {
      */
     Map<String,Map<String,Double>> getNewestWeight () throws RemoteException;
 
+    /**
+     * 是否存在FOF组合
+     * @return
+     * @throws RemoteException
+     */
+    boolean hasGeneratedFofCombination() throws RemoteException;
 }
