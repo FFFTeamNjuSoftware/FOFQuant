@@ -23,18 +23,20 @@
       </ImageView>
         <AnchorPane layoutX="60.0" layoutY="71.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="820.0">
             <children>
-                <TableView fx:id="changeTable1" blendMode="LIGHTEN" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="405.0" styleClass="table-row-cell2" stylesheets="@css/rowHeight.css">
+                <TableView fx:id="changeTable1" blendMode="LIGHTEN" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="410.0" styleClass="table-row-cell2" stylesheets="@css/rowHeight.css">
                     <columns>
-                        <TableColumn fx:id="nameCm1" maxWidth="123.0" minWidth="20.0" prefWidth="120.0" resizable="false" text="基金" />
-                        <TableColumn fx:id="sliderCm1" maxWidth="178.0" minWidth="20.0" prefWidth="178.0" text="调整" />
-                        <TableColumn fx:id="ratioCm1" maxWidth="66.0" minWidth="0.0" prefWidth="66.0" text="比例" />
+                        <TableColumn fx:id="codeCm1" maxWidth="123.0" minWidth="20.0" prefWidth="82.0" resizable="false" text="权益类基金" />
+                  <TableColumn fx:id="nameCm1" maxWidth="158.0" minWidth="20.0" prefWidth="109.0" resizable="false" text="名称" />
+                        <TableColumn fx:id="sliderCm1" maxWidth="222.0" minWidth="20.0" prefWidth="160.0" text="调整" />
+                        <TableColumn fx:id="ratioCm1" maxWidth="142.0" minWidth="0.0" prefWidth="49.0" text="比例" />
                     </columns>
                 </TableView>
-            <TableView fx:id="changeTable2" blendMode="LIGHTEN" layoutX="415.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="405.0">
+            <TableView fx:id="changeTable2" blendMode="LIGHTEN" layoutX="410.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="410.0" styleClass="table-row-cell2" stylesheets="@css/rowHeight.css">
                <columns>
-                  <TableColumn fx:id="nameCm2" maxWidth="120.0" minWidth="20.0" prefWidth="120.0" resizable="false" text="基金" />
-                  <TableColumn fx:id="sliderCm2" maxWidth="178.0" minWidth="20.0" prefWidth="178.0" text="调整" />
-                  <TableColumn fx:id="ratioCm2" maxWidth="169.0" minWidth="0.0" prefWidth="169.0" text="比例" />
+                  <TableColumn fx:id="codeCm2" maxWidth="123.0" minWidth="20.0" prefWidth="82.0" resizable="false" text="固定收益基金" />
+                  <TableColumn fx:id="nameCm2" maxWidth="158.0" minWidth="20.0" prefWidth="109.0" resizable="false" text="名称" />
+                  <TableColumn fx:id="sliderCm2" maxWidth="222.0" minWidth="20.0" prefWidth="160.0" text="调整" />
+                  <TableColumn fx:id="ratioCm2" maxWidth="142.0" minWidth="0.0" prefWidth="49.0" text="比例" />
                </columns>
             </TableView>
             </children>
@@ -50,6 +52,9 @@
                <HBox.margin>
                   <Insets left="294.0" />
                </HBox.margin>
+               <image>
+                  <Image url="@images/completedChange.png" />
+               </image>
             </ImageView>
          </children>
       </HBox>

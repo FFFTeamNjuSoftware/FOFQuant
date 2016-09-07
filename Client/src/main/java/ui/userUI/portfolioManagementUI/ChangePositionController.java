@@ -1,11 +1,11 @@
 package ui.userUI.portfolioManagementUI;
 
 import RMIModule.BLInterfaces;
+import beans.FOFQuickInfo;
 import bl.fof.FOFAssetAllocationLogic;
 import bl.fof.FOFBaseInfoLogic;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ChangeListener;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.*;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
@@ -13,22 +13,18 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Font;
 import javafx.util.Callback;
-import starter.Main;
 import starter.MainUI;
 import ui.util.DisplayType;
 
-import javax.swing.text.Document;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -45,18 +41,17 @@ public class ChangePositionController implements Initializable {
 	@FXML
 	private TableView changeTable1, changeTable2;
 	@FXML
-	private TableColumn<DisplayType, String> nameCm1, nameCm2;
+	private TableColumn<DisplayType, String> codeCm1, codeCm2, nameCm1, nameCm2;
 	@FXML
 	private TableColumn sliderCm1, sliderCm2;
 	@FXML
-	private TableColumn<DisplayType,String> ratioCm1, ratioCm2;
+	private TableColumn<DisplayType, String> ratioCm1, ratioCm2;
 
 	private ChangePositionController changePositionCotroller;
 	private FOFBaseInfoLogic fofBaseInfoLogic;
 	private FOFAssetAllocationLogic fofAssetAllocationLogic;
 	private Map<String, Map<String, Double>> weightMap;
-	private Map<String, Double> displayMap1, displayMap2;
-	private List<DisplayType> displayTypeList1;
+	private List<DisplayType> displayTypeList1,displayTypeList2;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -72,20 +67,20 @@ public class ChangePositionController implements Initializable {
 			getWeightMap();
 		}
 		if (displayTypeList1 != null) {
-			Pane tableHeader = (Pane) changeTable1.lookup(".tableheaderrow");
+			Pane tableHeader = (Pane) changeTable1.lookup(".tableHeaderRow");
 			if (tableHeader != null) {
-				System.out.println("get TableHeader successed!");
+//				System.out.println("get TableHeader successed!");
 				tableHeader.setMaxHeight(0);
 				tableHeader.setMinHeight(0);
 				tableHeader.setPrefHeight(0);
 				tableHeader.setVisible(false);
 			} else {
-				System.out.println("get TableHeader failed!");
+//				System.out.println("get TableHeader failed!");
 			}
 			changeTable1.autosize();
 			changeTable1.setStyle("-fx-cell-size:70.0");
 			changeTable1.setStyle("-fx-font-size:16");
-			System.out.println("The list size:" + displayTypeList1.size());
+//			System.out.println("The list size:" + displayTypeList1.size());
 			changeTable1.setItems(FXCollections.observableList(displayTypeList1));
 			changeTable1.setRowFactory(new Callback<TableView, TableRow>() {
 
@@ -94,81 +89,108 @@ public class ChangePositionController implements Initializable {
 					return new TableRowControl(changeTable1);
 				}
 			});
-			nameCm1.setCellValueFactory(cellData -> new SimpleStringProperty(
+			codeCm1.setCellValueFactory(cellData -> new SimpleStringProperty(
 					cellData.getValue().getKey()));
+			nameCm1.setCellValueFactory(cellData -> new SimpleStringProperty(
+					cellData.getValue().getName()));
 			sliderCm1
-					.setCellValueFactory(new PropertyValueFactory<Document, Number>(
-							"select"));
-			sliderCm1
-					.setCellFactory(new Callback<TableColumn<Document, Number>, TableCell<Document, Number>>() {
+					.setCellFactory(new Callback<TableColumn<DisplayType, Number>, TableCell<DisplayType, Number>>() {
 						@Override
-						public TableCell<Document, Number> call(
-								TableColumn<Document, Number> param) {
-							final SliderTableCell<Document, Number> cell = new SliderTableCell<>();
-							final Slider slider = (Slider) cell
-									.getGraphic();
-
-							slider.setMin(0);
-							slider.setMax(100);
-
-							slider.setValue(40);
-
-							slider.setShowTickLabels(false);
-							slider.setShowTickMarks(false);
-							slider.setMajorTickUnit(50);
-							slider.setMinorTickCount(10);
-							slider.setBlockIncrement(0.01);
-							slider.setStyle("-fx-control-inner-background: #FFFFFF");
-//							slider.setStyle("-fx-background-color: #FFFFFF");
-//							slider.setStyle("-fx-foreground-color:#ffffff");
-							slider.valueProperty().addListener(new ChangeListener<Number>() {
-								public void changed(ObservableValue<? extends Number> ov,
-								                    Number old_val, Number new_val) {
-//									sepiaEffect.setLevel(new_val.doubleValue());
-//									sepiaValue.setText(String.format("%.2f", new_val));
-								}
-							});
-
+						public TableCell<DisplayType, Number> call(
+								TableColumn<DisplayType, Number> param) {
+							final SliderTableCell<DisplayType, Number> cell = new SliderTableCell<>();
+//							final Slider slider = (Slider) cell
+//									.getGraphic();
 							return cell;
 						}
-					});
-			ratioCm1.setCellValueFactory(cellData -> new SimpleStringProperty(
-					cellData.getValue().getValue()+"%"));
-//			ratioCm1
-//					.setCellValueFactory(new PropertyValueFactory<Document, Number>(
-//							"select"));
-//			ratioCm1
-//					.setCellFactory(new Callback<TableColumn<Document, String>, TableCell<Document, String>>() {
-//						@Override
-//						public TableCell<Document, String> call(
-//								TableColumn<Document, String> param) {
-//							final TextFieldTableCell<Document, String> cell = new TextFieldTableCell<>();
-//							final TextField field = (TextField) cell
-//									.getGraphic();
-//
-//							field.setStyle("-fx-control-inner-background: #FFFFFF");
-////							field.setStyle("-fx-background-color: #FFFFFF");
-////							field.setStyle("-fx-foreground-color:#000000");
-//							field.setPrefHeight(30.0);
-//							field.setPrefWidth(66.0);
-//							field.setFont(new Font(16));
-//							field.setText("50%");
-//							field.textProperty().addListener((observable, oldValue, newValue) -> {
-//								if(!newValue.equals(oldValue)){
-//									System.out.println("textfield changed from " + oldValue + " to " + newValue);
-//								}
-//							});
-//
-//							int selectedIndex=cell.getTableRow().getIndex();
-//
-//							return cell;
-//						}
-//					});
 
+					});
+			sliderCm1.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<DisplayType, Number>,
+					ObservableValue<Number>>() {
+				@Override
+				public ObservableValue<Number> call(TableColumn.CellDataFeatures<DisplayType, Number> param) {
+					return param.getValue().valueProperty();
+				}
+			});
+			ratioCm1.setCellValueFactory(cellData -> {
+				DisplayType data = cellData.getValue();
+				return Bindings.createStringBinding(() -> {
+					try {
+						double ratio = data.getValue();
+						DecimalFormat df = new DecimalFormat("#.##");
+						String dx = df.format(ratio);
+						return dx + "%";
+					} catch (NumberFormatException nfe) {
+						return "";
+					}
+				}, data.valueProperty());
+			});
 //			ratioCm1.setCellValueFactory(cellData -> new SimpleStringProperty(
 //					cellData.getValue().getValue() + "%"));
+//			ratioCm1.setEditable(true);
+		}
+		if (displayTypeList2 != null) {
+			Pane tableHeader = (Pane) changeTable1.lookup(".tableHeaderRow");
+			if (tableHeader != null) {
+//				System.out.println("get TableHeader2 successed!");
+				tableHeader.setMaxHeight(0);
+				tableHeader.setMinHeight(0);
+				tableHeader.setPrefHeight(0);
+				tableHeader.setVisible(false);
+			} else {
+//				System.out.println("get TableHeader2 failed!");
+			}
+			changeTable2.autosize();
+			changeTable2.setStyle("-fx-cell-size:70.0");
+			changeTable2.setStyle("-fx-font-size:16");
+//			System.out.println("The list size:" + displayTypeList2.size());
+			changeTable2.setItems(FXCollections.observableList(displayTypeList2));
+			changeTable2.setRowFactory(new Callback<TableView, TableRow>() {
 
-			ratioCm1.setEditable(true);
+				@Override
+				public TableRow call(TableView param) {
+					return new TableRowControl(changeTable2);
+				}
+			});
+			codeCm2.setCellValueFactory(cellData -> new SimpleStringProperty(
+					cellData.getValue().getKey()));
+			nameCm2.setCellValueFactory(cellData -> new SimpleStringProperty(
+					cellData.getValue().getName()));
+			sliderCm2
+					.setCellFactory(new Callback<TableColumn<DisplayType, Number>, TableCell<DisplayType, Number>>() {
+						@Override
+						public TableCell<DisplayType, Number> call(
+								TableColumn<DisplayType, Number> param) {
+							final SliderTableCell<DisplayType, Number> cell = new SliderTableCell<>();
+//							final Slider slider = (Slider) cell
+//									.getGraphic();
+							return cell;
+						}
+
+					});
+			sliderCm2.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<DisplayType, Number>,
+					ObservableValue<Number>>() {
+				@Override
+				public ObservableValue<Number> call(TableColumn.CellDataFeatures<DisplayType, Number> param) {
+					return param.getValue().valueProperty();
+				}
+			});
+			ratioCm2.setCellValueFactory(cellData -> {
+				DisplayType data = cellData.getValue();
+				return Bindings.createStringBinding(() -> {
+					try {
+						double ratio = data.getValue();
+						DecimalFormat df = new DecimalFormat("#.##");
+						String dx = df.format(ratio);
+						return dx + "%";
+					} catch (NumberFormatException nfe) {
+						return "";
+					}
+				}, data.valueProperty());
+			});
+//			ratioCm1.setCellValueFactory(cellData -> new SimpleStringProperty(
+//					cellData.getValue().getValue() + "%"));
+//			ratioCm1.setEditable(true);
 		}
 	}
 
@@ -179,6 +201,8 @@ public class ChangePositionController implements Initializable {
 
 
 	private void getWeightMap() {
+		Map<String,Double> displayMap1=null;
+		Map<String,Double> displayMap2=null;
 		try {
 			weightMap = fofBaseInfoLogic.getNewestWeight();
 			displayMap1 = weightMap.get("000011");
@@ -186,14 +210,40 @@ public class ChangePositionController implements Initializable {
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-		if (displayMap1 != null) {
-			displayTypeList1 = new ArrayList<DisplayType>();
-			for (Map.Entry<String, Double> entry : displayMap1.entrySet()) {
-				DisplayType temp = new DisplayType(entry.getKey(), entry.getValue());
-				displayTypeList1.add(temp);
+		if(displayMap1!=null){
+			displayTypeList1=getDisplayTypeList(displayMap1);
+		}
+		if(displayMap2!=null){
+			displayTypeList2=getDisplayTypeList(displayMap2);
+		}
+
+	}
+
+	public List<DisplayType> getDisplayTypeList(Map<String, Double> map) {
+		List<DisplayType> list=new ArrayList<DisplayType>();
+		if (map != null) {
+			list = new ArrayList<DisplayType>();
+			for (Map.Entry<String, Double> entry : map.entrySet()) {
+				FOFQuickInfo info = null;
+//				System.out.println("---"+entry.getKey()+"+++"+(fofBaseInfoLogic==null));
+				try {
+					 info = fofBaseInfoLogic.getFOFQuickInfo(entry.getKey());
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				}
+				DisplayType temp = null;
+				if (info != null) {
+					temp = new DisplayType(entry.getKey(), entry.getValue(), info.name);
+				} else {
+					temp = new DisplayType(entry.getKey(), entry.getValue(), "");
+				}
+				if (temp != null) {
+					list.add(temp);
+				}
 //				System.out.println(entry.getKey() + "/" + entry.getValue());
 			}
 		}
+		return list;
 	}
 
 	public class TableRowControl<T> extends TableRow<T> {
@@ -215,92 +265,78 @@ public class ChangePositionController implements Initializable {
 		}
 	}
 
-	public class SliderTableCell<S, T> extends TableCell<S, T> {
+
+	public class SliderTableCell<T, S> extends TableCell<T, S> {
 		private final Slider slider;
-		private ObservableValue<T> ov;
+		private ObservableValue<S> ov;
 
 		public SliderTableCell() {
 			this.slider = new Slider();
 			slider.applyCss();
 			slider.layout();
+			slider.setMin(0);
+			slider.setMax(100);
 
+//			slider.setValue(40);
+
+			slider.setShowTickLabels(false);
+			slider.setShowTickMarks(false);
+			slider.setMajorTickUnit(50);
+			slider.setMinorTickCount(10);
+			slider.setBlockIncrement(0.01);
+			slider.setStyle("-fx-control-inner-background: #FFFFFF");
+//							slider.setStyle("-fx-background-color: #FFFFFF");
+//							slider.setStyle("-fx-foreground-color:#ffffff");
+//			slider.valueProperty().addListener(new ChangeListener<Number>() {
+//				public void changed(ObservableValue<? extends Number> ov,
+//				                    Number old_val, Number new_val) {
+////									sepiaEffect.setLevel(new_val.doubleValue());
+////									sepiaValue.setText(String.format("%.2f", new_val));
+//				}
+//			});
 			Label label = new Label();
 			label.textProperty().bind(slider.valueProperty().asString("%.2f"));
 
 			MainUI.getPrimaryStage().show();
 //							MainUI.getPrimaryScene().set;
-			StackPane thumb = (StackPane) slider.lookup(".thumb");
-			if(thumb!=null){
+			StackPane thumb = (StackPane) slider.lookup("Thumb");
+			if (thumb != null) {
 //								thumb.getChildren().clear();
 				thumb.getChildren().add(label);
-			}else{
-				System.out.println("The thumb is null!");
+			} else {
+//				System.out.println("--------The thumb is null!");
 			}
 
 			setAlignment(Pos.CENTER);
-			setGraphic(slider);
 		}
 
 		@Override
-		protected void updateItem(T item, boolean empty) {
-			super.updateItem(item, empty);
+		protected void updateItem(S item, boolean empty) {
+//			super.updateItem(item, empty);
+//			System.out.println("use updateItem function!" + item + " " + empty);
 			if (empty) {
 				setText(null);
-				setGraphic(null);
+//				setGraphic(null);
 			} else {
-				setGraphic(slider);
-
-				int selectIndex=getTableRow().getIndex();
-				refreshCell(selectIndex);
-				changeTable1.refresh();
-				if (ov instanceof BooleanProperty) {
-//					radio.getProperties().unbindBidirectional(
-//							(BooleanProperty) ov);
-				}
+//				int selectIndex = getTableRow().getIndex();
+//				refreshCell(selectIndex);
+//				changeTable1.refresh();
 				ov = getTableColumn().getCellObservableValue(getIndex());
-				if (ov instanceof BooleanProperty) {
-//					radio.selectedProperty()
-//							.bindBidirectional((BooleanProperty) ov);
+//				System.out.println("++" + getIndex() + "----" + getTableColumn().getCellObservableValue(0) + "+++" + ov);
+				if (ov instanceof DoubleProperty) {
+					slider.setValue(((DoubleProperty) ov).getValue());
+					slider.valueProperty()
+							.bindBidirectional((DoubleProperty) ov);
+
 				}
+				setGraphic(slider);
 			}
 		}
+
 		private void refreshCell(int selectIndex) {
-			DisplayType displayType=displayTypeList1.get(selectIndex);
+			ui.util.DisplayType displayType = displayTypeList1.get(selectIndex);
 			displayType.setValue(slider.getValue());
 		}
 	}
 
-	public class TextFieldTableCell<S, T> extends TableCell<S, T> {
-		private final TextField text;
-		private ObservableValue<T> ov;
-
-		public TextFieldTableCell() {
-			this.text = new TextField();
-			setAlignment(Pos.CENTER);
-			setGraphic(text);
-		}
-
-		@Override
-		protected void updateItem(T item, boolean empty) {
-			super.updateItem(item, empty);
-			if (empty) {
-				setText(null);
-				setGraphic(null);
-			} else {
-				setGraphic(text);
-
-
-				if (ov instanceof BooleanProperty) {
-//					radio.getProperties().unbindBidirectional(
-//							(BooleanProperty) ov);
-				}
-				ov = getTableColumn().getCellObservableValue(getIndex());
-				if (ov instanceof BooleanProperty) {
-//					radio.selectedProperty()
-//							.bindBidirectional((BooleanProperty) ov);
-				}
-			}
-		}
-
-	}
 }

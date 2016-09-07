@@ -9,8 +9,8 @@
     -fx-opacity: 0.7;
 }*/
 .table-row-cell2 {
-    -fx-cell-size: 70px;
+    -fx-cell-size: 30px;
     -fx-alignment: CENTER;
     -fx-text-alignment: center;
-    -fx-font-size:16;
+    /*-fx-font-size:16;*/
 }
