@@ -30,4 +30,8 @@ public class BarChartGenerator {
         barChart.setPrefSize(pane.getPrefWidth(), pane.getPrefHeight());
         pane.getChildren().add(barChart);
     }
+    public void setTitle(String title){
+        barChart.setTitle(title);
+        barChart.setLegendVisible(false);
+    }
 }

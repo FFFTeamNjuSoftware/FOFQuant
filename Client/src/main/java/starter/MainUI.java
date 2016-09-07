@@ -8,7 +8,6 @@ import bl.BaseInfoLogic;
 import exception.ObjectNotFoundException;
 import javafx.application.Application;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -24,11 +23,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.dom4j.DocumentException;
 import ui.util.FXMLHelper;
-import ui.util.InitHelper;
 
-import java.awt.*;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -49,7 +45,10 @@ public class MainUI extends Application {
     private static Stage primaryStage;
     private static Scene primaryScene;
     private AnchorPane mainPanel;
+    private AnchorPane headPanel;
+    private AnchorPane guidePanel;
     private AnchorPane infoPane;
+    private AnchorPane rootPane;
     private BLInterfaces blInterfaces;
 
     private static HBox hbox;
@@ -102,9 +101,10 @@ public class MainUI extends Application {
         primaryStage.setTitle("FoFQuant");
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setResizable(false);
-
-        primaryScene = new Scene(mainPanel);
-        addDraggableNode(mainPanel);
+        rootPane = new AnchorPane();
+        rootPane.getChildren().add(mainPanel);
+        primaryScene = new Scene(rootPane);
+        addDraggableNode(rootPane);
         primaryStage.setScene(primaryScene);
         primaryStage.show();
 
@@ -156,9 +156,11 @@ public class MainUI extends Application {
     }
 
     public void enterLoginPanel() {
+        rootPane = new AnchorPane();
         mainPanel = FXMLHelper.loadPanel("loginPanel");
-        MainUI.primaryScene = new Scene(mainPanel);
-        addDraggableNode(mainPanel);
+        rootPane.getChildren().add(mainPanel);
+        MainUI.primaryScene = new Scene(rootPane);
+        addDraggableNode(rootPane);
         MainUI.primaryStage.setScene(primaryScene);
 
     }
@@ -166,21 +168,30 @@ public class MainUI extends Application {
     public void changeScene(String guideName, String mainStageName) {
         vbox = new VBox();
         hbox = new HBox();
-        AnchorPane headPane = FXMLHelper.loadPanel("headPanel");
-        AnchorPane guidePane = FXMLHelper.loadPanel(guideName);
+        headPanel = FXMLHelper.loadPanel("headPanel");
+        guidePanel = FXMLHelper.loadPanel(guideName);
         mainPanel = FXMLHelper.loadPanel(mainStageName);
-        vbox.getChildren().addAll(headPane, mainPanel);
-        hbox.getChildren().addAll(guidePane, vbox);
-        primaryScene = new Scene(hbox);
-        addDraggableNode(hbox);
+        vbox.getChildren().addAll(headPanel, mainPanel);
+        hbox.getChildren().addAll(guidePanel, vbox);
+        rootPane = new AnchorPane();
+        rootPane.getChildren().add(hbox);
+        primaryScene = new Scene(rootPane);
+        addDraggableNode(rootPane);
         primaryStage.setScene(primaryScene);
     }
 
     public void addInfoPanel(String info) {
+        mainPanel.setDisable(true);
+        if (guidePanel != null) {
+            guidePanel.setDisable(true);
+        }
+        if (headPanel != null) {
+            headPanel.setDisable(true);
+        }
         infoPane = FXMLHelper.loadPanel("infoPanel");
-        mainPanel.getChildren().add(infoPane);
-        infoPane.setLayoutX(mainPanel.getPrefWidth() / 3);
-        infoPane.setLayoutY(mainPanel.getPrefHeight() / 3);
+        infoPane.setLayoutX(400);
+        infoPane.setLayoutY(200);
+        rootPane.getChildren().add(infoPane);
         Label label = new Label(info);
         label.setLayoutX(2);
         label.setLayoutY(infoPane.getPrefHeight() / 2);
@@ -190,7 +201,14 @@ public class MainUI extends Application {
     }
 
     public void removeInfoPanel() {
-        mainPanel.getChildren().remove(infoPane);
+        mainPanel.setDisable(false);
+        if (guidePanel != null) {
+            guidePanel.setDisable(false);
+        }
+        if (headPanel != null) {
+            headPanel.setDisable(false);
+        }
+        rootPane.getChildren().remove(infoPane);
     }
 
     public void getFundDataThread() {

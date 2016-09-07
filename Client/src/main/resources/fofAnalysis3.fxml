@@ -7,8 +7,8 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="930.0" styleClass="root" stylesheets="@css/stageView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.userUI.portfolioManagementUI.PerformanceAttributionController">
     <children>
-        <DatePicker fx:id="endDate" layoutX="296.0" layoutY="-3.0" prefHeight="30.0" prefWidth="139.0" promptText="2016-08-26" style="-fx-color: #057DC8;" />
-        <DatePicker fx:id="startDate" layoutX="87.0" layoutY="-3.0" prefHeight="30.0" prefWidth="139.0" promptText="2016-01-01" style="-fx-color: #057DC8;" />
+        <DatePicker fx:id="endDate" layoutX="296.0" prefHeight="30.0" prefWidth="139.0" promptText="2016-08-26" style="-fx-color: #057DC8;" />
+        <DatePicker fx:id="startDate" layoutX="87.0" prefHeight="30.0" prefWidth="139.0" promptText="2016-01-01" style="-fx-color: #057DC8;" />
         <Label layoutX="27.0" layoutY="4.0" text="开始日期" textFill="WHITE">
             <font>
                 <Font size="12.0" />
