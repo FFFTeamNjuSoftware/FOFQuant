@@ -84,7 +84,7 @@
             <TableColumn fx:id="column4" prefWidth="106.0" resizable="false" />
          </columns>
       </TableView>
-      <ImageView fx:id="waiting3" fitHeight="188.0" fitWidth="300.0" layoutX="308.0" layoutY="198.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="waiting3" fitHeight="188.0" fitWidth="300.0" layoutX="308.0" layoutY="198.0" pickOnBounds="true" preserveRatio="true" visible="true">
          <image>
             <Image url="@images/build3.gif" />
          </image>
