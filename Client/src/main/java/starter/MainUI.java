@@ -26,6 +26,7 @@ import org.dom4j.DocumentException;
 import ui.util.FXMLHelper;
 import ui.util.InitHelper;
 
+import java.awt.*;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -178,12 +179,13 @@ public class MainUI extends Application {
     public void addInfoPanel(String info) {
         infoPane = FXMLHelper.loadPanel("infoPanel");
         mainPanel.getChildren().add(infoPane);
-        infoPane.setLayoutX(mainPanel.getPrefWidth()/3);
-        infoPane.setLayoutY(mainPanel.getPrefHeight()/3);
+        infoPane.setLayoutX(mainPanel.getPrefWidth() / 3);
+        infoPane.setLayoutY(mainPanel.getPrefHeight() / 3);
         Label label = new Label(info);
         label.setLayoutX(2);
-        label.setLayoutY(infoPane.getPrefHeight()/2);
+        label.setLayoutY(infoPane.getPrefHeight() / 2);
         label.setFont(new Font(18));
+        label.setStyle("-fx-text-fill:white");
         infoPane.getChildren().add(label);
     }
 
