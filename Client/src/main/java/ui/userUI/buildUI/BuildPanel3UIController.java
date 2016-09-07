@@ -1,6 +1,8 @@
 package ui.userUI.buildUI;
 
 import RMIModule.BLInterfaces;
+import bl.ProfitFeatureLogic;
+import bl.fof.FOFBaseInfoLogic;
 import bl.fof.FOFGenerateLogic;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,6 +20,7 @@ import ui.util.PieChartGenerator;
 
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
@@ -41,7 +44,10 @@ public class BuildPanel3UIController implements Initializable {
 	private TableColumn column1,column2,column3,column4;
 	private BLInterfaces blInterfaces = new BLInterfaces();
 	private FOFGenerateLogic generateLogic;
+	private ProfitFeatureLogic profitFeatureLogic  ;
+	private FOFBaseInfoLogic baseInfoLogic;
 	private Map<String, Map<String, Double>> map =null;
+	private Map<String,Double> mapList;
 	public static String profitKey = "000011";
 	public static String solidKey = "000012";
 
