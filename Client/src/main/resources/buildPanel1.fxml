@@ -59,7 +59,7 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="assetField" alignment="CENTER_RIGHT" editable="false" layoutX="380.0" layoutY="87.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="190.0" text="10,0000,0000">
+      <TextField fx:id="assetField" alignment="CENTER_RIGHT" editable="false" layoutX="380.0" layoutY="87.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="190.0" text="1000000000">
           <font>
               <Font name="Impact" size="20.0" />
           </font></TextField>

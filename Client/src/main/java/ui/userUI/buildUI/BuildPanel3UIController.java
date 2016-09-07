@@ -1,13 +1,24 @@
 package ui.userUI.buildUI;
 
+import RMIModule.BLInterfaces;
+import bl.fof.FOFGenerateLogic;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.PieChart;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import starter.MainUI;
 import ui.util.InitHelper;
+import ui.util.PieChartGenerator;
 
 import java.net.URL;
+import java.rmi.RemoteException;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -22,9 +33,22 @@ public class BuildPanel3UIController implements Initializable {
 	private ImageView nextBt3;
 	@FXML
 	private ImageView waiting3;
+	@FXML
+	private Label label1,label2;
+	@FXML
+	private TableView build3Table1,build3Table2;
+	@FXML
+	private TableColumn column1,column2,column3,column4;
+	private BLInterfaces blInterfaces = new BLInterfaces();
+	private FOFGenerateLogic generateLogic;
+	private Map<String, Map<String, Double>> map =null;
+	public static String profitKey = "000011";
+	public static String solidKey = "000012";
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		this.buildPanel3UIController=this;
+		generateLogic = blInterfaces.getFofGenerateLogic();
 		initPanel3();
 		scheduleTask3();
 	}
@@ -42,9 +66,21 @@ public class BuildPanel3UIController implements Initializable {
 //		service.scheduleAtFixedRate(runnable, 10, 1, TimeUnit.SECONDS);
 		service.schedule(runnable,10, TimeUnit.SECONDS);
 	}
+
 	private void initPanel3(){
 		ImageView[] imageViews = {nextBt3};
 		InitHelper.beautifyImageViews(imageViews);
+
+		try {
+			map=generateLogic.getSmallClassConfiguration();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		if (map != null) {
+			label1.setText(map.get(profitKey) + "%");
+			label2.setText(map.get(solidKey) + "%");
+		}
+
 	}
 	@FXML
 	public void nextBt3Click() {

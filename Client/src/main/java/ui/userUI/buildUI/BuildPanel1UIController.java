@@ -1,5 +1,8 @@
 package ui.userUI.buildUI;
 
+import RMIModule.BLInterfaces;
+import beans.RiskParameters;
+import bl.fof.FOFGenerateLogic;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -17,8 +20,10 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import starter.MainUI;
 import ui.util.InitHelper;
+import util.StrategyType;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
 /**
@@ -48,19 +53,24 @@ public class BuildPanel1UIController implements Initializable {
 	private ToggleGroup group = new ToggleGroup();
 	@FXML
 	private TextField assetField;
+	private BLInterfaces blInterfaces = new BLInterfaces();
+	private FOFGenerateLogic generateLogic;
 
 	private String[] riskType = {"2","2.5","3","3.5","4"};
+	private double risk=2;
     /**
      *	0表示未选，1为高，2为中，3为低,4为自选
      */
+    private RiskParameters[]  riskLevel = new RiskParameters[]{RiskParameters.HIGH_RISK,RiskParameters.MIDDLE_RISK,RiskParameters.LOW_RISK};
 	private int pressedButton=0;
 	private BuildPanel1UIController buildPanel1UIController;
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		this.buildPanel1UIController=this;
-		initBuilPanel1();
+		generateLogic = blInterfaces.getFofGenerateLogic();
+		initBuildPanel1();
 	}
-	private void initBuilPanel1(){
+	private void initBuildPanel1(){
 		init();
 		ImageView[] imageViews = {nextBt1};
 		InitHelper.beautifyImageViews(imageViews);
@@ -71,7 +81,13 @@ public class BuildPanel1UIController implements Initializable {
 	private void init(){
 		combobox.setValue(2);
 		combobox.setItems(FXCollections.observableArrayList(riskType));
-
+		combobox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				risk = Double.parseDouble(riskType[newValue.intValue()]);
+				System.out.println("the selected risk is: " + risk);
+			}
+		});
 		slider.setMin(0);
 		slider.setMax(1);
 		slider.setShowTickLabels(true);
@@ -88,18 +104,14 @@ public class BuildPanel1UIController implements Initializable {
 		CPPINode.setToggleGroup(group);
 		CPPINode.setSelected(true);
 		levelNode.setToggleGroup(group);
-		group.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
-			public void changed(ObservableValue<? extends Toggle> ov,
-							   Toggle old_toggle, Toggle new_toggle) {
-				System.out.println("......new......"+new_toggle+"......"+ov.getValue());
-			}
-		});
+
+
 		customNode.addEventHandler(MouseEvent.MOUSE_PRESSED, (MouseEvent e) -> {
 			if(customNode.isSelected()){
 				pressedButton=0;
 				customPane.setVisible(false);
 			}else{
-				pressedButton=3;
+				pressedButton=4;
 				lowPane.setVisible(false);
 				mediumPane.setVisible(false);
 				highPane.setVisible(false);
@@ -109,7 +121,6 @@ public class BuildPanel1UIController implements Initializable {
 
 		assetField.setStyle("-fx-text-fill: #EB494D;");
 	}
-
 	@FXML
 	public void highRiskBtClick(){
         pressedButton=1;
@@ -136,9 +147,27 @@ public class BuildPanel1UIController implements Initializable {
 	}
 
 	@FXML
-	public void nextBt1Click(){
+	public void nextBt1Click() throws RemoteException {
         if(pressedButton!=0) {
-            MainUI.getInstance().changeScene("user_guidePanel", "buildPanel2");
+        	//总资产
+			generateLogic.setTotalAsset(Double.parseDouble(assetField.getText()));
+			System.out.println("...总资产..."+assetField.getText());
+			//策略选择
+			if(CPPINode.isSelected()){
+						generateLogic.setStrategyType(StrategyType.CPPI);
+				System.out.println("...CPPI...");
+			}else if(levelNode.isSelected()){
+						generateLogic.setStrategyType(StrategyType.FUND_RISKY_PARITY);
+				System.out.println("...风险评级...");
+			}
+			//风险系数
+        	if(pressedButton!=4){
+        		System.out.println(pressedButton-1+"......"+riskLevel[pressedButton-1]);
+				generateLogic.setRiskLevel(riskLevel[pressedButton-1]);
+			}else if(pressedButton==4){
+				generateLogic.setRiskLevel(RiskParameters.getRiskParameters(risk,Double.parseDouble(field.getText())));
+			}
+        	MainUI.getInstance().changeScene("user_guidePanel", "buildPanel2");
         }else{
             warningText.setVisible(true);
         }

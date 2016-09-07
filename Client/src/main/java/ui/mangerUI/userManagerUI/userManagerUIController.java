@@ -222,11 +222,19 @@ public class userManagerUIController  implements Initializable {
     }
     @FXML
     private void deleteAllSelected(){
-
+        try {
+            userLogic.deleteUser(updateUserManageInfo);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (ObjectNotFoundException e) {
+            e.printStackTrace();
+        }
     }
     @FXML
     private void showAddList(){
-
+        userNameField.clear();
+        nameField.clear();
+        passwordField.clear();
     }
 
     @FXML
