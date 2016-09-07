@@ -45,7 +45,7 @@ public class BuildPanel1UIController implements Initializable {
 	@FXML
 	private Slider slider;
 	@FXML
-	private Label field;
+	private Label field,high_breakeven,high_risk,medium_breakeven,medium_risk,low_breakeven,low_risk;
 	@FXML
 	private RadioButton CPPINode,levelNode,customNode;
 	@FXML
@@ -79,6 +79,14 @@ public class BuildPanel1UIController implements Initializable {
 	}
 
 	private void init(){
+
+		high_breakeven.setText("保本额度："+RiskParameters.HIGH_RISK.breakEvenValue);
+		high_risk.setText("风险乘数："+RiskParameters.HIGH_RISK.breakEvenValue);
+		medium_breakeven.setText("保本额度："+RiskParameters.MIDDLE_RISK.breakEvenValue);
+		medium_risk.setText("风险乘数："+RiskParameters.MIDDLE_RISK.breakEvenValue);
+		low_breakeven.setText("保本额度："+RiskParameters.LOW_RISK.breakEvenValue);
+		low_risk.setText("风险乘数："+RiskParameters.LOW_RISK.breakEvenValue);
+
 		combobox.setValue(2);
 		combobox.setItems(FXCollections.observableArrayList(riskType));
 		combobox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
@@ -151,18 +159,14 @@ public class BuildPanel1UIController implements Initializable {
         if(pressedButton!=0) {
         	//总资产
 			generateLogic.setTotalAsset(Double.parseDouble(assetField.getText()));
-			System.out.println("...总资产..."+assetField.getText());
 			//策略选择
 			if(CPPINode.isSelected()){
 						generateLogic.setStrategyType(StrategyType.CPPI);
-				System.out.println("...CPPI...");
 			}else if(levelNode.isSelected()){
 						generateLogic.setStrategyType(StrategyType.FUND_RISKY_PARITY);
-				System.out.println("...风险评级...");
 			}
 			//风险系数
         	if(pressedButton!=4){
-        		System.out.println(pressedButton-1+"......"+riskLevel[pressedButton-1]);
 				generateLogic.setRiskLevel(riskLevel[pressedButton-1]);
 			}else if(pressedButton==4){
 				generateLogic.setRiskLevel(RiskParameters.getRiskParameters(risk,Double.parseDouble(field.getText())));
