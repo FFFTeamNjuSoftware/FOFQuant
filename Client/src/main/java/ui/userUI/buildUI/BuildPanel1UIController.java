@@ -173,7 +173,8 @@ public class BuildPanel1UIController implements Initializable {
 			}
         	MainUI.getInstance().changeScene("user_guidePanel", "buildPanel2");
         }else{
-            warningText.setVisible(true);
+      //      warningText.setVisible(true);
+			MainUI.getInstance().addInfoPanel("请您先选择风险等级!");
         }
 	}
 
