@@ -12,11 +12,13 @@ import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -39,174 +41,186 @@ import java.util.concurrent.TimeUnit;
 public class MainUI extends Application {
 
 
-	public MainUI() {
-	}
+    public MainUI() {
+    }
 
-	private final Delta dragDelta = new Delta();
-	private static Stage primaryStage;
-	private static Scene primaryScene;
-	private AnchorPane mainPanel;
+    private final Delta dragDelta = new Delta();
+    private static Stage primaryStage;
+    private static Scene primaryScene;
+    private AnchorPane mainPanel;
+    private AnchorPane infoPane;
+    private BLInterfaces blInterfaces;
 
-	private BLInterfaces blInterfaces;
+    private static HBox hbox;
+    private static VBox vbox;
+    private final double normalWidth = 1366;
+    private final double normalHeight = 768;
+    private BaseInfoLogic baseInfoLogic;
+    public static int index = 0;
 
-	private static HBox hbox;
-	private static VBox vbox;
-	private final double normalWidth = 1366;
-	private final double normalHeight = 768;
-
-	private BaseInfoLogic baseInfoLogic;
-	public static int index=0;
-
-	public static double sizeRatio;
-	public static int s = -1;
-	public static HashMap<String, List<FundQuickInfo>> fundInfoMap = new HashMap<String, List<FundQuickInfo>>();
-	public static HashMap<String, List<PriceInfo>> priceInfoMap = new HashMap<String, List<PriceInfo>>();
-	public static HashMap<String, List<ProfitChartInfo>> profitChartInfoMap = new HashMap<String, List<ProfitChartInfo>>();
+    public static double sizeRatio;
+    public static int s = -1;
+    public static HashMap<String, List<FundQuickInfo>> fundInfoMap = new HashMap<String, List<FundQuickInfo>>();
+    public static HashMap<String, List<PriceInfo>> priceInfoMap = new HashMap<String, List<PriceInfo>>();
+    public static HashMap<String, List<ProfitChartInfo>> profitChartInfoMap = new HashMap<String, List<ProfitChartInfo>>();
 
 
-	public static MainUI getInstance() {
-		return MainUIHandler.instance;
-	}
+    public static MainUI getInstance() {
+        return MainUIHandler.instance;
+    }
 
-	public static Stage getPrimaryStage() {
-		return primaryStage;
-	}
+    public static Stage getPrimaryStage() {
+        return primaryStage;
+    }
 
-	public static Scene getPrimaryScene() {
-		return primaryScene;
-	}
+    private static class MainUIHandler {
+        private static MainUI instance = new MainUI();
+    }
 
-	private static class MainUIHandler {
-		private static MainUI instance = new MainUI();
-	}
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        try {
+            blInterfaces.netStart();
+        } catch (DocumentException e) {
+            e.printStackTrace();
+            System.out.print("......net fail......+\n");
+        }
+        this.primaryStage = primaryStage;
+        mainPanel = FXMLHelper.loadPanel("loginPanel");
 
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		try {
-			blInterfaces.netStart();
-		} catch (DocumentException e) {
-			e.printStackTrace();
-			System.out.print("......net fail......+\n");
-		}
-		this.primaryStage = primaryStage;
-		mainPanel = FXMLHelper.loadPanel("loginPanel");
-
-		Rectangle2D primaryScreenBounds = Screen.getPrimary().getBounds();
-		double theWidth = primaryScreenBounds.getWidth();
-		System.out.println("width:" + theWidth + "height:" + primaryScreenBounds.getHeight());
-		sizeRatio = theWidth / normalWidth;
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getBounds();
+        double theWidth = primaryScreenBounds.getWidth();
+        System.out.println("width:" + theWidth + "height:" + primaryScreenBounds.getHeight());
+        sizeRatio = theWidth / normalWidth;
 
 
 //		primaryStage.setHeight(618 * sizeRatio);
 //		primaryStage.setWidth(1000 * sizeRatio);
-		primaryStage.setHeight(618);
-		primaryStage.setWidth(1000);
-		primaryStage.setTitle("FoFQuant");
-		primaryStage.initStyle(StageStyle.UNDECORATED);
-		primaryStage.setResizable(false);
+        primaryStage.setHeight(618);
+        primaryStage.setWidth(1000);
+        primaryStage.setTitle("FoFQuant");
+        primaryStage.initStyle(StageStyle.UNDECORATED);
+        primaryStage.setResizable(false);
 
-		primaryScene = new Scene(mainPanel);
-		addDraggableNode(mainPanel);
-		primaryStage.setScene(primaryScene);
-		primaryStage.show();
+        primaryScene = new Scene(mainPanel);
+        addDraggableNode(mainPanel);
+        primaryStage.setScene(primaryScene);
+        primaryStage.show();
 
-		getFundDataThread();
+        getFundDataThread();
 
-	}
+    }
 
-	public static void main(String[] args) {
-		launch(args);
-	}
+    public static void main(String[] args) {
+        launch(args);
+    }
 
-	public void setIndex(int i){
-		index=i;
-	}
-	public static int getIndex(){
-		return index;
-	}
+    public void setIndex(int i) {
+        index = i;
+    }
 
-	/**
-	 * drag
-	 */
+    public static int getIndex() {
+        return index;
+    }
 
-	class Delta {
-		double x, y;
-	}
+    /**
+     * drag
+     */
 
-	protected void addDraggableNode(final Node node) {
+    class Delta {
+        double x, y;
+    }
 
-		node.setOnMousePressed(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent me) {
-				if (me.getButton() != MouseButton.MIDDLE) {
-					dragDelta.x = me.getSceneX();
-					dragDelta.y = me.getSceneY();
-				}
-			}
-		});
+    protected void addDraggableNode(final Node node) {
 
-		node.setOnMouseDragged(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent me) {
-				if (me.getButton() != MouseButton.MIDDLE) {
-					node.getScene().getWindow().setX(me.getScreenX() - dragDelta.x);
-					node.getScene().getWindow().setY(me.getScreenY() - dragDelta.y);
-				}
-			}
-		});
-	}
+        node.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent me) {
+                if (me.getButton() != MouseButton.MIDDLE) {
+                    dragDelta.x = me.getSceneX();
+                    dragDelta.y = me.getSceneY();
+                }
+            }
+        });
 
-	public void enterLoginPanel() {
-		mainPanel = FXMLHelper.loadPanel("loginPanel");
-		MainUI.primaryScene = new Scene(mainPanel);
-		addDraggableNode(mainPanel);
-		MainUI.primaryStage.setScene(primaryScene);
+        node.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent me) {
+                if (me.getButton() != MouseButton.MIDDLE) {
+                    node.getScene().getWindow().setX(me.getScreenX() - dragDelta.x);
+                    node.getScene().getWindow().setY(me.getScreenY() - dragDelta.y);
+                }
+            }
+        });
+    }
 
-	}
+    public void enterLoginPanel() {
+        mainPanel = FXMLHelper.loadPanel("loginPanel");
+        MainUI.primaryScene = new Scene(mainPanel);
+        addDraggableNode(mainPanel);
+        MainUI.primaryStage.setScene(primaryScene);
 
-	public void changeScene(String guideName, String mainStageName) {
-		vbox = new VBox();
-		hbox = new HBox();
-		AnchorPane headPane = FXMLHelper.loadPanel("headPanel");
-		AnchorPane guidePane = FXMLHelper.loadPanel(guideName);
-		mainPanel = FXMLHelper.loadPanel(mainStageName);
-		vbox.getChildren().addAll(headPane, mainPanel);
-		hbox.getChildren().addAll(guidePane, vbox);
-		primaryScene = new Scene(hbox);
-		addDraggableNode(hbox);
-		primaryStage.setScene(primaryScene);
-	}
+    }
 
-	public void getFundDataThread() {
-		Runnable getFundData = new Runnable() {
-			@Override
-			public synchronized void run() {
-				String sectorID = "000001";
-				List<FundQuickInfo> fundQuickInfoList = null;
-				long tempTime = Calendar.getInstance().getTimeInMillis();
-				if (!MainUI.fundInfoMap.containsKey(sectorID)) {
-					try {
-						fundQuickInfoList = BLInterfaces.getBaseInfoLogic().getFundQuickInfo(sectorID);
-					} catch (RemoteException e) {
-						e.printStackTrace();
-					} catch (ObjectNotFoundException e) {
-						e.printStackTrace();
-					}
-					System.out.println("---get " + sectorID + " fundinfo from server:" + (Calendar.getInstance().getTimeInMillis() - tempTime));
-					MainUI.fundInfoMap.put(sectorID, fundQuickInfoList);
-				} else {
-					fundQuickInfoList = MainUI.fundInfoMap.get(sectorID);
-					System.out.println("get " + sectorID + " fundinfo from map:" + (Calendar.getInstance().getTimeInMillis() - tempTime));
-				}
-			}
-		};
-		ScheduledExecutorService service = Executors
-				.newSingleThreadScheduledExecutor();
-		// 第二个参数为首次执行的延时时间，第三个参数为定时执行的间隔时间
-		service.schedule(getFundData, 0, TimeUnit.SECONDS);
-	}
+    public void changeScene(String guideName, String mainStageName) {
+        vbox = new VBox();
+        hbox = new HBox();
+        AnchorPane headPane = FXMLHelper.loadPanel("headPanel");
+        AnchorPane guidePane = FXMLHelper.loadPanel(guideName);
+        mainPanel = FXMLHelper.loadPanel(mainStageName);
+        vbox.getChildren().addAll(headPane, mainPanel);
+        hbox.getChildren().addAll(guidePane, vbox);
+        primaryScene = new Scene(hbox);
+        addDraggableNode(hbox);
+        primaryStage.setScene(primaryScene);
+    }
 
-	public AnchorPane getMainPanel() {
-		return mainPanel;
-	}
+    public void addInfoPanel(String info) {
+        infoPane = FXMLHelper.loadPanel("infoPanel");
+        mainPanel.getChildren().add(infoPane);
+        infoPane.setLayoutX(mainPanel.getPrefWidth()/3);
+        infoPane.setLayoutY(mainPanel.getPrefHeight()/3);
+        Label label = new Label(info);
+        label.setLayoutX(2);
+        label.setLayoutY(infoPane.getPrefHeight()/2);
+        label.setFont(new Font(18));
+        infoPane.getChildren().add(label);
+    }
+
+    public void removeInfoPanel() {
+        mainPanel.getChildren().remove(infoPane);
+    }
+
+    public void getFundDataThread() {
+        Runnable getFundData = new Runnable() {
+            @Override
+            public synchronized void run() {
+                String sectorID = "000001";
+                List<FundQuickInfo> fundQuickInfoList = null;
+                long tempTime = Calendar.getInstance().getTimeInMillis();
+                if (!MainUI.fundInfoMap.containsKey(sectorID)) {
+                    try {
+                        fundQuickInfoList = BLInterfaces.getBaseInfoLogic().getFundQuickInfo(sectorID);
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    } catch (ObjectNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("---get " + sectorID + " fundinfo from server:" + (Calendar.getInstance().getTimeInMillis() - tempTime));
+                    MainUI.fundInfoMap.put(sectorID, fundQuickInfoList);
+                } else {
+                    fundQuickInfoList = MainUI.fundInfoMap.get(sectorID);
+                    System.out.println("get " + sectorID + " fundinfo from map:" + (Calendar.getInstance().getTimeInMillis() - tempTime));
+                }
+            }
+        };
+        ScheduledExecutorService service = Executors
+                .newSingleThreadScheduledExecutor();
+        // 第二个参数为首次执行的延时时间，第三个参数为定时执行的间隔时间
+        service.schedule(getFundData, 0, TimeUnit.SECONDS);
+    }
+
+    public AnchorPane getMainPanel() {
+        return mainPanel;
+    }
 }

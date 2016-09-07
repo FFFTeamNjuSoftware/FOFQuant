@@ -16,6 +16,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import starter.MainUI;
 import ui.util.BarChartGenerator;
 import util.FOFUtilInfo;
 import util.UnitType;
@@ -107,7 +108,9 @@ public class RepayStatisticsController implements Initializable {
         startDate.setOnAction((e) -> {
             LocalDate date = startDate.getValue();
             try {
-                logic.setStartDate(date.toString());
+                if (judgeDate()) {
+                    logic.setStartDate(date.toString());
+                }
             } catch (ParameterException e1) {
                 e1.printStackTrace();
             } catch (RemoteException e1) {
@@ -121,7 +124,9 @@ public class RepayStatisticsController implements Initializable {
         endDate.setOnAction((e) -> {
             LocalDate date = endDate.getValue();
             try {
-                logic.setEndDate(date.toString());
+                if (judgeDate()) {
+                    logic.setEndDate(date.toString());
+                }
             } catch (ParameterException e1) {
                 e1.printStackTrace();
             } catch (RemoteException e1) {
@@ -190,5 +195,20 @@ public class RepayStatisticsController implements Initializable {
                 initBasicInfo(infoTwoGroup);
             }
         });
+    }
+
+    private boolean judgeDate() {
+        LocalDate date = startDate.getValue();
+        LocalDate date1 = endDate.getValue();
+        if (date1 != null && date != null) {
+            if (date1.compareTo(date) < 0) {
+                MainUI.getInstance().addInfoPanel("开始日期必须在结束日期之前");
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return true;
+        }
     }
 }
