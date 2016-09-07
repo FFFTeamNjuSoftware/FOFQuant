@@ -180,11 +180,11 @@ public class analyseHomeUIController implements Initializable {
 			numAxis1.setTickUnit(1);
 			numAxis1.setForceZeroInRange(false);
 
-			areaChart.getData().add(0, series1);
-			areaChart.getStylesheets().add("/css/areaChartView.css");
-//			areaChart.setStyle("-fx-color:#ff0fff");
-			areaChart1.getData().add(1, series2);
-			areaChart.getStylesheets().add("/css/areaChartView.css");
+//			areaChart.getData().add(0, series1);
+//			areaChart.getStylesheets().add("/css/areaChartView.css");
+////			areaChart.setStyle("-fx-color:#ff0fff");
+//			areaChart1.getData().add(1, series2);
+//			areaChart.getStylesheets().add("/css/areaChartView.css");
 //			areaChart.setStyle("-fx-color:#ffff0f");
 		}
 

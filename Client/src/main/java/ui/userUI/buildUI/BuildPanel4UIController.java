@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import starter.MainUI;
 import ui.util.AreaChartGenerator;
 import ui.util.InitHelper;
 
@@ -59,5 +60,6 @@ public class BuildPanel4UIController implements Initializable {
     @FXML
     public void nextBt4Click() {
         combinationName.getText();
+        MainUI.getInstance().changeScene("user_guidePanel", "analyseHomePanel");
     }
 }
