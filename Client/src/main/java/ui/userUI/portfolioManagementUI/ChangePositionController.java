@@ -64,6 +64,7 @@ public class ChangePositionController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		this.changePositionCotroller = this;
+		this.baseInfoLogic=BLInterfaces.getBaseInfoLogic();
 		this.fofBaseInfoLogic = BLInterfaces.getFofBaseInfoLogic();
 		this.fofAssetAllocationLogic = BLInterfaces.getFofAssetAllocationLogic();
 		initButton();
@@ -289,12 +290,14 @@ public class ChangePositionController implements Initializable {
 			list = new ArrayList<DisplayType>();
 			for (Map.Entry<String, Double> entry : map.entrySet()) {
 				FundInfo info = null;
-				try {
-					 info = baseInfoLogic.getFundBaseInfo(entry.getKey());
-				} catch (RemoteException e) {
-					e.printStackTrace();
-				} catch (ObjectNotFoundException e) {
-					e.printStackTrace();
+				if(entry.getKey()!=null&&baseInfoLogic!=null){
+//					try {
+//						info = baseInfoLogic.getFundBaseInfo(entry.getKey());
+//					} catch (RemoteException e) {
+//						e.printStackTrace();
+//					} catch (ObjectNotFoundException e) {
+//						e.printStackTrace();
+//					}
 				}
 				DisplayType temp = null;
 				if (info != null) {

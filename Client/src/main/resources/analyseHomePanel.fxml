@@ -158,6 +158,11 @@
                 <Button fx:id="btn3" layoutX="288.0" layoutY="122.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toAttributionPanel" prefHeight="120.0" prefWidth="100.0" style="-fx-background-color: transparent;" textFill="WHITE" />
                 <Button fx:id="btn5" layoutX="538.0" layoutY="122.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toAssetAllocationPanel" prefHeight="120.0" prefWidth="100.0" style="-fx-background-color: transparent;" textFill="WHITE" />
                 <Button fx:id="btn4" layoutX="413.0" layoutY="122.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toReturnStatsPanel" prefHeight="120.0" prefWidth="100.0" style="-fx-background-color: transparent;" textFill="WHITE" />
+            <ImageView fx:id="changePositionBt" fitHeight="40.0" fitWidth="100.0" layoutX="786.0" layoutY="27.0" onMouseClicked="#changePositionBtClick" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/changePostionBt.png" />
+               </image>
+            </ImageView>
             </children>
         </AnchorPane>
         <HBox layoutY="318.0" prefHeight="29.0" prefWidth="930.0">
