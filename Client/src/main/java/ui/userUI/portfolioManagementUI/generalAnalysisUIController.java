@@ -52,7 +52,11 @@ public class generalAnalysisUIController implements Initializable {
          }
          String panelName="fofAnalysis"+(k+1);
          AnchorPane pane = FXMLHelper.loadPanel(panelName);
-         contentPanel.getChildren().addAll(pane);
+        if(contentPanel.getChildren()!=null){
+            contentPanel.getChildren().addAll(pane);
+        }else{
+            System.out.println("The contentPanel children is Null!");
+        }
     }
 
     public void initButton(){

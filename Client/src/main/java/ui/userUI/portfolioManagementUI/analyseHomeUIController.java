@@ -36,7 +36,7 @@ public class analyseHomeUIController implements Initializable {
 	@FXML
 	private Button btn1, btn2, btn3, btn4, btn5, btn6, btn7;
 	@FXML
-	private ImageView Img1, Img2, Img3, Img4, Img5, Img6, Img7;
+	private ImageView Img1, Img2, Img3, Img4, Img5, Img6, Img7,changePositionBt;
 
 	private MainUI mainUI;
 	@FXML
@@ -54,7 +54,6 @@ public class analyseHomeUIController implements Initializable {
 	private Label redLineLb, blueLineLb;
 	private List<FOFHistoryInfo> fofHistoryInfoList;
 	private FOFBaseInfoLogic fofBaseInfoLogic;
-
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -180,11 +179,11 @@ public class analyseHomeUIController implements Initializable {
 			numAxis1.setTickUnit(1);
 			numAxis1.setForceZeroInRange(false);
 
-//			areaChart.getData().add(0, series1);
-//			areaChart.getStylesheets().add("/css/areaChartView.css");
-////			areaChart.setStyle("-fx-color:#ff0fff");
-//			areaChart1.getData().add(1, series2);
-//			areaChart.getStylesheets().add("/css/areaChartView.css");
+			areaChart.getData().add(0, series1);
+			areaChart.getStylesheets().add("/css/areaChartView.css");
+//			areaChart.setStyle("-fx-color:#ff0fff");
+			areaChart1.getData().add(0, series2);
+			areaChart.getStylesheets().add("/css/areaChartView.css");
 //			areaChart.setStyle("-fx-color:#ffff0f");
 		}
 
@@ -196,6 +195,10 @@ public class analyseHomeUIController implements Initializable {
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
+	}
+	@FXML
+	public void changePositionBtClick(){
+		mainUI.changeScene("user_guidePanel", "changePosition");
 	}
 
 }
