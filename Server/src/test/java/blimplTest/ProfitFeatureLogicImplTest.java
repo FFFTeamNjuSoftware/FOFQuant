@@ -67,7 +67,8 @@ public class ProfitFeatureLogicImplTest {
      */
     @Test
     public void testRiskProfitRate() throws Exception {
-        List<String> strs = Arrays.asList("000122", "000131", "092002", "166008", "233005");
+        List<String> strs = Arrays.asList("000001","000122", "000131", "092002", "166008",
+                "233005");
         for (String str : strs) {
             System.out.println(LocalTime.now());
             RiskProfitIndex riskProfitIndex = profitFeatureLogic.getRiskProfitIndex(str);

@@ -1,5 +1,6 @@
 package blimplTest;
 
+import beans.FundInfo;
 import beans.FundQuickInfo;
 import bl.BaseInfoLogic;
 import blimpl.BLController;
@@ -60,7 +61,11 @@ public class BaseInfoLogicImplTest {
      */
     @Test
     public void testGetFundBaseInfo() throws Exception {
-//TODO: Test goes here... 
+        List<String> strs = baseInfoLogic.getFundCodes();
+        for (String str : strs) {
+            FundInfo fundInfo = baseInfoLogic.getFundBaseInfo(str);
+            System.out.println(new Gson().toJson(fundInfo));
+        }
     }
 
     /**

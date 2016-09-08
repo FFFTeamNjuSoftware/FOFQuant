@@ -41,14 +41,14 @@ public class Converter {
         FundInfo info = new FundInfo();
         info.compare_base = entity.getCompareBase();
         info.establish_date = entity.getEstablishDate();
-        info.establish_scale = entity.getEstablishScale();
+        info.establish_scale = entity.getEstablishScale() == null ? 0 : entity.getEstablishScale();
         info.full_name = entity.getFullName();
         info.fund_type = entity.getFundType();
         info.invest_strategy = entity.getInvestStrategy();
         info.invest_target = entity.getInvestTarget();
-        info.manage_fee = entity.getManageFee();
+        info.manage_fee = entity.getManageFee()==null?0:entity.getManageFee();
         info.risk_feature = entity.getRiskFeature();
-        info.scale = entity.getScale();
+        info.scale = entity.getScale()==null?0:entity.getScale();
         info.simple_name = entity.getSimpleName();
         info.invest_type = entity.getInvestType();
         info.rank = entity.getRank() == null ? 0 : entity.getRank();
@@ -201,29 +201,29 @@ public class Converter {
         fundDeploy.window = entity.getWindow();
         fundDeploy.hold = entity.getHold();
         fundDeploy.sharpe = entity.getSharpe();
-        fundDeploy.strategy=entity.getStrategy();
+        fundDeploy.strategy = entity.getStrategy();
         return fundDeploy;
     }
 
-    public static CPPIMarketDeploy convertCPPIMarketDeployEntity(CPPIMarketDeployEntity entity){
-        CPPIMarketDeploy cppiMarketDeploy=new CPPIMarketDeploy();
-        cppiMarketDeploy.proportion=entity.getProportion();
-        cppiMarketDeploy.sumTradeFee=entity.getSumTradeFee();
-        cppiMarketDeploy.profit=entity.getProfit();
-        cppiMarketDeploy.adjustCycle=entity.getAdjustCycle();
-        cppiMarketDeploy.profit=entity.getProfit();
+    public static CPPIMarketDeploy convertCPPIMarketDeployEntity(CPPIMarketDeployEntity entity) {
+        CPPIMarketDeploy cppiMarketDeploy = new CPPIMarketDeploy();
+        cppiMarketDeploy.proportion = entity.getProportion();
+        cppiMarketDeploy.sumTradeFee = entity.getSumTradeFee();
+        cppiMarketDeploy.profit = entity.getProfit();
+        cppiMarketDeploy.adjustCycle = entity.getAdjustCycle();
+        cppiMarketDeploy.profit = entity.getProfit();
         return cppiMarketDeploy;
     }
 
-    public static RiskyParityDeploy convertRiskyParityDeployEntity(RiskyParityDeployEntity entity){
-        RiskyParityDeploy riskyParityDeploy=new RiskyParityDeploy();
-        riskyParityDeploy.proportion=entity.getProportion();
-        riskyParityDeploy.fundNum=entity.getFundNum();
-        riskyParityDeploy.rpturn=entity.getRpturn();
-        riskyParityDeploy.window=entity.getWindow();
-        riskyParityDeploy.hold=entity.getHold();
-        riskyParityDeploy.level=entity.getLevel();
-        riskyParityDeploy.sharpe=entity.getSharpe();
+    public static RiskyParityDeploy convertRiskyParityDeployEntity(RiskyParityDeployEntity entity) {
+        RiskyParityDeploy riskyParityDeploy = new RiskyParityDeploy();
+        riskyParityDeploy.proportion = entity.getProportion();
+        riskyParityDeploy.fundNum = entity.getFundNum();
+        riskyParityDeploy.rpturn = entity.getRpturn();
+        riskyParityDeploy.window = entity.getWindow();
+        riskyParityDeploy.hold = entity.getHold();
+        riskyParityDeploy.level = entity.getLevel();
+        riskyParityDeploy.sharpe = entity.getSharpe();
         return riskyParityDeploy;
     }
 
