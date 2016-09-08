@@ -32,6 +32,7 @@ public class AreaChartGenerator {
         pane.getChildren().add(areaChart);
         areaChart.setTitle(title);
         setupHover();
+        areaChart.setLegendVisible(false);
     }
 
     private void setupHover() {

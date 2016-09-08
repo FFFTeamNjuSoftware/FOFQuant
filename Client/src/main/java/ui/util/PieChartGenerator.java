@@ -48,4 +48,8 @@ public class PieChartGenerator {
         }
         pane.getChildren().add(caption);
     }
+
+    public void hideLegend(){
+        piechart.setLegendVisible(false);
+    }
 }

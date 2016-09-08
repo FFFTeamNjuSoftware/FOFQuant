@@ -47,7 +47,7 @@ public class BuildPanel2UIController implements Initializable {
 		this.buildPanel2UIController = this;
 		logic = BLInterfaces.getFofGenerateLogic();
 		initPanel3();
-		scheduleTask3();
+		//scheduleTask3();
 	}
 
 	//	10s后执行
