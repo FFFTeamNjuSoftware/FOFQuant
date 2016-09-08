@@ -28,6 +28,7 @@ public class FOFRealTimeMonitorLogicImpl extends UnicastRemoteObject implements 
     private String fof_code;
     private FOFDataService fofDataService;
 
+
     private FOFRealTimeMonitorLogicImpl() throws RemoteException {
         baseCode = "I000300";
         fof_code = FOFUtilInfo.FOF_CODE;
@@ -89,7 +90,7 @@ public class FOFRealTimeMonitorLogicImpl extends UnicastRemoteObject implements 
             }
             for (FundInFOFQuickInfo fundInFOFQuickInfo : result) {
                 fundInFOFQuickInfo.newestWeight = fundInFOFQuickInfo.holdValue / total_value * 100;
-                NumberOpe.controlDecimal(fundInFOFQuickInfo, 4);
+                formatResult(fundInFOFQuickInfo);
             }
             return result;
         } catch (ObjectNotFoundException e) {
@@ -101,6 +102,18 @@ public class FOFRealTimeMonitorLogicImpl extends UnicastRemoteObject implements 
     @Override
     public void setProformanceBase(String indexCode) throws RemoteException, ObjectNotFoundException {
         this.baseCode = indexCode;
+    }
+
+    private void formatResult(FundInFOFQuickInfo fundInFOFQuickInfo) {
+        fundInFOFQuickInfo.cost = fundInFOFQuickInfo.cost / FOFUtilInfo.VALUE_UNIT;
+        fundInFOFQuickInfo.dayProfit = fundInFOFQuickInfo.dayProfit / FOFUtilInfo.PROFIT_UNIT;
+        fundInFOFQuickInfo.floatProfit = fundInFOFQuickInfo.floatProfit / FOFUtilInfo.PROFIT_UNIT;
+        fundInFOFQuickInfo.finishedProfit = fundInFOFQuickInfo.finishedProfit / FOFUtilInfo
+                .PROFIT_UNIT;
+        fundInFOFQuickInfo.holdNum = fundInFOFQuickInfo.holdNum / FOFUtilInfo.NUM_UNIT;
+        fundInFOFQuickInfo.holdValue = fundInFOFQuickInfo.holdValue / FOFUtilInfo.VALUE_UNIT;
+        fundInFOFQuickInfo.totalProfit = fundInFOFQuickInfo.totalProfit / FOFUtilInfo.VALUE_UNIT;
+        NumberOpe.controlDecimal(fundInFOFQuickInfo, 3);
     }
 
 }

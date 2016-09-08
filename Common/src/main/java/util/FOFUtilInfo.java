@@ -15,7 +15,10 @@ public class FOFUtilInfo {
      * 业绩基准
      */
     public static Map<String, String> performanceBaseInfo;
-
+    /**
+     * 展示信息的单位
+     */
+    public static final double VALUE_UNIT = 100000000, NUM_UNIT = 1000000, PROFIT_UNIT = 1000000;
     /**
      * FOF的代码
      */

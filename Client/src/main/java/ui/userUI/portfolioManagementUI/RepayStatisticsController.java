@@ -152,7 +152,8 @@ public class RepayStatisticsController implements Initializable {
                 dataSeries.getData().add(new XYChart.Data(info.date, info.rise));
             }
         }
-        new BarChartGenerator(barChartPane, "", "回报（%）", dataSeries);
+        BarChartGenerator g = new BarChartGenerator(barChartPane, "", "回报（%）", dataSeries);
+        g.setTitle("回报统计（全球投资组合管理演示）");
     }
 
     public void initComboBox() {

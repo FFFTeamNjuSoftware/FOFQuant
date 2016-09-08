@@ -105,19 +105,23 @@ public class loginUIController implements Initializable {
 		} catch (RemoteException e) {
 			e.printStackTrace();
 			System.out.println("......RemoteException......");
-			tipLabel.setVisible(true);
+			MainUI.getInstance().addInfoPanel("密码或用户名错误！");
+		//	tipLabel.setVisible(true);
 		} catch (ObjectNotFoundException e) {
 			e.printStackTrace();
+			MainUI.getInstance().addInfoPanel("密码或用户名错误！");
 			System.out.println("......账号不存在......");
-			tipLabel.setVisible(true);
+		//	tipLabel.setVisible(true);
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 			System.out.println("......NullPointerException......");
-			tipLabel.setVisible(true);
+			MainUI.getInstance().addInfoPanel("密码或用户名错误！");
+		//	tipLabel.setVisible(true);
 		} catch (AuthorityException e) {
 			e.printStackTrace();
 			System.out.println("......密码错误......");
-			tipLabel.setVisible(true);
+			MainUI.getInstance().addInfoPanel("密码或用户名错误！");
+		//	tipLabel.setVisible(true);
 		}
 	}
 

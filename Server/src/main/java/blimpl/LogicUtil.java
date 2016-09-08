@@ -32,11 +32,20 @@ public class LogicUtil {
             case THREE_MONTH:
                 cal.add(Calendar.MONTH, -3);
                 break;
+            case SIX_MONTH:
+                cal.add(Calendar.MONTH, -6);
+                break;
             case ONE_YEAR:
                 cal.add(Calendar.YEAR, -1);
                 break;
             case THREE_YEAR:
                 cal.add(Calendar.YEAR, -3);
+                break;
+            case FIVE_YEAR:
+                cal.add(Calendar.YEAR, -3);
+                break;
+            case SIN_THIS_YEAR:
+                cal.set(Calendar.DAY_OF_YEAR, 1);
                 break;
             case SINCE_ESTABLISH:
                 cal.add(Calendar.YEAR, -100);

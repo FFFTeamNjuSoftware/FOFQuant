@@ -21,12 +21,12 @@ public class StartUp {
         System.out.println(LocalTime.now());
         System.out.println(new Gson().toJson(BLInterfaces.getProfitFeatureLogic()
                 .getRiskProfitIndex("000122")));
-        System.out.println(new Gson().toJson(BLInterfaces.getFofGenerateLogic()
-                .getLargeClassConfiguration()));
-        System.out.println(new Gson().toJson(BLInterfaces.getFofGenerateLogic()
-                .getSmallClassConfiguration()));
-        System.out.println(new Gson().toJson(BLInterfaces.getFofGenerateLogic()
-                .getTestValues()));
+//        System.out.println(new Gson().toJson(BLInterfaces.getFofGenerateLogic()
+//                .getLargeClassConfiguration()));
+//        System.out.println(new Gson().toJson(BLInterfaces.getFofGenerateLogic()
+//                .getSmallClassConfiguration()));
+//        System.out.println(new Gson().toJson(BLInterfaces.getFofGenerateLogic()
+//                .getTestValues()));
 //        double alpha = BLInterfaces.getProfitFeatureLogic().getAlpha("000001");
 //        double beta = BLInterfaces.getRiskFeature().getBeta("000001");
 //        double sd = BLInterfaces.getRiskFeature().getStandardDeviation("000001");

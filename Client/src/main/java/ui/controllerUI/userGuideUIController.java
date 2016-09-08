@@ -1,5 +1,7 @@
 package ui.controllerUI;
 
+import RMIModule.BLInterfaces;
+import bl.fof.FOFBaseInfoLogic;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -10,6 +12,7 @@ import starter.MainUI;
 import ui.util.IOHelper;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
 /**
@@ -22,10 +25,13 @@ public class userGuideUIController implements Initializable {
 	private Button combinationBtn, marketBtn, riskBtn, warning_logBtn, logoutBtn;
 
 	private userGuideUIController instance;
+	private BLInterfaces blInterfaces = new BLInterfaces();
+	private FOFBaseInfoLogic baseInfoLogic;
 	private MainUI mainUI;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		baseInfoLogic =blInterfaces.getFofBaseInfoLogic();
 		instance = this;
 		initButtons();
 		initNormalUser();
@@ -72,11 +78,23 @@ public class userGuideUIController implements Initializable {
 
 		}
 		mainUI = MainUI.getInstance();
-		marketBtn.setOnAction((e) -> {
-			mainUI.changeScene("user_guidePanel", "analyseHomePanel");
-		});
+//		marketBtn.setOnAction((e) -> {
+//			mainUI.changeScene("user_guidePanel", "analyseHomePanel");
+//		});
 		combinationBtn.setOnAction((e) -> {
-			mainUI.changeScene("user_guidePanel", "buildHomePanel");
+			try {
+				if(baseInfoLogic.hasGeneratedFofCombination()){
+					mainUI.changeScene("user_guidePanel", "analyseHomePanel");
+                }
+                else{
+					mainUI.changeScene("user_guidePanel", "buildHomePanel");
+				}
+			} catch (RemoteException e1) {
+				e1.printStackTrace();
+			}
+		});
+		marketBtn.setOnAction((e) -> {
+			mainUI.changeScene("user_guidePanel", "allFundPanel");
 		});
 	}
 

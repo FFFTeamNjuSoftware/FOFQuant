@@ -39,15 +39,15 @@ public class BuildPanel2UIController implements Initializable {
 	private AnchorPane chartPane;
 	private FOFGenerateLogic logic;
 	//根据stub瞎写的
-	public static String profitKey = "000003";
-	public static String solidKey = "000002";
+	public static String profitKey = "000011";
+	public static String solidKey = "000012";
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		this.buildPanel2UIController = this;
 		logic = BLInterfaces.getFofGenerateLogic();
 		initPanel3();
-		scheduleTask3();
+		//scheduleTask3();
 	}
 
 	//	10s后执行
