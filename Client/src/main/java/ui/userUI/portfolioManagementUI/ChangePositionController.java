@@ -291,16 +291,20 @@ public class ChangePositionController implements Initializable {
 			for (Map.Entry<String, Double> entry : map.entrySet()) {
 				FundInfo info = null;
 				if(entry.getKey()!=null&&baseInfoLogic!=null){
-//					try {
-//						info = baseInfoLogic.getFundBaseInfo(entry.getKey());
-//					} catch (RemoteException e) {
-//						e.printStackTrace();
-//					} catch (ObjectNotFoundException e) {
-//						e.printStackTrace();
-//					}
+					if(!entry.getKey().equals("092002")){
+						try {
+							System.out.println("The fundcode is:"+entry.getKey());
+							info = baseInfoLogic.getFundBaseInfo(entry.getKey());
+						} catch (RemoteException e) {
+							e.printStackTrace();
+						} catch (ObjectNotFoundException e) {
+							e.printStackTrace();
+						}
+					}
 				}
 				DisplayType temp = null;
 				if (info != null) {
+					System.out.println("fundinfo is not null!:"+info.simple_name);
 					temp = new DisplayType(entry.getKey(), entry.getValue(), info.simple_name);
 				} else {
 					temp = new DisplayType(entry.getKey(), entry.getValue(), "");
