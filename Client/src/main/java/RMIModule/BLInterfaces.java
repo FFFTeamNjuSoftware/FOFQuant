@@ -1,5 +1,6 @@
 package RMIModule;
 
+import beans.WarnLog;
 import bl.*;
 import bl.fof.*;
 import config.RMIConfig;
@@ -28,6 +29,7 @@ public class BLInterfaces {
     private static FOFProfitAnalyseLogic fofProfitAnalyseLogic;
     private static FOFProfitStatisticsLogic fofProfitStatisticsLogic;
     private static FOFRealTimeMonitorLogic fofRealTimeMonitorLogic;
+    private static WarnLogLogic warnLogLogic;
 
     /**
      * @throws DocumentException
@@ -57,6 +59,8 @@ public class BLInterfaces {
                     FOFProfitStatisticsLogic.class.getSimpleName());
             fofRealTimeMonitorLogic = (FOFRealTimeMonitorLogic) Naming.lookup(url +
                     FOFRealTimeMonitorLogic.class.getSimpleName());
+            warnLogLogic = (WarnLogLogic) Naming.lookup(url +
+                    WarnLogLogic.class.getSimpleName());
         } catch (NotBoundException e) {
             e.printStackTrace();
         } catch (MalformedURLException e) {

@@ -68,4 +68,11 @@ public interface BaseInfoLogic extends Remote {
      * @throws RemoteException
      */
     public ConstParameter getConstaParameteer() throws RemoteException;
+
+    /**
+     * 更新常量字段
+     * @param constParameter
+     * @throws RemoteException
+     */
+    void updateConstParameter(ConstParameter constParameter) throws RemoteException;
 }

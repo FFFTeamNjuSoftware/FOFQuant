@@ -4,6 +4,7 @@ package dataservice;
  * Created by st0001 on 2016/9/1.
  */
 
+import beans.WarnLog;
 import entities.*;
 import exception.ObjectNotFoundException;
 
@@ -109,4 +110,16 @@ public interface FOFDataService {
      */
     void savePositionChangeEntity(List<PositionChangeEntity> entities) throws
             ObjectNotFoundException;
+
+    /**
+     * 获得日志信息
+     * @return
+     */
+    List<WarnLogEntity> getWarnLogs();
+
+    /**
+     * 保存日志信息
+     * @param warnLog
+     */
+    void saveWarnLog(WarnLog warnLog);
 }

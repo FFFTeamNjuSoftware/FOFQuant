@@ -134,4 +134,9 @@ public class BaseInfoLogicImpl extends UnicastRemoteObject implements BaseInfoLo
     public ConstParameter getConstaParameteer() throws RemoteException {
         return Converter.convertConstParameter(baseInfoDataService.getConstParameter());
     }
+
+    @Override
+    public void updateConstParameter(ConstParameter constParameter) throws RemoteException {
+        baseInfoDataService.updateConstParameter(constParameter);
+    }
 }

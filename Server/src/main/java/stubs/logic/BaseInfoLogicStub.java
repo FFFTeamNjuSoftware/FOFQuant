@@ -23,6 +23,11 @@ public class BaseInfoLogicStub extends UnicastRemoteObject implements BaseInfoLo
     }
 
     @Override
+    public void updateConstParameter(ConstParameter constParameter) throws RemoteException {
+
+    }
+
+    @Override
     public List<String> getSectorCodes(String sectorId) throws RemoteException {
         return null;
     }

@@ -80,21 +80,12 @@ public class MarketLogicImplTest {
      */
     @Test
     public void testGetPriceInfoForCodeTypeStartDateEndDate() throws Exception {
-        marketLogic.getPriceInfo("I000011", UnitType.WEEK, "2016-03-01", "2016-06-01").stream()
-                .forEach(e -> System.out.println("WEEK" + new Gson().toJson(e)));
+        marketLogic.getPriceInfo("000001", UnitType.DAY, 5).stream()
+                .forEach(e -> System.out.println("DAY" + new Gson().toJson(e)));
         System.out.println("————————————————————————————————————————————————————————————————");
         marketLogic.getPriceInfo("I000011", UnitType.WEEK, 30).stream()
                 .forEach(e -> System.out.println("WEEK" + new Gson().toJson(e)));
 
-        List<PriceInfo> infos = marketLogic.getPriceInfo("540006", UnitType.DAY, "2016-01-01",
-                "2016-08-27");
-        double rate = 1;
-        for (PriceInfo info : infos) {
-            rate *= (1 + info.rise / 100);
-            System.out.println(rate);
-        }
-        rate *= (1 - 0.0004) * (1 - 0.0009) * (1 - 0.0011) * (1 + 0.0001) * (1 + 0.0005);
-        System.out.println(rate);
     }
 
     /**
@@ -102,7 +93,7 @@ public class MarketLogicImplTest {
      */
     @Test
     public void testGetProfitRateInfo() throws Exception {
-        ProfitRateInfo info = marketLogic.getProfitRateInfo("540006");
+        ProfitRateInfo info = marketLogic.getProfitRateInfo("000001");
         System.out.println(new Gson().toJson(info));
     }
 
@@ -113,7 +104,7 @@ public class MarketLogicImplTest {
     @Test
     public void testGetFundProfitInfoChart() throws Exception {
         List<ProfitChartInfo> infos = marketLogic.getFundProfitInfoChart("000001", UnitType.DAY,
-                TimeType.THREE_MONTH,
+                TimeType.ONE_MONTH,
                 ChartType.NET_WORTH_PERFORMANCE_UNIT);
         infos.stream().forEach(e -> System.out.println(new Gson().toJson(e)));
     }

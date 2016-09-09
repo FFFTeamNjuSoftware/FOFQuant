@@ -1,6 +1,7 @@
 package dataservice;
 
 import beans.CodeName;
+import beans.ConstParameter;
 import entities.*;
 import exception.ObjectNotFoundException;
 
@@ -95,4 +96,10 @@ public interface BaseInfoDataService {
      * @return
      */
     public ConstParameterEntity getConstParameter();
+
+    /**
+     * 更新常量字段
+     * @param constParameter
+     */
+    void updateConstParameter (ConstParameter constParameter);
 }

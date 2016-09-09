@@ -152,6 +152,11 @@ public class BLController {
             return
                     FOFRealTimeMonitorLogicImpl.getInstance();
         }
+
+        @Override
+        public WarnLogLogic getWarnLogic() {
+            return WarnLogLogicImpl.getInstance();
+        }
     };
 
     private static FOFLogicCreator fofStubCreator = new FOFLogicCreator() {
@@ -224,6 +229,11 @@ public class BLController {
             }
             return null;
         }
+
+        @Override
+        public WarnLogLogic getWarnLogic() {
+            return null;
+        }
     };
 
     private static LogicCreator currentCreator;
@@ -287,5 +297,9 @@ public class BLController {
 
     public static FOFRealTimeMonitorLogic getFOFRealTimeMonitorLogic() {
         return currentFOFCreator.getFOFRealTimeMonitorLogic();
+    }
+
+    public static WarnLogLogic getWarnLogLigc(){
+        return currentFOFCreator.getWarnLogic();
     }
 }

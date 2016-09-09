@@ -38,6 +38,7 @@
         <mapping class="entities.PositionChangeEntity"/>
         <mapping class="entities.FofHistoryInfoEntity"/>
         <mapping class="entities.FofEstablishInfoEntity"/>
+        <mapping class="entities.WarnLogEntity"/>
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hbm2ddl.auto">update</property> -->
     </session-factory>

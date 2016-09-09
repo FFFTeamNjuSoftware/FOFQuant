@@ -143,6 +143,9 @@ public class DataUpdate {
     }
 
 
+    /**
+     * 更新基金的复权净值
+     */
     public void updateFqWorth() {
         BaseInfoDataService baseInfoDataService = DataServiceController.getBaseInfoDataService();
         List<String> codes = baseInfoDataService.getAllCodes();

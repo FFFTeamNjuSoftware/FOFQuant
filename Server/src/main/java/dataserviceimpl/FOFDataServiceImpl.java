@@ -1,5 +1,6 @@
 package dataserviceimpl;
 
+import beans.WarnLog;
 import dataservice.FOFDataService;
 import entities.*;
 import exception.ObjectNotFoundException;
@@ -7,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import startup.HibernateBoot;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -151,6 +153,30 @@ public class FOFDataServiceImpl implements FOFDataService {
         Session se = HibernateBoot.openSession();
         Transaction tra = se.beginTransaction();
         entities.forEach(e -> se.saveOrUpdate(e));
+        tra.commit();
+        se.close();
+    }
+
+    @Override
+    public List<WarnLogEntity> getWarnLogs() {
+        Session se = HibernateBoot.openSession();
+        List<?> li = se.createQuery("from WarnLogEntity order by date desc").list();
+        se.close();
+        if (li == null || li.size() == 0)
+            return new ArrayList<>();
+        return li.stream().map(e -> (WarnLogEntity) e).collect(Collectors.toList());
+    }
+
+    @Override
+    public void saveWarnLog(WarnLog warnLog) {
+        Session se = HibernateBoot.openSession();
+        Transaction tra = se.beginTransaction();
+        WarnLogEntity warnLogEntity = new WarnLogEntity();
+        warnLogEntity.setDate(warnLog.date);
+        warnLogEntity.setNetWorth(warnLog.netWorth);
+        warnLogEntity.setTotalProfit(warnLog.totalProfit);
+        warnLogEntity.setWarnInfo(warnLog.warnInfo);
+        se.save(warnLogEntity);
         tra.commit();
         se.close();
     }

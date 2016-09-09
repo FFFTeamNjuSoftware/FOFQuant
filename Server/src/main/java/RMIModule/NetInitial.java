@@ -42,6 +42,7 @@ public class NetInitial {
                 .getFOFPrifitStatisticsLogic());
         serviceMap.put(FOFRealTimeMonitorLogic.class.getSimpleName(), BLController
                 .getFOFRealTimeMonitorLogic());
+        serviceMap.put(WarnLogLogic.class.getSimpleName(),BLController.getWarnLogLigc());
     }
 
     public static void initial() throws DocumentException, RemoteException, AlreadyBoundException,

@@ -77,10 +77,10 @@ public class FOFProfitStatisticsLogicImplTest {
      */
     @Test
     public void testGetProfitStatisticsInfo() throws Exception {
-        fofProfitStatisticsLogic.setStartDate("2010-01-01");
+        fofProfitStatisticsLogic.setStartDate("2015-01-01");
         fofProfitStatisticsLogic.setUnitType(UnitType.DAY);
         fofProfitStatisticsLogic.setEndDate(LocalDate.now().toString());
-        fofProfitStatisticsLogic.setProformanceBase(FOFUtilInfo.performanceBaseInfo.get("沪深300"));
+        fofProfitStatisticsLogic.setProformanceBase(FOFUtilInfo.performanceBaseInfo.get("上证基金指数"));
         ProfitStatisticsInfo profitStatisticsInfo = fofProfitStatisticsLogic
                 .getProfitStatisticsInfo();
         System.out.println(new Gson().toJson(profitStatisticsInfo));

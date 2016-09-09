@@ -19,4 +19,6 @@ public interface FOFLogicCreator {
     FOFProfitStatisticsLogic getFOFPrifitStatisticsLogic();
 
     FOFRealTimeMonitorLogic getFOFRealTimeMonitorLogic();
+
+    WarnLogLogic getWarnLogic();
 }

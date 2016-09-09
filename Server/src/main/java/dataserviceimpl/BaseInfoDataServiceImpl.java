@@ -1,10 +1,12 @@
 package dataserviceimpl;
 
 import beans.CodeName;
+import beans.ConstParameter;
 import dataservice.BaseInfoDataService;
 import entities.*;
 import exception.ObjectNotFoundException;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import startup.HibernateBoot;
 
 import java.util.ArrayList;
@@ -143,5 +145,23 @@ public class BaseInfoDataServiceImpl implements BaseInfoDataService {
         if (li == null)
             return null;
         return (ConstParameterEntity) li.get(0);
+    }
+
+    @Override
+    public void updateConstParameter(ConstParameter constParameter) {
+        Session se = HibernateBoot.openSession();
+        Transaction tra = se.beginTransaction();
+        ConstParameterEntity constParameterEntity = getConstParameter();
+        constParameterEntity.setHighRiskIndex(constParameter.highRiskIndex);
+        constParameterEntity.setHoldTime(constParameter.holdTime);
+        constParameterEntity.setLowRiskIndex(constParameter.lowRiskIndex);
+        constParameterEntity.setMaxRetreatRatio(constParameter.maxRetreatRatio);
+        constParameterEntity.setNoRiskProfit(constParameter.noRiskProfit);
+        constParameterEntity.setStableIndex(constParameter.stableIndex);
+        constParameterEntity.setStopLossValue(constParameter.stopLossValue);
+        constParameterEntity.setWindowTime(constParameter.windowTime);
+        se.update(constParameterEntity);
+        tra.commit();
+        se.close();
     }
 }

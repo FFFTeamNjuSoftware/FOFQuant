@@ -46,9 +46,9 @@ public class Converter {
         info.fund_type = entity.getFundType();
         info.invest_strategy = entity.getInvestStrategy();
         info.invest_target = entity.getInvestTarget();
-        info.manage_fee = entity.getManageFee()==null?0:entity.getManageFee();
+        info.manage_fee = entity.getManageFee() == null ? 0 : entity.getManageFee();
         info.risk_feature = entity.getRiskFeature();
-        info.scale = entity.getScale()==null?0:entity.getScale();
+        info.scale = entity.getScale() == null ? 0 : entity.getScale();
         info.simple_name = entity.getSimpleName();
         info.invest_type = entity.getInvestType();
         info.rank = entity.getRank() == null ? 0 : entity.getRank();
@@ -137,6 +137,13 @@ public class Converter {
     public static ConstParameter convertConstParameter(ConstParameterEntity entity) {
         ConstParameter constParameter = new ConstParameter();
         constParameter.noRiskProfit = entity.getNoRiskProfit();
+        constParameter.highRiskIndex = entity.getHighRiskIndex();
+        constParameter.holdTime = entity.getHoldTime();
+        constParameter.lowRiskIndex = entity.getLowRiskIndex();
+        constParameter.maxRetreatRatio = entity.getMaxRetreatRatio();
+        constParameter.stableIndex = entity.getStableIndex();
+        constParameter.stopLossValue = entity.getStopLossValue();
+        constParameter.windowTime = entity.getWindowTime();
         return constParameter;
     }
 
@@ -225,6 +232,16 @@ public class Converter {
         riskyParityDeploy.level = entity.getLevel();
         riskyParityDeploy.sharpe = entity.getSharpe();
         return riskyParityDeploy;
+    }
+
+    public static WarnLog convertWarnLogEntity(WarnLogEntity entity) {
+        WarnLog warnLog = new WarnLog();
+        warnLog.date = entity.getDate();
+        warnLog.netWorth = entity.getNetWorth();
+        warnLog.totalProfit = entity.getTotalProfit();
+        warnLog.warnInfo = entity.getWarnInfo();
+
+        return warnLog;
     }
 
 }

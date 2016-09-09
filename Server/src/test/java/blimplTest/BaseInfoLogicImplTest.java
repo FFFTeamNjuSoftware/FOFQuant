@@ -53,7 +53,7 @@ public class BaseInfoLogicImplTest {
      */
     @Test
     public void testFuzzySearch() throws Exception {
-//TODO: Test goes here... 
+        baseInfoLogic.fuzzySearch("大数据").forEach(e->System.out.println(new Gson().toJson(e)));
     }
 
     /**

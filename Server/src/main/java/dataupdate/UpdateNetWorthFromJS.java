@@ -34,7 +34,13 @@ public class UpdateNetWorthFromJS {
     private int leaveThreadNum;
     private Condition hasFreeTreadNum;
     private Lock lock, finishOpe;
+    /**
+     * 结束操作
+     */
     private Runnable runnable;
+    /**
+     * 一个类只能start一次
+     */
     private boolean dead = false;
 
     List<Thread> threads;
@@ -122,8 +128,6 @@ public class UpdateNetWorthFromJS {
                 Transaction tra = se.beginTransaction();
                 for (Element element : li) {
                     List<Element> tds = element.elements("td");
-//                    tds.stream().forEach(e -> System.out.print(e.getText() + "\t"));
-//                    System.out.println(tds.size());
                     if (tds.size() == 1) {
                         System.out.println("code " + code + " has no data");
                         return;
