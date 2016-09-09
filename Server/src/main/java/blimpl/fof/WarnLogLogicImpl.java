@@ -8,13 +8,14 @@ import dataserviceimpl.DataServiceController;
 import util.FOFUtilInfo;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 import java.util.stream.Collectors;
 
 /**
  * Created by Daniel on 2016/9/9.
  */
-public class WarnLogLogicImpl implements WarnLogLogic {
+public class WarnLogLogicImpl extends UnicastRemoteObject implements WarnLogLogic {
     private String fof_code;
     private FOFDataService fofDataService;
 

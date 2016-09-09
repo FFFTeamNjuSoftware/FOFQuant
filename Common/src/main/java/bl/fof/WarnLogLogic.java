@@ -13,5 +13,4 @@ import java.util.List;
 public interface WarnLogLogic extends Remote{
     List<WarnLog> getWarnLogs() throws RemoteException;
 
-
 }
