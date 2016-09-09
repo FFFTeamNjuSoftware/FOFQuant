@@ -96,6 +96,10 @@ public class userGuideUIController implements Initializable {
 		marketBtn.setOnAction((e) -> {
 			mainUI.changeScene("user_guidePanel", "allFundPanel");
 		});
+		
+		warning_logBtn.setOnAction((e) -> {
+			mainUI.changeScene("user_guidePanel", "adjustParameterPanel");
+		});
 	}
 
 

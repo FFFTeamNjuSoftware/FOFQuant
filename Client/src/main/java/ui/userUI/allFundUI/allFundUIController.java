@@ -185,7 +185,7 @@ public class allFundUIController implements Initializable {
         yearRateColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(
                 cellData.getValue().yearRate));
 
-        setColumnColor(daily_riseColumn);
+  
         setColumnColor(current_netWorthColumn);
         setColumnColor(nearOneMonthColumn);
         setColumnColor( nearThreeMonthColumn);

@@ -48,7 +48,7 @@
             <Image url="@/images/warning_log.png" />
          </image>
       </ImageView>
-      <Label layoutX="11.0" layoutY="491.0" text="预警日志" textFill="WHITE" />
+      <Label layoutX="11.0" layoutY="491.0" text="参数修改" textFill="WHITE" />
       <ImageView fx:id="logoutImage" fitHeight="20.0" fitWidth="20.0" layoutX="25.0" layoutY="556.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@/images/logout.png" />
