@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.shape.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="930.0" styleClass="root" stylesheets="@css/stageView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.userUI.riskControlUI.RiskControlPanelController">
+<AnchorPane fx:id="basicPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="930.0" styleClass="root" stylesheets="@css/stageView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.userUI.riskControlUI.RiskControlPanelController">
    <children>
       <Line endX="324.0" endY="584.0" startX="324.0" stroke="#bbbbbb" />
       <TableView id="riskTable" fx:id="riskTable" blendMode="LIGHTEN" layoutX="20.0" layoutY="50.0" prefHeight="483.0" prefWidth="282.0">
@@ -18,7 +19,29 @@
         </columns>
       </TableView>
       <Line endX="600.0" layoutX="328.0" layoutY="291.0" stroke="#bbbbbb" />
-      <AnchorPane fx:id="historyPricePane" layoutX="326.0" layoutY="4.0" prefHeight="284.0" prefWidth="601.0" />
-      <AnchorPane fx:id="historyProfitPane" layoutX="328.0" layoutY="292.0" prefHeight="284.0" prefWidth="601.0" />
+      <AnchorPane fx:id="fofPane" layoutX="323.0" layoutY="294.0" prefHeight="290.0" prefWidth="607.0">
+         <children>
+            <LineChart fx:id="fofChart" layoutX="10.0" layoutY="7.0" prefHeight="277.0" prefWidth="587.0">
+               <xAxis>
+                  <CategoryAxis side="BOTTOM" />
+               </xAxis>
+               <yAxis>
+                  <NumberAxis side="LEFT" />
+               </yAxis>
+            </LineChart>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="marketPane" layoutX="329.0" layoutY="5.0" prefHeight="283.0" prefWidth="601.0">
+         <children>
+            <LineChart fx:id="marketChart" layoutY="3.0" prefHeight="277.0" prefWidth="587.0">
+               <xAxis>
+                  <CategoryAxis side="BOTTOM" />
+               </xAxis>
+               <yAxis>
+                  <NumberAxis side="LEFT" />
+               </yAxis>
+            </LineChart>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

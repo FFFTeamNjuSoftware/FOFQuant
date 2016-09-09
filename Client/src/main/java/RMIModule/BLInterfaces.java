@@ -121,4 +121,8 @@ public class BLInterfaces {
     public static FOFRealTimeMonitorLogic getFofRealTimeMonitorLogic() {
         return fofRealTimeMonitorLogic;
     }
+
+    public static WarnLogLogic getWarnLogLogic() {
+        return warnLogLogic;
+    }
 }

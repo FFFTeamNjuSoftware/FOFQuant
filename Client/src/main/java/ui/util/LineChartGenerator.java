@@ -29,6 +29,8 @@ public class LineChartGenerator {
 
     private AnchorPane pane;
 
+    public LineChartGenerator() {
+    }
 
     public LineChartGenerator(AnchorPane pane, String[] names) {
         serieses = new ArrayList<>();
@@ -78,5 +80,27 @@ public class LineChartGenerator {
             }
         }
         pane.getChildren().add(label);
+    }
+
+    public void simpleSetupHover(LineChart<String, Number> chart,AnchorPane pane) {
+        for (XYChart.Series<String, Number> s : chart.getData()) {
+            s.getNode().setStyle("   -fx-stroke-width: 1; ");
+        }
+        XYChart.Series<String, Number> series = chart.getData().get(0);
+        Label label = new Label();
+        label.setTextFill(Color.DARKCYAN);
+        label.setStyle("-fx-font: 15 arial;");
+        for (final Data<String, Number> dt : series.getData()) {
+            final Node n = dt.getNode();
+            n.setEffect(null);
+            n.setOnMouseEntered((e) -> {
+                n.setCursor(Cursor.HAND);
+                label.setLayoutX(n.getLayoutX() + 40);
+                label.setTranslateY(n.getLayoutY() + 10);
+                label.setText(String.valueOf(dt.getYValue()));
+            });
+        }
+        pane.getChildren().add(label);
+        chart.setCreateSymbols(true);
     }
 }
