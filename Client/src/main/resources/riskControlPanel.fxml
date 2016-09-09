@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="930.0" styleClass="root" stylesheets="@css/stageView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.userUI.riskControlUI.RiskControlPanelController">
+   <children>
+      <Line endX="324.0" endY="584.0" startX="324.0" stroke="#bbbbbb" />
+      <TableView id="riskTable" fx:id="riskTable" blendMode="LIGHTEN" layoutX="20.0" layoutY="50.0" prefHeight="483.0" prefWidth="282.0">
+        <columns>
+          <TableColumn fx:id="dateColumn" prefWidth="75.0" text="日期" />
+          <TableColumn fx:id="profitColumn" prefWidth="75.0" text="净值" />
+            <TableColumn fx:id="profitRateColumn" prefWidth="75.0" text="总收益率" />
+            <TableColumn fx:id="riskColumn" prefWidth="75.0" text="风险信息" />
+        </columns>
+      </TableView>
+      <Line endX="600.0" layoutX="328.0" layoutY="291.0" stroke="#bbbbbb" />
+      <AnchorPane fx:id="historyPricePane" layoutX="326.0" layoutY="4.0" prefHeight="284.0" prefWidth="601.0" />
+      <AnchorPane fx:id="historyProfitPane" layoutX="328.0" layoutY="292.0" prefHeight="284.0" prefWidth="601.0" />
+   </children>
+</AnchorPane>
