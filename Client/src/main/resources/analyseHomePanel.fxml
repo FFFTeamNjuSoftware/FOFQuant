@@ -105,7 +105,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Label text="日回报：" textFill="WHITE">
+                        <Label text="总回报：" textFill="WHITE">
                             <font>
                                 <Font size="14.0" />
                             </font>

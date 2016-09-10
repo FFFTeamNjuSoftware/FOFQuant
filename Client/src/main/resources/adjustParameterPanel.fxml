@@ -54,27 +54,39 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="stable_field" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="104.0" GridPane.columnIndex="1">
+            <TextField fx:id="stable_field" alignment="CENTER_RIGHT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="104.0" style=" -fx-text-fill: #000000; " GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets left="60.0" />
                </GridPane.margin>
+               <font>
+                  <Font name="PingFang SC Regular" size="18.0" />
+               </font>
             </TextField>
-            <TextField fx:id="lowRisk_field" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <TextField fx:id="lowRisk_field" alignment="CENTER_RIGHT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="104.0" style="-fx-text-fill: #000000; " GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="60.0" />
                </GridPane.margin>
+               <font>
+                  <Font name="PingFang SC Regular" size="18.0" />
+               </font>
             </TextField>
-            <TextField fx:id="maxBack_field" prefHeight="23.0" prefWidth="38.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <TextField fx:id="maxBack_field" alignment="CENTER_RIGHT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="38.0" style="-fx-text-fill: #000000; " GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="60.0" right="50.0" />
                </GridPane.margin>
+               <font>
+                  <Font name="PingFang SC Regular" size="18.0" />
+               </font>
             </TextField>
-            <TextField fx:id="noRisk_field" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <TextField fx:id="noRisk_field" alignment="CENTER_RIGHT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="75.0" style=" -fx-text-fill: #000000; " GridPane.columnIndex="1" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="60.0" right="50.0" />
                </GridPane.margin>
+               <font>
+                  <Font name="PingFang SC Regular" size="18.0" />
+               </font>
             </TextField>
-            <ComboBox fx:id="has_box" prefHeight="23.0" prefWidth="87.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <ComboBox fx:id="has_box" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="87.0" style="-fx-background-color: #057dc8;-fx-text-fill: #ffffff; " GridPane.columnIndex="1" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets left="60.0" />
                </GridPane.margin>
@@ -102,13 +114,19 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="highRisk_field" layoutX="639.0" layoutY="190.0" prefHeight="23.0" prefWidth="125.0" />
+      <TextField fx:id="highRisk_field" alignment="CENTER_RIGHT" layoutX="639.0" layoutY="190.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="125.0" style="-fx-text-fill: #000000; ">
+         <font>
+            <Font name="PingFang SC Regular" size="18.0" />
+         </font></TextField>
       <Label layoutX="487.0" layoutY="254.0" text="fof止损阈值" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="fof_field" layoutX="639.0" layoutY="255.0" prefHeight="23.0" prefWidth="75.0" />
+      <TextField fx:id="fof_field" alignment="CENTER_RIGHT" layoutX="639.0" layoutY="255.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="75.0" style="  -fx-text-fill: #000000; ">
+         <font>
+            <Font name="PingFang SC Regular" size="18.0" />
+         </font></TextField>
       <Label layoutX="492.0" layoutY="385.0" text="窗口期" textFill="WHITE">
          <font>
             <Font size="18.0" />
@@ -119,8 +137,11 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <ImageView fitHeight="40.0" fitWidth="100.0" layoutX="770.0" layoutY="513.0" onMouseClicked="#toUpdateParameter" pickOnBounds="true" preserveRatio="true" />
-      <ComboBox fx:id="win_box" layoutX="639.0" layoutY="386.0" prefHeight="23.0" prefWidth="87.0" />
+      <ImageView fitHeight="40.0" fitWidth="100.0" layoutX="770.0" layoutY="513.0" onMouseClicked="#toUpdateParameter" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/images/ensureModify.png" />
+         </image></ImageView>
+      <ComboBox fx:id="win_box" layoutX="639.0" layoutY="386.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="87.0" style="-fx-background-color: #057dc8;  -fx-text-fill: #ffffff; " />
       <Label layoutX="734.0" layoutY="384.0" text="天" textFill="WHITE">
          <font>
             <Font size="18.0" />

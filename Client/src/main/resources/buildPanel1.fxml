@@ -78,49 +78,46 @@
             <Font size="16.0" />
          </font>
       </RadioButton>
-      <GridPane  fx:id="highPane" layoutX="608.0" layoutY="211.0" prefHeight="50.0" prefWidth="121.0" visible="false">
+      <GridPane fx:id="highPane" layoutX="608.0" layoutY="211.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="148.0" visible="false">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="72.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="127.0" minWidth="10.0" prefWidth="49.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="130.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="high_breakeven" text="保本额度：" textFill="WHITE" />
-            <Label fx:id="high_risk" text="风险乘数：" textFill="WHITE" GridPane.rowIndex="1" />
+            <Label fx:id="high_breakeven" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="130.0" text="保本额度：" textFill="WHITE" />
+            <Label fx:id="high_risk" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="130.0" text="风险乘数：" textFill="WHITE" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <GridPane  fx:id="mediumPane" layoutX="608.0" layoutY="283.0" prefHeight="50.0" prefWidth="121.0" visible="false">
+      <GridPane fx:id="mediumPane" layoutX="608.0" layoutY="283.0" prefHeight="50.0" prefWidth="121.0" visible="false">
          <children>
-            <Label fx:id="medium_breakeven" text="保本额度：" textFill="WHITE" />
-            <Label fx:id="medium_risk"  text="风险乘数：" textFill="WHITE" GridPane.rowIndex="1" />
+            <Label fx:id="medium_breakeven" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="130.0" text="保本额度：" textFill="WHITE" />
+            <Label fx:id="medium_risk" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="130.0" text="风险乘数：" textFill="WHITE" GridPane.rowIndex="1" />
          </children>
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="72.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="127.0" minWidth="10.0" prefWidth="49.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <GridPane  fx:id="lowPane" layoutX="608.0" layoutY="353.0" prefHeight="50.0" prefWidth="121.0" visible="false">
+      <GridPane fx:id="lowPane" layoutX="608.0" layoutY="353.0" prefHeight="50.0" prefWidth="121.0" visible="false">
          <children>
-            <Label fx:id="low_breakeven"  text="保本额度：" textFill="WHITE" />
-            <Label  fx:id="low_risk"  text="风险乘数：" textFill="WHITE" GridPane.rowIndex="1" />
+            <Label fx:id="low_breakeven" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="130.0" text="保本额度：" textFill="WHITE" />
+            <Label fx:id="low_risk" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="130.0" text="风险乘数：" textFill="WHITE" GridPane.rowIndex="1" />
          </children>
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="72.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="127.0" minWidth="10.0" prefWidth="49.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <GridPane fx:id="customPane" visible="false" layoutX="377.0" layoutY="465.0" prefHeight="59.0" prefWidth="208.0">
+      <GridPane fx:id="customPane" layoutX="377.0" layoutY="465.0" prefHeight="59.0" prefWidth="208.0" visible="false">
          <children>
             <Label text="保本额度：" textFill="WHITE" />
             <Label text="风险乘数：" textFill="WHITE" GridPane.rowIndex="1" />

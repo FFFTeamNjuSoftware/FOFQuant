@@ -82,16 +82,16 @@ public class userGuideUIController implements Initializable {
 //			mainUI.changeScene("user_guidePanel", "analyseHomePanel");
 //		});
 		combinationBtn.setOnAction((e) -> {
-			try {
-				if(baseInfoLogic.hasGeneratedFofCombination()){
-					mainUI.changeScene("user_guidePanel", "analyseHomePanel");
-                }
-                else{
+//			try {
+//				if(baseInfoLogic.hasGeneratedFofCombination()){
+//					mainUI.changeScene("user_guidePanel", "analyseHomePanel");
+//                }
+//                else{
 					mainUI.changeScene("user_guidePanel", "buildHomePanel");
-				}
-			} catch (RemoteException e1) {
-				e1.printStackTrace();
-			}
+//				}
+//			} catch (RemoteException e1) {
+//				e1.printStackTrace();
+//			}
 		});
 		marketBtn.setOnAction((e) -> {
 			mainUI.changeScene("user_guidePanel", "allFundPanel");

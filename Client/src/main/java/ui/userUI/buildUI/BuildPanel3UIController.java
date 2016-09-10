@@ -69,14 +69,14 @@ public class BuildPanel3UIController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		this.buildPanel3UIController=this;
 		generateLogic = blInterfaces.getFofGenerateLogic();
-		scheduleTask3();
+		initPanel3();
+		//scheduleTask3();
 	}
 	//	10s后执行
 	private void scheduleTask3(){ Runnable runnable = new Runnable() {
 		public void run() {
 			// task to run goes here
 			waiting3.setVisible(false);
-			initPanel3();
 		}
 	};
 		ScheduledExecutorService service = Executors
@@ -97,20 +97,19 @@ public class BuildPanel3UIController implements Initializable {
 		}
 
 		if (map != null&&mapInfo!=null) {
-			label1.setText(map.get(profitKey) + "%");
-			label2.setText(map.get(solidKey) + "%");
+			label1.setText(mapInfo.get(profitKey) + "%");
+			label2.setText(mapInfo.get(solidKey) + "%");
 
 			mapList1 = map.get(profitKey) ;
 			if(mapList1!=null){
-				list1=getDisplayTypeList(mapList1);
-			}
+				list1=getDisplayTypeList(mapList1);}
 			build3Table1.setItems(FXCollections.observableArrayList(list1));
 			column1.setCellValueFactory(cellData -> new SimpleStringProperty(
 					cellData.getValue().getKey()));
 			column1.setStyle(yellowFill);
 			column2.setCellValueFactory(cellData -> new SimpleDoubleProperty(
 					cellData.getValue().getValue()));
-			column1.setStyle(fontStyle);
+			column2.setStyle(fontStyle);
 
 			mapList2 = map.get(solidKey);
 			if(mapList2!=null){

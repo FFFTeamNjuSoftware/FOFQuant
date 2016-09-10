@@ -98,6 +98,7 @@ public class headUIController implements Initializable {
     @FXML
     public void toExitScreen() {
         MainUI.getPrimaryStage().close();
+        System.exit(0);
     }
 
     @FXML
