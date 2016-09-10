@@ -70,9 +70,24 @@ public class PerformanceAttributionController implements Initializable {
     private String greenFill = "-fx-text-fill:#9ac94a;";
     private String redFill = "-fx-text-fill:#eb494d;";
 
+    private final String sDate = "2016-01-01";
+    private final String eDate = "2016-08-26";
+    private final String fundType = "沪深300";
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         logic = BLInterfaces.getFofPerformanceAttributionLogic();
+        try {
+            logic.setStartDate(sDate);
+            logic.setEndDate(eDate);
+            logic.setProformanceBase(FOFUtilInfo.performanceBaseInfo.get(fundType));
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (ObjectNotFoundException e) {
+            e.printStackTrace();
+        } catch (ParameterException e) {
+            e.printStackTrace();
+        }
         setDate();
         initComboBox();
         initTable();
@@ -84,6 +99,7 @@ public class PerformanceAttributionController implements Initializable {
             try {
                 if (judgeDate()) {
                     logic.setStartDate(date.toString());
+                    initTable();
                 }
             } catch (ParameterException e1) {
                 e1.printStackTrace();
@@ -97,6 +113,7 @@ public class PerformanceAttributionController implements Initializable {
             try {
                 if (judgeDate()) {
                     logic.setEndDate(date.toString());
+                    initTable();
                 }
             } catch (ParameterException e1) {
                 e1.printStackTrace();
@@ -115,6 +132,7 @@ public class PerformanceAttributionController implements Initializable {
                 String code = FOFUtilInfo.performanceBaseInfo.get(str);
                 try {
                     logic.setProformanceBase(code);
+                    initTable();
                 } catch (RemoteException e1) {
                     e1.printStackTrace();
                 } catch (ObjectNotFoundException e1) {

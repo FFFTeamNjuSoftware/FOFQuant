@@ -44,7 +44,6 @@ public class LineChartGenerator {
         }
         lineChart.setPrefSize(pane.getPrefWidth(), pane.getPrefHeight());
     }
-
     public void setData(String[] x, double[][] y) {
         for (int j = 0; j < serieses.size(); j++) {
             XYChart.Series<String, Number> series = serieses.get(j);

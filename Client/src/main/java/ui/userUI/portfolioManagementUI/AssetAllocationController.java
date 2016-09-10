@@ -11,11 +11,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.Chart;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.chart.*;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import ui.util.LineChartGenerator;
@@ -27,6 +24,7 @@ import util.UnitType;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.List;
+import java.util.Observable;
 import java.util.ResourceBundle;
 
 /**
@@ -38,11 +36,13 @@ import java.util.ResourceBundle;
  */
 public class AssetAllocationController implements Initializable {
     @FXML
-    private TableView solidTable;
+    private TableView<ProfitRateInfo4Code> solidTable;
     @FXML
-    private TableView profitTable;
+    private TableView<ProfitRateInfo4Code> profitTable;
     @FXML
-    private AnchorPane chartPane;
+    private LineChart<String, Number> lineChart;
+    @FXML
+    private AnchorPane basicPane;
     @FXML
     private ComboBox<TimeType> timeTypeBox;
     @FXML
@@ -54,6 +54,11 @@ public class AssetAllocationController implements Initializable {
 
     private MarketLogic marketLogic;
 
+    private UnitType unitType = UnitType.WEEK;
+    private TimeType timeType = TimeType.ONE_MONTH;
+    private ChartType chartType = ChartType.NET_WORTH_PERFORMANCE_FQ;
+    private final String greenFill = "-fx-text-fill:#9ac94a;";
+    private final String redFill = "-fx-text-fill:#eb494d;";
 
     /**
      * 权益类
@@ -68,7 +73,12 @@ public class AssetAllocationController implements Initializable {
 
     public static String profitFundKey = "000011";
     public static String solidProfitKey = "000012";
-    public static final String[] names = {"权益类基金", "权益类基金基准", "沪深300指数"};
+    public String[] names = {"权益类基金", "权益类基金基准", "沪深300指数"};
+
+    /**
+     * 储存当前选择的基金信息
+     */
+    private ProfitRateInfo4Code tempValue;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -86,7 +96,8 @@ public class AssetAllocationController implements Initializable {
         addBoxListener(timeTypeBox);
         addBoxListener(unitTypeBox);
         addBoxListener(chartTypeBox);
-        initLineChart(UnitType.WEEK, TimeType.ONE_MONTH, ChartType.NET_WORTH_PERFORMANCE_FQ);
+        lineChart.setTitle("基金净值表现");
+        initLineChart(null);
     }
 
 
@@ -96,8 +107,44 @@ public class AssetAllocationController implements Initializable {
             String id = column.getId();
             column.setCellValueFactory(
                     new PropertyValueFactory<ProfitRateInfo4Code, String>(id));
+            setColumnColor(column);
+        }
+        profitTable.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> initLineChart(newValue));
+        solidTable.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> initLineChart(newValue));
+
+    }
+
+
+    public void initLineChart(ProfitRateInfo4Code value) {
+        if (value != null) {
+            lineChart.getData().clear();
+            this.tempValue = value;
+            List<ProfitChartInfo> list = null;
+            try {
+                list = marketLogic.getFundProfitInfoChart(value.getCode(), unitType, timeType, chartType);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            } catch (ObjectNotFoundException e) {
+                e.printStackTrace();
+            }
+            if (list != null) {
+                for (int i = 0; i < names.length; i++) {
+                    String name = names[i];
+                    XYChart.Series series = new XYChart.Series();
+                    series.setName(name);
+                    for (ProfitChartInfo chartInfo : list) {
+                        series.getData().add(new XYChart.Data(chartInfo.date, chartInfo.values[i]));
+                    }
+                    lineChart.getData().add(series);
+                }
+                NumberAxis yAxis = (NumberAxis) lineChart.getYAxis();
+                yAxis.setForceZeroInRange(false);
+            }
         }
     }
+
 
     /**
      * 把profitRateInfo加上code和name
@@ -131,49 +178,42 @@ public class AssetAllocationController implements Initializable {
         }
     }
 
-    public void initLineChart(UnitType unitType, TimeType timeType, ChartType chartType) {
-        chartPane.getChildren().clear();
-        LineChartGenerator generator = new LineChartGenerator(chartPane, names);
-        List<ProfitChartInfo> list = null;
-        try {
-            list = marketLogic.getFundProfitInfoChart(profitFundKey, unitType, timeType, chartType);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        } catch (ObjectNotFoundException e) {
-            e.printStackTrace();
-        }
-        if (list != null) {
-            String[] year = new String[list.size()];
-            double[][] nums = new double[3][list.size()];
-
-            for (int i = 0; i < list.size(); i++) {
-                ProfitChartInfo info = list.get(i);
-                year[i] = info.date;
-            }
-
-            for (int i = 0; i < list.size(); i++) {
-                ProfitChartInfo info = list.get(i);
-                for (int j = 0; j < 3; j++) {
-                    nums[j][i] = info.values[j];
-                }
-            }
-            generator.setData(year, nums);
-        }
-    }
-
-    public void addBoxListener(ComboBox box) {
+    private void addBoxListener(ComboBox box) {
         box.setOnAction((e) -> {
-            refreshBox();
+            if (timeTypeBox.getValue() != null) {
+                this.timeType = timeTypeBox.getValue();
+            }
+            if (chartTypeBox.getValue() != null) {
+                this.chartType = chartTypeBox.getValue();
+            }
+            if (unitTypeBox.getValue() != null) {
+                this.unitType = unitTypeBox.getValue();
+            }
+            initLineChart(tempValue);
         });
     }
 
-    public void refreshBox() {
-        TimeType tt = timeTypeBox.getValue();
-        ChartType ct = chartTypeBox.getValue();
-        UnitType ut = unitTypeBox.getValue();
-        if (tt != null && ct != null && ut != null) {
-            initLineChart(ut, tt, ct);
-        }
+    private void setColumnColor(TableColumn<ProfitRateInfo4Code, String> c) {
+        c.setCellFactory(column -> {
+            return new TableCell<ProfitRateInfo4Code, String>() {
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    setGraphic(null);
+                    setText(empty ? "" : getItem().toString());
+                    if (!isEmpty()) {
+                        if (item.contains("%")) {
+                            item = item.substring(0, item.length() - 1);
+                        }
+                        Double t = Double.parseDouble(item);
+                        if (t > 0) {
+                            c.setStyle(redFill);
+                        } else if (t < 0) {
+                            c.setStyle(greenFill);
+                        }
+                    }
+                }
+            };
+        });
     }
-
 }

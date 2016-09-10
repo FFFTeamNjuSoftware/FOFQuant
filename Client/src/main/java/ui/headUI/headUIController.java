@@ -110,15 +110,15 @@ public class headUIController implements Initializable {
         baseInfoLogic = blInterfaces.getBaseInfoLogic();
         searchTextField.setOnKeyReleased((e) -> {
             try {
-                searchList = baseInfoLogic.fuzzySearch(e.getText());
+                searchList = baseInfoLogic.fuzzySearch(searchTextField.getText());
             } catch (RemoteException e1) {
                 e1.printStackTrace();
             }
             if (searchList != null) {
                 AnchorPane pane = MainUI.getInstance().getMainPanel();
                 ObservableList<String> list = FXCollections.<String>observableArrayList();
-                for(CodeName codeName: searchList){
-                    list.add(codeName.name+":"+codeName.code);
+                for (CodeName codeName : searchList) {
+                    list.add(codeName.name + ":" + codeName.code);
                 }
                 ListView<String> listView = new ListView<>(list);
                 listView.setOrientation(Orientation.VERTICAL);
@@ -131,7 +131,7 @@ public class headUIController implements Initializable {
                                         final String oldvalue, final String newvalue) {
                         String[] strs = newvalue.toString().split(":");
                         IOHelper.writeName(strs[1]);
-                        MainUI.getInstance().changeScene("user_guidePanel","marketPanel");
+                        MainUI.getInstance().changeScene("user_guidePanel", "marketPanel");
                     }
                 });
 

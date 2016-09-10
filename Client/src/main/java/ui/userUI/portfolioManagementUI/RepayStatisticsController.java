@@ -25,6 +25,7 @@ import java.lang.reflect.Field;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -55,21 +56,34 @@ public class RepayStatisticsController implements Initializable {
 
     private ProfitStatisticsInfo profitInfo;
 
-    private String[] unitTypes = {"日", "周", "月", "季度", "年"};
+    private final String[] unitTypes = {"日", "周", "月", "季度", "年"};
+    private final String[] percentLabels = {"percentage", "average", "standardDeviation",
+            "threeRise", "threeDrop", "oneDrop", "twoRise", "oneRise", "twoDrop", ""};
+
+    private String sDate = "2016-01-01";
+    private String eDate = "2016-09-10";
+    private UnitType unitType = UnitType.DAY;
+    private String principle = "上证基金指数";
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         logic = BLInterfaces.getFofProfitStatisticsLogic();
         try {
+            logic.setStartDate(sDate);
+            logic.setEndDate(eDate);
+            logic.setUnitType(unitType);
+            logic.setProformanceBase(FOFUtilInfo.performanceBaseInfo.get(principle));
             profitInfo = logic.getProfitStatisticsInfo();
         } catch (RemoteException e) {
             e.printStackTrace();
+        } catch (ObjectNotFoundException e) {
+            e.printStackTrace();
+        } catch (ParameterException e) {
+            e.printStackTrace();
         }
-        initBasicInfo(infoOneGroup);
-        initBasicInfo(infoTwoGroup);
         setDate();
-        initChart();
         initComboBox();
+        refresh();
     }
 
     /**
@@ -78,6 +92,11 @@ public class RepayStatisticsController implements Initializable {
      * @param infoGroup
      */
     public void initBasicInfo(Group infoGroup) {
+        try {
+            profitInfo = logic.getProfitStatisticsInfo();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
         if (profitInfo != null) {
             ObservableList<Node> groups = infoGroup.getChildren();
             for (Node group : groups) {
@@ -93,7 +112,11 @@ public class RepayStatisticsController implements Initializable {
                         Field field1 = object.getClass().getDeclaredField(labelId);
                         field1.setAccessible(true);
                         Object num = field1.get(object);
-                        lab.setText(num.toString() + "");
+                        if (isContained(groupId)) {
+                            lab.setText(num.toString() + "%");
+                        }else{
+                            lab.setText(num.toString() + "");
+                        }
                     }
                 } catch (NoSuchFieldException e) {
                     e.printStackTrace();
@@ -109,32 +132,28 @@ public class RepayStatisticsController implements Initializable {
             LocalDate date = startDate.getValue();
             try {
                 if (judgeDate()) {
-                    logic.setStartDate(date.toString());
+                    this.sDate = date.toString();
+                    logic.setStartDate(sDate);
+                    refresh();
                 }
             } catch (ParameterException e1) {
                 e1.printStackTrace();
             } catch (RemoteException e1) {
                 e1.printStackTrace();
-            }
-            if (endDate.getValue() != null && repayPeriod.getValue() != null && statisticsPeriod.getValue() != null) {
-                initBasicInfo(infoOneGroup);
-                initBasicInfo(infoTwoGroup);
             }
         });
         endDate.setOnAction((e) -> {
             LocalDate date = endDate.getValue();
             try {
                 if (judgeDate()) {
-                    logic.setEndDate(date.toString());
+                    this.eDate = date.toString();
+                    logic.setEndDate(eDate);
+                    refresh();
                 }
             } catch (ParameterException e1) {
                 e1.printStackTrace();
             } catch (RemoteException e1) {
                 e1.printStackTrace();
-            }
-            if (startDate.getValue() != null && repayPeriod.getValue() != null && statisticsPeriod.getValue() != null) {
-                initBasicInfo(infoOneGroup);
-                initBasicInfo(infoTwoGroup);
             }
         });
     }
@@ -149,11 +168,12 @@ public class RepayStatisticsController implements Initializable {
         }
         if (list != null) {
             for (PriceInfo info : list) {
-                dataSeries.getData().add(new XYChart.Data(info.date, info.rise));
+                String simpleDate = info.date.substring(5);
+                dataSeries.getData().add(new XYChart.Data(simpleDate, info.rise));
             }
         }
         BarChartGenerator g = new BarChartGenerator(barChartPane, "", "回报（%）", dataSeries);
-        g.setTitle("回报统计（全球投资组合管理演示）");
+        g.setTitle("回报统计");
     }
 
     public void initComboBox() {
@@ -161,18 +181,15 @@ public class RepayStatisticsController implements Initializable {
         repayPeriod.setOnAction((e) -> {
             String str = repayPeriod.getValue();
             if (str != null) {
-                String code = FOFUtilInfo.performanceBaseInfo.get(str);
+                this.principle = FOFUtilInfo.performanceBaseInfo.get(str);
                 try {
-                    logic.setProformanceBase(code);
+                    logic.setProformanceBase(principle);
+                    refresh();
                 } catch (RemoteException e1) {
                     e1.printStackTrace();
                 } catch (ObjectNotFoundException e1) {
                     e1.printStackTrace();
                 }
-            }
-            if (startDate.getValue() != null && endDate.getValue() != null && statisticsPeriod.getValue() != null) {
-                initBasicInfo(infoOneGroup);
-                initBasicInfo(infoTwoGroup);
             }
         });
         statisticsPeriod.getItems().addAll(unitTypes);
@@ -186,14 +203,12 @@ public class RepayStatisticsController implements Initializable {
                     }
                 }
                 try {
-                    logic.setUnitType(UnitType.values()[i]);
+                    this.unitType = UnitType.values()[i];
+                    logic.setUnitType(unitType);
+                    refresh();
                 } catch (RemoteException e1) {
                     e1.printStackTrace();
                 }
-            }
-            if (startDate.getValue() != null && endDate.getValue() != null && repayPeriod.getValue() != null) {
-                initBasicInfo(infoOneGroup);
-                initBasicInfo(infoTwoGroup);
             }
         });
     }
@@ -211,5 +226,21 @@ public class RepayStatisticsController implements Initializable {
         } else {
             return true;
         }
+    }
+
+    private void refresh() {
+        initBasicInfo(infoOneGroup);
+        initBasicInfo(infoTwoGroup);
+        barChartPane.getChildren().clear();
+        initChart();
+    }
+
+    private boolean isContained(String id) {
+        for (int i = 0; i < percentLabels.length; i++) {
+            if (percentLabels[i].equals(id)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
