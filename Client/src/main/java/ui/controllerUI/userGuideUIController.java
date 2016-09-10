@@ -78,9 +78,6 @@ public class userGuideUIController implements Initializable {
 
 		}
 		mainUI = MainUI.getInstance();
-//		marketBtn.setOnAction((e) -> {
-//			mainUI.changeScene("user_guidePanel", "analyseHomePanel");
-//		});
 		combinationBtn.setOnAction((e) -> {
 			try {
 				if(baseInfoLogic.hasGeneratedFofCombination()){

@@ -24,7 +24,7 @@
       </image>
     </ImageView>
       <Line endX="463.0" endY="502.0" startX="463.0" startY="108.0" stroke="#bbbbbb" />
-      <GridPane layoutX="151.0" layoutY="122.0" prefHeight="30.0" prefWidth="289.0">
+      <GridPane layoutX="151.0" layoutY="122.0" prefHeight="30.0" prefWidth="335.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="133.0" minWidth="10.0" prefWidth="118.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="161.0" minWidth="10.0" prefWidth="157.0" />
@@ -38,7 +38,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label fx:id="label1" contentDisplay="CENTER" prefHeight="79.0" prefWidth="132.0" text="30%" textFill="WHITE" GridPane.columnIndex="1">
+            <Label fx:id="label1" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="79.0" prefWidth="200.0" text="30%" textFill="WHITE" GridPane.columnIndex="1">
                <font>
                   <Font name="Impact" size="64.0" />
                </font>
@@ -48,19 +48,19 @@
             </Label>
          </children>
       </GridPane>
-      <GridPane layoutX="532.0" layoutY="122.0" prefHeight="30.0" prefWidth="289.0">
+      <GridPane layoutX="532.0" layoutY="122.0" prefHeight="30.0" prefWidth="357.0">
          <children>
             <Label text="固定收益类基金" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label fx:id="label2" contentDisplay="CENTER" prefHeight="79.0" prefWidth="132.0" text="70%" textFill="WHITE" GridPane.columnIndex="1">
+            <Label fx:id="label2" contentDisplay="CENTER" prefHeight="79.0" prefWidth="170.0" text="70%" textFill="WHITE" GridPane.columnIndex="1">
                <font>
                   <Font name="Impact" size="64.0" />
                </font>
                <GridPane.margin>
-                  <Insets left="18.0" />
+                  <Insets />
                </GridPane.margin>
             </Label>
          </children>
@@ -72,13 +72,13 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <TableView fx:id="build3Table1" blendMode="LIGHTEN" layoutX="151.0" layoutY="146.0" prefHeight="350.0" prefWidth="261.0">
+      <TableView fx:id="build3Table1" blendMode="LIGHTEN" layoutX="151.0" layoutY="165.0" prefHeight="330.0" prefWidth="261.0">
         <columns>
           <TableColumn fx:id="column1" prefWidth="162.0" resizable="false" />
           <TableColumn fx:id="column2" prefWidth="98.0" resizable="false" />
         </columns>
       </TableView>
-      <TableView fx:id="build3Table2" blendMode="LIGHTEN" layoutX="532.0" layoutY="146.0" prefHeight="350.0" prefWidth="269.0">
+      <TableView fx:id="build3Table2" blendMode="LIGHTEN" layoutX="532.0" layoutY="165.0" prefHeight="330.0" prefWidth="269.0">
          <columns>
             <TableColumn fx:id="column3" prefWidth="162.0" resizable="false" />
             <TableColumn fx:id="column4" prefWidth="106.0" resizable="false" />

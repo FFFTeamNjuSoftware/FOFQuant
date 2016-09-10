@@ -23,8 +23,8 @@ public class adjustParameterUIController implements Initializable {
     private TextField stable_field,lowRisk_field,maxBack_field,noRisk_field,highRisk_field,fof_field;
     @FXML
     private ComboBox win_box,has_box;
-    private double[] hasTypes = new double[]{30,60, 90,180};
-    private double[] winTypes = new double[]{60,90,180,360};
+    private String[] hasTypes = new String[]{"30","60", "90","180"};
+    private String[] winTypes = new String[]{"60","90","180","360"};
 
     private BLInterfaces blInterfaces = new BLInterfaces();
     private BaseInfoLogic baseInfo;
@@ -52,11 +52,33 @@ public class adjustParameterUIController implements Initializable {
         noRisk_field.setPromptText(constParameter.noRiskProfit+"");
         highRisk_field.setPromptText(constParameter.highRiskIndex+"");
         fof_field.setPromptText(constParameter.stopLossValue+"");
+
+        stable_field.setText(constParameter.stableIndex+"");
+        lowRisk_field.setText(constParameter.lowRiskIndex+"");
+        maxBack_field.setText(constParameter.maxRetreatRatio+"");
+        noRisk_field.setText(constParameter.noRiskProfit+"");
+        highRisk_field.setText(constParameter.highRiskIndex+"");
+        fof_field.setText(constParameter.stopLossValue+"");
         win_box.setValue(constParameter.windowTime);
         has_box.setValue(constParameter.holdTime);
         win_box.setItems(FXCollections.observableArrayList(winTypes));
         has_box.setItems(FXCollections.observableArrayList(hasTypes));
 
+        win_box.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                System.out.println("the selected win is: " + winTypes[newValue.intValue()]);
+                newConstParameter.windowTime = Double.parseDouble(winTypes[newValue.intValue()]);
+            }
+        });
+
+        has_box.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                System.out.println("the selected hold is: " + hasTypes[newValue.intValue()]);
+                newConstParameter.holdTime = Double.parseDouble( hasTypes[newValue.intValue()]);
+            }
+        });
 
     }
     @FXML
@@ -68,23 +90,10 @@ public class adjustParameterUIController implements Initializable {
         newConstParameter.stableIndex =  Double.parseDouble(stable_field.getText());
         newConstParameter.maxRetreatRatio = Double.parseDouble(maxBack_field.getText());
         // win_box,has_box
-        win_box.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                System.out.println("the selected win is: " + winTypes[newValue.intValue()]);
-                newConstParameter.windowTime = winTypes[newValue.intValue()];
-            }
-        });
-        has_box.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                System.out.println("the selected hold is: " + hasTypes[newValue.intValue()]);
-                newConstParameter.holdTime = hasTypes[newValue.intValue()];
-            }
-        });
 
         try {
             baseInfo.updateConstParameter(newConstParameter);
+            System.out.println("......修改成功......");
         } catch (RemoteException e) {
             e.printStackTrace();
         }

@@ -2,6 +2,7 @@ package ui.userUI.portfolioManagementUI;
 
 import RMIModule.BLInterfaces;
 import beans.FOFHistoryInfo;
+import beans.FOFQuickInfo;
 import bl.fof.FOFBaseInfoLogic;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,6 +38,8 @@ public class analyseHomeUIController implements Initializable {
 	private Button btn1, btn2, btn3, btn4, btn5, btn6, btn7;
 	@FXML
 	private ImageView Img1, Img2, Img3, Img4, Img5, Img6, Img7,changePositionBt;
+	@FXML
+	private Label idLabel,dateLabel,assetLabel,returnLabel;
 
 	private MainUI mainUI;
 	@FXML
@@ -54,16 +57,29 @@ public class analyseHomeUIController implements Initializable {
 	private Label redLineLb, blueLineLb;
 	private List<FOFHistoryInfo> fofHistoryInfoList;
 	private FOFBaseInfoLogic fofBaseInfoLogic;
+	private FOFQuickInfo quickInfo;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		analyseHomeUIController = this;
 		fofBaseInfoLogic = BLInterfaces.getFofBaseInfoLogic();
-		//   FXMLLoader fxmlLoader=new FXMLLoader(generalAnalysisUIController.class.getResource("generalAnalysisPanel.fxml"));
-		//     generalAnalysisUIController=fxmlLoader.getController();
 		mainUI = MainUI.getInstance();
+		initInfo();
+	}
+
+	private void initInfo(){
 		initButton();
 		initAreaChart();
+		try {
+			quickInfo = fofBaseInfoLogic.getFOFQuickInfo();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		idLabel.setText(quickInfo.performanceBase);
+		dateLabel.setText(quickInfo.establish_date);
+		assetLabel.setText(quickInfo.netAsset+"");
+		returnLabel.setText(quickInfo.totalProfit+"");
+
 	}
 
 	private void initButton() {
@@ -89,42 +105,36 @@ public class analyseHomeUIController implements Initializable {
 	@FXML
 	public void toBreakevenPanel() {
 		mainUI.setIndex(1);
-		// generalAnalysisUIController.setK(1);
 		mainUI.changeScene("user_guidePanel", "generalAnalysisPanel");
 	}
 
 	@FXML
 	public void toAttributionPanel() {
 		mainUI.setIndex(2);
-		//  generalAnalysisUIController.setK(2);
 		mainUI.changeScene("user_guidePanel", "generalAnalysisPanel");
 	}
 
 	@FXML
 	public void toReturnStatsPanel() {
 		mainUI.setIndex(3);
-		//  generalAnalysisUIController.setK(3);
 		mainUI.changeScene("user_guidePanel", "generalAnalysisPanel");
 	}
 
 	@FXML
 	public void toAssetAllocationPanel() {
 		mainUI.setIndex(4);
-		//   generalAnalysisUIController.setK(4);
 		mainUI.changeScene("user_guidePanel", "generalAnalysisPanel");
 	}
 
 	@FXML
 	public void toChangePositionPanel() {
 		mainUI.setIndex(5);
-		//  generalAnalysisUIController.setK(5);
 		mainUI.changeScene("user_guidePanel", "generalAnalysisPanel");
 	}
 
 	@FXML
 	public void toAppraisalPanel() {
 		mainUI.setIndex(6);
-		//  generalAnalysisUIController.setK(6);
 		mainUI.changeScene("user_guidePanel", "generalAnalysisPanel");
 	}
 
