@@ -39,6 +39,7 @@ import static util.FOFUtilInfo.performanceBaseInfo;
 
 /**
  * Created by OptimusPrime on 2016/8/29.
+ * 实时监控
  */
 public class Analysis1Controller implements Initializable {
 	@FXML
@@ -96,8 +97,7 @@ public class Analysis1Controller implements Initializable {
 //		gradeCombobox init
 //		gradeCb.setValue("沪深300");
 		gradeCb.setItems(FXCollections.observableArrayList(InitHelper.referType));
-
-		gradeCb.getSelectionModel().selectFirst();
+		gradeCb.setValue("上证综指");
 		gradeCb.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -190,6 +190,10 @@ public class Analysis1Controller implements Initializable {
 					return new TableRowControl(netWorthTable);
 				}
 			});
+			TableColumn<FundInFOFQuickInfo,String>[] cs=new TableColumn[]{fundCodeCm, fundNameCm, timeCm, fundTypeCm,
+					predictRiseCm,predictRiseValueCm,floatProfitCm,floatProfitRatioCm,
+					totalProfitCm,totalProfitRatioCm,dayProfitCm,finishedProfitCm};
+
 			fundCodeCm.setCellValueFactory(cellData -> new SimpleStringProperty(
 					cellData.getValue().fundCode));
 			fundNameCm.setCellValueFactory(cellData -> new SimpleStringProperty(
@@ -224,6 +228,7 @@ public class Analysis1Controller implements Initializable {
 					cellData.getValue().totalProfitRatio+"%"));
 			finishedProfitCm.setCellValueFactory(cellData -> new SimpleStringProperty(
 					cellData.getValue().finishedProfit+""));
+//			setColumnSortable(cs,false);
 		}
 //		TableColumn<FundInFOFQuickInfo,String>[] cs={predictRiseCm,predictRiseValueCm,floatProfitCm,floatProfitRatioCm,totalProfitCm,totalProfitRatioCm,dayProfitCm,finishedProfitCm};
 		setColumnColor(predictRiseValueCm);
@@ -235,6 +240,11 @@ public class Analysis1Controller implements Initializable {
 		setColumnColor(dayProfitCm);
 		setColumnColor(finishedProfitCm);
 
+	}
+	private void setColumnSortable(TableColumn<FundInFOFQuickInfo,String>[] columns,boolean t){
+		for(int i=0;i<columns.length;i++){
+			columns[i].setSortable(t);
+		}
 	}
 
 

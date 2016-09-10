@@ -3,6 +3,7 @@ package ui.userUI.portfolioManagementUI;
 import RMIModule.BLInterfaces;
 import beans.FOFProfitAnalyse;
 import beans.FOFQuickInfo;
+import beans.FundInFOFQuickInfo;
 import bl.fof.FOFBaseInfoLogic;
 import bl.fof.FOFProfitAnalyseLogic;
 import exception.ObjectNotFoundException;
@@ -35,6 +36,7 @@ import static util.FOFUtilInfo.performanceBaseInfo;
 
 /**
  * Created by OptimusPrime on 2016/8/28.
+ * 盈亏分析
  */
 public class Analysis2Controller implements Initializable {
 	@FXML
@@ -58,7 +60,7 @@ public class Analysis2Controller implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		this.analysis2Controller = this;
 		this.profitAnalyseLogic = BLInterfaces.getFofProfitAnalyseLogic();
-		this.fofBaseInfoLogic=BLInterfaces.getFofBaseInfoLogic();
+		this.fofBaseInfoLogic = BLInterfaces.getFofBaseInfoLogic();
 
 
 //		table1.addEventFilter(ScrollEvent.SCROLL,new EventHandler<ScrollEvent>() {
@@ -81,7 +83,7 @@ public class Analysis2Controller implements Initializable {
 		initTable();
 	}
 
-	public void initComboboxes()  {
+	public void initComboboxes() {
 //		this gradeCombobox
 		gradeCb.setItems(FXCollections.observableArrayList(InitHelper.referType));
 		gradeCb.getSelectionModel().selectFirst();
@@ -103,13 +105,13 @@ public class Analysis2Controller implements Initializable {
 		});
 //		init startCombobox
 		try {
-			fofQuickInfo=fofBaseInfoLogic.getFOFQuickInfo();
+			fofQuickInfo = fofBaseInfoLogic.getFOFQuickInfo();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-		LocalDate nowDate=LocalDate.now();
-		LocalDate  nowLocalDate=LocalDate.parse(fofQuickInfo.establish_date);
-		LocalDate startTempDate=nowLocalDate;
+		LocalDate nowDate = LocalDate.now();
+		LocalDate nowLocalDate = LocalDate.parse(fofQuickInfo.establish_date);
+		LocalDate startTempDate = nowLocalDate;
 		List<LocalDate> startDateList = new ArrayList<LocalDate>();
 		do {
 			startDateList.add(startTempDate);
@@ -138,9 +140,9 @@ public class Analysis2Controller implements Initializable {
 		Collections.sort(endDateList, new Comparator<LocalDate>() {
 			@Override
 			public int compare(LocalDate o1, LocalDate o2) {
-				if(o1.isBefore(o2)){
+				if (o1.isBefore(o2)) {
 					return 1;
-				}else{
+				} else {
 					return -1;
 				}
 			}
@@ -173,10 +175,10 @@ public class Analysis2Controller implements Initializable {
 	}
 
 	public void initTable() {
-		if(table1.getItems()!=null){
+		if (table1.getItems() != null) {
 			table1.getItems().clear();
 		}
-		if(table2.getItems()!=null){
+		if (table2.getItems() != null) {
 			table2.getItems().clear();
 		}
 		try {
@@ -187,7 +189,7 @@ public class Analysis2Controller implements Initializable {
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-		System.out.println("profitAnalyse_three.test:"+profitAnalyse_three.alpha+"--"+LocalDateTime.now());
+		System.out.println("profitAnalyse_three.test:" + profitAnalyse_three.alpha + "--" + LocalDateTime.now());
 		table1.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		table2.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
@@ -226,8 +228,15 @@ public class Analysis2Controller implements Initializable {
 		table2column2.setCellValueFactory(new PropertyValueFactory<TableData, Double>("two"));
 		table2column3.setCellValueFactory(new PropertyValueFactory<TableData, Double>("three"));
 		table2column4.setCellValueFactory(new PropertyValueFactory<TableData, Double>("four"));
+		TableColumn[] columns = new TableColumn[]{table1column1, table1column2, table1column3, table1column4, table2column1, table2column2, table2column3, table2column4};
+		setColumnSortable(columns,false);
 
+	}
 
+	private void setColumnSortable(TableColumn[] columns, boolean t) {
+		for (int i = 0; i < columns.length; i++) {
+			columns[i].setSortable(t);
+		}
 	}
 
 	public static class TableData {

@@ -21,6 +21,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.util.Callback;
 import starter.MainUI;
 import ui.userUI.allFundUI.allFundUIController;
@@ -34,6 +35,7 @@ import java.util.*;
 
 /**
  * Created by OptimusPrime on 2016/9/4.
+ * 仓位调整
  */
 public class ChangePositionController implements Initializable {
 	@FXML
@@ -80,6 +82,7 @@ public class ChangePositionController implements Initializable {
 		slider1.setMajorTickUnit(50);
 		slider1.setMinorTickCount(100);
 		slider1.setBlockIncrement(0.0001);
+		slider1.setDisable(true);
 		ratioLb1.textProperty().bindBidirectional(slider1.valueProperty(),new DecimalFormat("#.##%"));
 
 		slider2.setMin(0);
@@ -89,6 +92,7 @@ public class ChangePositionController implements Initializable {
 		slider2.setMajorTickUnit(50);
 		slider2.setMinorTickCount(100);
 		slider2.setBlockIncrement(0.0001);
+		slider2.setDisable(true);
 		ratioLb2.textProperty().bindBidirectional(slider2.valueProperty(),new DecimalFormat("#.##%"));
 
 	}
@@ -140,8 +144,12 @@ public class ChangePositionController implements Initializable {
 			});
 			codeCm1.setCellValueFactory(cellData -> new SimpleStringProperty(
 					cellData.getValue().getKey()));
+			setColumnOrange(codeCm1);
+			codeCm1.setSortable(false);
 			nameCm1.setCellValueFactory(cellData -> new SimpleStringProperty(
 					cellData.getValue().getName()));
+			setColumnOrange(nameCm1);
+			nameCm1.setSortable(false);
 			sliderCm1
 					.setCellFactory(new Callback<TableColumn<DisplayType, Number>, TableCell<DisplayType, Number>>() {
 						@Override
@@ -159,6 +167,7 @@ public class ChangePositionController implements Initializable {
 					return param.getValue().valueProperty();
 				}
 			});
+			sliderCm1.setSortable(false);
 			ratioCm1.setCellValueFactory(cellData -> {
 				DisplayType data = cellData.getValue();
 				return Bindings.createStringBinding(() -> {
@@ -172,6 +181,7 @@ public class ChangePositionController implements Initializable {
 					}
 				}, data.valueProperty());
 			});
+			ratioCm1.setSortable(false);
 		}
 		if (displayTypeList2 != null) {
 			Pane tableHeader = (Pane) changeTable1.lookup(".tableHeaderRow");
@@ -196,8 +206,12 @@ public class ChangePositionController implements Initializable {
 			});
 			codeCm2.setCellValueFactory(cellData -> new SimpleStringProperty(
 					cellData.getValue().getKey()));
+			setColumnOrange(codeCm2);
+			codeCm2.setSortable(false);
 			nameCm2.setCellValueFactory(cellData -> new SimpleStringProperty(
 					cellData.getValue().getName()));
+			setColumnOrange(nameCm2);
+			nameCm2.setSortable(false);
 			sliderCm2
 					.setCellFactory(new Callback<TableColumn<DisplayType, Number>, TableCell<DisplayType, Number>>() {
 						@Override
@@ -215,6 +229,7 @@ public class ChangePositionController implements Initializable {
 					return param.getValue().valueProperty();
 				}
 			});
+			sliderCm2.setSortable(false);
 			ratioCm2.setCellValueFactory(cellData -> {
 				DisplayType data = cellData.getValue();
 				return Bindings.createStringBinding(() -> {
@@ -228,6 +243,7 @@ public class ChangePositionController implements Initializable {
 					}
 				}, data.valueProperty());
 			});
+			ratioCm2.setSortable(false);
 		}
 	}
 
@@ -283,6 +299,23 @@ public class ChangePositionController implements Initializable {
 		}
 
 	}
+	private void setColumnOrange(TableColumn<DisplayType,String> p){
+		p.setCellFactory(new Callback<TableColumn<DisplayType, String>, TableCell<DisplayType, String>>() {
+			@Override
+			public TableCell<DisplayType, String> call(TableColumn<DisplayType, String> param) {
+				return new TableCell<DisplayType, String>(){
+					@Override
+					public void updateItem(String item,boolean empty){
+						super.updateItem(item, empty);
+						if (!isEmpty()) {
+							this.setTextFill(new Color(252/255.0,242/255.0,70/255.0,1));
+							setText(item);
+						}
+					}
+				};
+			}
+		});
+	}
 
 	public List<DisplayType> getDisplayTypeList(Map<String, Double> map) {
 		List<DisplayType> list=new ArrayList<DisplayType>();
@@ -290,17 +323,13 @@ public class ChangePositionController implements Initializable {
 			list = new ArrayList<DisplayType>();
 			for (Map.Entry<String, Double> entry : map.entrySet()) {
 				FundInfo info = null;
-				if(entry.getKey()!=null&&baseInfoLogic!=null){
-					if(!entry.getKey().equals("092002")){
-						try {
-							System.out.println("The fundcode is:"+entry.getKey());
-							info = baseInfoLogic.getFundBaseInfo(entry.getKey());
-						} catch (RemoteException e) {
-							e.printStackTrace();
-						} catch (ObjectNotFoundException e) {
-							e.printStackTrace();
-						}
-					}
+				if(entry.getKey()!=null&&baseInfoLogic!=null) try {
+					System.out.println("The fundcode is:" + entry.getKey());
+					info = baseInfoLogic.getFundBaseInfo(entry.getKey());
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				} catch (ObjectNotFoundException e) {
+					e.printStackTrace();
 				}
 				DisplayType temp = null;
 				if (info != null) {
@@ -388,5 +417,6 @@ public class ChangePositionController implements Initializable {
 		}
 
 	}
+
 
 }
