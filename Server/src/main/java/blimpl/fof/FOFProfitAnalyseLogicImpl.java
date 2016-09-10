@@ -160,18 +160,18 @@ public class FOFProfitAnalyseLogicImpl extends UnicastRemoteObject implements FO
             ConstParameter constParameter = BLController.getBaseInfoLogic().getConstaParameteer();
             double[] alphaBeta = TypeConverter.getDoubleResults(calculateTool.singleIndexModule(2, base_info_mwn,
                     fof_info_mwn, constParameter.noRiskProfit / 100, 1.0), 2);
-            fofProfitAnalyse.alpha = alphaBeta[0] ;
-            fofProfitAnalyse.beta = alphaBeta[1] ;
+            fofProfitAnalyse.alpha = alphaBeta[0];
+            fofProfitAnalyse.beta = alphaBeta[1];
             fofProfitAnalyse.treynor = TypeConverter.getSingleDoubleResult(calculateTool.calTreynor(1,
-                    fof_info_mwn, base_info_mwn, constParameter.noRiskProfit / 100, 1.0)) ;
+                    fof_info_mwn, base_info_mwn, constParameter.noRiskProfit / 100, 1.0));
             fofProfitAnalyse.sharpe = TypeConverter.getSingleDoubleResult(calculateTool.calSharpe
-                    (1, fof_info_mwn, constParameter.noRiskProfit / 100, 1.0)) ;
+                    (1, fof_info_mwn, constParameter.noRiskProfit / 100, 1.0));
             fofProfitAnalyse.yearWaveRate = TypeConverter.getSingleDoubleResult(calculateTool
-                    .yearWaveRate(1, fof_info_mwn, 1.0)) ;
+                    .yearWaveRate(1, fof_info_mwn, 1.0)) * 100;
             fofProfitAnalyse.correlationCoefficent = TypeConverter.getSingleDoubleResult
-                    (calculateTool.relatedIndex(1, base_info_mwn, fof_info_mwn)) ;
+                    (calculateTool.relatedIndex(1, base_info_mwn, fof_info_mwn));
             fofProfitAnalyse.R2 = TypeConverter.getSingleDoubleResult(calculateTool
-                    .determination_coef(1, fof_info_mwn, base_info_mwn)) ;
+                    .determination_coef(1, fof_info_mwn, base_info_mwn));
             fofProfitAnalyse.sortino = TypeConverter.getSingleDoubleResult(calculateTool
                     .calSortino(1, fof_info_mwn, constParameter.noRiskProfit / 100, 1.0));
             fofProfitAnalyse.trackingError = TypeConverter.getSingleDoubleResult(calculateTool

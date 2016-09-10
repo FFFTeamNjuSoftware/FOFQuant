@@ -4,6 +4,6 @@ function re = yearWaveRate(data,T)
 b=size(data,2);
 times=252.0/T;
 sd=starndarDeviation(data);
-mul=(times*(b-1))^0.5;
+mul=(times)^0.5;
 re=sd*mul;
 end

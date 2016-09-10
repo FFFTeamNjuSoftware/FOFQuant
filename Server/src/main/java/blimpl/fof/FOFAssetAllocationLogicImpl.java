@@ -102,7 +102,7 @@ public class FOFAssetAllocationLogicImpl extends UnicastRemoteObject implements
                 FundQuickInfosEntity fundQuickInfosEntity = baseInfoDataService.getFundQuickInfo(code);
                 double price = fundQuickInfosEntity.getNetWorth();
                 double changeWeight = newWeight.get(code) - fofHoldInfoEntity.getRatio() / 100;
-                int changeNum = (int) (totalValue * changeWeight / price);
+                double changeNum = (long) (totalValue * changeWeight / price);
                 if (changeNum == 0)
                     continue;
                 PositionChangeEntity positionChangeEntity = new PositionChangeEntity();
