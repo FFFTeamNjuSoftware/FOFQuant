@@ -39,5 +39,8 @@ public interface FOFProfitAnalyseLogic extends Remote {
      */
     void setProformanceBase(String indexCode) throws RemoteException, ObjectNotFoundException;
 
+
+
+
     FOFProfitAnalyse getFOFProfitAnalyse(TimeType timeType) throws RemoteException;
 }

@@ -49,7 +49,8 @@ public class Analysis1Controller implements Initializable {
 	@FXML
 	private LineChart netWorthChart;
 	@FXML
-	private TableColumn<FundInFOFQuickInfo, String> fundCodeCm, fundNameCm, timeCm, fundTypeCm,
+	private TableColumn<FundInFOFQuickInfo, String> fundCodeCm, fundNameCm, timeCm,
+//			fundTypeCm,
 			predictRiseCm,predictRiseValueCm,floatProfitCm,floatProfitRatioCm,
 			totalProfitCm,totalProfitRatioCm,dayProfitCm,finishedProfitCm;
 	@FXML
@@ -95,7 +96,6 @@ public class Analysis1Controller implements Initializable {
 
 	public void initComboboxes() {
 //		gradeCombobox init
-//		gradeCb.setValue("沪深300");
 		gradeCb.setItems(FXCollections.observableArrayList(InitHelper.referType));
 		gradeCb.setValue("上证综指");
 		gradeCb.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
@@ -111,7 +111,6 @@ public class Analysis1Controller implements Initializable {
 
 		});
 //		chartCb1 init
-//		chartCb1.setValue(ChartType.NET_WORTH_PERFORMANCE_FQ);
 		chartCb1.setItems(FXCollections.observableArrayList(chartTypes));
 		chartCb1.getSelectionModel().selectFirst();
 		chartCb1.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ChartType>() {
@@ -125,7 +124,6 @@ public class Analysis1Controller implements Initializable {
 		});
 
 //		chartCb2 init
-//		chartCb2.setValue(UnitType.MONTH);
 		chartCb2.setItems(FXCollections.observableArrayList(unitTypes));
 		chartCb2.getSelectionModel().selectFirst();
 		chartCb2.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<UnitType>() {
@@ -182,7 +180,8 @@ public class Analysis1Controller implements Initializable {
 	public void initTable() {
 		if (fundInFOFQuickInfoList == null) {
 			getFundInFOFQuickinfo();
-		} else {
+		}
+		if(fundInFOFQuickInfoList!=null){
 			netWorthTable.setItems(FXCollections.observableArrayList(fundInFOFQuickInfoList));
 			netWorthTable.setRowFactory(new Callback<TableView, TableRow>() {
 				@Override
@@ -190,7 +189,8 @@ public class Analysis1Controller implements Initializable {
 					return new TableRowControl(netWorthTable);
 				}
 			});
-			TableColumn<FundInFOFQuickInfo,String>[] cs=new TableColumn[]{fundCodeCm, fundNameCm, timeCm, fundTypeCm,
+			TableColumn<FundInFOFQuickInfo,String>[] cs=new TableColumn[]{fundCodeCm, fundNameCm, timeCm,
+//					fundTypeCm,
 					predictRiseCm,predictRiseValueCm,floatProfitCm,floatProfitRatioCm,
 					totalProfitCm,totalProfitRatioCm,dayProfitCm,finishedProfitCm};
 
@@ -200,8 +200,8 @@ public class Analysis1Controller implements Initializable {
 					cellData.getValue().fundName));
 			timeCm.setCellValueFactory(cellData -> new SimpleStringProperty(
 					cellData.getValue().time));
-			fundTypeCm.setCellValueFactory(cellData -> new SimpleStringProperty(
-					cellData.getValue().fundType));
+//			fundTypeCm.setCellValueFactory(cellData -> new SimpleStringProperty(
+//					cellData.getValue().fundType));
 			predictRiseValueCm.setCellValueFactory(cellData -> new SimpleStringProperty(
 					cellData.getValue().predictRiseValue+""));
 			predictRiseCm.setCellValueFactory(cellData -> new SimpleStringProperty(
@@ -298,6 +298,8 @@ public class Analysis1Controller implements Initializable {
 			netWorthChart.setAlternativeColumnFillVisible(false);
 			netWorthChart.setLegendVisible(false);
 
+			netWorthChart.setStyle("-fx-stroke-width: 0.05px;");
+
 			categoryAxis.setTickLabelGap(10);
 			categoryAxis.isGapStartAndEnd();
 			categoryAxis.setTickMarkVisible(true);
@@ -332,23 +334,10 @@ public class Analysis1Controller implements Initializable {
 						String fundName=fundNameCm.getCellData(selectedIndex);
 						displayNameLb.setText(fundName+" ( "+fundCode+" ) ");
 						redLineLb.setText(fundName);
+						selectFundcode=fundCode;
 						initNetWorthChart(fundCode);
-
-//						selectedIndex = TableRowControl.this.getIndex();
-//						fundID = codeColumn.getCellData(selectedIndex);
-//						fundName = full_nameColumn.getCellData(selectedIndex);
-//						fullNameLabel.setText(fundName);
-//						fundIDLabel.setText(fundID);
-//						lineChart1.getData().clear();
-//						lineChart2.getData().clear();
-//						initChart1(fundID);
-//						initChart2(fundID);
 					}
 					if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
-//						selectedIndex = TableRowControl.this.getIndex();
-//						fundId = codeColumn.getCellData(selectedIndex);
-//						IOHelper.writeName(fundId);
-//						MainUI.getInstance().changeScene("user_guidePanel", "marketPanel");
 					}
 
 				}

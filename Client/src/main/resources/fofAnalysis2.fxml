@@ -77,7 +77,7 @@
                   <Label text="最大跌幅天数" textFill="WHITE" GridPane.rowIndex="6" />
                   <Label text="最大跌幅复苏期间" textFill="WHITE" GridPane.rowIndex="7" />
                   <Label text="年化平均回报" textFill="WHITE" GridPane.rowIndex="8" />
-                  <Label text="年华平均超额回报" textFill="WHITE" GridPane.rowIndex="9" />
+                  <Label text="年化平均超额回报" textFill="WHITE" GridPane.rowIndex="9" />
                   <Label text="下行风险" textFill="WHITE" GridPane.rowIndex="10" />
                </children>
                <columnConstraints>
@@ -105,7 +105,7 @@
                   <TableColumn fx:id="table1column1" prefWidth="76.0" text="最近3个月" />
                   <TableColumn fx:id="table1column2" prefWidth="76.0" text="最近6个月" />
                   <TableColumn fx:id="table1column3" prefWidth="76.0" text="年初至今" />
-                  <TableColumn fx:id="table1column4" prefWidth="76.0" text="自建立" />
+                  <TableColumn fx:id="table1column4" prefWidth="76.0" text="选择区间" />
                </columns>
             </TableView>
             <GridPane prefHeight="304.0" prefWidth="80.0">
@@ -147,7 +147,7 @@
                   <TableColumn fx:id="table2column1" prefWidth="76.0" text="最近3个月" />
                   <TableColumn fx:id="table2column2" prefWidth="76.0" text="最近6个月" />
                   <TableColumn fx:id="table2column3" prefWidth="76.0" text="年初至今" />
-                  <TableColumn fx:id="table2column4" prefWidth="76.0" text="自建立" />
+                  <TableColumn fx:id="table2column4" prefWidth="76.0" text="选择区间" />
                </columns>
             </TableView>
          </children>
