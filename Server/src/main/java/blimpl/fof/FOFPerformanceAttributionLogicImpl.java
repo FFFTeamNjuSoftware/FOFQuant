@@ -94,7 +94,7 @@ public class FOFPerformanceAttributionLogicImpl extends UnicastRemoteObject impl
                         - firstHold.getFinishedProfit();
                 //// TODO: 2016/9/2 unitProfit
                 performanceAttribution.unitProfit = 0;
-                NumberOpe.controlDecimal(performanceAttribution, 4);
+                handleResult(performanceAttribution);
                 performanceAttributions.add(performanceAttribution);
             }
             return performanceAttributions;
@@ -102,5 +102,19 @@ public class FOFPerformanceAttributionLogicImpl extends UnicastRemoteObject impl
             e.printStackTrace();
         }
         return new ArrayList<>();
+    }
+
+    private void handleResult(PerformanceAttribution performanceAttribution) {
+        performanceAttribution.beginingHoldNum = performanceAttribution.beginingHoldNum / FOFUtilInfo
+                .NUM_UNIT;
+        performanceAttribution.beginingTotalValue = performanceAttribution
+                .beginingTotalValue / FOFUtilInfo.VALUE_UNIT;
+        performanceAttribution.endingHoldNum = performanceAttribution.endingHoldNum / FOFUtilInfo
+                .NUM_UNIT;
+        performanceAttribution.endingTotalValue = performanceAttribution
+                .endingTotalValue / FOFUtilInfo.VALUE_UNIT;
+        performanceAttribution.periodProfit = performanceAttribution.periodProfit / FOFUtilInfo
+                .VALUE_UNIT;
+        NumberOpe.controlDecimal(performanceAttribution, 4);
     }
 }

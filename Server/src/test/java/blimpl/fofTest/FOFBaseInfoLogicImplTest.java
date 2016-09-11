@@ -53,11 +53,11 @@ public class FOFBaseInfoLogicImplTest {
     @Test
     public void testGetFundCodeInFOF() throws Exception {
         Map<String, List<String>> infos = fofBaseInfoLogic.getFundCodeInFOF();
-//        for (String str : infos.keySet()) {
-//            System.out.println("Sector " + str + ":");
-//            infos.get(str).forEach(System.out::println);
-//        }
-        infos.get("000011").forEach(System.out::println);
+        for (String str : infos.keySet()) {
+            System.out.println("Sector " + str + ":");
+            infos.get(str).forEach(System.out::println);
+        }
+//        infos.get("000011").forEach(System.out::println);
     }
 
     /**
@@ -76,7 +76,7 @@ public class FOFBaseInfoLogicImplTest {
         Map<String, Map<String, Double>> infos = fofBaseInfoLogic.getNewestWeight();
         for(String key:infos.keySet()){
             for(String key1:infos.get(key).keySet()){
-                System.out.println(key+","+infos.get(key).get(key1));
+                System.out.println(key1+","+infos.get(key).get(key1));
             }
         }
     }

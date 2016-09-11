@@ -68,7 +68,7 @@ public class FOFProfitAnalyseLogicImplTest {
     @Test
     public void testGetFOFProfitAnalyse() throws Exception {
         FOFProfitAnalyse fofProfitAnalyse = fofProfitAnalyseLogic.getFOFProfitAnalyse(TimeType
-                .ONE_MONTH);
+                .ONE_YEAR);
         System.out.println(new Gson().toJson(fofProfitAnalyse));
     }
 
