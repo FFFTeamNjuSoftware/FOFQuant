@@ -22,7 +22,7 @@ public class managerGuideUIController implements Initializable {
     @FXML
     private Label managerNameLabel;
     @FXML
-    private Button userManagerBtn,modifyBtn,system_logBtn,logoutBtn;
+    private Button userManagerBtn,system_logBtn,logoutBtn;
 
     private  managerGuideUIController instance;
 
@@ -40,7 +40,7 @@ public class managerGuideUIController implements Initializable {
 
     public void initButtons(){
         final int[] s = {0};
-        Button[] buttons = new Button[]{userManagerBtn,modifyBtn,system_logBtn,logoutBtn};
+        Button[] buttons = new Button[]{userManagerBtn,system_logBtn,logoutBtn};
         for (final int[] i = {0}; i[0] < buttons.length; i[0]++) {
             int j = i[0];
             buttons[i[0]].addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
