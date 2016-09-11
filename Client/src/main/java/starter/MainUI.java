@@ -177,7 +177,7 @@ public class MainUI extends Application {
         hbox = new HBox();
   //      headPanel = FXMLHelper.loadPanel("headPanel");
         try {
-            FXMLLoader fxmlLoader=new FXMLLoader(Main.class.getResource("headPanel.fxml"));
+            FXMLLoader fxmlLoader=new FXMLLoader(MainUI.class.getResource("headPanel.fxml"));
             headPanel = (AnchorPane)fxmlLoader.load();
             headController =fxmlLoader.getController();
         } catch (IOException e) {
