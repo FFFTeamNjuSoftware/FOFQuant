@@ -177,13 +177,13 @@ public class MainUI extends Application {
         hbox = new HBox();
         headPanel = FXMLHelper.loadPanel("headPanel");
 
-        if(guideName.equals("manager_guidePanel")){
-            headController.buttonChange(0);
-        }else if(guideName.equals("user_guidePanel")){
-            headController.buttonChange(1);
-        }else {
-            System.out.println("......登录失败......");
-        }
+//        if(guideName.equals("manager_guidePanel")){
+//            headController.buttonChange(0);
+//        }else if(guideName.equals("user_guidePanel")){
+//            headController.buttonChange(1);
+//        }else {
+//            System.out.println("......登录失败......");
+//        }
         guidePanel = FXMLHelper.loadPanel(guideName);
         mainPanel = FXMLHelper.loadPanel(mainStageName);
         vbox.getChildren().addAll(headPanel, mainPanel);
