@@ -175,14 +175,7 @@ public class MainUI extends Application {
     public void changeScene(String guideName, String mainStageName) {
         vbox = new VBox();
         hbox = new HBox();
-  //      headPanel = FXMLHelper.loadPanel("headPanel");
-        try {
-            FXMLLoader fxmlLoader=new FXMLLoader(MainUI.class.getResource("headPanel.fxml"));
-            headPanel = (AnchorPane)fxmlLoader.load();
-            headController =fxmlLoader.getController();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        headPanel = FXMLHelper.loadPanel("headPanel");
 
         if(guideName.equals("manager_guidePanel")){
             headController.buttonChange(0);
