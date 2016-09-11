@@ -7,40 +7,35 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import starter.MainUI;
 import ui.util.IOHelper;
 
-import java.awt.event.KeyAdapter;
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 /**
  * Created by QiHan on 2016/8/16.
  */
-public class headUIController implements Initializable {
+public class user_headUIController implements Initializable {
 
     @FXML
-    private Button minBtn, exitBtn, fullBtn, searchBtn;
+    private Button minBtn, exitBtn, searchBtn;
     @FXML
     private TextField searchTextField;
     private BLInterfaces blInterfaces;
     private BaseInfoLogic baseInfoLogic;
     private List<CodeName> searchList;
-    private headUIController instance;
+    private user_headUIController instance;
     private String searchID;
 
     @Override
@@ -50,21 +45,6 @@ public class headUIController implements Initializable {
         handleSearch();
     }
 
-    public void buttonChange(int i){
-        if(i==0) {
-            //管理员
-            searchTextField.setVisible(false);
-            searchTextField.setDisable(true);
-            searchBtn.setDisable(true);
-            searchBtn.setVisible(false);
-        }else if(i==1){
-            //普通用户
-            searchTextField.setVisible(true);
-            searchTextField.setDisable(false);
-            searchBtn.setDisable(false);
-            searchBtn.setVisible(true);
-        }
-    }
 
     private void buttonInit() {
         minBtn.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
@@ -90,24 +70,6 @@ public class headUIController implements Initializable {
         exitBtn.addEventHandler(MouseEvent.MOUSE_EXITED, (MouseEvent e) -> {
             exitBtn.setStyle("-fx-background-color: transparent;");
         });
-
-        fullBtn.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
-            fullBtn.setStyle("-fx-background-color: #23a3f3; -fx-opacity:0.6");
-        });
-
-        fullBtn.addEventHandler(MouseEvent.MOUSE_PRESSED, (MouseEvent e) -> {
-            fullBtn.setStyle("-fx-background-color: #1F77B9;  -fx-opacity:0.6");
-        });
-
-        fullBtn.addEventHandler(MouseEvent.MOUSE_EXITED, (MouseEvent e) -> {
-            fullBtn.setStyle("-fx-background-color: transparent;");
-        });
-
-    }
-
-    @FXML
-    public void toFullScreen() {
-
     }
 
     @FXML

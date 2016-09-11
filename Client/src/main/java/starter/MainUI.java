@@ -7,10 +7,8 @@ import beans.ProfitChartInfo;
 import bl.BaseInfoLogic;
 import exception.ObjectNotFoundException;
 import javafx.animation.FadeTransition;
-import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -26,10 +24,9 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import org.dom4j.DocumentException;
-import ui.headUI.headUIController;
+import ui.headUI.user_headUIController;
 import ui.util.FXMLHelper;
 
-import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -50,13 +47,8 @@ public class MainUI extends Application {
     private final Delta dragDelta = new Delta();
     private static Stage primaryStage;
     private static Scene primaryScene;
-    private AnchorPane mainPanel;
-    private AnchorPane headPanel;
-    private AnchorPane guidePanel;
-    private AnchorPane infoPane;
-    private AnchorPane rootPane;
+    private AnchorPane mainPanel,headPanel,guidePanel,infoPane,rootPane;
     private BLInterfaces blInterfaces;
-    private headUIController headController = new headUIController();
 
     private static HBox hbox;
     private static VBox vbox;
@@ -175,15 +167,14 @@ public class MainUI extends Application {
     public void changeScene(String guideName, String mainStageName) {
         vbox = new VBox();
         hbox = new HBox();
-        headPanel = FXMLHelper.loadPanel("headPanel");
 
-//        if(guideName.equals("manager_guidePanel")){
-//            headController.buttonChange(0);
-//        }else if(guideName.equals("user_guidePanel")){
-//            headController.buttonChange(1);
-//        }else {
-//            System.out.println("......登录失败......");
-//        }
+        if(guideName.equals("manager_guidePanel")){
+            headPanel = FXMLHelper.loadPanel("manager_headPanel");
+        }else if(guideName.equals("user_guidePanel")){
+            headPanel = FXMLHelper.loadPanel("user_headPanel");
+        }else {
+            System.out.println("......登录失败......");
+        }
         guidePanel = FXMLHelper.loadPanel(guideName);
         mainPanel = FXMLHelper.loadPanel(mainStageName);
         vbox.getChildren().addAll(headPanel, mainPanel);

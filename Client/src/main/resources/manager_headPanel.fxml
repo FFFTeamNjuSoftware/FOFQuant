@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.stage.Screen?>
+
+<AnchorPane fx:id="basicPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="34.0" prefWidth="930.0" styleClass="root" stylesheets="@css/headView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.headUI.manager_headUIController">
+    <!--这是screen的初始化-->
+    <fx:define>
+        <Screen fx:factory="getPrimary" fx:id="screen"/>
+    </fx:define>
+    <children>
+        <GridPane layoutX="849.0" layoutY="-2.0" prefHeight="30.0" prefWidth="81.0">
+            <children>
+                <ImageView fx:id="minImage" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@/images/min.png" />
+                    </image>
+                    <GridPane.margin>
+                        <Insets left="10.0" right="5.0" top="15.0" />
+                    </GridPane.margin>
+                </ImageView>
+                <ImageView fx:id="exitImage" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+                    <image>
+                        <Image url="@/images/exit.png" />
+                    </image>
+                    <GridPane.margin>
+                        <Insets left="12.0" right="4.0" top="5.0" />
+                    </GridPane.margin>
+                </ImageView>
+                <Button fx:id="minBtn" mnemonicParsing="false" onAction="#toMinScreen" prefHeight="30.0" prefWidth="37.0" style="-fx-background-color: transparent;" textFill="WHITE">
+                    <GridPane.margin>
+                        <Insets />
+                    </GridPane.margin></Button>
+                <Button fx:id="exitBtn" mnemonicParsing="false" onAction="#toExitScreen" opacity="0.26" prefHeight="30.0" prefWidth="69.0" style="-fx-background-color: transparent;" textFill="WHITE" GridPane.columnIndex="1" />
+            </children>
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="65.0" minWidth="10.0" prefWidth="43.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="47.0" minWidth="10.0" prefWidth="43.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+        </GridPane>
+        <Line endX="930.0" layoutY="34.0" stroke="#bbbbbb" strokeWidth="1" />
+    </children>
+</AnchorPane>

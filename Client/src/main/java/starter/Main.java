@@ -62,7 +62,7 @@ public class Main  extends Application {
         //----------------------------------------------------------
         this.primaryStage = primaryStage;
         loginPanel= FXMLLoader.load(getClass().getClassLoader().getResource("loginPanel.fxml"));
-    //    headPanel= FXMLLoader.load(getClass().getClassLoader().getResource("headPanel.fxml"));
+    //    headPanel= FXMLLoader.load(getClass().getClassLoader().getResource("user_headPanel.fxml"));
     //    user_guidePanel= FXMLLoader.load(getClass().getClassLoader().getResource("user_guidePanel.fxml"));
      //   writePanel= FXMLLoader.load(getClass().getClassLoader().getResource("writePanel.fxml"));
       //  manager_guidePanel =FXMLLoader.load(getClass().getClassLoader().getResource("manager_guidePanel.fxml"));
