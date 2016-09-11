@@ -92,6 +92,9 @@
     -fx-stroke-width: 0.1px;
     -fx-color:#ff0fff;
 }
+.chart-series-line2 {
+    -fx-stroke-width: 0.05px;
+}
 
 .chart-line-symbol {
     /*-fx-background-color: #00CACA, white;*/

@@ -155,6 +155,7 @@ public class analyseHomeUIController implements Initializable {
 				series1.getData().add(new XYChart.Data(fofHistoryInfoList.get(i).date, fofHistoryInfoList.get(i).totalValue));
 				series2.getData().add(new XYChart.Data(fofHistoryInfoList.get(i).date, fofHistoryInfoList.get(i).totalProfitRate));
 			}
+			System.out.println("Series1 size:"+series1.getData().size()+"---Series2:"+series2.getData().size());
 //			for(int i=1;i<10;i++){
 //				series1.getData().add(new XYChart.Data("2016-08-0"+i, 10000.0+i));
 //				series2.getData().add(new XYChart.Data("2016-08-0"+i, 10.0+i));

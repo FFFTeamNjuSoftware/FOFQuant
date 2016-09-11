@@ -48,43 +48,42 @@
             <TableView fx:id="netWorthTable" blendMode="LIGHTEN" layoutX="52.0" layoutY="36.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="238.0" prefWidth="828.0">
                <columns>
                   <TableColumn fx:id="fundCodeCm" maxWidth="100.0" minWidth="20.0" prefWidth="70.0" text="基金代码" />
-                  <TableColumn fx:id="fundNameCm" maxWidth="85.0" minWidth="20.0" prefWidth="85.0" text="基金简称" />
-                  <TableColumn fx:id="fundTypeCm" maxWidth="90.0" minWidth="20.0" prefWidth="90.0" text="基金类型" />
+                  <TableColumn fx:id="fundNameCm" maxWidth="160.0" minWidth="20.0" prefWidth="150.0" text="基金简称" />
                   <TableColumn fx:id="timeCm" maxWidth="140.0" prefWidth="130.0" text="更新日期" />
                   <TableColumn fx:id="predictRiseValueCm" maxWidth="80.0" minWidth="20.0" prefWidth="75.0" text="预测涨跌" />
                   <TableColumn fx:id="predictRiseCm" maxWidth="90.0" minWidth="20.0" text="预测涨跌幅" />
                   <TableColumn fx:id="predictNetValueCm" prefWidth="75.0" text="预测净值" />
-                  <TableColumn fx:id="holdNumCm" maxWidth="62.0" minWidth="20.0" prefWidth="62.0" text="持仓数量" />
-                  <TableColumn fx:id="costCm" maxWidth="65.0" minWidth="20.0" prefWidth="65.0" resizable="false" text="持仓成本" />
-                  <TableColumn fx:id="holdValueCm" maxWidth="100.0" minWidth="20.0" prefWidth="70.0" text="持仓市值" />
+                  <TableColumn fx:id="holdNumCm" maxWidth="120.0" minWidth="20.0" prefWidth="115.0" text="持仓数量（百万份）" />
+                  <TableColumn fx:id="costCm" maxWidth="125.0" minWidth="20.0" prefWidth="115.0" resizable="false" text="持仓成本（亿元）" />
+                  <TableColumn fx:id="holdValueCm" maxWidth="125.0" minWidth="20.0" prefWidth="115.0" text="持仓市值（亿元）" />
                   <TableColumn fx:id="newestWeightCm" maxWidth="76.0" minWidth="20.0" prefWidth="76.0" text="最新权重" />
-                  <TableColumn fx:id="dayProfitCm" maxWidth="85.0" minWidth="20.0" prefWidth="85.0" text="当日盈亏" />
-                  <TableColumn fx:id="floatProfitCm" maxWidth="62.0" minWidth="20.0" prefWidth="62.0" text="浮动盈亏" />
+                  <TableColumn fx:id="dayProfitCm" maxWidth="125.0" minWidth="20.0" prefWidth="115.0" text="当日盈亏（百万元）" />
+                  <TableColumn fx:id="floatProfitCm" maxWidth="125.0" minWidth="20.0" prefWidth="115.0" text="浮动盈亏（百万元）" />
                   <TableColumn fx:id="floatProfitRatioCm" prefWidth="75.0" text="浮动盈亏率" />
-                  <TableColumn fx:id="totalProfitCm" maxWidth="100.0" prefWidth="75.0" text="累计盈亏" />
+                  <TableColumn fx:id="totalProfitCm" maxWidth="125.0" prefWidth="115.0" text="累计盈亏（亿元）" />
                   <TableColumn fx:id="totalProfitRatioCm" maxWidth="100.0" prefWidth="75.0" text="累计盈亏率" />
-                  <TableColumn fx:id="finishedProfitCm" prefWidth="75.0" text="已实现盈亏" />
+                  <TableColumn fx:id="finishedProfitCm" maxWidth="150.0" prefWidth="140.0" text="已实现盈亏（百万元）" />
                </columns>
             </TableView>
             <AnchorPane layoutY="274.0" prefHeight="246.0" prefWidth="930.0">
                <children>
                   <Line endX="930.0" />
-                  <HBox layoutX="277.0" layoutY="5.0" prefHeight="25.0" prefWidth="376.0">
+                  <HBox layoutX="256.0" layoutY="5.0" prefHeight="25.0" prefWidth="431.0">
                      <children>
-                        <Label fx:id="displayNameLb" prefHeight="25.0" prefWidth="217.0" text="中国宝安 （000009.SZ)" textFill="#fcf246">
+                        <Label fx:id="displayNameLb" alignment="CENTER" prefHeight="25.0" prefWidth="293.0" text="基金名称 （基金代码.SZ)" textFill="#fcf246">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Label prefHeight="25.0" prefWidth="217.0" text="——  基金净值表现" textFill="#f6f7f8">
+                        <Label prefHeight="25.0" prefWidth="147.0" text="——  基金净值表现" textFill="#f6f7f8">
                            <HBox.margin>
-                              <Insets left="10.0" />
+                              <Insets />
                            </HBox.margin>
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
                            <padding>
-                              <Insets left="5.0" />
+                              <Insets left="2.0" />
                            </padding>
                         </Label>
                      </children>
@@ -116,20 +115,20 @@
                               </ComboBox>
                               <Label prefHeight="20.0" prefWidth="25.0" text="—" textFill="#935563">
                                  <HBox.margin>
-                                    <Insets left="310.0" />
+                                    <Insets left="260.0" />
                                  </HBox.margin>
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="redLineLb" text="中国宝安" textFill="#f6f7f8">
+                              <Label fx:id="redLineLb" alignment="CENTER" prefHeight="20.0" prefWidth="136.0" text="基金名称" textFill="#f6f7f8">
                                  <padding>
                                     <Insets bottom="2.0" top="3.0" />
                                  </padding>
                               </Label>
                               <Label prefHeight="20.0" prefWidth="25.0" text="—" textFill="#2a83b5">
                                  <HBox.margin>
-                                    <Insets left="10.0" />
+                                    <Insets left="5.0" />
                                  </HBox.margin>
                                  <font>
                                     <Font size="14.0" />
@@ -161,7 +160,7 @@
                             <CategoryAxis fx:id="categoryAxis" side="BOTTOM" tickLabelRotation="0.5" />
                           </xAxis>
                           <yAxis>
-                            <NumberAxis fx:id="numAxis" side="LEFT" />
+                            <NumberAxis fx:id="numAxis" side="LEFT" styleClass="chart-series-line2" stylesheets="@css/stageView.css" />
                           </yAxis>
                         </LineChart>
                      </children>
