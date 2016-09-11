@@ -66,6 +66,7 @@ public class BuildPanel4UIController implements Initializable {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
+        MainUI.getInstance().displaySuccessPane();
         MainUI.getInstance().changeScene("user_guidePanel", "analyseHomePanel");
     }
 }

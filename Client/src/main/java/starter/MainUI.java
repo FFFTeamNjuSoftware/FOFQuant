@@ -6,6 +6,8 @@ import beans.PriceInfo;
 import beans.ProfitChartInfo;
 import bl.BaseInfoLogic;
 import exception.ObjectNotFoundException;
+import javafx.animation.FadeTransition;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
@@ -21,6 +23,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 import org.dom4j.DocumentException;
 import ui.util.FXMLHelper;
 
@@ -242,5 +245,17 @@ public class MainUI extends Application {
 
     public AnchorPane getMainPanel() {
         return mainPanel;
+    }
+
+    public void displaySuccessPane(){
+        AnchorPane successPane = FXMLHelper.loadPanel("operationSuccessPane");
+        rootPane.getChildren().add(successPane);
+        successPane.setLayoutX(70);
+        successPane.setLayoutY(584);
+        FadeTransition ft = new FadeTransition(Duration.millis(3000), successPane);
+        ft.setFromValue(1.0);
+        ft.setToValue(0.0);
+        ft.setAutoReverse(true);
+        ft.play();
     }
 }

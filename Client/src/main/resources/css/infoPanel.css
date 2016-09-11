@@ -1,3 +1,4 @@
 .root{
     -fx-background-image: url("../images/infoPane.png");
 }
+.success{-fx-background-image: url("../images/success.png");}
