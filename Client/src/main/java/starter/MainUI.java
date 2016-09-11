@@ -56,7 +56,7 @@ public class MainUI extends Application {
     private AnchorPane infoPane;
     private AnchorPane rootPane;
     private BLInterfaces blInterfaces;
-    private headUIController headController;
+    private headUIController headController = new headUIController();
 
     private static HBox hbox;
     private static VBox vbox;
