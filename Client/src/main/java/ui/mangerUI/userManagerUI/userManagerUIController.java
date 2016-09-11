@@ -22,6 +22,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
+import starter.MainUI;
 import util.UserType;
 
 import javax.swing.text.Document;
@@ -210,7 +211,8 @@ public class userManagerUIController  implements Initializable {
 
         try {
             userLogic.addUser(userManageInfo);
-            tipLabel.setText("已添加！");
+           // tipLabel.setText("已添加！");
+            MainUI.getInstance().displaySuccessPane();
         } catch (RemoteException e) {
             e.printStackTrace();
             tipLabel.setText("RemoteException！");
