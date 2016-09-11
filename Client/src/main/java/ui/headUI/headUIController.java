@@ -50,8 +50,23 @@ public class headUIController implements Initializable {
         handleSearch();
     }
 
+    public void buttonChange(int i){
+        if(i==0) {
+            //管理员
+            searchTextField.setVisible(false);
+            searchTextField.setDisable(true);
+            searchBtn.setDisable(true);
+            searchBtn.setVisible(false);
+        }else if(i==1){
+            //普通用户
+            searchTextField.setVisible(true);
+            searchTextField.setDisable(false);
+            searchBtn.setDisable(false);
+            searchBtn.setVisible(true);
+        }
+    }
 
-    public void buttonInit() {
+    private void buttonInit() {
         minBtn.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
             minBtn.setStyle("-fx-background-color: #23a3f3; -fx-opacity:0.5");
         });

@@ -10,6 +10,7 @@ import javafx.animation.FadeTransition;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -25,8 +26,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import org.dom4j.DocumentException;
+import ui.headUI.headUIController;
 import ui.util.FXMLHelper;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -53,6 +56,7 @@ public class MainUI extends Application {
     private AnchorPane infoPane;
     private AnchorPane rootPane;
     private BLInterfaces blInterfaces;
+    private headUIController headController;
 
     private static HBox hbox;
     private static VBox vbox;
@@ -171,7 +175,22 @@ public class MainUI extends Application {
     public void changeScene(String guideName, String mainStageName) {
         vbox = new VBox();
         hbox = new HBox();
-        headPanel = FXMLHelper.loadPanel("headPanel");
+  //      headPanel = FXMLHelper.loadPanel("headPanel");
+        try {
+            FXMLLoader fxmlLoader=new FXMLLoader(Main.class.getResource("headPanel.fxml"));
+            headPanel = (AnchorPane)fxmlLoader.load();
+            headController =fxmlLoader.getController();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if(guideName.equals("manager_guidePanel")){
+            headController.buttonChange(0);
+        }else if(guideName.equals("user_guidePanel")){
+            headController.buttonChange(1);
+        }else {
+            System.out.println("......登录失败......");
+        }
         guidePanel = FXMLHelper.loadPanel(guideName);
         mainPanel = FXMLHelper.loadPanel(mainStageName);
         vbox.getChildren().addAll(headPanel, mainPanel);

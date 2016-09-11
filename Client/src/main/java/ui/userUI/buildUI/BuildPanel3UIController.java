@@ -5,6 +5,8 @@ import beans.FOFQuickInfo;
 import bl.ProfitFeatureLogic;
 import bl.fof.FOFBaseInfoLogic;
 import bl.fof.FOFGenerateLogic;
+import javafx.animation.FadeTransition;
+import javafx.animation.Timeline;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -18,6 +20,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.util.Duration;
 import starter.MainUI;
 import ui.util.DisplayType;
 import ui.util.InitHelper;
@@ -70,10 +73,15 @@ public class BuildPanel3UIController implements Initializable {
 		this.buildPanel3UIController=this;
 		generateLogic = blInterfaces.getFofGenerateLogic();
 		initPanel3();
-		//scheduleTask3();
+		FadeTransition ft = new FadeTransition(Duration.millis(3000), waiting3);
+		ft.setFromValue(1.0);
+		ft.setToValue(0.0);
+		ft.setAutoReverse(true);
+		ft.play();
 	}
 	//	10s后执行
-	private void scheduleTask3(){ Runnable runnable = new Runnable() {
+	private void scheduleTask3(){
+		Runnable runnable = new Runnable() {
 		public void run() {
 			// task to run goes here
 			waiting3.setVisible(false);

@@ -10,6 +10,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import starter.MainUI;
+
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
@@ -93,7 +95,7 @@ public class adjustParameterUIController implements Initializable {
 
         try {
             baseInfo.updateConstParameter(newConstParameter);
-            System.out.println("......修改成功......");
+            MainUI.getInstance().displaySuccessPane();
         } catch (RemoteException e) {
             e.printStackTrace();
         }
