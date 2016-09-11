@@ -33,7 +33,7 @@ import java.util.function.Function;
 public class analyseHomeUIController implements Initializable {
 	public static final String GENERAL_ANALYSIS_PANEL = "generalAnalysisPanel";
 	private analyseHomeUIController analyseHomeUIController;
-	//private generalAnalysisUIController generalAnalysisUIController = new generalAnalysisUIController();
+	private generalAnalysisUIController generalAnalysisUIController = new generalAnalysisUIController();
 	@FXML
 	private Button btn1, btn2, btn3, btn4, btn5, btn6, btn7;
 	@FXML
