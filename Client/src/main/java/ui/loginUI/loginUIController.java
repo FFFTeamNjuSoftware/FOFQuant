@@ -109,7 +109,7 @@ public class loginUIController implements Initializable {
 		//	tipLabel.setVisible(true);
 		} catch (ObjectNotFoundException e) {
 			e.printStackTrace();
-			MainUI.getInstance().addInfoPanel("密码或用户名错误！");
+			MainUI.getInstance().addInfoPanel("该账号不存在，请重新输入！");
 			System.out.println("......账号不存在......");
 		//	tipLabel.setVisible(true);
 		} catch (NullPointerException e) {
@@ -120,7 +120,7 @@ public class loginUIController implements Initializable {
 		} catch (AuthorityException e) {
 			e.printStackTrace();
 			System.out.println("......密码错误......");
-			MainUI.getInstance().addInfoPanel("密码或用户名错误！");
+			MainUI.getInstance().addInfoPanel("密码错误，请重新输入！");
 		//	tipLabel.setVisible(true);
 		}
 	}
