@@ -48,7 +48,7 @@
                         <Image url="@/images/update.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="updateBtn" layoutX="295.0" layoutY="7.0" mnemonicParsing="false" onAction="#updateAllUser" prefHeight="23.0" prefWidth="67.0" style="-fx-background-color: transparent;"  text="       刷新" textFill="WHITE" />
+                  <Button fx:id="updateBtn" layoutX="295.0" layoutY="7.0" mnemonicParsing="false" onAction="#updateAllUser" prefHeight="23.0" prefWidth="67.0" style="-fx-background-color: transparent;" text="       刷新" textFill="WHITE" />
                </children>
             </AnchorPane>
          </children>
@@ -62,17 +62,48 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TableView fx:id="table" blendMode="LIGHTEN" prefHeight="514.0" prefWidth="593.0">
-              <columns>
-                <TableColumn fx:id="selectColumn" prefWidth="53.0" resizable="false" />
-                  <TableColumn fx:id="userTypeColumn" resizable="false" text="类型" />
-                <TableColumn fx:id="userNameColumn" prefWidth="78.0" resizable="false" text="登录名" />
-                  <TableColumn fx:id="nameColumn" prefWidth="82.0" resizable="false" text="姓名" />
-                  <TableColumn fx:id="genderColumn" prefWidth="69.0" resizable="false" text="性别" />
-                  <TableColumn fx:id="passwordColumn" prefWidth="114.0" resizable="false" text="密码（显示/隐藏）" />
-                  <TableColumn fx:id="settingColumn" prefWidth="109.0" resizable="false" text="设置（编辑/删除）" />
-              </columns>
-            </TableView>
+            <GridPane>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="477.0" minHeight="10.0" prefHeight="471.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="247.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <TableView fx:id="table" blendMode="LIGHTEN" minHeight="-Infinity" minWidth="-Infinity" prefHeight="452.0" prefWidth="585.0">
+                    <columns>
+                      <TableColumn fx:id="selectColumn" prefWidth="53.0" resizable="false" />
+                        <TableColumn fx:id="userTypeColumn" prefWidth="94.0" resizable="false" text="类型" />
+                      <TableColumn fx:id="userNameColumn" prefWidth="99.0" resizable="false" text="登录名" />
+                        <TableColumn fx:id="nameColumn" prefWidth="96.0" resizable="false" text="姓名" />
+                        <TableColumn fx:id="genderColumn" prefWidth="95.0" resizable="false" text="性别" />
+                        <TableColumn fx:id="passwordColumn" editable="false" prefWidth="147.0" resizable="false" text="密码（显示/隐藏）" />
+                    </columns>
+                  </TableView>
+                  <GridPane GridPane.rowIndex="1">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="490.0" minWidth="10.0" prefWidth="490.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="287.0" minWidth="10.0" prefWidth="95.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Button fx:id="deleteBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#ensureDelete" prefHeight="30.0" prefWidth="67.0" style="-fx-background-color: #23a3f3;" text="确定删除" textFill="WHITE" GridPane.columnIndex="1">
+                           <GridPane.margin>
+                              <Insets left="25.0" top="3.0" />
+                           </GridPane.margin>
+                        </Button>
+                        <Button fx:id="modifyBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#ensureModify" prefHeight="30.0" prefWidth="67.0" style="-fx-background-color: #23a3f3;" text="确定修改" textFill="WHITE">
+                           <GridPane.margin>
+                              <Insets left="430.0" top="3.0" />
+                           </GridPane.margin>
+                        </Button>
+                     </children>
+                  </GridPane>
+               </children>
+            </GridPane>
             <AnchorPane prefHeight="510.0" prefWidth="340.0" GridPane.columnIndex="1">
                <children>
                   <GridPane layoutX="66.0" layoutY="92.0" prefHeight="179.0" prefWidth="186.0">

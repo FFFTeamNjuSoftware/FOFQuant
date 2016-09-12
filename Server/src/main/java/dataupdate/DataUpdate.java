@@ -213,6 +213,7 @@ public class DataUpdate {
                 e.printStackTrace();
             }
             HibernateBoot.closeConnection();
+            System.exit(1);
         });
 //        dataUpdate.updateFundRealTimeInfo();
 //        dataUpdate.updateFqWorth();

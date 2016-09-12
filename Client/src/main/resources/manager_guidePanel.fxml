@@ -13,7 +13,6 @@
       <Line fx:id="Line1" endX="70.0" fill="WHITE" layoutY="122.0" opacity="0.1" stroke="WHITE" />
       <Line fx:id="Line2" endX="70.0" fill="WHITE" layoutY="222.0" opacity="0.1" stroke="WHITE" />
       <Line fx:id="Line3" endX="70.0" fill="WHITE" layoutY="322.0" opacity="0.1" stroke="WHITE" />
-      <Line fx:id="Line4" endX="70.0" fill="WHITE" layoutY="422.0" opacity="0.1" stroke="WHITE" />
       <ImageView fx:id="userImage" fitHeight="50.0" fitWidth="50.0" layoutX="10.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@/images/user.png" />
