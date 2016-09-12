@@ -22,7 +22,7 @@
         <Image url="@images/nextBt.png" />
       </image>
     </ImageView>
-    <ImageView fx:id="waiting3" fitHeight="188.0" fitWidth="300.0" layoutX="308.0" layoutY="198.0" pickOnBounds="true" preserveRatio="true">
+    <ImageView fx:id="waiting2" fitHeight="188.0" fitWidth="300.0" layoutX="308.0" layoutY="198.0" pickOnBounds="true" preserveRatio="true">
       <image>
         <Image url="@images/build2.gif" />
       </image>

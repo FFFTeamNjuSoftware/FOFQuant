@@ -2,6 +2,7 @@ package ui.userUI.buildUI;
 
 import RMIModule.BLInterfaces;
 import bl.fof.FOFGenerateLogic;
+import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,6 +11,7 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 import starter.MainUI;
 import ui.util.InitHelper;
 import ui.util.PieChartGenerator;
@@ -30,7 +32,7 @@ public class BuildPanel2UIController implements Initializable {
 	@FXML
 	private ImageView nextBt3;
 	@FXML
-	private ImageView waiting3;
+	private ImageView waiting2;
 	@FXML
 	private Label profitFund;
 	@FXML
@@ -46,16 +48,21 @@ public class BuildPanel2UIController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		this.buildPanel2UIController = this;
 		logic = BLInterfaces.getFofGenerateLogic();
-		initPanel3();
+		initPanel2();
+		FadeTransition ft = new FadeTransition(Duration.millis(3000), waiting2);
+		ft.setFromValue(1.0);
+		ft.setToValue(0.0);
+		ft.setAutoReverse(true);
+		ft.play();
 		//scheduleTask3();
 	}
 
 	//	10s后执行
-	private void scheduleTask3() {
+	private void scheduleTask2() {
 		Runnable runnable = new Runnable() {
 			public void run() {
 				// task to run goes here
-				waiting3.setVisible(false);
+				waiting2.setVisible(false);
 
 			}
 		};
@@ -66,7 +73,7 @@ public class BuildPanel2UIController implements Initializable {
 		service.schedule(runnable, 10, TimeUnit.SECONDS);
 	}
 
-	private void initPanel3() {
+	private void initPanel2() {
 		ImageView[] imageViews = {nextBt3};
 		InitHelper.beautifyImageViews(imageViews);
 		Map<String, Double> map = null;
