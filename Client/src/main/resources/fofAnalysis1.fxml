@@ -27,12 +27,12 @@
          <children>
             <HBox layoutX="44.0" prefHeight="24.0" prefWidth="828.0">
                <children>
-                  <Label fx:id="gradeLb" prefHeight="14.0" prefWidth="48.0" text="业绩基准" textFill="WHITE">
+                  <Label fx:id="gradeLb" prefHeight="25.0" prefWidth="68.0" text="业绩基准" textFill="WHITE">
                      <padding>
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                      <HBox.margin>
-                        <Insets left="638.0" />
+                        <Insets left="630.0" />
                      </HBox.margin>
                   </Label>
                   <ComboBox fx:id="gradeCb" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="120.0" style="-fx-background-color: #057DC8; -fx-color: #ffffff;">
@@ -113,9 +113,9 @@
                                     <Insets left="10.0" />
                                  </HBox.margin>
                               </ComboBox>
-                              <Label prefHeight="20.0" prefWidth="25.0" text="—" textFill="#935563">
+                              <Label prefHeight="20.0" prefWidth="25.0" text="—" textFill="#f3622d">
                                  <HBox.margin>
-                                    <Insets left="260.0" />
+                                    <Insets left="230.0" />
                                  </HBox.margin>
                                  <font>
                                     <Font size="14.0" />
@@ -126,7 +126,7 @@
                                     <Insets bottom="2.0" top="3.0" />
                                  </padding>
                               </Label>
-                              <Label prefHeight="20.0" prefWidth="25.0" text="—" textFill="#2a83b5">
+                              <Label prefHeight="20.0" prefWidth="25.0" text="—" textFill="#fba71b">
                                  <HBox.margin>
                                     <Insets left="5.0" />
                                  </HBox.margin>
@@ -134,20 +134,20 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="buleLineLb" text="基金基准" textFill="#f6f7f8">
+                              <Label fx:id="buleLineLb" prefHeight="20.0" prefWidth="61.0" text="基金基准" textFill="#f6f7f8">
                                  <padding>
                                     <Insets bottom="2.0" top="3.0" />
                                  </padding>
                               </Label>
-                              <Label prefHeight="20.0" prefWidth="25.0" text="—" textFill="#62905c">
+                              <Label prefHeight="20.0" prefWidth="25.0" text="—" textFill="#57b757">
                                  <HBox.margin>
-                                    <Insets left="10.0" />
+                                    <Insets left="5.0" />
                                  </HBox.margin>
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="greenLineLb" text="沪深300" textFill="#f6f7f8">
+                              <Label fx:id="greenLineLb" prefHeight="20.0" prefWidth="77.0" text="沪深300" textFill="#f6f7f8">
                                  <padding>
                                     <Insets bottom="2.0" top="3.0" />
                                  </padding>

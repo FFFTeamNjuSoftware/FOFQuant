@@ -83,6 +83,7 @@ public class Analysis1Controller implements Initializable {
 
 	private String greenFill = "-fx-text-fill:#9ac94a;";
 	private String redFill = "-fx-text-fill:#eb494d;";
+	private String whiteFill="-fx-text-fill:#ffffff";
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -260,12 +261,10 @@ public class Analysis1Controller implements Initializable {
 						setGraphic(null);
 						setText(empty ? "" : getItem().toString());
 						if (!isEmpty()) {
-							item = item.split("%")[0];
-							Double t = Double.parseDouble(item);
-							if (t > 0) {
-								c.setStyle(redFill);
-							} else if (t < 0) {
+							if(item.contains("-")){
 								c.setStyle(greenFill);
+							} else {
+								c.setStyle(redFill);
 							}
 						}
 					}
@@ -280,6 +279,7 @@ public class Analysis1Controller implements Initializable {
 				netWorthChart.getData().clear();
 			}
 			getFundProfitInfoChart(fundCode);
+			greenLineLb.setText(gradeCb.getValue());
 			XYChart.Series series1 = new XYChart.Series();
 			XYChart.Series series2=new XYChart.Series();
 			XYChart.Series series3=new XYChart.Series();
@@ -305,7 +305,9 @@ public class Analysis1Controller implements Initializable {
 			categoryAxis.setTickMarkVisible(true);
 			categoryAxis.setTickLabelRotation(0.5);
 			categoryAxis.setTickLabelsVisible(true);
-//        categoryAxis.setTickLength(10);
+
+//			netWorthChart.
+//          categoryAxis.setTickLength(10);
 
 			numAxis.setTickUnit(1);
 			numAxis.setForceZeroInRange(false);
