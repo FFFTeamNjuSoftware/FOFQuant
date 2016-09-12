@@ -68,17 +68,17 @@
          <children>
             <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="304.0" prefWidth="108.0">
                <children>
-                  <Label text="总回报" textFill="WHITE" />
-                  <Label text="相对总回报" textFill="WHITE" GridPane.rowIndex="1" />
-                  <Label text="最大涨幅" textFill="WHITE" GridPane.rowIndex="2" />
-                  <Label text="最大涨幅天数" textFill="WHITE" GridPane.rowIndex="3" />
-                  <Label text="最大涨幅复苏期间" textFill="WHITE" GridPane.rowIndex="4" />
-                  <Label text="最大跌幅" textFill="WHITE" GridPane.rowIndex="5" />
-                  <Label text="最大跌幅天数" textFill="WHITE" GridPane.rowIndex="6" />
-                  <Label text="最大跌幅复苏期间" textFill="WHITE" GridPane.rowIndex="7" />
-                  <Label text="年化平均回报" textFill="WHITE" GridPane.rowIndex="8" />
-                  <Label text="年化平均超额回报" textFill="WHITE" GridPane.rowIndex="9" />
-                  <Label text="下行风险" textFill="WHITE" GridPane.rowIndex="10" />
+                  <Label text="总回报" textFill="#fcf253" />
+                  <Label text="相对总回报" textFill="#fcf253" GridPane.rowIndex="1" />
+                  <Label text="最大涨幅" textFill="#fcf253" GridPane.rowIndex="2" />
+                  <Label text="最大涨幅天数" textFill="#fcf253" GridPane.rowIndex="3" />
+                  <Label text="最大涨幅复苏期间" textFill="#fcf253" GridPane.rowIndex="4" />
+                  <Label text="最大跌幅" textFill="#fcf253" GridPane.rowIndex="5" />
+                  <Label text="最大跌幅天数" textFill="#fcf253" GridPane.rowIndex="6" />
+                  <Label text="最大跌幅复苏期间" textFill="#fcf253" GridPane.rowIndex="7" />
+                  <Label text="年化平均回报" textFill="#fcf253" GridPane.rowIndex="8" />
+                  <Label text="年化平均超额回报" textFill="#fcf253" GridPane.rowIndex="9" />
+                  <Label text="下行风险" textFill="#fcf253" GridPane.rowIndex="10" />
                </children>
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -110,17 +110,17 @@
             </TableView>
             <GridPane prefHeight="304.0" prefWidth="80.0">
                <children>
-                  <Label text="年化波动率" textFill="WHITE" />
-                  <Label text="跟踪误差" textFill="WHITE" GridPane.rowIndex="1" />
-                  <Label text="相关系数" textFill="WHITE" GridPane.rowIndex="2" />
-                  <Label text="Alpha" textFill="WHITE" GridPane.rowIndex="3" />
-                  <Label text="Beta" textFill="WHITE" GridPane.rowIndex="4" />
-                  <Label text="Sharpe" textFill="WHITE" GridPane.rowIndex="5" />
-                  <Label text="Treynor" textFill="WHITE" GridPane.rowIndex="6" />
-                  <Label text="Jensen" textFill="WHITE" GridPane.rowIndex="7" />
-                  <Label text="R2" textFill="WHITE" GridPane.rowIndex="8" />
-                  <Label text="半方差" textFill="WHITE" GridPane.rowIndex="9" />
-                  <Label text="Sortino" textFill="WHITE" GridPane.rowIndex="10" />
+                  <Label text="年化波动率" textFill="#fcf253" />
+                  <Label text="跟踪误差" textFill="#fcf253" GridPane.rowIndex="1" />
+                  <Label text="相关系数" textFill="#fcf253" GridPane.rowIndex="2" />
+                  <Label text="Alpha" textFill="#fcf253" GridPane.rowIndex="3" />
+                  <Label text="Beta" textFill="#fcf253" GridPane.rowIndex="4" />
+                  <Label text="Sharpe" textFill="#fcf253" GridPane.rowIndex="5" />
+                  <Label text="Treynor" textFill="#fcf253" GridPane.rowIndex="6" />
+                  <Label text="Jensen" textFill="#fcf253" GridPane.rowIndex="7" />
+                  <Label text="R2" textFill="#fcf253" GridPane.rowIndex="8" />
+                  <Label text="半方差" textFill="#fcf253" GridPane.rowIndex="9" />
+                  <Label text="Sortino" textFill="#fcf253" GridPane.rowIndex="10" />
                </children>
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
