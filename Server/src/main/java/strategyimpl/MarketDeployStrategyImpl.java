@@ -8,11 +8,14 @@ import bl.MarketLogic;
 import blimpl.BLController;
 import blimpl.Converter;
 import com.mathworks.toolbox.javabuilder.MWClassID;
+import com.mathworks.toolbox.javabuilder.MWException;
 import com.mathworks.toolbox.javabuilder.MWNumericArray;
 import entities.CPPIMarketDeployEntity;
 import entities.RiskyParityDeployEntity;
+import exception.NotInitialedException;
 import exception.ObjectNotFoundException;
 import exception.ParameterException;
+import startup.MatlabBoot;
 import strategy.MarketDeployStrategy;
 import util.CalendarOperate;
 import util.SectorType;
@@ -34,14 +37,14 @@ public class MarketDeployStrategyImpl implements MarketDeployStrategy{
     }
 
     @Override
-    public CPPIMarketDeploy DefaultCPPIDeploy(double portValue, double riskMulti, double guaranteeRatio) throws RemoteException{
+    public CPPIMarketDeploy DefaultCPPIDeploy(double portValue, double riskMulti, double guaranteeRatio) throws RemoteException, NotInitialedException {
         String start= CalendarOperate.formatCalender(Calendar.getInstance());
         CPPIMarketDeploy cppiMarketDeploy=this.CustomizedCPPIDeploy(portValue,riskMulti,guaranteeRatio,start,start);
         return cppiMarketDeploy;
     }
 
     @Override
-    public CPPIMarketDeploy CustomizedCPPIDeploy(double portValue, double riskMulti, double guaranteeRatio, String startDate, String endDate) throws RemoteException{
+    public CPPIMarketDeploy CustomizedCPPIDeploy(int portValue, double riskMulti, double guaranteeRatio, String startDate, String endDate) throws RemoteException, NotInitialedException, MWException {
 //        TradeDayOfYear: 产品每年交易日，如250天
         int tradeDayOfYear=250;
 //        adjustCycle:产品根据模型调整周期，例如每10个交易日调整一次。
@@ -68,7 +71,7 @@ public class MarketDeployStrategyImpl implements MarketDeployStrategy{
                 //调用CPPI策略matlab代码
                 Object[] cppiResult = new Object[6];
                 //TODO
-//              cppiResult= MatlabBoot.getCalculateTool().(portValue,riskMulti,guaranteeRatio,tradeDayTimeLong,tradeDayOfYear,adjustCycle[i],risklessReturn,tradeFee,sData);
+              cppiResult= MatlabBoot.getCalculateTool().CPPIStr(portValue,riskMulti,guaranteeRatio,tradeDayTimeLong,tradeDayOfYear,adjustCycle[i],risklessReturn,tradeFee,sData);
                 //F:数组，第t个数据为t时刻安全底线
                 double[] F = (double[]) ((MWNumericArray) cppiResult[0]).toDoubleArray();
                 //E:数组，第t个数据为t时刻可投风险资产上限
