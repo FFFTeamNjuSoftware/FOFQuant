@@ -80,10 +80,9 @@ public class MarketLogicImplTest {
      */
     @Test
     public void testGetPriceInfoForCodeTypeStartDateEndDate() throws Exception {
-        List<PriceInfo> priceInfo1=marketLogic.getPriceInfo("511010", UnitType.DAY,"2013-04-01","2016-08-01");
-        List<PriceInfo> priceInfo2=marketLogic.getPriceInfo("I885012",UnitType.DAY,"2013-04-01","2016-08-01");
-        for(int i=0;i<priceInfo2.size();i++) {
-            System.out.println(priceInfo2.get(i).price + " " + priceInfo1.get(i).price);
+        List<PriceInfo> priceInfo1=marketLogic.getPriceInfo("163409", UnitType.DAY,"2013-01-01","2016-08-01");
+        for(int i=0;i<priceInfo1.size();i++) {
+            System.out.println(priceInfo1.get(i).date+" "+priceInfo1.get(i).price );
         }
 //        marketLogic.getPriceInfo("511010", UnitType.DAY, "2013-01-01","2014-01-01").stream()
 //                .forEach(e -> System.out.println(e.price));

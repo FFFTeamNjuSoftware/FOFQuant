@@ -1,6 +1,8 @@
 package strategy;
 
 import beans.FundDeploy;
+import com.mathworks.toolbox.javabuilder.MWException;
+import exception.NotInitialedException;
 
 import java.rmi.RemoteException;
 import java.util.List;
@@ -37,19 +39,19 @@ public interface FundDeployStrategy {
      * @return
      * @throws RemoteException
      */
-    public FundDeploy calSharpe(List<String> codes, int N, int window, int hold, String startDate, String endDate) throws RemoteException;
+    public FundDeploy calSharpe(List<String> codes, int N, int window, int hold, String startDate, String endDate) throws RemoteException, NotInitialedException, MWException;
 
     /**
      * 根据自选的基金计算小类配置结果
      * @param funds
      * @return
      */
-    public FundDeploy CustomizedFundDeploy(List<String> funds,String startDate,String endDate) throws RemoteException;
+    public FundDeploy CustomizedFundDeploy(List<String> funds,String startDate,String endDate) throws RemoteException, NotInitialedException, MWException;
 
     /**
      * 根据系统基金评级计算小类配置结果
      * @return
      */
-    public FundDeploy DefaultFundDeploy(String sectorType) throws RemoteException;
+    public FundDeploy DefaultFundDeploy(String sectorType) throws RemoteException, NotInitialedException, MWException;
 
 }

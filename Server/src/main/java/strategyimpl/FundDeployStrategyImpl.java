@@ -8,14 +8,17 @@ import bl.MarketLogic;
 import blimpl.BLController;
 import blimpl.Converter;
 import com.mathworks.toolbox.javabuilder.MWClassID;
+import com.mathworks.toolbox.javabuilder.MWException;
 import com.mathworks.toolbox.javabuilder.MWNumericArray;
 import dataservice.BaseInfoDataService;
 import dataserviceimpl.DataServiceController;
 import entities.FundDeployEntity;
 import entities.FundInfosEntity;
 import entities.FundRankEntity;
+import exception.NotInitialedException;
 import exception.ObjectNotFoundException;
 import exception.ParameterException;
+import startup.MatlabBoot;
 import strategy.FundDeployStrategy;
 import util.StrategyType;
 import util.UnitType;
@@ -110,7 +113,7 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
 
 
     @Override
-    public FundDeploy calSharpe(List<String> sortedCodes, int N, int window, int hold, String startDate, String endDate) throws RemoteException {
+    public FundDeploy calSharpe(List<String> sortedCodes, int N, int window, int hold, String startDate, String endDate) throws RemoteException, NotInitialedException, MWException {
         if (sortedCodes.size() < N) {
             N = sortedCodes.size();
         }
@@ -158,14 +161,11 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
 //       fundDeploys.add(this.convertResult(risky,codes,N,window,hold,StrategyType.FUND_RISKY_PARITY));
 
         //1/N策略
-        Object[] equal=new Object[3];
-
-//        Object[] equal= MatlabBoot.getCalculateTool().(3,prices,fees,N,window,hold);
+        Object[] equal= MatlabBoot.getCalculateTool().oneDivideN(3,prices,fees,N,window,hold);
         fundDeploys.add(this.convertResult(equal,codes,N,window,hold,StrategyType.EQUAL));
 
         //动量策略
-        Object[] momentum=new Object[3];
-//        Object[] momentum=MatlabBoot.getCalculateTool().(3,prices,fees,N,window,hold);
+        Object[] momentum=MatlabBoot.getCalculateTool().momentum(3,prices,fees,N,window,hold);
         fundDeploys.add(this.convertResult(momentum,codes,N,window,hold,StrategyType.MOMENTUM));
 
         //选出夏普比率最高的配置结果
@@ -178,11 +178,10 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
             }
         }
         return result;
-//     return null;
     }
 
     @Override
-    public FundDeploy CustomizedFundDeploy(List<String> funds,String startDate,String endDate) throws RemoteException{
+    public FundDeploy CustomizedFundDeploy(List<String> funds,String startDate,String endDate) throws RemoteException, NotInitialedException, MWException {
         List<FundDeploy> fundDeploys=new ArrayList<>();
         for (int window : windows) {
             for (int hold : holds) {
@@ -205,7 +204,7 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
     }
 
     @Override
-    public FundDeploy DefaultFundDeploy(String sectorType) throws RemoteException {
+    public FundDeploy DefaultFundDeploy(String sectorType) throws RemoteException, NotInitialedException, MWException {
         //获得系统中所有固定收益类基金的排名
         List<FundQuickInfo> fundQuickInfos;
         FundDeploy fundDeploy=new FundDeploy();
@@ -228,7 +227,7 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
             }
             //排序
             List<String> sortedCodes = this.sort(fixProfitRank);
-            String start="2013-04-01";
+            String start="2013-01-01";
             String end="2016-08-01";
             //根据当前组合确定窗口期和持有期
             fundDeploy=this.CustomizedFundDeploy(sortedCodes,start,end);
