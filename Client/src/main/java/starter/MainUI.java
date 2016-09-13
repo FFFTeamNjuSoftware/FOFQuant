@@ -39,15 +39,11 @@ import java.util.concurrent.TimeUnit;
  * Created by tj on 2016/8/17.
  */
 public class MainUI extends Application {
-
-
-    public MainUI() {
-    }
-
+    private static MainUI instance;
     private final Delta dragDelta = new Delta();
     private static Stage primaryStage;
     private static Scene primaryScene;
-    private AnchorPane mainPanel,headPanel,guidePanel,infoPane,rootPane;
+    private AnchorPane mainPanel, headPanel, guidePanel, infoPane, rootPane;
     private BLInterfaces blInterfaces;
 
     private static HBox hbox;
@@ -65,19 +61,17 @@ public class MainUI extends Application {
 
 
     public static MainUI getInstance() {
-        return MainUIHandler.instance;
+        return instance;
     }
 
     public static Stage getPrimaryStage() {
         return primaryStage;
     }
 
-    private static class MainUIHandler {
-        private static MainUI instance = new MainUI();
-    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        this.instance = this;
         try {
             blInterfaces.netStart();
         } catch (DocumentException e) {
@@ -168,11 +162,11 @@ public class MainUI extends Application {
         vbox = new VBox();
         hbox = new HBox();
 
-        if(guideName.equals("manager_guidePanel")){
+        if (guideName.equals("manager_guidePanel")) {
             headPanel = FXMLHelper.loadPanel("manager_headPanel");
-        }else if(guideName.equals("user_guidePanel")){
+        } else if (guideName.equals("user_guidePanel")) {
             headPanel = FXMLHelper.loadPanel("user_headPanel");
-        }else {
+        } else {
             System.out.println("......登录失败......");
         }
         guidePanel = FXMLHelper.loadPanel(guideName);
@@ -250,7 +244,7 @@ public class MainUI extends Application {
         return mainPanel;
     }
 
-    public void displaySuccessPane(){
+    public void displaySuccessPane() {
         AnchorPane successPane = FXMLHelper.loadPanel("operationSuccessPane");
         rootPane.getChildren().add(successPane);
         successPane.setLayoutX(70);
