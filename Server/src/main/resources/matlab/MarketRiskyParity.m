@@ -9,7 +9,7 @@ end
 algow=1/2*ones(2,1);
 %w为权重向量，先设置为空
 w=[];
-times=floor((length(dataset)-windowperiod)/holdingperiod)
+times=floor((length(dataset)-windowperiod)/holdingperiod);
 %{
 20由回测数据天数、窗口期和持有期共同决定，例如我们一共有980个日收益率数据，窗口期为360，
 持有期30，即每30天根据过去360天的收益率数据来调整权重，则向下取整（980-360）/30=20,也即我们一共调整权重的次数
@@ -56,11 +56,11 @@ end
 %求出日收益率矩阵和每30天的收益率率矩阵（30为持有期）
 for i=1:times
     for j=1:2
-        dailyret(:,j)=returndata((windowperiod+1)+holdingperiod*(i-1):(windowperiod+holdingperiod)+30*(i-1),j)+ones(holdingperiod,1);
+        dailyret(:,j)=returndata((windowperiod+1)+holdingperiod*(i-1):(windowperiod+holdingperiod)+holdingperiod*(i-1),j)+ones(holdingperiod,1);
         monthlyret(i,j)=prod(dailyret(:,j))-1;
     end
 end
 %利用上述迭代得出的权重向量w和月收益率矩阵求得组合每30天的收益率矩阵（30为持有期）
 rpturn=sum((w.*monthlyret)')';
-sharpe=adjust((rpturn'),holdingperiod);    
+sharpe=calSharpe((rpturn'),0.037,holdingperiod);    
 end

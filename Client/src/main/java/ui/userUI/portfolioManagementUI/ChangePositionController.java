@@ -284,21 +284,26 @@ public class ChangePositionController implements Initializable {
 		try {
 			weightMap = fofBaseInfoLogic.getNewestWeight();
 			displayMap1 = weightMap.get("000011");
+			System.out.println("diplayMap1.size:"+displayMap1.size());
 			displayMap2 = weightMap.get("000012");
+			System.out.println("diplayMap2.size:"+displayMap2.size());
+
 
 			allDisplayMap=weightMap.get("000011");
-			allDisplayMap.putAll(displayMap2);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
 		if(displayMap1!=null){
 			displayTypeList1=getDisplayTypeList(displayMap1);
+			System.out.println("displayTypeList1.size:"+displayTypeList1.size());
 		}
 		if(displayMap2!=null){
 			displayTypeList2=getDisplayTypeList(displayMap2);
+			System.out.println("displayTypeList2.size:"+displayTypeList2.size());
 		}
-
+		allDisplayMap.putAll(displayMap2);
 	}
+
 	private void setColumnOrange(TableColumn<DisplayType,String> p){
 		p.setCellFactory(new Callback<TableColumn<DisplayType, String>, TableCell<DisplayType, String>>() {
 			@Override
@@ -318,7 +323,7 @@ public class ChangePositionController implements Initializable {
 	}
 
 	public List<DisplayType> getDisplayTypeList(Map<String, Double> map) {
-		List<DisplayType> list=new ArrayList<DisplayType>();
+		List<DisplayType> list=null;
 		if (map != null) {
 			list = new ArrayList<DisplayType>();
 			for (Map.Entry<String, Double> entry : map.entrySet()) {

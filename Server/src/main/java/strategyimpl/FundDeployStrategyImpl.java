@@ -17,7 +17,6 @@ import entities.FundRankEntity;
 import exception.ObjectNotFoundException;
 import exception.ParameterException;
 import strategy.FundDeployStrategy;
-import util.CalendarOperate;
 import util.StrategyType;
 import util.UnitType;
 
@@ -129,7 +128,7 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
                 }
             }
         }
-        //        this.writeToTXT(codePrices,codeFee,N,window,hold,length);
+//                this.writeToTXT(codePrices,codeFee,N,window,hold,length);
         double[][] price=new double[length][N];
         double[][] fee=new double[N][3];
         List<String> codes=new ArrayList<>();
@@ -153,13 +152,14 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
         MWNumericArray prices=new MWNumericArray(price, MWClassID.DOUBLE);
         MWNumericArray fees=new MWNumericArray(fee,MWClassID.DOUBLE);
 
-        //风险平价策略
-         Object[] risky=new Object[3];
-//       Object[] risky= MatlabBoot.getCalculateTool().(3,prices,fees,N,window,hold);
-       fundDeploys.add(this.convertResult(risky,codes,N,window,hold,StrategyType.FUND_RISKY_PARITY));
+//        //风险平价策略
+//         Object[] risky=new Object[3];
+////       Object[] risky= MatlabBoot.getCalculateTool().(3,prices,fees,N,window,hold);
+//       fundDeploys.add(this.convertResult(risky,codes,N,window,hold,StrategyType.FUND_RISKY_PARITY));
 
         //1/N策略
         Object[] equal=new Object[3];
+
 //        Object[] equal= MatlabBoot.getCalculateTool().(3,prices,fees,N,window,hold);
         fundDeploys.add(this.convertResult(equal,codes,N,window,hold,StrategyType.EQUAL));
 
@@ -178,6 +178,7 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
             }
         }
         return result;
+//     return null;
     }
 
     @Override
@@ -227,8 +228,8 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
             }
             //排序
             List<String> sortedCodes = this.sort(fixProfitRank);
-            String start="2013-01-01";
-            String end=CalendarOperate.formatCalender(Calendar.getInstance());
+            String start="2013-04-01";
+            String end="2016-08-01";
             //根据当前组合确定窗口期和持有期
             fundDeploy=this.CustomizedFundDeploy(sortedCodes,start,end);
         } catch (ObjectNotFoundException e) {
@@ -259,6 +260,7 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
 
             for (int day = 0; day < length; day++) {
                 for (String fundcode : codePrices.keySet()) {
+                    System.out.println(fundcode);
                     double close = codePrices.get(fundcode).get(day);
                     if(day==0) {
                         System.out.println(close+"  "+fundcode);

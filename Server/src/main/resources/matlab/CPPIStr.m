@@ -14,7 +14,7 @@ function [F,E,A,G,SumTradeFee, portFreez] = CPPIStr(PortValue,Riskmulti,GuarantR
 %F:数组，第t个数据为t时刻安全底线
 %E:数组，第t个数据为t时刻可投风险资产上限
 %A:数组，第t个数据为t时刻产品净值
-%G:数组，第t个数据为t时刻可投无g风险资产下限
+%G:数组，第t个数据为t时刻可投无风险资产下限
 %SumTradeFee：总交易费用
 %portFeez:组合交易是否出现平仓，0未 1出现
 

@@ -21,12 +21,13 @@ public class PieChartGenerator {
         this.pieChartData = pieChartData;
         setData();
         setupHover();
+        piechart.setLegendVisible(false);
     }
 
     public void setData() {
         if (pane == null) {
             piechart.autosize();
-            piechart.setLabelsVisible(false);
+           // piechart.setLabelsVisible(false);
         }
         piechart.setData(pieChartData);
         pane.getChildren().add(piechart);
