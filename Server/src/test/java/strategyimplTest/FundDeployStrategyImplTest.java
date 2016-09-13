@@ -34,8 +34,9 @@ public class FundDeployStrategyImplTest {
 
     @Test
     public void defaultFundDeploy() throws Exception {
-        fundDeployStrategy.DefaultFundDeploy(SectorType.FIX_PROFIT_TYPE);
         fundDeployStrategy.DefaultFundDeploy(SectorType.RIGHTS_TYPE);
+//        System.out.println("--------");
+//        fundDeployStrategy.DefaultFundDeploy(SectorType.RIGHTS_TYPE);
     }
 
     @Test

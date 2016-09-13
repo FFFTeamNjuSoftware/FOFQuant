@@ -49,20 +49,20 @@ public class MarketLogicImplTest {
      */
     @Test
     public void testGetPriceInfoForCodeType() throws Exception {
-        marketLogic.getPriceInfo("000001", UnitType.DAY).stream().forEach(e -> System.out
-                .println("DAY" + new Gson().toJson(e)));
+        marketLogic.getPriceInfo("511010", UnitType.DAY).stream().forEach(e -> System.out
+                .println(e.price));
         System.out.println("————————————————————————————————————————————————————————————————");
-        marketLogic.getPriceInfo("000001", UnitType.WEEK).stream().forEach(e -> System.out
-                .println("WEEK" + new Gson().toJson(e)));
-        System.out.println("————————————————————————————————————————————————————————————————");
-        marketLogic.getPriceInfo("000001", UnitType.MONTH).stream().forEach(e -> System.out
-                .println("MONTH" + new Gson().toJson(e)));
-        System.out.println("————————————————————————————————————————————————————————————————");
-        marketLogic.getPriceInfo("000001", UnitType.QUARTER).stream().forEach(e -> System.out
-                .println("QUARTER" + new Gson().toJson(e)));
-        System.out.println("————————————————————————————————————————————————————————————————");
-        marketLogic.getPriceInfo("000001", UnitType.YEAR).stream().forEach(e -> System.out
-                .println("YEAR" + new Gson().toJson(e)));
+//        marketLogic.getPriceInfo("000001", UnitType.WEEK).stream().forEach(e -> System.out
+//                .println("WEEK" + new Gson().toJson(e)));
+//        System.out.println("————————————————————————————————————————————————————————————————");
+//        marketLogic.getPriceInfo("000001", UnitType.MONTH).stream().forEach(e -> System.out
+//                .println("MONTH" + new Gson().toJson(e)));
+//        System.out.println("————————————————————————————————————————————————————————————————");
+//        marketLogic.getPriceInfo("000001", UnitType.QUARTER).stream().forEach(e -> System.out
+//                .println("QUARTER" + new Gson().toJson(e)));
+//        System.out.println("————————————————————————————————————————————————————————————————");
+//        marketLogic.getPriceInfo("000001", UnitType.YEAR).stream().forEach(e -> System.out
+//                .println("YEAR" + new Gson().toJson(e)));
     }
 
     /**
@@ -80,11 +80,16 @@ public class MarketLogicImplTest {
      */
     @Test
     public void testGetPriceInfoForCodeTypeStartDateEndDate() throws Exception {
-        marketLogic.getPriceInfo("000001", UnitType.DAY, 5).stream()
-                .forEach(e -> System.out.println("DAY" + new Gson().toJson(e)));
-        System.out.println("————————————————————————————————————————————————————————————————");
-        marketLogic.getPriceInfo("I000011", UnitType.WEEK, 30).stream()
-                .forEach(e -> System.out.println("WEEK" + new Gson().toJson(e)));
+        List<PriceInfo> priceInfo1=marketLogic.getPriceInfo("511010", UnitType.DAY,"2013-04-01","2016-08-01");
+        List<PriceInfo> priceInfo2=marketLogic.getPriceInfo("I885012",UnitType.DAY,"2013-04-01","2016-08-01");
+        for(int i=0;i<priceInfo2.size();i++) {
+            System.out.println(priceInfo2.get(i).price + " " + priceInfo1.get(i).price);
+        }
+//        marketLogic.getPriceInfo("511010", UnitType.DAY, "2013-01-01","2014-01-01").stream()
+//                .forEach(e -> System.out.println(e.price));
+//        System.out.println("————————————————————————————————————————————————————————————————");
+//        marketLogic.getPriceInfo("I000011", UnitType.WEEK, 30).stream()
+//                .forEach(e -> System.out.println("WEEK" + new Gson().toJson(e)));
 
     }
 
