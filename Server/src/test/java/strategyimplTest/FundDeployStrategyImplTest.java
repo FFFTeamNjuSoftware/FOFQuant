@@ -1,5 +1,6 @@
 package strategyimplTest;
 
+import beans.FundDeploy;
 import org.junit.Before;
 import org.junit.Test;
 import strategy.FundDeployStrategy;
@@ -34,7 +35,8 @@ public class FundDeployStrategyImplTest {
 
     @Test
     public void defaultFundDeploy() throws Exception {
-        fundDeployStrategy.DefaultFundDeploy(SectorType.RIGHTS_TYPE);
+        FundDeploy fundDeploy=fundDeployStrategy.DefaultFundDeploy(SectorType.RIGHTS_TYPE);
+        System.out.println(fundDeploy.rpturn);
 //        System.out.println("--------");
 //        fundDeployStrategy.DefaultFundDeploy(SectorType.RIGHTS_TYPE);
     }

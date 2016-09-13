@@ -8,11 +8,14 @@ import bl.MarketLogic;
 import blimpl.BLController;
 import blimpl.Converter;
 import com.mathworks.toolbox.javabuilder.MWClassID;
+import com.mathworks.toolbox.javabuilder.MWException;
 import com.mathworks.toolbox.javabuilder.MWNumericArray;
 import entities.CPPIMarketDeployEntity;
 import entities.RiskyParityDeployEntity;
+import exception.NotInitialedException;
 import exception.ObjectNotFoundException;
 import exception.ParameterException;
+import startup.MatlabBoot;
 import strategy.MarketDeployStrategy;
 import util.CalendarOperate;
 import util.SectorType;
@@ -34,20 +37,20 @@ public class MarketDeployStrategyImpl implements MarketDeployStrategy{
     }
 
     @Override
-    public CPPIMarketDeploy DefaultCPPIDeploy(double portValue, double riskMulti, double guaranteeRatio) throws RemoteException{
+    public CPPIMarketDeploy DefaultCPPIDeploy(int portValue, double riskMulti, double guaranteeRatio) throws RemoteException, NotInitialedException, MWException {
         String start= CalendarOperate.formatCalender(Calendar.getInstance());
         CPPIMarketDeploy cppiMarketDeploy=this.CustomizedCPPIDeploy(portValue,riskMulti,guaranteeRatio,start,start);
         return cppiMarketDeploy;
     }
 
     @Override
-    public CPPIMarketDeploy CustomizedCPPIDeploy(double portValue, double riskMulti, double guaranteeRatio, String startDate, String endDate) throws RemoteException{
+    public CPPIMarketDeploy CustomizedCPPIDeploy(int portValue, double riskMulti, double guaranteeRatio, String startDate, String endDate) throws RemoteException, NotInitialedException, MWException {
 //        TradeDayOfYear: 产品每年交易日，如250天
         int tradeDayOfYear=250;
 //        adjustCycle:产品根据模型调整周期，例如每10个交易日调整一次。
         int[] adjustCycle={30,60,90};
 //        RisklessReturn: 无风险资产年化收益率
-        double risklessReturn=0.005;
+        double risklessReturn=0.037;
 //        TradeFee:交易费用
         double tradeFee=0.005;
 
@@ -66,9 +69,7 @@ public class MarketDeployStrategyImpl implements MarketDeployStrategy{
             MWNumericArray SData=new MWNumericArray(sData, MWClassID.DOUBLE);
             for(int i=0;i<adjustCycle.length;i++) {
                 //调用CPPI策略matlab代码
-                Object[] cppiResult = new Object[6];
-                //TODO
-//              cppiResult= MatlabBoot.getCalculateTool().(portValue,riskMulti,guaranteeRatio,tradeDayTimeLong,tradeDayOfYear,adjustCycle[i],risklessReturn,tradeFee,sData);
+                Object[] cppiResult= MatlabBoot.getCalculateTool().CPPIStr(portValue,riskMulti,guaranteeRatio,tradeDayTimeLong,tradeDayOfYear,adjustCycle[i],risklessReturn,tradeFee,sData);
                 //F:数组，第t个数据为t时刻安全底线
                 double[] F = (double[]) ((MWNumericArray) cppiResult[0]).toDoubleArray();
                 //E:数组，第t个数据为t时刻可投风险资产上限
@@ -87,7 +88,7 @@ public class MarketDeployStrategyImpl implements MarketDeployStrategy{
                 //计算每日收益率
                 List<Double> profits=new ArrayList<>();
                 for(int index=0;index<size;index++){
-                    double dayProfit=(E[index]/A[index])*sData[index];
+                    double dayProfit=(E[index]/A[index])*sData[index]+(G[index]/A[index])*risklessReturn;
                     profits.add(dayProfit);
                 }
 
@@ -120,7 +121,7 @@ public class MarketDeployStrategyImpl implements MarketDeployStrategy{
     }
 
     @Override
-    public RiskyParityDeploy DefaultRiskyParityDeploy() throws RemoteException{
+    public RiskyParityDeploy DefaultRiskyParityDeploy() throws RemoteException, NotInitialedException, MWException {
         //511010,885012
         String start="2013-01-01";
         String end=CalendarOperate.formatCalender(Calendar.getInstance());
@@ -129,9 +130,9 @@ public class MarketDeployStrategyImpl implements MarketDeployStrategy{
     }
 
     @Override
-    public RiskyParityDeploy CustomizedRiskyParityDeploy(String startDate, String endDate) throws RemoteException{
+    public RiskyParityDeploy CustomizedRiskyParityDeploy(String startDate, String endDate) throws RemoteException, NotInitialedException, MWException {
         String riskylesscode="511010";
-        String riskycode="885012";
+        String riskycode="I885012";
         List<RiskyParityDeployEntity> entities=new ArrayList<>();
         try {
             List<PriceInfo> risklessInfo=marketLogic.getPriceInfo(riskylesscode,UnitType.DAY,startDate,endDate);
@@ -150,10 +151,9 @@ public class MarketDeployStrategyImpl implements MarketDeployStrategy{
             int[] holds={30,60,90};
             for(int window:windows){
                 for(int hold:holds){
-                    for(int level=0;level<=5;level++){
+                    for(int level=1;level<=5;level++){
                         MWNumericArray dataset=new MWNumericArray(pricedata,MWClassID.DOUBLE);
-                        Object[] result=new Object[3];
-//            result= MatlabBoot.getCalculateTool().(3,dataset,window,hold,level);
+                        Object[] result = MatlabBoot.getCalculateTool().MarketRiskyParity(3,dataset,window,hold,level);
                         double[][] w=(double[][])((MWNumericArray)result[0]).toDoubleArray();
                         double[] rpturn=(double[])((MWNumericArray)result[1]).toDoubleArray();
                         double sharpe=(double)result[2];
