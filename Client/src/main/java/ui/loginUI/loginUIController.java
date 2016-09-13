@@ -1,10 +1,7 @@
 package ui.loginUI;
 
 import RMIModule.BLInterfaces;
-import beans.FundInfo;
-import beans.FundQuickInfo;
 import beans.UserInfo;
-import bl.BaseInfoLogic;
 import bl.UserLogic;
 import exception.AuthorityException;
 import exception.ObjectNotFoundException;
@@ -15,21 +12,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
-import org.dom4j.DocumentException;
-import starter.Main;
 import starter.MainUI;
 import ui.util.IOHelper;
 import util.UserType;
 
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.util.Calendar;
-import java.util.List;
 import java.util.ResourceBundle;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by QiHan on 2016/8/14.
