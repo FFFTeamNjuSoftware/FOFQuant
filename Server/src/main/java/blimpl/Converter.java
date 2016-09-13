@@ -209,6 +209,7 @@ public class Converter {
         fundDeploy.hold = entity.getHold();
         fundDeploy.sharpe = entity.getSharpe();
         fundDeploy.strategy = entity.getStrategy();
+        fundDeploy.profits=entity.getProfits();
         return fundDeploy;
     }
 
@@ -216,7 +217,7 @@ public class Converter {
         CPPIMarketDeploy cppiMarketDeploy = new CPPIMarketDeploy();
         cppiMarketDeploy.proportion = entity.getProportion();
         cppiMarketDeploy.sumTradeFee = entity.getSumTradeFee();
-        cppiMarketDeploy.profit = entity.getProfit();
+        cppiMarketDeploy.profits = entity.getProfits();
         cppiMarketDeploy.adjustCycle = entity.getAdjustCycle();
         cppiMarketDeploy.profit = entity.getProfit();
         return cppiMarketDeploy;
@@ -225,6 +226,7 @@ public class Converter {
     public static RiskyParityDeploy convertRiskyParityDeployEntity(RiskyParityDeployEntity entity) {
         RiskyParityDeploy riskyParityDeploy = new RiskyParityDeploy();
         riskyParityDeploy.proportion = entity.getProportion();
+        riskyParityDeploy.profits=entity.getProfits();
         riskyParityDeploy.fundNum = entity.getFundNum();
         riskyParityDeploy.rpturn = entity.getRpturn();
         riskyParityDeploy.window = entity.getWindow();

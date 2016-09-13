@@ -131,7 +131,19 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
                 }
             }
         }
-//                this.writeToTXT(codePrices,codeFee,N,window,hold,length);
+
+        // 计算每只基金的日收益率
+        Map<String,List<Double>> codeProfits=new HashMap<>();
+        for(String code:codePrices.keySet()){
+            List<Double> profits=new ArrayList<>();
+            for(int i=1;i<codePrices.get(code).size();i++){
+                double profit=(codePrices.get(code).get(i)-codePrices.get(code).get(i-1))/codePrices.get(code).get(i-1);
+                profits.add(profit);
+            }
+            codeProfits.put(code,profits);
+        }
+
+//      this.writeToTXT(codePrices,codeFee,N,window,hold,length);
         double[][] price=new double[length][N];
         double[][] fee=new double[N][3];
         List<String> codes=new ArrayList<>();
@@ -146,11 +158,11 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
             codes.add(code);
             index++;
         }
+
         //根据prices,fee,N,window,hold生成dataPrice和dataFee矩阵
         //调用小类matlab策略
         //策略返回w矩阵,rpturn数组,Sharpe比率
         //rpturn数组计算出对应的Sharpe比率
-        //TODO
         List<FundDeploy> fundDeploys=new ArrayList<>();
         MWNumericArray prices=new MWNumericArray(price, MWClassID.DOUBLE);
         MWNumericArray fees=new MWNumericArray(fee,MWClassID.DOUBLE);
@@ -162,11 +174,11 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
 
         //1/N策略
         Object[] equal= MatlabBoot.getCalculateTool().oneDivideN(3,prices,fees,N,window,hold);
-        fundDeploys.add(this.convertResult(equal,codes,N,window,hold,StrategyType.EQUAL));
+        fundDeploys.add(this.convertResult(equal,codeProfits,length,N,window,hold,StrategyType.EQUAL));
 
         //动量策略
         Object[] momentum=MatlabBoot.getCalculateTool().momentum(3,prices,fees,N,window,hold);
-        fundDeploys.add(this.convertResult(momentum,codes,N,window,hold,StrategyType.MOMENTUM));
+        fundDeploys.add(this.convertResult(momentum,codeProfits,length,N,window,hold,StrategyType.MOMENTUM));
 
         //选出夏普比率最高的配置结果
         FundDeploy result=fundDeploys.get(0);
@@ -259,10 +271,10 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
 
             for (int day = 0; day < length; day++) {
                 for (String fundcode : codePrices.keySet()) {
-                    System.out.println(fundcode);
+//                    System.out.println(fundcode);
                     double close = codePrices.get(fundcode).get(day);
                     if(day==0) {
-                        System.out.println(close+"  "+fundcode);
+//                        System.out.println(close+"  "+fundcode);
                     }
                     bufferedWriter.write(close + " ");
                     if (day == 0) {
@@ -283,12 +295,13 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
     }
 
     //转化matlab返回值
-    private FundDeploy convertResult(Object[] objs,List<String> codes,int N,int window,int hold,StrategyType strategyType){
+    private FundDeploy convertResult(Object[] objs,Map<String,List<Double>> codeProfits,int length,int N,int window,int hold,StrategyType strategyType){
+        List<String> codes=(List)codeProfits.entrySet();
+
         double[][] w=(double[][])((MWNumericArray)objs[0]).toDoubleArray();
         double[] rpturn = (double[])((MWNumericArray)objs[1]).toDoubleArray();
         double rsharpe = (double)objs[2];
         List<Map<String, Double>> proportions = new ArrayList<>();
-
         for (int i = 0; i < rpturn.length; i++){
             Map<String, Double> proportion = new HashMap<>();
             for (int j=0;j<N;j++) {
@@ -298,8 +311,18 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
             }
             proportions.add(proportion);
         }
-
-        FundDeployEntity fundDeployEntity=new FundDeployEntity(proportions,N,rpturn,window,hold,rsharpe, strategyType);
+        int step=(int) Math.floor(length/rpturn.length);
+        List<Double> profits=new ArrayList<>();
+        for(int i=0;i<rpturn.length;i++){
+            for(int j=i*step;j<(i+1)*step;j++){
+                double profit=0.0;
+                for(String code:codeProfits.keySet()){
+                    profit=profit+proportions.get(i).get(code)*codeProfits.get(code).get(j);
+                }
+                profits.add(profit);
+            }
+        }
+        FundDeployEntity fundDeployEntity=new FundDeployEntity(proportions,profits,N,rpturn,window,hold,rsharpe, strategyType);
         return Converter.convertFundDeployEntity(fundDeployEntity);
     }
 

@@ -19,9 +19,11 @@ public class FundDeployEntity {
     private int hold;
     private double sharpe;
     private StrategyType strategy;
+    private List<Double> profits;
 
-    public FundDeployEntity(List<Map<String,Double>> proportion, int fundNum, double[] rpturn,int window, int hold, double sharpe,StrategyType strategy){
+    public FundDeployEntity(List<Map<String,Double>> proportion, List<Double> profits,int fundNum, double[] rpturn,int window, int hold, double sharpe,StrategyType strategy){
         this.proportion=proportion;
+        this.profits=profits;
         this.fundNum=fundNum;
         this.rpturn=rpturn;
         this.window=window;
@@ -53,5 +55,7 @@ public class FundDeployEntity {
     }
 
     public StrategyType getStrategy(){return strategy;}
+
+    public List<Double> getProfits(){return profits;}
 
 }

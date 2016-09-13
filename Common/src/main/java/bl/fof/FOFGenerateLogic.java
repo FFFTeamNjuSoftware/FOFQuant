@@ -68,9 +68,16 @@ public interface FOFGenerateLogic extends Remote {
     void setFOFName(String name) throws RemoteException;
 
     /**
+     * 设置组合代码
+     * @param code
+     * @throws RemoteException
+     */
+    void setFOFCode(String code) throws RemoteException;
+
+    /**
      * 保存结果
      *
      * @throws RemoteException
      */
-    void saveResult() throws RemoteException;
+    void saveResult() throws RemoteException, NotInitialedException, MWException;
 }

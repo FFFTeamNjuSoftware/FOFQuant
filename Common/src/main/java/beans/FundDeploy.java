@@ -16,6 +16,10 @@ public class FundDeploy implements Serializable {
     public List<Map<String,Double>> proportion;
 
     /*
+     基金组合对应的日收益率
+     */
+    public List<Double> profits;
+    /*
     基金个数
      */
     public int fundNum;

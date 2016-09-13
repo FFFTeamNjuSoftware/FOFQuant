@@ -176,7 +176,7 @@ public class MarketDeployStrategyImpl implements MarketDeployStrategy{
                             double riskProfit=(riskInfo.get(i).price-riskInfo.get(i-1).price)/riskInfo.get(i-1).price;
                             riskInfoProfit.add(riskProfit);
                         }
-                        int step=(int)(length/rpturn.length);
+                        int step=(int)Math.floor(length/rpturn.length);
                         List<Double> profits=new ArrayList<>();
                         for(int i=0;i<rpturn.length;i++){
                             for(int j=i*step;j<(i+1)*step;j++){

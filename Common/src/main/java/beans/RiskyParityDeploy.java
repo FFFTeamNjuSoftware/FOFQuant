@@ -13,6 +13,11 @@ public class RiskyParityDeploy {
      public List<Map<String,Double>> proportion;
 
      /*
+     配置组合对应的日收益率
+      */
+     public List<Double> profits;
+
+     /*
      该配置组合所包含的基金个数
       */
      public int fundNum;
