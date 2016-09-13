@@ -108,7 +108,7 @@ public class FOFInfoUpdate {
             }
             // FOFHoldInfo更新完成
             // 处理调仓请求
-            consumePositionChangeResuqest();
+//            consumePositionChangeResuqest();
 
             upDateHistoryInfo();
             upDateFOFQuickInfo();

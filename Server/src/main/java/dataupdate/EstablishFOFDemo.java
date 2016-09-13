@@ -23,7 +23,7 @@ public class EstablishFOFDemo {
     //    String date = LocalDate.now().toString();
     String date = "2015-01-05";
 
-    void establishFOF(FOFEstablishRequestInfo establishRequestInfo) {
+    public void establishFOF(FOFEstablishRequestInfo establishRequestInfo) {
         Session se = HibernateBoot.openSession();
         Transaction tra = se.beginTransaction();
         FofInfoEntity fofInfoEntity = new FofInfoEntity();
