@@ -1,4 +1,4 @@
-function[equalw,equalwreturn]=oneDivideN(dataset,datafee,N,window,hold)
+function[equalw,equalwreturn,sharpe]=oneDivideN(dataset,datafee,N,window,hold)
 %读取数据,为标的资产的日收盘价数据,其中行数为天数,列数为标的资产个数
 %具体:N个权益类型基金构成的组合,M个固定收益类型基金构成的组合。 
 % dataset=xlsread('d:/dailysector.xls');
@@ -26,4 +26,5 @@ equalw=1/N*ones(adjust,N);
      end
  end
 equalwreturn=sum((equalw.*monthlyret)')';
+sharpe=adjust((equalwreturn'),hold);
 end
