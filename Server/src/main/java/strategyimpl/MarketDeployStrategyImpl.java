@@ -37,14 +37,14 @@ public class MarketDeployStrategyImpl implements MarketDeployStrategy{
     }
 
     @Override
-    public CPPIMarketDeploy DefaultCPPIDeploy(int portValue, double riskMulti, double guaranteeRatio) throws RemoteException, NotInitialedException, MWException {
+    public CPPIMarketDeploy DefaultCPPIDeploy(double portValue, double riskMulti, double guaranteeRatio) throws RemoteException, NotInitialedException, MWException {
         String start= CalendarOperate.formatCalender(Calendar.getInstance());
         CPPIMarketDeploy cppiMarketDeploy=this.CustomizedCPPIDeploy(portValue,riskMulti,guaranteeRatio,start,start);
         return cppiMarketDeploy;
     }
 
     @Override
-    public CPPIMarketDeploy CustomizedCPPIDeploy(int portValue, double riskMulti, double guaranteeRatio, String startDate, String endDate) throws RemoteException, NotInitialedException, MWException {
+    public CPPIMarketDeploy CustomizedCPPIDeploy(double portValue, double riskMulti, double guaranteeRatio, String startDate, String endDate) throws RemoteException, NotInitialedException, MWException {
 //        TradeDayOfYear: 产品每年交易日，如250天
         int tradeDayOfYear=250;
 //        adjustCycle:产品根据模型调整周期，例如每10个交易日调整一次。
@@ -69,7 +69,7 @@ public class MarketDeployStrategyImpl implements MarketDeployStrategy{
             MWNumericArray SData=new MWNumericArray(sData, MWClassID.DOUBLE);
             for(int i=0;i<adjustCycle.length;i++) {
                 //调用CPPI策略matlab代码
-                Object[] cppiResult= MatlabBoot.getCalculateTool().CPPIStr(portValue,riskMulti,guaranteeRatio,tradeDayTimeLong,tradeDayOfYear,adjustCycle[i],risklessReturn,tradeFee,sData);
+                Object[] cppiResult= MatlabBoot.getCalculateTool().CPPIStr(9,portValue,riskMulti,guaranteeRatio,tradeDayTimeLong,tradeDayOfYear,adjustCycle[i],risklessReturn,tradeFee,sData);
                 //F:数组，第t个数据为t时刻安全底线
                 double[] F = (double[]) ((MWNumericArray) cppiResult[0]).toDoubleArray();
                 //E:数组，第t个数据为t时刻可投风险资产上限
@@ -167,7 +167,24 @@ public class MarketDeployStrategyImpl implements MarketDeployStrategy{
                             proportion.put(riskycode,w[i][1]);
                             proportions.add(proportion);
                         }
-                        RiskyParityDeployEntity riskyParityDeployEntity=new RiskyParityDeployEntity(proportions,2,rpturn,window,hold,level,sharpe);
+
+                        List<Double> risklessInfoProfit=new ArrayList<>();
+                        List<Double> riskInfoProfit=new ArrayList<>();
+                        for(int i=1;i<length;i++){
+                            double risklessProfit=(risklessInfo.get(i).price-risklessInfo.get(i-1).price)/risklessInfo.get(i-1).price;
+                            risklessInfoProfit.add(risklessProfit);
+                            double riskProfit=(riskInfo.get(i).price-riskInfo.get(i-1).price)/riskInfo.get(i-1).price;
+                            riskInfoProfit.add(riskProfit);
+                        }
+                        int step=(int)(length/rpturn.length);
+                        List<Double> profits=new ArrayList<>();
+                        for(int i=0;i<rpturn.length;i++){
+                            for(int j=i*step;j<(i+1)*step;j++){
+                                double profit=risklessInfoProfit.get(i)*w[i][0]+riskInfoProfit.get(i)*w[i][1];
+                                profits.add(profit);
+                            }
+                        }
+                        RiskyParityDeployEntity riskyParityDeployEntity=new RiskyParityDeployEntity(proportions,2,rpturn,window,hold,level,sharpe,profits);
                         entities.add(riskyParityDeployEntity);
                     }
                 }

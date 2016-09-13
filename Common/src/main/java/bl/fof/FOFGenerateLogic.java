@@ -2,6 +2,8 @@ package bl.fof;
 
 import beans.ProfitChartInfo;
 import beans.RiskParameters;
+import com.mathworks.toolbox.javabuilder.MWException;
+import exception.NotInitialedException;
 import util.StrategyType;
 
 import java.rmi.Remote;
@@ -19,7 +21,7 @@ public interface FOFGenerateLogic extends Remote {
      *
      * @param assetValue
      */
-    void setTotalAsset(double assetValue) throws RemoteException;
+    void setTotalAsset(int assetValue) throws RemoteException;
 
     /**
      * 设定策略类型
@@ -40,14 +42,14 @@ public interface FOFGenerateLogic extends Remote {
      *
      * @return
      */
-    Map<String, Double> getLargeClassConfiguration() throws RemoteException;
+    Map<String, Double> getLargeClassConfiguration() throws RemoteException, NotInitialedException, MWException;
 
     /**
      * 返回小类配置权重比
      *
      * @return
      */
-    Map<String, Map<String, Double>> getSmallClassConfiguration() throws RemoteException;
+    Map<String, Map<String, Double>> getSmallClassConfiguration() throws RemoteException, NotInitialedException, MWException;
 
     /**
      * 获得回测结果
@@ -56,7 +58,7 @@ public interface FOFGenerateLogic extends Remote {
      * @return
      * @throws RemoteException
      */
-    List<ProfitChartInfo> getTestValues() throws RemoteException;
+    List<ProfitChartInfo> getTestValues(String startDate,String endDate) throws RemoteException, NotInitialedException, MWException;
 
     /**
      * 设置组合名字

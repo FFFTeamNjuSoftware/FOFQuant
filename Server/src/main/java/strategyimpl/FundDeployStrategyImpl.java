@@ -181,33 +181,10 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
     }
 
     @Override
-    public FundDeploy CustomizedFundDeploy(List<String> funds,String startDate,String endDate) throws RemoteException, NotInitialedException, MWException {
-        List<FundDeploy> fundDeploys=new ArrayList<>();
-        for (int window : windows) {
-            for (int hold : holds) {
-                for (int N = 2; N <= 6; N++) {
-                     FundDeploy fundDeploy=this.calSharpe(funds,N,window,hold,startDate,endDate);
-                     fundDeploys.add(fundDeploy);
-                }
-            }
-        }
-        //选出夏普比率值最高的组合
-        FundDeploy result=fundDeploys.get(0);
-        double sharpe=0;
-        for(FundDeploy fundDeploy:fundDeploys){
-              if(fundDeploy.sharpe>sharpe){
-                  sharpe=fundDeploy.sharpe;
-                  result=fundDeploy;
-              }
-        }
-        return result;
-    }
-
-    @Override
-    public FundDeploy DefaultFundDeploy(String sectorType) throws RemoteException, NotInitialedException, MWException {
+    public FundDeploy CustomizedFundDeploy(String startDate,String endDate,String sectorType) throws RemoteException, NotInitialedException, MWException {
         //获得系统中所有固定收益类基金的排名
         List<FundQuickInfo> fundQuickInfos;
-        FundDeploy fundDeploy=new FundDeploy();
+        List<FundDeploy> fundDeploys = new ArrayList<>();
         try {
             fundQuickInfos = baseInfoLogic.getFundQuickInfo(sectorType);
             HashMap<String, Double> fixProfitRank = new HashMap<>();
@@ -227,13 +204,36 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
             }
             //排序
             List<String> sortedCodes = this.sort(fixProfitRank);
-            String start="2013-01-01";
-            String end="2016-08-01";
-            //根据当前组合确定窗口期和持有期
-            fundDeploy=this.CustomizedFundDeploy(sortedCodes,start,end);
+            for (int window : windows) {
+                for (int hold : holds) {
+                    for (int N = 2; N <= 6; N++) {
+                        FundDeploy fundDeploy = this.calSharpe(sortedCodes, N, window, hold, startDate, endDate);
+                        fundDeploys.add(fundDeploy);
+                    }
+                }
+            }
+
         } catch (ObjectNotFoundException e) {
-            System.out.println("系统无法进行小类配置");
+            e.printStackTrace();
         }
+        //选出夏普比率值最高的组合
+        FundDeploy result = fundDeploys.get(0);
+        double sharpe = 0;
+        for (FundDeploy fundDeploy : fundDeploys) {
+            if (fundDeploy.sharpe > sharpe) {
+                sharpe = fundDeploy.sharpe;
+                result = fundDeploy;
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public FundDeploy DefaultFundDeploy(String sectorType) throws RemoteException, NotInitialedException, MWException {
+        String start="2013-01-01";
+        String end="2016-08-01";
+        //根据当前组合确定窗口期和持有期
+        FundDeploy fundDeploy=this.CustomizedFundDeploy(start,end,sectorType);
         return fundDeploy;
     }
 
@@ -298,6 +298,7 @@ public class FundDeployStrategyImpl implements FundDeployStrategy {
             }
             proportions.add(proportion);
         }
+
         FundDeployEntity fundDeployEntity=new FundDeployEntity(proportions,N,rpturn,window,hold,rsharpe, strategyType);
         return Converter.convertFundDeployEntity(fundDeployEntity);
     }

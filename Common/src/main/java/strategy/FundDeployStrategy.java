@@ -46,7 +46,7 @@ public interface FundDeployStrategy {
      * @param funds
      * @return
      */
-    public FundDeploy CustomizedFundDeploy(List<String> funds,String startDate,String endDate) throws RemoteException, NotInitialedException, MWException;
+    public FundDeploy CustomizedFundDeploy(String startDate,String endDate,String sectorType) throws RemoteException, NotInitialedException, MWException;
 
     /**
      * 根据系统基金评级计算小类配置结果
