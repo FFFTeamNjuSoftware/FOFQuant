@@ -189,6 +189,7 @@ public class userManagerUIController  implements Initializable {
         try {
             userLogic.addUser(userManageInfo);
            // tipLabel.setText("已添加！");
+            init();
             MainUI.getInstance().displaySuccessPane();
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -204,7 +205,7 @@ public class userManagerUIController  implements Initializable {
     private void deleteAllSelected(){
         try {
             userLogic.deleteUser(updateUserManageInfo);
-
+            init();
         } catch (RemoteException e) {
             e.printStackTrace();
         } catch (ObjectNotFoundException e) {
@@ -262,7 +263,11 @@ public class userManagerUIController  implements Initializable {
                         passwordColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
                     }
-                    System.out.println("......update info......");
+                    if (event.getButton().equals(MouseButton.PRIMARY)
+                            && event.getClickCount() == 1
+                            && TableRowControl.this.getIndex() < table.getItems().size()) {
+                    System.out.println("......update info......"+selectedIndex);
+                    System.out.println("......======......"+userTypeColumn.getCellData(selectedIndex));
                     selectedIndex = userManagerUIController.TableRowControl.this.getIndex();
                     updateUserManageInfo.name  =nameColumn.getCellData(selectedIndex);
                     updateUserManageInfo.password = passwordColumn.getCellData(selectedIndex);
@@ -277,7 +282,7 @@ public class userManagerUIController  implements Initializable {
                         System.out.println("......get user type fail......");
                         updateUserManageInfo.userType=UserType.MANAGER;
                     }
-                }
+                }}
             });
         }
     }
