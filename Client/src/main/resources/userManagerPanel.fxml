@@ -71,7 +71,7 @@
                 <RowConstraints maxHeight="247.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TableView fx:id="table" blendMode="LIGHTEN" minHeight="-Infinity" minWidth="-Infinity" prefHeight="452.0" prefWidth="585.0">
+                  <TableView fx:id="table" blendMode="LIGHTEN" editable="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="452.0" prefWidth="585.0">
                     <columns>
                       <TableColumn fx:id="selectColumn" prefWidth="53.0" resizable="false" />
                         <TableColumn fx:id="userTypeColumn" prefWidth="94.0" resizable="false" text="类型" />

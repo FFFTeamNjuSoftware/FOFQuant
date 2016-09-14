@@ -3,6 +3,8 @@ package ui.userUI.buildUI;
 import RMIModule.BLInterfaces;
 import beans.ProfitChartInfo;
 import bl.fof.FOFGenerateLogic;
+import com.mathworks.toolbox.javabuilder.MWException;
+import exception.NotInitialedException;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.XYChart;
@@ -15,6 +17,8 @@ import ui.util.InitHelper;
 
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -44,9 +48,18 @@ public class BuildPanel4UIController implements Initializable {
         InitHelper.beautifyImageViews(imageViews);
         XYChart.Series series = new XYChart.Series<String, Number>();
         List<ProfitChartInfo> list = null;
+        Date now = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(now);
+        calendar.add(Calendar.YEAR, -1);
+        Date lastYear = calendar.getTime();
         try {
-            list = logic.getTestValues();
+            list = logic.getTestValues(lastYear.toString(),now.toString());
         } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (MWException e) {
+            e.printStackTrace();
+        } catch (NotInitialedException e) {
             e.printStackTrace();
         }
         if (list != null) {
@@ -64,6 +77,10 @@ public class BuildPanel4UIController implements Initializable {
             logic.setFOFName(combinationName.getText());
             logic.saveResult();
         } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (MWException e) {
+            e.printStackTrace();
+        } catch (NotInitialedException e) {
             e.printStackTrace();
         }
         MainUI.getInstance().displaySuccessPane();

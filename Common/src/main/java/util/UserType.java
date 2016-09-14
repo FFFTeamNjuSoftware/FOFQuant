@@ -8,7 +8,10 @@ package util;
  * 用户类型
  */
 public enum UserType {
-    MANAGER, NORMAL;
+    MANAGER("管理员"), NORMAL("普通用户");
+
+    private UserType(String 管理员) {
+    }
 
     public static UserType getStringValue(String userType) {
         if (userType.equalsIgnoreCase("MANAGER"))
@@ -17,4 +20,5 @@ public enum UserType {
             return NORMAL;
         return null;
     }
+
 }
