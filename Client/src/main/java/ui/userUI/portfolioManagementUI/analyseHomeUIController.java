@@ -18,6 +18,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import starter.MainUI;
+import ui.util.InitHelper;
 import ui.util.MultipleAxesLineChart;
 
 import java.io.IOException;
@@ -65,6 +66,7 @@ public class analyseHomeUIController implements Initializable {
 		fofBaseInfoLogic = BLInterfaces.getFofBaseInfoLogic();
 		mainUI = MainUI.getInstance();
 		initInfo();
+		initChangePositionButton();
 	}
 
 	private void initInfo(){
@@ -206,6 +208,9 @@ public class analyseHomeUIController implements Initializable {
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
+	}
+	public void initChangePositionButton(){
+		InitHelper.beatifyImageView(changePositionBt);
 	}
 	@FXML
 	public void changePositionBtClick(){

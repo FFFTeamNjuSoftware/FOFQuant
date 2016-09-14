@@ -16,7 +16,7 @@
                 <Font size="20.0" />
             </font>
         </Label>
-      <ImageView fx:id="backImage" fitHeight="23.0" fitWidth="23.0" layoutX="15.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="backImage" fitHeight="23.0" fitWidth="23.0" layoutX="15.0" layoutY="23.0" onMouseClicked="#backBtClick" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@/images/back.png" />
          </image>

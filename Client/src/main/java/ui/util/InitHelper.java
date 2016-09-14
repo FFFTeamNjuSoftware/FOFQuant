@@ -63,4 +63,17 @@ public class InitHelper {
 
 		}
 	}
+	public static void beatifyImageView(ImageView image){
+		image.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
+			image.setStyle("-fx-background-color: #23a3f3; -fx-opacity:0.5");
+		});
+
+//		image.addEventHandler(MouseEvent.MOUSE_PRESSED, (MouseEvent e) -> {
+//			image.setStyle("-fx-background-color: #1F77B9;  -fx-opacity:0.5");
+//		});
+
+		image.addEventHandler(MouseEvent.MOUSE_EXITED, (MouseEvent e) -> {
+			image.setStyle("-fx-background-color: transparent;");
+		});
+	}
 }

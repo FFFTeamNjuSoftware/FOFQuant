@@ -39,6 +39,9 @@ import java.util.concurrent.TimeUnit;
  * Created by tj on 2016/8/17.
  */
 public class MainUI extends Application {
+//    public MainUI() {
+//
+//    }
     private static MainUI instance;
     private final Delta dragDelta = new Delta();
     private static Stage primaryStage;
@@ -59,7 +62,7 @@ public class MainUI extends Application {
     public static HashMap<String, List<PriceInfo>> priceInfoMap = new HashMap<String, List<PriceInfo>>();
     public static HashMap<String, List<ProfitChartInfo>> profitChartInfoMap = new HashMap<String, List<ProfitChartInfo>>();
 
-
+    private static AnchorPane  warningPane;
     public static MainUI getInstance() {
         return instance;
     }
@@ -80,6 +83,7 @@ public class MainUI extends Application {
         }
         this.primaryStage = primaryStage;
         mainPanel = FXMLHelper.loadPanel("loginPanel");
+        warningPane=FXMLHelper.loadPanel("warningPanel");
 
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getBounds();
         double theWidth = primaryScreenBounds.getWidth();
@@ -254,5 +258,17 @@ public class MainUI extends Application {
         ft.setToValue(0.0);
         ft.setAutoReverse(true);
         ft.play();
+    }
+    public void displayWarningPane(){
+        if(!rootPane.getChildren().contains(warningPane)) {
+            rootPane.getChildren().add(warningPane);
+            warningPane.setLayoutX(380);
+            warningPane.setLayoutY(235);
+        }
+    }
+    public void removeWarningPane(){
+        if(rootPane.getChildren().contains(warningPane)){
+            rootPane.getChildren().remove(warningPane);
+        }
     }
 }

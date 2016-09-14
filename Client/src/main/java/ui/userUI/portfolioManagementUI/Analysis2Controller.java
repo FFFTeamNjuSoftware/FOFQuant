@@ -239,7 +239,7 @@ public class Analysis2Controller implements Initializable {
 
 		table2.setItems(FXCollections.observableArrayList(
 				new TableData(
-						profitAnalyse_three.yearWaveRate + "", profitAnalyse_half.yearWaveRate + "", profitAnalyse_year.yearWaveRate + "", profitAnalyse_establish.yearWaveRate + ""),
+						profitAnalyse_three.yearWaveRate + "%", profitAnalyse_half.yearWaveRate + "%", profitAnalyse_year.yearWaveRate + "%", profitAnalyse_establish.yearWaveRate + "%"),
 				new TableData(
 						profitAnalyse_three.trackingError + "", profitAnalyse_half.trackingError + "", profitAnalyse_year.trackingError + "", profitAnalyse_establish.trackingError + ""),
 				new TableData(

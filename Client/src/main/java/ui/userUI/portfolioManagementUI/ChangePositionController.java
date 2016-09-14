@@ -1,7 +1,6 @@
 package ui.userUI.portfolioManagementUI;
 
 import RMIModule.BLInterfaces;
-import beans.FOFQuickInfo;
 import beans.FundInfo;
 import bl.BaseInfoLogic;
 import bl.fof.FOFAssetAllocationLogic;
@@ -20,13 +19,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
 import starter.MainUI;
-import ui.userUI.allFundUI.allFundUIController;
 import ui.util.DisplayType;
-import ui.util.IOHelper;
+import ui.util.InitHelper;
 
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -51,27 +48,28 @@ public class ChangePositionController implements Initializable {
 	@FXML
 	private TableColumn<DisplayType, String> ratioCm1, ratioCm2;
 	@FXML
-	private Slider slider1,slider2;
+	private Slider slider1, slider2;
 	@FXML
-	private Label ratioLb1,ratioLb2;
+	private Label ratioLb1, ratioLb2;
 
 	private ChangePositionController changePositionCotroller;
 	private FOFBaseInfoLogic fofBaseInfoLogic;
 	private BaseInfoLogic baseInfoLogic;
 	private FOFAssetAllocationLogic fofAssetAllocationLogic;
 	private Map<String, Map<String, Double>> weightMap;
-	private List<DisplayType> displayTypeList1,displayTypeList2;
-	private Map<String,Double> displayMap1,displayMap2,allDisplayMap;
+	private List<DisplayType> displayTypeList1, displayTypeList2;
+	private Map<String, Double> displayMap1, displayMap2, allDisplayMap;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		this.changePositionCotroller = this;
-		this.baseInfoLogic=BLInterfaces.getBaseInfoLogic();
+		this.baseInfoLogic = BLInterfaces.getBaseInfoLogic();
 		this.fofBaseInfoLogic = BLInterfaces.getFofBaseInfoLogic();
 		this.fofAssetAllocationLogic = BLInterfaces.getFofAssetAllocationLogic();
 		initButton();
 		initTable();
 		initOthers();
+		beautifyButtons();
 	}
 
 	private void initOthers() {
@@ -83,7 +81,7 @@ public class ChangePositionController implements Initializable {
 		slider1.setMinorTickCount(100);
 		slider1.setBlockIncrement(0.0001);
 		slider1.setDisable(true);
-		ratioLb1.textProperty().bindBidirectional(slider1.valueProperty(),new DecimalFormat("#.##%"));
+		ratioLb1.textProperty().bindBidirectional(slider1.valueProperty(), new DecimalFormat("#.##%"));
 
 		slider2.setMin(0);
 		slider2.setMax(1);
@@ -93,28 +91,38 @@ public class ChangePositionController implements Initializable {
 		slider2.setMinorTickCount(100);
 		slider2.setBlockIncrement(0.0001);
 		slider2.setDisable(true);
-		ratioLb2.textProperty().bindBidirectional(slider2.valueProperty(),new DecimalFormat("#.##%"));
+		ratioLb2.textProperty().bindBidirectional(slider2.valueProperty(), new DecimalFormat("#.##%"));
 
 	}
-	public void refreshSlider1(){
-		double sum=0;
-		List<DisplayType> columList=changeTable1.getItems();
-		for(int i=0;i<columList.size();i++){
-			double temp=columList.get(i).getValue();
-			sum+=temp;
+
+	public void refreshSlider1() {
+		double sum = 0;
+		List<DisplayType> columList = changeTable1.getItems();
+		for (int i = 0; i < columList.size(); i++) {
+			double temp = columList.get(i).getValue();
+			sum += temp;
 		}
-		DecimalFormat df=new DecimalFormat("#.####");
-		slider1.setValue(Double.parseDouble(df.format(sum/100)));
+		DecimalFormat df = new DecimalFormat("#.####");
+		if (slider2.getValue()*100 + sum > 100) {
+			MainUI.getInstance().displayWarningPane();
+		} else {
+			slider1.setValue(Double.parseDouble(df.format(sum / 100)));
+		}
 	}
-	public void refreshSlider2(){
-		double sum=0;
-		List<DisplayType> columList=changeTable2.getItems();
-		for(int i=0;i<columList.size();i++){
-			double temp=columList.get(i).getValue();
-			sum+=temp;
+
+	public void refreshSlider2() {
+		double sum = 0;
+		List<DisplayType> columList = changeTable2.getItems();
+		for (int i = 0; i < columList.size(); i++) {
+			double temp = columList.get(i).getValue();
+			sum += temp;
 		}
-		DecimalFormat df=new DecimalFormat("#.####");
-		slider2.setValue(Double.parseDouble(df.format(sum/100)));
+		DecimalFormat df = new DecimalFormat("#.####");
+		if (slider1.getValue()*100 + sum > 100) {
+			MainUI.getInstance().displayWarningPane();
+		} else {
+			slider2.setValue(Double.parseDouble(df.format(sum / 100)));
+		}
 	}
 
 	public void initTable() {
@@ -253,24 +261,24 @@ public class ChangePositionController implements Initializable {
 			@Override
 			public void handle(MouseEvent event) {
 				if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 1) {
-					Map<String,Double> setMap=new HashMap<String,Double>();
-					List<DisplayType> columList=changeTable1.getItems();
-					for(int i=0;i<columList.size();i++){
-						String tempCode=columList.get(i).getKey();
-						double tempValue=columList.get(i).getValue();
-						double tempSource=allDisplayMap.get(tempCode);
-						if(!(Math.abs(tempSource-tempValue)<0.0001)){
-							setMap.put(tempCode,tempValue);
+					Map<String, Double> setMap = new HashMap<String, Double>();
+					List<DisplayType> columList = changeTable1.getItems();
+					for (int i = 0; i < columList.size(); i++) {
+						String tempCode = columList.get(i).getKey();
+						double tempValue = columList.get(i).getValue();
+						double tempSource = allDisplayMap.get(tempCode);
+						if (!(Math.abs(tempSource - tempValue) < 0.0001)) {
+							setMap.put(tempCode, tempValue);
 						}
 					}
-					if(setMap.size()>0){
+					if (setMap.size() > 0) {
 						try {
 							fofAssetAllocationLogic.changePosition(setMap);
 						} catch (RemoteException e) {
 							e.printStackTrace();
 						}
 					}
-					MainUI.getInstance().changeScene("user_guidePanel","analyseHomePanel");
+					MainUI.getInstance().changeScene("user_guidePanel", "analyseHomePanel");
 				}
 
 			}
@@ -279,41 +287,41 @@ public class ChangePositionController implements Initializable {
 
 
 	private void getWeightMap() {
-		displayMap1=null;
-		displayMap2=null;
+		displayMap1 = null;
+		displayMap2 = null;
 		try {
 			weightMap = fofBaseInfoLogic.getNewestWeight();
 			displayMap1 = weightMap.get("000011");
-			System.out.println("diplayMap1.size:"+displayMap1.size());
+			System.out.println("diplayMap1.size:" + displayMap1.size());
 			displayMap2 = weightMap.get("000012");
-			System.out.println("diplayMap2.size:"+displayMap2.size());
+			System.out.println("diplayMap2.size:" + displayMap2.size());
 
 
-			allDisplayMap=weightMap.get("000011");
+			allDisplayMap = weightMap.get("000011");
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-		if(displayMap1!=null){
-			displayTypeList1=getDisplayTypeList(displayMap1);
-			System.out.println("displayTypeList1.size:"+displayTypeList1.size());
+		if (displayMap1 != null) {
+			displayTypeList1 = getDisplayTypeList(displayMap1);
+			System.out.println("displayTypeList1.size:" + displayTypeList1.size());
 		}
-		if(displayMap2!=null){
-			displayTypeList2=getDisplayTypeList(displayMap2);
-			System.out.println("displayTypeList2.size:"+displayTypeList2.size());
+		if (displayMap2 != null) {
+			displayTypeList2 = getDisplayTypeList(displayMap2);
+			System.out.println("displayTypeList2.size:" + displayTypeList2.size());
 		}
 		allDisplayMap.putAll(displayMap2);
 	}
 
-	private void setColumnOrange(TableColumn<DisplayType,String> p){
+	private void setColumnOrange(TableColumn<DisplayType, String> p) {
 		p.setCellFactory(new Callback<TableColumn<DisplayType, String>, TableCell<DisplayType, String>>() {
 			@Override
 			public TableCell<DisplayType, String> call(TableColumn<DisplayType, String> param) {
-				return new TableCell<DisplayType, String>(){
+				return new TableCell<DisplayType, String>() {
 					@Override
-					public void updateItem(String item,boolean empty){
+					public void updateItem(String item, boolean empty) {
 						super.updateItem(item, empty);
 						if (!isEmpty()) {
-							this.setTextFill(new Color(252/255.0,242/255.0,70/255.0,1));
+							this.setTextFill(new Color(252 / 255.0, 242 / 255.0, 70 / 255.0, 1));
 							setText(item);
 						}
 					}
@@ -323,12 +331,12 @@ public class ChangePositionController implements Initializable {
 	}
 
 	public List<DisplayType> getDisplayTypeList(Map<String, Double> map) {
-		List<DisplayType> list=null;
+		List<DisplayType> list = null;
 		if (map != null) {
 			list = new ArrayList<DisplayType>();
 			for (Map.Entry<String, Double> entry : map.entrySet()) {
 				FundInfo info = null;
-				if(entry.getKey()!=null&&baseInfoLogic!=null) try {
+				if (entry.getKey() != null && baseInfoLogic != null) try {
 					System.out.println("The fundcode is:" + entry.getKey());
 					info = baseInfoLogic.getFundBaseInfo(entry.getKey());
 				} catch (RemoteException e) {
@@ -338,7 +346,7 @@ public class ChangePositionController implements Initializable {
 				}
 				DisplayType temp = null;
 				if (info != null) {
-					System.out.println("fundinfo is not null!:"+info.simple_name);
+					System.out.println("fundinfo is not null!:" + info.simple_name);
 					temp = new DisplayType(entry.getKey(), entry.getValue(), info.simple_name);
 				} else {
 					temp = new DisplayType(entry.getKey(), entry.getValue(), "");
@@ -349,6 +357,11 @@ public class ChangePositionController implements Initializable {
 			}
 		}
 		return list;
+	}
+
+	private void beautifyButtons() {
+		InitHelper.beatifyImageView(completedBt);
+		InitHelper.beatifyImageView(backImage);
 	}
 
 	public class TableRowControl<T> extends TableRow<T> {
@@ -380,7 +393,7 @@ public class ChangePositionController implements Initializable {
 		private boolean type;
 
 		public SliderTableCell(boolean type) {
-			this.type=type;
+			this.type = type;
 			this.slider = new Slider();
 			slider.applyCss();
 			slider.layout();
@@ -410,9 +423,9 @@ public class ChangePositionController implements Initializable {
 					slider.setValue(((DoubleProperty) ov).getValue());
 					slider.valueProperty()
 							.bindBidirectional((DoubleProperty) ov);
-					if(type){
+					if (type) {
 						refreshSlider1();
-					}else{
+					} else {
 						refreshSlider2();
 					}
 
@@ -423,5 +436,9 @@ public class ChangePositionController implements Initializable {
 
 	}
 
+	@FXML
+	private void backBtClick() {
+		MainUI.getInstance().changeScene("user_guidePanel", "analyseHomePanel");
+	}
 
 }
