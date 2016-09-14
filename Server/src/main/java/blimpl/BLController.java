@@ -120,7 +120,13 @@ public class BLController {
 
         @Override
         public FOFGenerateLogic getFOFGenerateLogic() {
-            return FOFGenerateLogicImpl.getInstance();
+            try {
+                return new FOFGenerateLogicStub();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+            return null;
+//            return FOFGenerateLogicImpl.getInstance();
         }
 
         @Override
