@@ -2,6 +2,7 @@ package ui.userUI.buildUI;
 
 import RMIModule.BLInterfaces;
 import bl.fof.FOFGenerateLogic;
+import exception.NotInitialedException;
 import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -80,6 +81,10 @@ public class BuildPanel2UIController implements Initializable {
 		try {
 			map = logic.getLargeClassConfiguration();
 		} catch (RemoteException e) {
+			e.printStackTrace();
+		} catch (com.mathworks.toolbox.javabuilder.MWException e) {
+			e.printStackTrace();
+		} catch (NotInitialedException e) {
 			e.printStackTrace();
 		}
 		if (map != null) {

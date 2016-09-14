@@ -5,6 +5,8 @@ import beans.FOFQuickInfo;
 import bl.ProfitFeatureLogic;
 import bl.fof.FOFBaseInfoLogic;
 import bl.fof.FOFGenerateLogic;
+import com.mathworks.toolbox.javabuilder.MWException;
+import exception.NotInitialedException;
 import javafx.animation.FadeTransition;
 import javafx.animation.Timeline;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -101,6 +103,10 @@ public class BuildPanel3UIController implements Initializable {
 			map=generateLogic.getSmallClassConfiguration();
 			mapInfo=generateLogic.getLargeClassConfiguration();
 		} catch (RemoteException e) {
+			e.printStackTrace();
+		} catch (MWException e) {
+			e.printStackTrace();
+		} catch (NotInitialedException e) {
 			e.printStackTrace();
 		}
 

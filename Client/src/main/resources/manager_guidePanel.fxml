@@ -28,19 +28,19 @@
             <Image url="@/images/userManager.png" />
          </image>
       </ImageView>
-      <Label layoutX="11.0" layoutY="190.0" text="账户管理" textFill="WHITE" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutY="190.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="70.0" text="账户管理" textFill="WHITE" />
       <ImageView fx:id="blogImage" fitHeight="42.0" fitWidth="42.0" layoutX="15.0" layoutY="241.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@/images/system_log.png" />
          </image>
       </ImageView>
-      <Label layoutX="11.0" layoutY="293.0" text="系统日志" textFill="WHITE" />
+      <Label alignment="CENTER" layoutY="293.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="70.0" text="系统日志" textFill="WHITE" />
       <ImageView fx:id="logoutImage" fitHeight="20.0" fitWidth="20.0" layoutX="25.0" layoutY="556.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@/images/logout.png" />
          </image>
       </ImageView>
-      <Label layoutX="11.0" layoutY="581.0" text="注销登录" textFill="WHITE" />
+      <Label alignment="CENTER" layoutY="581.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="70.0" text="注销登录" textFill="WHITE" />
       <Button fx:id="userManagerBtn" layoutY="122.0" mnemonicParsing="false" onAction="#toUserManagerPanel" prefHeight="100.0" prefWidth="70.0" style="-fx-background-color: transparent;" textFill="WHITE" />
       <Button fx:id="system_logBtn" layoutY="222.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="70.0" style="-fx-background-color: transparent;" textFill="WHITE" />
       <Button fx:id="logoutBtn" layoutY="522.0" mnemonicParsing="false" onAction="#user_logout" prefHeight="100.0" prefWidth="70.0" style="-fx-background-color: transparent;" textFill="WHITE" />
