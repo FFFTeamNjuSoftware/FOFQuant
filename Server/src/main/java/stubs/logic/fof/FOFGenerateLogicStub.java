@@ -22,6 +22,11 @@ public class FOFGenerateLogicStub extends UnicastRemoteObject implements FOFGene
     }
 
     @Override
+    public void setFOFCode(String code) throws RemoteException {
+
+    }
+
+    @Override
     public void setTotalAsset(double assetValue) throws RemoteException {
 
     }
@@ -37,7 +42,8 @@ public class FOFGenerateLogicStub extends UnicastRemoteObject implements FOFGene
     }
 
     @Override
-    public List<ProfitChartInfo> getTestValues() throws RemoteException {
+    public List<ProfitChartInfo> getTestValues(String startDate,String endDate) throws
+            RemoteException {
         return Arrays.asList(ProfitChartInfo.getProfitChartInfo("2015-01-01", 0.0, 0.0),
                 ProfitChartInfo.getProfitChartInfo("2015-01-02", 0.3, 0.5), ProfitChartInfo
                         .getProfitChartInfo("2015-01-03", 0.4, 0.42));

@@ -21,7 +21,7 @@ public interface FOFGenerateLogic extends Remote {
      *
      * @param assetValue
      */
-    void setTotalAsset(int assetValue) throws RemoteException;
+    void setTotalAsset(double assetValue) throws RemoteException;
 
     /**
      * 设定策略类型
