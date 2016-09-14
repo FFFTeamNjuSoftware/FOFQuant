@@ -8,7 +8,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="basicPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="618.0" prefWidth="70.0" scaleZ="9999.0"  style="-fx-background-color: rgba(72,79,105,0.30);  -fx-box-shadow: 8px 0px 4px 0px rgba(23,23,38,0.50);" styleClass="root" stylesheets="@css/guideView.css"  xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"  fx:controller="ui.controllerUI.userGuideUIController">
+<AnchorPane fx:id="basicPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="618.0" prefWidth="70.0" scaleZ="9999.0" style="-fx-background-color: rgba(72,79,105,0.30);  -fx-box-shadow: 8px 0px 4px 0px rgba(23,23,38,0.50);" styleClass="root" stylesheets="@css/guideView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllerUI.userGuideUIController">
    <children>
       <Line fx:id="Line1" endX="70.0" fill="WHITE" layoutY="122.0" opacity="0.1" stroke="WHITE" />
       <Line fx:id="Line2" endX="70.0" fill="WHITE" layoutY="222.0" opacity="0.1" stroke="WHITE" />
@@ -25,41 +25,41 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <ImageView fx:id="combinationImage" fitHeight="40.0" fitWidth="40.0" layoutX="15.0" layoutY="140.0"  pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="combinationImage" fitHeight="40.0" fitWidth="40.0" layoutX="15.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@/images/combination.png" />
          </image>
       </ImageView>
-      <Label layoutX="11.0" layoutY="190.0" text="组合管理" textFill="WHITE" />
+      <Label alignment="CENTER" layoutY="190.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="70.0" text="组合管理" textFill="WHITE" />
       <ImageView fx:id="makketImage" fitHeight="42.0" fitWidth="42.0" layoutX="14.0" layoutY="241.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@/images/market.png" />
          </image>
       </ImageView>
-      <Label layoutX="11.0" layoutY="293.0" text="行情信息" textFill="WHITE" />
+      <Label alignment="CENTER" layoutY="293.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="70.0" text="行情信息" textFill="WHITE" />
       <ImageView fx:id="riskImage" fitHeight="40.0" fitWidth="40.0" layoutX="15.0" layoutY="342.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@/images/risk.png" />
          </image>
       </ImageView>
-      <Label layoutX="11.0" layoutY="392.0" text="风险控制" textFill="WHITE" />
+      <Label alignment="CENTER" layoutY="392.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="70.0" text="风险控制" textFill="WHITE" />
       <ImageView fx:id="warning_logImage" fitHeight="38.0" fitWidth="38.0" layoutX="16.0" layoutY="442.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@/images/warning_log.png" />
          </image>
       </ImageView>
-      <Label layoutX="11.0" layoutY="491.0" text="参数修改" textFill="WHITE" />
+      <Label alignment="CENTER" layoutX="-1.0" layoutY="491.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="70.0" text="参数修改" textFill="WHITE" />
       <ImageView fx:id="logoutImage" fitHeight="20.0" fitWidth="20.0" layoutX="25.0" layoutY="556.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@/images/logout.png" />
          </image>
       </ImageView>
-      <Label layoutX="11.0" layoutY="581.0" text="注销登录" textFill="WHITE" />
+      <Label alignment="CENTER" layoutY="581.0" prefHeight="15.0" prefWidth="70.0" text="注销登录" textFill="WHITE" />
       <Button fx:id="combinationBtn" layoutY="122.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="70.0" style="-fx-background-color: transparent;" textFill="WHITE" />
       <Button fx:id="marketBtn" layoutY="222.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="100.0" prefWidth="70.0" style="-fx-background-color: transparent;" textFill="WHITE" />
       <Button fx:id="riskBtn" layoutY="322.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="70.0" style="-fx-background-color: transparent;" textFill="WHITE" />
       <Button fx:id="warning_logBtn" layoutY="422.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="71.0" style="-fx-background-color: transparent;" textFill="WHITE" />
-      <Button fx:id="logoutBtn" onAction="#user_logout" layoutY="522.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="70.0" style="-fx-background-color: transparent;" textFill="WHITE" />
+      <Button fx:id="logoutBtn" layoutY="522.0" mnemonicParsing="false" onAction="#user_logout" prefHeight="100.0" prefWidth="70.0" style="-fx-background-color: transparent;" textFill="WHITE" />
    </children>
    <effect>
       <DropShadow blurType="ONE_PASS_BOX" color="#4040407f" height="0.0" offsetX="10.0" radius="19.515" width="80.06" />

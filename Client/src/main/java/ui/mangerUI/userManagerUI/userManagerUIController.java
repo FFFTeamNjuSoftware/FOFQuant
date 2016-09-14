@@ -267,7 +267,7 @@ public class userManagerUIController  implements Initializable {
                             && event.getClickCount() == 1
                             && TableRowControl.this.getIndex() < table.getItems().size()) {
                     System.out.println("......update info......"+selectedIndex);
-                    System.out.println("......======......"+userTypeColumn.getCellData(selectedIndex));
+                    System.out.println("......======......"+nameColumn.getCellData(selectedIndex));
                     selectedIndex = userManagerUIController.TableRowControl.this.getIndex();
                     updateUserManageInfo.name  =nameColumn.getCellData(selectedIndex);
                     updateUserManageInfo.password = passwordColumn.getCellData(selectedIndex);

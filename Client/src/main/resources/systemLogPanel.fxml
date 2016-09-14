@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="basicPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="930.0" styleClass="root" stylesheets="@css/stageView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.mangerUI.systemBlogUI.systemLogUIController">
+   <children>
+      <TableView fx:id="table" blendMode="LIGHTEN" layoutX="77.0" layoutY="51.0" prefHeight="503.0" prefWidth="777.0">
+        <columns>
+          <TableColumn fx:id="nameColumn" prefWidth="125.0" text="操作用户" />
+          <TableColumn fx:id="operationColumn" prefWidth="490.0" text="操作描述" />
+            <TableColumn fx:id="dateColumn" prefWidth="161.0" text="时间" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
