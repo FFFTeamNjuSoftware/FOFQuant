@@ -26,7 +26,7 @@
                                 <Font size="20.0" />
                             </font>
                         </Label>
-                        <Label text="全球投资组合管理演示" textFill="#eee14d" GridPane.columnIndex="1">
+                        <Label fx:id="name" text="全球投资组合管理演示" textFill="#eee14d" GridPane.columnIndex="1">
                             <font>
                                 <Font size="20.0" />
                             </font>

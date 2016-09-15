@@ -1,4 +1,4 @@
-package ui.userUI.portfolioManagementUI;
+﻿package ui.userUI.portfolioManagementUI;
 
 import RMIModule.BLInterfaces;
 import beans.FOFHistoryInfo;
@@ -40,7 +40,7 @@ public class analyseHomeUIController implements Initializable {
 	@FXML
 	private ImageView Img1, Img2, Img3, Img4, Img5, Img6, Img7,changePositionBt;
 	@FXML
-	private Label idLabel,dateLabel,assetLabel,returnLabel;
+	private Label idLabel,dateLabel,assetLabel,returnLabel,name;
 
 	private MainUI mainUI;
 	@FXML
@@ -81,6 +81,7 @@ public class analyseHomeUIController implements Initializable {
 		dateLabel.setText(quickInfo.establish_date);
 		assetLabel.setText(quickInfo.netAsset+"");
 		returnLabel.setText(quickInfo.totalProfit+"");
+		name.setText(quickInfo.name);
 
 	}
 
