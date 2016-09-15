@@ -182,7 +182,8 @@ public class userManagerUIController implements Initializable {
             tipLabel.setText("RemoteException！");
         } catch (ObjectExistedException e) {
             e.printStackTrace();
-            tipLabel.setText("该用户已存在！");
+       //     tipLabel.setText("该用户已存在！");
+			 MainUI.getInstance().addInfoPanel("该用户已存在！");
         }
 
     }
