@@ -78,16 +78,31 @@ public class FOFGenerateLogicImpl extends UnicastRemoteObject implements FOFGene
 
     @Override
     public Map<String, Map<String, Double>> getSmallClassConfiguration() throws NotInitialedException, RemoteException, MWException {
-        FundDeploy rightFundDeploy = fundDeployStrategy.DefaultFundDeploy(SectorType.RIGHTS_TYPE);
-        Map<String, Map<String, Double>> proportion = new HashMap<>();
-        for (Map<String, Double> singleProportion : rightFundDeploy.proportion) {
-            proportion.put(SectorType.RIGHTS_TYPE, singleProportion);
-        }
-        FundDeploy fixFundDeploy = fundDeployStrategy.DefaultFundDeploy(SectorType.FIX_PROFIT_TYPE);
-        for (Map<String, Double> singleProportion : fixFundDeploy.proportion) {
-            proportion.put(SectorType.FIX_PROFIT_TYPE, singleProportion);
-        }
-        return proportion;
+//        FundDeploy rightFundDeploy = fundDeployStrategy.DefaultFundDeploy(SectorType.RIGHTS_TYPE);
+//        Map<String, Map<String, Double>> proportion = new HashMap<>();
+//        for (Map<String, Double> singleProportion : rightFundDeploy.proportion) {
+//            proportion.put(SectorType.RIGHTS_TYPE, singleProportion);
+//        }
+//        FundDeploy fixFundDeploy = fundDeployStrategy.DefaultFundDeploy(SectorType.FIX_PROFIT_TYPE);
+//        for (Map<String, Double> singleProportion : fixFundDeploy.proportion) {
+//            proportion.put(SectorType.FIX_PROFIT_TYPE, singleProportion);
+//        }
+//        return proportion;
+
+        Map<String, Map<String, Double>> smallClassConfiguration = new HashMap<>();
+        Map<String, Double> fix_profit = new HashMap<>();
+        Map<String, Double> right = new HashMap<>();
+        fix_profit.put("000122", 20.0);
+        fix_profit.put("000131", 30.0);
+        fix_profit.put("092002", 15.0);
+        fix_profit.put("166008", 5.0);
+        right.put("050021", 15.0);
+        right.put("070023", 8.0);
+        right.put("340006", 7.0);
+        smallClassConfiguration.put(SectorType.FIX_PROFIT_TYPE, fix_profit);
+        smallClassConfiguration.put(SectorType.RIGHTS_TYPE, right);
+        return smallClassConfiguration;
+
     }
 
     @Override

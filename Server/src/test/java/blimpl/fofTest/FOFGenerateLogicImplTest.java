@@ -3,6 +3,7 @@ package blimpl.fofTest;
 import beans.RiskParameters;
 import bl.fof.FOFGenerateLogic;
 import blimpl.BLController;
+import blimpl.LogicUtil;
 import com.google.gson.Gson;
 import org.junit.After;
 import org.junit.Before;
@@ -10,6 +11,7 @@ import org.junit.Test;
 import startup.HibernateBoot;
 import startup.MatlabBoot;
 import util.StrategyType;
+import util.TimeType;
 
 /**
  * FOFGenerateLogicImpl Tester.
@@ -94,7 +96,10 @@ public class FOFGenerateLogicImplTest {
      */
     @Test
     public void testGetTestValues() throws Exception {
-//TODO: Test goes here... 
+        String[] dates = LogicUtil.getDates(TimeType.ONE_YEAR);
+        fofGenerateLogic.getTestValues(dates[0], dates[1]).forEach(e->System.out.println(new Gson
+                ().toJson(e)));
+
     }
 
     /**

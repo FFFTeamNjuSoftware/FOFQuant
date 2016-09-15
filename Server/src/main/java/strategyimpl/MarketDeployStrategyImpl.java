@@ -7,6 +7,7 @@ import bl.BaseInfoLogic;
 import bl.MarketLogic;
 import blimpl.BLController;
 import blimpl.Converter;
+import blimpl.LogicUtil;
 import com.mathworks.toolbox.javabuilder.MWClassID;
 import com.mathworks.toolbox.javabuilder.MWException;
 import com.mathworks.toolbox.javabuilder.MWNumericArray;
@@ -15,10 +16,12 @@ import entities.RiskyParityDeployEntity;
 import exception.NotInitialedException;
 import exception.ObjectNotFoundException;
 import exception.ParameterException;
+import matlabtool.TypeConverter;
 import startup.MatlabBoot;
 import strategy.MarketDeployStrategy;
 import util.CalendarOperate;
 import util.SectorType;
+import util.TimeType;
 import util.UnitType;
 
 import java.rmi.RemoteException;
@@ -38,8 +41,9 @@ public class MarketDeployStrategyImpl implements MarketDeployStrategy {
 
     @Override
     public CPPIMarketDeploy DefaultCPPIDeploy(double portValue, double riskMulti, double guaranteeRatio) throws RemoteException, NotInitialedException, MWException {
-        String start = CalendarOperate.formatCalender(Calendar.getInstance());
-        CPPIMarketDeploy cppiMarketDeploy = this.CustomizedCPPIDeploy(portValue, riskMulti, guaranteeRatio, start, start);
+        String[] dates = LogicUtil.getDates(TimeType.ONE_YEAR);
+        CPPIMarketDeploy cppiMarketDeploy = this.CustomizedCPPIDeploy(portValue, riskMulti,
+                guaranteeRatio, dates[0], dates[1]);
         return cppiMarketDeploy;
     }
 
@@ -56,10 +60,12 @@ public class MarketDeployStrategyImpl implements MarketDeployStrategy {
 
 //        SData: 模拟风险资产收益序列，取上证指数的收益率
         List<CPPIMarketDeployEntity> cppiMarketDeployEntities = new ArrayList<>();
-        String riskCode = "000001";
+        String riskCode = "I000001";
         try {
+            System.out.println(startDate + "," + endDate);
             List<PriceInfo> priceInfoList = marketLogic.getPriceInfo(riskCode, UnitType.DAY, startDate, endDate);
             int size = priceInfoList.size();
+            System.out.println(size);
             int tradeDayTimeLong = priceInfoList.size();
             double[] sData = new double[size];
             for (int i = 0; i < size; i++) {
@@ -69,25 +75,26 @@ public class MarketDeployStrategyImpl implements MarketDeployStrategy {
             MWNumericArray SData = new MWNumericArray(sData, MWClassID.DOUBLE);
             for (int i = 0; i < adjustCycle.length; i++) {
                 //调用CPPI策略matlab代码
-                Object[] cppiResult = MatlabBoot.getCalculateTool().CPPIStr(9, portValue, riskMulti, guaranteeRatio, tradeDayTimeLong, tradeDayOfYear, adjustCycle[i], risklessReturn, tradeFee, sData);
+                Object[] cppiResult = MatlabBoot.getCalculateTool().CPPIStr(6, portValue + 0.0,
+                        riskMulti + 0.0, guaranteeRatio + 0.0, tradeDayTimeLong + 0.0, tradeDayOfYear + 0.0, adjustCycle[i] + 0.0, risklessReturn + 0.0, tradeFee + 0.0, sData);
                 //F:数组，第t个数据为t时刻安全底线
-                double[] F = (double[]) ((MWNumericArray) cppiResult[0]).toDoubleArray();
+                double[] F = TypeConverter.getDoubleResultsRevert(cppiResult[0]);
                 //E:数组，第t个数据为t时刻可投风险资产上限
-                double[] E = (double[]) ((MWNumericArray) cppiResult[1]).toDoubleArray();
+                double[] E = TypeConverter.getDoubleResultsRevert(cppiResult[1]);
                 //A:数组，第t个数据为t时刻产品净值
-                double[] A = (double[]) ((MWNumericArray) cppiResult[2]).toDoubleArray();
+                double[] A = TypeConverter.getDoubleResultsRevert(cppiResult[2]);
                 //G:数组，第t个数据为t时刻可投无风险资产下限
-                double[] G = (double[]) ((MWNumericArray) cppiResult[3]).toDoubleArray();
+                double[] G = TypeConverter.getDoubleResultsRevert(cppiResult[3]);
                 //SumTradeFee：总交易费用
-                double sumTradeFee = (double) cppiResult[4];
+                double sumTradeFee = TypeConverter.getSingleValue(cppiResult[4]);
                 //portFeez:组合交易是否出现平仓，0未 1出现
-                double portFeez = (double) cppiResult[5];
+                double portFeez = TypeConverter.getSingleValue(cppiResult[5]);
 
                 //计算总体收益率
-                double profit = (A[size - 1] - A[0]) / A[0];
+                double profit = (A[A.length - 1] - A[0]) / A[0];
                 //计算每日收益率
                 List<Double> profits = new ArrayList<>();
-                for (int index = 0; index < size; index++) {
+                for (int index = 0; index < E.length; index++) {
                     double dayProfit = (E[index] / A[index]) * sData[index] + (G[index] / A[index]) * risklessReturn;
                     profits.add(dayProfit);
                 }

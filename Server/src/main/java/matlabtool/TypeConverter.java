@@ -4,7 +4,6 @@ import com.mathworks.toolbox.javabuilder.MWClassID;
 import com.mathworks.toolbox.javabuilder.MWComplexity;
 import com.mathworks.toolbox.javabuilder.MWNumericArray;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,6 +32,19 @@ public class TypeConverter {
             result[i] = ((MWNumericArray) objs[i]).getDouble(1);
         }
         return result;
+    }
+
+    public static double[] getDoubleResultsRevert(Object obj) {
+        double[][] tem = (double[][]) ((MWNumericArray) obj).toDoubleArray();
+        double[] result = new double[tem.length];
+        for (int i = 0; i < tem.length; i++) {
+            result[i] = tem[i][0];
+        }
+        return result;
+    }
+
+    public static double getSingleValue(Object obj) {
+        return ((MWNumericArray) obj).getDouble();
     }
 
 }
