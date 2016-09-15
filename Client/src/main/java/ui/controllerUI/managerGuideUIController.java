@@ -61,6 +61,10 @@ public class managerGuideUIController implements Initializable {
                 }
             });
         }
+
+        system_logBtn.setOnAction((e) -> {
+            MainUI.getInstance().changeScene("user_guidePanel", "systemLogPanel");
+        });
     }
 
 
