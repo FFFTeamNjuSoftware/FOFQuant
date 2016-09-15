@@ -63,7 +63,7 @@ public class InitHelper {
 
 		}
 	}
-	public static void beatifyImageView(ImageView image){
+	public static void beautifyImageView(ImageView image){
 		image.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
 			image.setStyle("-fx-background-color: #23a3f3; -fx-opacity:0.5");
 		});
@@ -74,6 +74,15 @@ public class InitHelper {
 
 		image.addEventHandler(MouseEvent.MOUSE_EXITED, (MouseEvent e) -> {
 			image.setStyle("-fx-background-color: transparent;");
+		});
+	}
+	public static void beautifyButton(Button btn){
+		btn.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
+			btn.setStyle("-fx-background-color: #23a3f3; -fx-opacity:0.5");
+		});
+
+		btn.addEventHandler(MouseEvent.MOUSE_EXITED, (MouseEvent e) -> {
+			btn.setStyle("-fx-background-color: transparent;");
 		});
 	}
 }

@@ -5,7 +5,6 @@ import beans.FOFHistoryInfo;
 import beans.FOFQuickInfo;
 import bl.fof.FOFBaseInfoLogic;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Side;
 import javafx.scene.chart.*;
@@ -16,17 +15,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
 import starter.MainUI;
 import ui.util.InitHelper;
-import ui.util.MultipleAxesLineChart;
 
-import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.function.Function;
 
 /**
  * Created by QiHan on 2016/8/26.
@@ -211,7 +206,7 @@ public class analyseHomeUIController implements Initializable {
 		}
 	}
 	public void initChangePositionButton(){
-		InitHelper.beatifyImageView(changePositionBt);
+		InitHelper.beautifyImageView(changePositionBt);
 	}
 	@FXML
 	public void changePositionBtClick(){

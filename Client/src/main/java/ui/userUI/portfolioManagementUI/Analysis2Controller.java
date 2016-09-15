@@ -22,6 +22,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.ScrollEvent;
+import starter.MainUI;
 import ui.util.InitHelper;
 import util.CalendarOperate;
 import util.TimeType;
@@ -94,14 +95,9 @@ public class Analysis2Controller implements Initializable {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				if (!oldValue.equals(newValue)) {
-					try {
-						profitAnalyseLogic.setProformanceBase(performanceBaseInfo.get(newValue));
-						initTable();
-					} catch (RemoteException e) {
-						e.printStackTrace();
-					} catch (ObjectNotFoundException e) {
-						e.printStackTrace();
-					}
+//						profitAnalyseLogic.setProformanceBase(performanceBaseInfo.get(newValue));
+					MainUI.getInstance().displaySuccessPane();
+					initTable();
 				}
 			}
 
@@ -126,13 +122,15 @@ public class Analysis2Controller implements Initializable {
 
 			@Override
 			public void changed(ObservableValue<? extends LocalDate> observable, LocalDate oldValue, LocalDate newValue) {
-				try {
-					profitAnalyseLogic.setStartDate(newValue.toString());
-					initTable();
-				} catch (ParameterException e) {
-					e.printStackTrace();
-				} catch (RemoteException e) {
-					e.printStackTrace();
+				if (!oldValue.equals(newValue)) {
+					if (newValue.isBefore(endCb.getValue())) {
+						MainUI.getInstance().displaySuccessPane();
+						initTable();
+					} else {
+						startCb.setValue(oldValue);
+					}
+				} else {
+
 				}
 			}
 		});
@@ -147,13 +145,15 @@ public class Analysis2Controller implements Initializable {
 		endCb.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<LocalDate>() {
 			@Override
 			public void changed(ObservableValue<? extends LocalDate> observable, LocalDate oldValue, LocalDate newValue) {
-				try {
-					profitAnalyseLogic.setEndDate(newValue.toString());
-					initTable();
-				} catch (ParameterException e) {
-					e.printStackTrace();
-				} catch (RemoteException e) {
-					e.printStackTrace();
+				if (!oldValue.equals(newValue)) {
+					if (startCb.getValue().isBefore(newValue)) {
+						MainUI.getInstance().displaySuccessPane();
+						initTable();
+					} else {
+						endCb.setValue(oldValue);
+					}
+				} else {
+
 				}
 			}
 		});
@@ -185,6 +185,7 @@ public class Analysis2Controller implements Initializable {
 			} catch (RemoteException e) {
 				e.printStackTrace();
 			}
+
 		}
 		if (!endCb.getValue().isEqual(oldEndDate)) {
 			try {
@@ -195,12 +196,13 @@ public class Analysis2Controller implements Initializable {
 			} catch (RemoteException e) {
 				e.printStackTrace();
 			}
+
+		}
+		if (profitAnalyse_three == null || profitAnalyse_half == null || profitAnalyse_year == null) {
+			getThreeColumnData();
 		}
 		try {
-			profitAnalyse_three = profitAnalyseLogic.getFOFProfitAnalyse(TimeType.THREE_MONTH);
-			profitAnalyse_half = profitAnalyseLogic.getFOFProfitAnalyse(TimeType.SIX_MONTH);
-			profitAnalyse_year = profitAnalyseLogic.getFOFProfitAnalyse(TimeType.SIN_THIS_YEAR);
-			profitAnalyse_establish = profitAnalyseLogic.getFOFProfitAnalyse(TimeType.SINCE_ESTABLISH);
+			profitAnalyse_establish = profitAnalyseLogic.getFOFProfitAnalyse(TimeType.SELECT_PERIOD);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -273,6 +275,16 @@ public class Analysis2Controller implements Initializable {
 	private void setColumnSortable(TableColumn[] columns, boolean t) {
 		for (int i = 0; i < columns.length; i++) {
 			columns[i].setSortable(t);
+		}
+	}
+
+	private void getThreeColumnData() {
+		try {
+			profitAnalyse_three = profitAnalyseLogic.getFOFProfitAnalyse(TimeType.THREE_MONTH);
+			profitAnalyse_half = profitAnalyseLogic.getFOFProfitAnalyse(TimeType.SIX_MONTH);
+			profitAnalyse_year = profitAnalyseLogic.getFOFProfitAnalyse(TimeType.SIN_THIS_YEAR);
+		} catch (RemoteException e) {
+			e.printStackTrace();
 		}
 	}
 

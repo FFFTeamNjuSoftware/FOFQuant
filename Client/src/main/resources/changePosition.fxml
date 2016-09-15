@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.chart.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.control.*?>
 <?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="970.0" styleClass="root" stylesheets="@css/stageView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.userUI.portfolioManagementUI.ChangePositionController">
     <children>
@@ -43,14 +51,14 @@
         </AnchorPane>
       <HBox layoutX="60.0" layoutY="511.0" prefHeight="40.0" prefWidth="820.0">
          <children>
-            <Label fx:id="tab11" prefHeight="14.0" prefWidth="427.0" text="*注：基金的净值是在每天的15:00确定，所以发出调整请求后悔在下一个15:00之后进行实际调整" textFill="WHITE">
+            <Label fx:id="tab11" prefHeight="14.0" prefWidth="471.0" text="*注：基金的净值是在每天的15:00确定，所以发出调整请求后会在第二天的15:00之后进行实际调整" textFill="WHITE">
                <font>
                   <Font size="10.0" />
                </font>
             </Label>
             <ImageView fx:id="completedBt" fitHeight="40.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                <HBox.margin>
-                  <Insets left="294.0" />
+                  <Insets left="280.0" />
                </HBox.margin>
                <image>
                   <Image url="@images/completedChange.png" />

@@ -24,6 +24,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Font;
 import javafx.util.Callback;
 import ui.util.InitHelper;
 import util.ChartType;
@@ -36,6 +37,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import static util.FOFUtilInfo.performanceBaseInfo;
+import static util.TimeType.ONE_MONTH;
 
 /**
  * Created by OptimusPrime on 2016/8/29.
@@ -50,12 +52,12 @@ public class Analysis1Controller implements Initializable {
 	private LineChart netWorthChart;
 	@FXML
 	private TableColumn<FundInFOFQuickInfo, String> fundCodeCm, fundNameCm, timeCm,
-//			fundTypeCm,
-			predictRiseCm,predictRiseValueCm,floatProfitCm,floatProfitRatioCm,
-			totalProfitCm,totalProfitRatioCm,dayProfitCm,finishedProfitCm;
+	//			fundTypeCm,
+	predictRiseCm, predictRiseValueCm, floatProfitCm, floatProfitRatioCm,
+			totalProfitCm, totalProfitRatioCm, dayProfitCm, finishedProfitCm;
 	@FXML
 	private TableColumn<FundInFOFQuickInfo, Number>
-			predictNetValueCm,holdNumCm, costCm, holdValueCm, newestWeightCm;
+			predictNetValueCm, holdNumCm, costCm, holdValueCm, newestWeightCm;
 	@FXML
 	private ComboBox<String> gradeCb;
 	@FXML
@@ -76,14 +78,14 @@ public class Analysis1Controller implements Initializable {
 	private FOFRealTimeMonitorLogic fofRealTimeMonitorLogic;
 	private MarketLogic marketLogic;
 
-	private UnitType[] unitTypes = {UnitType.DAY, UnitType.WEEK, UnitType.MONTH, UnitType.QUARTER,UnitType.YEAR};
-	private TimeType[] timeTypes = {TimeType.ONE_MONTH, TimeType.THREE_MONTH, TimeType.SIX_MONTH, TimeType.ONE_YEAR, TimeType.FIVE_YEAR, TimeType.SIN_THIS_YEAR, TimeType.SINCE_ESTABLISH};
+	private UnitType[] unitTypes = {UnitType.DAY, UnitType.WEEK, UnitType.MONTH, UnitType.QUARTER, UnitType.YEAR};
+	private TimeType[] timeTypes = {ONE_MONTH, TimeType.THREE_MONTH, TimeType.SIX_MONTH, TimeType.ONE_YEAR, TimeType.SIN_THIS_YEAR, TimeType.THREE_YEAR, TimeType.FIVE_YEAR, TimeType.SINCE_ESTABLISH};
 	private ChartType[] chartTypes = {ChartType.NET_WORTH_PERFORMANCE_FQ, ChartType.NET_WORTH_PERFORMANCE_UNIT, ChartType.NET_WORTH_PERFORMANCE_TOTAL};
-	private String selectFundcode=null;
+	private String selectFundcode = "";
 
 	private String greenFill = "-fx-text-fill:#9ac94a;";
 	private String redFill = "-fx-text-fill:#eb494d;";
-	private String whiteFill="-fx-text-fill:#ffffff";
+	private String whiteFill = "-fx-text-fill:#ffffff";
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -102,7 +104,7 @@ public class Analysis1Controller implements Initializable {
 		gradeCb.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				if(newValue!=null&&oldValue!=null){
+				if (newValue != null && oldValue != null) {
 					if (!oldValue.equals(newValue)) {
 						getFundInFOFQuickinfo();
 						initTable();
@@ -124,17 +126,6 @@ public class Analysis1Controller implements Initializable {
 			}
 		});
 
-//		chartCb2 init
-		chartCb2.setItems(FXCollections.observableArrayList(unitTypes));
-		chartCb2.getSelectionModel().selectFirst();
-		chartCb2.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<UnitType>() {
-			@Override
-			public void changed(ObservableValue<? extends UnitType> observable, UnitType oldValue, UnitType newValue) {
-				if (!oldValue.equals(newValue)) {
-					initNetWorthChart(selectFundcode);
-				}
-			}
-		});
 
 //		chartCb3 init
 //		chartCb3.setValue(TimeType.ONE_YEAR);
@@ -144,6 +135,62 @@ public class Analysis1Controller implements Initializable {
 
 			@Override
 			public void changed(ObservableValue<? extends TimeType> observable, TimeType oldValue, TimeType newValue) {
+				if (!oldValue.equals(newValue)) {
+					switch (newValue) {
+						case ONE_MONTH:
+							chartCb2.getItems().clear();
+							chartCb2.setItems(FXCollections.observableArrayList(FXCollections.observableArrayList(unitTypes).subList(0, 2)));
+							chartCb2.getSelectionModel().selectFirst();
+							break;
+						case THREE_MONTH:
+							chartCb2.getItems().clear();
+							chartCb2.setItems(FXCollections.observableArrayList(FXCollections.observableArrayList(unitTypes).subList(0, 3)));
+							chartCb2.getSelectionModel().selectFirst();
+							break;
+						case SIX_MONTH:
+							chartCb2.getItems().clear();
+							chartCb2.setItems(FXCollections.observableArrayList(FXCollections.observableArrayList(unitTypes).subList(1, 4)));
+							chartCb2.getSelectionModel().selectFirst();
+							break;
+						case ONE_YEAR:
+							chartCb2.getItems().clear();
+							chartCb2.setItems(FXCollections.observableArrayList(FXCollections.observableArrayList(unitTypes).subList(1, 4)));
+							chartCb2.getSelectionModel().selectFirst();
+							break;
+						case SIN_THIS_YEAR:
+							chartCb2.getItems().clear();
+							chartCb2.setItems(FXCollections.observableArrayList(FXCollections.observableArrayList(unitTypes).subList(1, 4)));
+							chartCb2.getSelectionModel().selectFirst();
+							break;
+						case THREE_YEAR:
+							chartCb2.getItems().clear();
+							chartCb2.setItems(FXCollections.observableArrayList(FXCollections.observableArrayList(unitTypes).subList(2, 5)));
+							chartCb2.getSelectionModel().selectFirst();
+							break;
+						case FIVE_YEAR:
+							chartCb2.getItems().clear();
+							chartCb2.setItems(FXCollections.observableArrayList(FXCollections.observableArrayList(unitTypes).subList(2, 5)));
+							chartCb2.getSelectionModel().selectFirst();
+							break;
+						case SINCE_ESTABLISH:
+							chartCb2.getItems().clear();
+							chartCb2.setItems(FXCollections.observableArrayList(FXCollections.observableArrayList(unitTypes).subList(2, 5)));
+							chartCb2.getSelectionModel().selectFirst();
+							break;
+						default:
+							break;
+					}
+					initNetWorthChart(selectFundcode);
+				}
+			}
+		});
+
+//		chartCb2 init
+		chartCb2.setItems(FXCollections.observableArrayList(FXCollections.observableArrayList(unitTypes).subList(0, 2)));
+		chartCb2.getSelectionModel().selectFirst();
+		chartCb2.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<UnitType>() {
+			@Override
+			public void changed(ObservableValue<? extends UnitType> observable, UnitType oldValue, UnitType newValue) {
 				if (!oldValue.equals(newValue)) {
 					initNetWorthChart(selectFundcode);
 				}
@@ -163,7 +210,7 @@ public class Analysis1Controller implements Initializable {
 
 	public void getFundInFOFQuickinfo() {
 		try {
-			System.out.println("The gradeCb value:"+gradeCb.getValue());
+			System.out.println("The gradeCb value:" + gradeCb.getValue());
 			fofRealTimeMonitorLogic.setProformanceBase(performanceBaseInfo.get(gradeCb.getValue()));
 			fundInFOFQuickInfoList = fofRealTimeMonitorLogic.getFundInFOFQuickinfo();
 		} catch (RemoteException e) {
@@ -171,10 +218,10 @@ public class Analysis1Controller implements Initializable {
 		} catch (ObjectNotFoundException e) {
 			e.printStackTrace();
 		}
-		if(fundInFOFQuickInfoList==null){
+		if (fundInFOFQuickInfoList == null) {
 			System.out.println("get data from server failed!");
-		}else{
-			System.out.println("fundInfoFOFQuickInfolist Size:"+fundInFOFQuickInfoList.size());
+		} else {
+			System.out.println("fundInfoFOFQuickInfolist Size:" + fundInFOFQuickInfoList.size());
 		}
 	}
 
@@ -182,7 +229,7 @@ public class Analysis1Controller implements Initializable {
 		if (fundInFOFQuickInfoList == null) {
 			getFundInFOFQuickinfo();
 		}
-		if(fundInFOFQuickInfoList!=null){
+		if (fundInFOFQuickInfoList != null) {
 			netWorthTable.setItems(FXCollections.observableArrayList(fundInFOFQuickInfoList));
 			netWorthTable.setRowFactory(new Callback<TableView, TableRow>() {
 				@Override
@@ -190,10 +237,6 @@ public class Analysis1Controller implements Initializable {
 					return new TableRowControl(netWorthTable);
 				}
 			});
-			TableColumn<FundInFOFQuickInfo,String>[] cs=new TableColumn[]{fundCodeCm, fundNameCm, timeCm,
-//					fundTypeCm,
-					predictRiseCm,predictRiseValueCm,floatProfitCm,floatProfitRatioCm,
-					totalProfitCm,totalProfitRatioCm,dayProfitCm,finishedProfitCm};
 
 			fundCodeCm.setCellValueFactory(cellData -> new SimpleStringProperty(
 					cellData.getValue().fundCode));
@@ -204,9 +247,9 @@ public class Analysis1Controller implements Initializable {
 //			fundTypeCm.setCellValueFactory(cellData -> new SimpleStringProperty(
 //					cellData.getValue().fundType));
 			predictRiseValueCm.setCellValueFactory(cellData -> new SimpleStringProperty(
-					cellData.getValue().predictRiseValue+""));
+					cellData.getValue().predictRiseValue + ""));
 			predictRiseCm.setCellValueFactory(cellData -> new SimpleStringProperty(
-					cellData.getValue().predictRise+"%"));
+					cellData.getValue().predictRise + "%"));
 			predictNetValueCm.setCellValueFactory(cellData -> new SimpleDoubleProperty(
 					cellData.getValue().predictNetValue));
 			holdNumCm.setCellValueFactory(cellData -> new SimpleDoubleProperty(
@@ -218,17 +261,17 @@ public class Analysis1Controller implements Initializable {
 			newestWeightCm.setCellValueFactory(cellData -> new SimpleDoubleProperty(
 					cellData.getValue().newestWeight));
 			dayProfitCm.setCellValueFactory(cellData -> new SimpleStringProperty(
-					cellData.getValue().dayProfit+""));
+					cellData.getValue().dayProfit + ""));
 			floatProfitCm.setCellValueFactory(cellData -> new SimpleStringProperty(
-					cellData.getValue().floatProfit+""));
+					cellData.getValue().floatProfit + ""));
 			floatProfitRatioCm.setCellValueFactory(cellData -> new SimpleStringProperty(
-					cellData.getValue().floatProfitRatio+"%"));
+					cellData.getValue().floatProfitRatio + "%"));
 			totalProfitCm.setCellValueFactory(cellData -> new SimpleStringProperty(
-					cellData.getValue().totalProfit+""));
+					cellData.getValue().totalProfit + ""));
 			totalProfitRatioCm.setCellValueFactory(cellData -> new SimpleStringProperty(
-					cellData.getValue().totalProfitRatio+"%"));
+					cellData.getValue().totalProfitRatio + "%"));
 			finishedProfitCm.setCellValueFactory(cellData -> new SimpleStringProperty(
-					cellData.getValue().finishedProfit+""));
+					cellData.getValue().finishedProfit + ""));
 //			setColumnSortable(cs,false);
 		}
 //		TableColumn<FundInFOFQuickInfo,String>[] cs={predictRiseCm,predictRiseValueCm,floatProfitCm,floatProfitRatioCm,totalProfitCm,totalProfitRatioCm,dayProfitCm,finishedProfitCm};
@@ -241,52 +284,57 @@ public class Analysis1Controller implements Initializable {
 		setColumnColor(dayProfitCm);
 		setColumnColor(finishedProfitCm);
 
+		initNetWorthChart(fundInFOFQuickInfoList.get(0).fundCode);
+		displayNameLb.setText(fundInFOFQuickInfoList.get(0).fundName + " ( " + fundInFOFQuickInfoList.get(0).fundCode + " ) ");
+		redLineLb.setText(fundInFOFQuickInfoList.get(0).fundName);
 	}
-	private void setColumnSortable(TableColumn<FundInFOFQuickInfo,String>[] columns,boolean t){
-		for(int i=0;i<columns.length;i++){
+
+	private void setColumnSortable(TableColumn<FundInFOFQuickInfo, String>[] columns, boolean t) {
+		for (int i = 0; i < columns.length; i++) {
 			columns[i].setSortable(t);
 		}
 	}
 
 
-
 	private void setColumnColor(TableColumn<FundInFOFQuickInfo, String> c) {
 //		for(int i=0;i<cs.length;i++){
 //			TableColumn<FundQuickInfo,String> c=cs[i];
-			c.setCellFactory(column -> {
-				return new TableCell<FundInFOFQuickInfo, String>() {
-					@Override
-					protected void updateItem(String item, boolean empty) {
-						super.updateItem(item, empty);
-						setGraphic(null);
-						setText(empty ? "" : getItem().toString());
-						if (!isEmpty()) {
-							if(item.contains("-")){
-								c.setStyle(greenFill);
-							} else {
-								c.setStyle(redFill);
-							}
+		c.setCellFactory(column -> {
+			return new TableCell<FundInFOFQuickInfo, String>() {
+				@Override
+				protected void updateItem(String item, boolean empty) {
+					super.updateItem(item, empty);
+					setGraphic(null);
+					setText(empty ? "" : getItem().toString());
+					if (!isEmpty()) {
+						if (item.contains("-")) {
+							c.setStyle(greenFill);
+						} else {
+							c.setStyle(redFill);
 						}
 					}
-				};
-			});
+				}
+			};
+		});
 //		}
 
 	}
+
 	public void initNetWorthChart(String fundCode) {
-		if(fundCode!=null){
-			if(netWorthChart.getData()!=null){
+		if (fundCode != null) {
+			if (netWorthChart.getData() != null) {
 				netWorthChart.getData().clear();
 			}
 			getFundProfitInfoChart(fundCode);
 			greenLineLb.setText(gradeCb.getValue());
 			XYChart.Series series1 = new XYChart.Series();
-			XYChart.Series series2=new XYChart.Series();
-			XYChart.Series series3=new XYChart.Series();
+			XYChart.Series series2 = new XYChart.Series();
+			XYChart.Series series3 = new XYChart.Series();
 			series1.setName("基金");
 			series2.setName("基金指数");
 			series3.setName("沪深300指数");
-			if(profitChartInfoList!=null){
+
+			if (profitChartInfoList != null) {
 				for (int i = 0; i < profitChartInfoList.size(); i++) {
 					series1.getData().add(new XYChart.Data(profitChartInfoList.get(i).date, profitChartInfoList.get(i).values[0]));
 					series2.getData().add(new XYChart.Data(profitChartInfoList.get(i).date, profitChartInfoList.get(i).values[1]));
@@ -300,14 +348,22 @@ public class Analysis1Controller implements Initializable {
 
 			netWorthChart.setStyle("-fx-stroke-width: 0.05px;");
 
-			categoryAxis.setTickLabelGap(10);
+			categoryAxis.setTickLabelRotation(0.5);
+			categoryAxis.setTickLabelGap(5);
 			categoryAxis.isGapStartAndEnd();
 			categoryAxis.setTickMarkVisible(true);
-			categoryAxis.setTickLabelRotation(0.5);
 			categoryAxis.setTickLabelsVisible(true);
+			categoryAxis.setTickLabelFont(new Font(8));
+
+//			categoryAxis.setAnimated(true);
+//			categoryAxis.setAutoRanging(true);
+//			categoryAxis.setCache(true);
+//			categoryAxis.setManaged(true);
+//			categoryAxis.setCenterShape(true);
+//			categoryAxis.setFocusTraversable(true);
+//			categoryAxis.setStartMargin(3);
 
 //			netWorthChart.
-//          categoryAxis.setTickLength(10);
 
 			numAxis.setTickUnit(1);
 			numAxis.setForceZeroInRange(false);
@@ -330,14 +386,16 @@ public class Analysis1Controller implements Initializable {
 				public void handle(MouseEvent event) {
 
 					if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 1) {
-						netWorthChart.getData().clear();
-						int selectedIndex=TableRowControl.this.getIndex();
-						String fundCode=fundCodeCm.getCellData(selectedIndex);
-						String fundName=fundNameCm.getCellData(selectedIndex);
-						displayNameLb.setText(fundName+" ( "+fundCode+" ) ");
-						redLineLb.setText(fundName);
-						selectFundcode=fundCode;
-						initNetWorthChart(fundCode);
+						int selectedIndex = TableRowControl.this.getIndex();
+						String fundCode = fundCodeCm.getCellData(selectedIndex);
+						String fundName = fundNameCm.getCellData(selectedIndex);
+						if (!selectFundcode.equals(fundCode)) {
+							displayNameLb.setText(fundName + " ( " + fundCode + " ) ");
+							redLineLb.setText(fundName);
+							netWorthChart.getData().clear();
+							initNetWorthChart(fundCode);
+							selectFundcode = fundCode;
+						}
 					}
 					if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
 					}

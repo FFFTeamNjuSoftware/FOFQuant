@@ -8,7 +8,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="930.0" styleClass="root" stylesheets="@css/stageView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.userUI.portfolioManagementUI.generalAnalysisUIController">
    <children>
-      <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="15.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="backImg" fitHeight="23.0" fitWidth="23.0" layoutX="15.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@/images/back.png" />
          </image>

@@ -1,18 +1,14 @@
 package ui.userUI.portfolioManagementUI;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import starter.MainUI;
 import ui.util.FXMLHelper;
+import ui.util.InitHelper;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -22,9 +18,9 @@ import java.util.ResourceBundle;
  */
 public class generalAnalysisUIController implements Initializable {
     @FXML
-    private Button tab1Btn,tab2Btn,tab3Btn,tab4Btn,tab5Btn,tab6Btn,tab7Btn;
+    private Button backBtn,tab1Btn,tab2Btn,tab3Btn,tab4Btn,tab5Btn,tab6Btn,tab7Btn;
     @FXML
-    private ImageView tab1Img,tab2Img,tab3Img,tab4Img,tab5Img,tab6Img,tab7Img;
+    private ImageView backImg,tab1Img,tab2Img,tab3Img,tab4Img,tab5Img,tab6Img,tab7Img;
     @FXML
     private AnchorPane contentPanel;
     private generalAnalysisUIController instance;
@@ -86,8 +82,7 @@ public class generalAnalysisUIController implements Initializable {
 //            });
 
         }
-
-
+        InitHelper.beautifyButton(backBtn);
     }
 
     @FXML

@@ -269,11 +269,13 @@ public class ChangePositionController implements Initializable {
 						double tempSource = allDisplayMap.get(tempCode);
 						if (!(Math.abs(tempSource - tempValue) < 0.0001)) {
 							setMap.put(tempCode, tempValue);
+							System.out.println("put into map:"+tempCode+"---"+tempValue);
 						}
 					}
 					if (setMap.size() > 0) {
 						try {
 							fofAssetAllocationLogic.changePosition(setMap);
+							System.out.println("-set changed map:"+setMap.size());
 						} catch (RemoteException e) {
 							e.printStackTrace();
 						}
@@ -360,8 +362,8 @@ public class ChangePositionController implements Initializable {
 	}
 
 	private void beautifyButtons() {
-		InitHelper.beatifyImageView(completedBt);
-		InitHelper.beatifyImageView(backImage);
+		InitHelper.beautifyImageView(completedBt);
+		InitHelper.beautifyImageView(backImage);
 	}
 
 	public class TableRowControl<T> extends TableRow<T> {
