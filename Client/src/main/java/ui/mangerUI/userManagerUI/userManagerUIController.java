@@ -6,7 +6,6 @@ import bl.UserLogic;
 import exception.ObjectExistedException;
 import exception.ObjectNotFoundException;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -15,7 +14,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
@@ -38,8 +36,6 @@ public class userManagerUIController implements Initializable {
     @FXML
     private TableColumn<UserManageInfo, String> userNameColumn, userTypeColumn, nameColumn, genderColumn, passwordColumn;
     @FXML
-    private Button modifyBtn, deleteBtn;
-    @FXML
     private TableView<UserManageInfo> table;
     @FXML
     private TextField userNameField, nameField, passwordField;
@@ -59,6 +55,7 @@ public class userManagerUIController implements Initializable {
     private UserManageInfo userManageInfo = new UserManageInfo();
     private UserManageInfo updateUserManageInfo = new UserManageInfo();
     private userManagerUIController instance;
+    private boolean isUpdate;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -146,25 +143,12 @@ public class userManagerUIController implements Initializable {
         init();
     }
 
-    @FXML
-    private void ensureModify() {
-     //   getSelectedInfo();
-        try {
-            userLogic.updateUserInfo(updateUserManageInfo);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        } catch (ObjectNotFoundException e) {
-            e.printStackTrace();
-        }
-        init();
-    }
 
     @FXML
     private void addNewUser() {
         userManageInfo.name = nameField.getText();
         userManageInfo.username = userNameField.getText();
         userManageInfo.password = passwordField.getText();
-
         userManageInfo.gender = genderType;
 
         if (userType.equalsIgnoreCase("manager"))
@@ -173,17 +157,24 @@ public class userManagerUIController implements Initializable {
             userManageInfo.userType = UserType.NORMAL;
 
         try {
-            userLogic.addUser(userManageInfo);
-            // tipLabel.setText("已添加！");
+            if (!isUpdate) {
+                userLogic.addUser(userManageInfo);
+            } else {
+                userLogic.updateUserInfo(userManageInfo);
+            }
             init();
             MainUI.getInstance().displaySuccessPane();
+            isUpdate = false;
+            userNameField.setEditable(true);
         } catch (RemoteException e) {
             e.printStackTrace();
             tipLabel.setText("RemoteException！");
         } catch (ObjectExistedException e) {
             e.printStackTrace();
-       //     tipLabel.setText("该用户已存在！");
-			 MainUI.getInstance().addInfoPanel("该用户已存在！");
+            //     tipLabel.setText("该用户已存在！");
+            MainUI.getInstance().addInfoPanel("该用户已存在！");
+        } catch (ObjectNotFoundException e) {
+            e.printStackTrace();
         }
 
     }
@@ -223,38 +214,40 @@ public class userManagerUIController implements Initializable {
                     if (event.getButton().equals(MouseButton.PRIMARY)
                             && event.getClickCount() == 2
                             && TableRowControl.this.getIndex() < table.getItems().size()) {
-                        //doSomething
-                        System.out.println("double click");
-                        //userNameColumn.setEditable(true);
-//                        userNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-//                        userTypeColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-//                        nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-//                        genderColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-//                        passwordColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-
+                        selectedIndex = userManagerUIController.TableRowControl.this.getIndex();
+                        updateData();
+                        nameField.setText(updateUserManageInfo.name);
+                        userNameField.setText(updateUserManageInfo.username);
+                        passwordField.setText(updateUserManageInfo.password);
+                        userTypeChoBox.setValue(updateUserManageInfo.userType);
+                        genderChoBox.setValue(updateUserManageInfo.gender);
+                        isUpdate = true;
+                        userNameField.setEditable(false);
                     }
                     if (event.getButton().equals(MouseButton.PRIMARY)
                             && event.getClickCount() == 1
                             && TableRowControl.this.getIndex() < table.getItems().size()) {
 
                         selectedIndex = userManagerUIController.TableRowControl.this.getIndex();
-                        updateUserManageInfo.name = nameColumn.getCellData(selectedIndex);
-                        updateUserManageInfo.password = passwordColumn.getCellData(selectedIndex);
-                        updateUserManageInfo.username = userNameColumn.getCellData(selectedIndex);
-                        updateUserManageInfo.gender = genderColumn.getCellData(selectedIndex);
-
-                        if (userTypeColumn.getCellData(selectedIndex).equals("MANAGER")) {
-                            updateUserManageInfo.userType = UserType.MANAGER;
-                        } else if (userTypeColumn.getCellData(selectedIndex).equals("NORMAL")) {
-                            updateUserManageInfo.userType = UserType.NORMAL;
-                        } else {
-                            System.out.println("......get user type fail......");
-                            updateUserManageInfo.userType = UserType.MANAGER;
-                        }
-
+                        updateData();
                     }
                 }
             });
+        }
+    }
+
+    private void updateData() {
+        updateUserManageInfo.name = nameColumn.getCellData(selectedIndex);
+        updateUserManageInfo.password = passwordColumn.getCellData(selectedIndex);
+        updateUserManageInfo.username = userNameColumn.getCellData(selectedIndex);
+        updateUserManageInfo.gender = genderColumn.getCellData(selectedIndex);
+
+        if (userTypeColumn.getCellData(selectedIndex).equals("MANAGER")) {
+            updateUserManageInfo.userType = UserType.MANAGER;
+        } else if (userTypeColumn.getCellData(selectedIndex).equals("NORMAL")) {
+            updateUserManageInfo.userType = UserType.NORMAL;
+        } else {
+            System.out.println("......get user type fail......");
         }
     }
 }
