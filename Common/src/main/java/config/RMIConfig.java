@@ -32,8 +32,7 @@ public class RMIConfig {
     public static RMIConfig getInstance() throws DocumentException {
         if (instance == null) {
             SAXReader saxReader = new SAXReader();
-            Document document = saxReader.read(new File(RMIConfig.class.getResource("/")
-                    .getPath() + "RMIConfig.xml"));
+            Document document = saxReader.read(RMIConfig.class.getResourceAsStream("/RMIConfig.xml"));
             Element root = document.getRootElement();
             instance = new RMIConfig();
             instance.ipAddress = root.element("ip").getStringValue();

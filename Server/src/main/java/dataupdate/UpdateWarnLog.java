@@ -48,7 +48,8 @@ public class UpdateWarnLog {
         }
     }
 
-    private void update() {
+    public void update() {
+        readData();
         double totalProfit = 0;
         for (int i = 0; i < fof_profit_info.size(); i++) {
             totalProfit = (totalProfit + 1) * (1 + fof_profit_info.get(i).rise / 100) - 1;
@@ -127,7 +128,6 @@ public class UpdateWarnLog {
 
     public static void main(String[] args) {
         UpdateWarnLog updateWarnLog = new UpdateWarnLog();
-        updateWarnLog.readData();
         updateWarnLog.update();
     }
 

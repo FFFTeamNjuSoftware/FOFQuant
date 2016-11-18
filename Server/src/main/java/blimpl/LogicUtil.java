@@ -66,6 +66,9 @@ public class LogicUtil {
     public static void alignList(final List<PriceInfo> base, final List<PriceInfo> target) {
         while (target.get(0).date.compareTo(base.get(0).date) < 0)
             target.remove(0);
+        while(target.get(target.size()-1).date.compareTo(base.get(base.size()-1).date)>0){
+            target.remove(target.size()-1);
+        }
         int t = 0;
         while (target.get(0).date.compareTo(base.get(t).date) > 0) {
             t++;

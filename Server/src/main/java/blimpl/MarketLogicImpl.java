@@ -4,6 +4,7 @@ import beans.PriceInfo;
 import beans.ProfitChartInfo;
 import beans.ProfitRateInfo;
 import bl.MarketLogic;
+import com.google.gson.Gson;
 import dataservice.IndexDataService;
 import dataservice.MarketDataService;
 import dataserviceimpl.DataServiceController;
@@ -118,6 +119,9 @@ public class MarketLogicImpl extends UnicastRemoteObject implements MarketLogic 
         List<ProfitChartInfo> chartInfos = new ArrayList<>();
         try {
             List<PriceInfo> fundInfos = getPriceInfo(code, type, dates[0], dates[1]);
+            System.out.println("I000011" + "," + type + "," + dates[0] + "," + dates[1]);
+            System.out.println(new Gson().toJson(getPriceInfo("I000011", type, dates[0],
+                    dates[1])));
             List<PriceInfo> fundIndex = getPriceInfo("I000011", type, dates[0], dates[1]);
             List<PriceInfo> szIndex = getPriceInfo("I000001", type, dates[0], dates[1]);
             fundInfos.get(0).rise = 0;

@@ -39,15 +39,22 @@ public class BaseInfoDataServiceImplTest {
      */
     @Test
     public void testGetFundInfo() {
-//        FundInfosEntity entity = null;
-        FundRankEntity entity=null;
+        FundInfosEntity entity = null;
         try {
-            entity = dataService.getFundRankInfo("000001");
-            System.out.println(dataService.getMaxDate("000001"));
+            entity = dataService.getFundInfo("001685");
         } catch (ObjectNotFoundException e) {
             e.printStackTrace();
         }
         System.out.println(new Gson().toJson(entity));
+
+//        FundRankEntity entity=null;
+//        try {
+//            entity = dataService.getFundRankInfo("000001");
+//            System.out.println(dataService.getMaxDate("000001"));
+//        } catch (ObjectNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        System.out.println(new Gson().toJson(entity));
     }
 
     /**

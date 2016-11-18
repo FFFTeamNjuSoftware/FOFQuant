@@ -33,5 +33,15 @@ public class FundRealTimeInfoGetter {
             throw new ObjectNotFoundException("fundinfo not found" + code);
         }
     }
+
+    public static void main(String []args){
+        FundRealTimeInfoGetter fundRealTimeInfoGetter=new FundRealTimeInfoGetter();
+        try {
+            System.out.println(new Gson().toJson(fundRealTimeInfoGetter.getFundRealTimeInfo
+                    ("000001")));
+        } catch (ObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 }
 

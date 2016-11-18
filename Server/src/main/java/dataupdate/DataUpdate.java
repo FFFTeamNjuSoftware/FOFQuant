@@ -200,21 +200,25 @@ public class DataUpdate {
         }
     }
 
-
-    public static void main(String[] args) throws Exception {
-        HibernateBoot.init();
-        DataUpdate dataUpdate = new DataUpdate();
-//        dataUpdate.updateFundRank();
-        dataUpdate.updateNetWorthWithFinishOperation(() -> {
-            dataUpdate.updateFqWorth();
+    public void update() {
+        updateNetWorthWithFinishOperation(() -> {
+            updateFqWorth();
             try {
-                dataUpdate.updateQuickinfo();
+                updateQuickinfo();
             } catch (IOException e) {
                 e.printStackTrace();
             }
             HibernateBoot.closeConnection();
             System.exit(1);
         });
+    }
+
+
+    public static void main(String[] args) throws Exception {
+        HibernateBoot.init();
+        DataUpdate dataUpdate = new DataUpdate();
+        dataUpdate.update();
+//        dataUpdate.updateFundRank();
 //        dataUpdate.updateFundRealTimeInfo();
 //        dataUpdate.updateFqWorth();
 //        dataUpdate.updateQuickinfo();

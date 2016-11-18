@@ -14,11 +14,9 @@ import java.net.URL;
 public class FXMLHelper {
     public static AnchorPane loadPanel(String fxml) {
 
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainUI.class.getClassLoader().getResource(fxml+".fxml"));
         AnchorPane result = null;
         try {
-            result = loader.load();
+            result = FXMLLoader.load(MainUI.class.getResource("/"+fxml+".fxml"));
         } catch (IOException e) {
             System.out.println(fxml + "加载失败");
             e.printStackTrace();

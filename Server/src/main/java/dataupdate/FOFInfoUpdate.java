@@ -15,6 +15,7 @@ import util.FOFUtilInfo;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Daniel on 2016/9/2.
@@ -35,28 +36,39 @@ public class FOFInfoUpdate {
     private double currentCost;
     private double cashValue;
 
-    private String date;
+    private String[] dates;
+
 
     public FOFInfoUpdate() throws ObjectNotFoundException {
         fof_code = FOFUtilInfo.FOF_CODE;
         fofDataService = DataServiceController.getFOFDataService();
         marketDataService = DataServiceController.getMarketDataService();
+        init();
     }
 
-    public void init(String date) throws ObjectNotFoundException {
-        this.date = date;
-        newFOFHoldInfos = new ArrayList<>();
-        newFOFHistoryInfo = new FofHistoryInfoEntity();
-        netWorthEntity = new NetWorthEntity();
+    public void setDate(String... dates) {
+        this.dates = dates;
+    }
+
+    public void init() throws ObjectNotFoundException {
+        String code = fofDataService.getFofEstablishInfo(fof_code).get(0).getFundCode();
+        FofHistoryInfoEntity fofHistoryInfoEntity = fofDataService.getNewestHistoryInfo(fof_code);
+        String startDate;
+        if (fofHistoryInfoEntity != null)
+            startDate = fofDataService.getNewestHistoryInfo(fof_code).getDate();
+        else
+            startDate = DataServiceController.getBaseInfoDataService().getFundInfo(fof_code).getEstablishDate();
+        List<String> datesList = DataServiceController.getMarketDataService().getNetWorth(code, startDate, LocalDate
+                .now().toString()).stream().map(NetWorthEntity::getDate).collect(Collectors
+                .toList());
+        dates = new String[datesList.size()];
+        datesList.toArray(dates);
+
         fofInfoEntity = fofDataService.getFofInfoEntity(fof_code);
         fofEstablishInfoEntities = fofDataService
                 .getFofEstablishInfo(fof_code);
         fofDataService.getFofEstablishInfo(fof_code);
-        lastFOFNetWorth = marketDataService.getNewestNetWorth(fof_code);
-        lastHoldInfos = fofDataService.getNewestFofHoldInfos(fof_code);
-        lastHistoryInfo = fofDataService.getNewestHistoryInfo(fof_code);
-        cashValue = lastHistoryInfo.getCashValue();
-        currentCost = fofInfoEntity.getCurrentCost();
+
     }
 
     /**
@@ -64,56 +76,69 @@ public class FOFInfoUpdate {
      */
     public void updateFOFinfo() throws NotAllowedException {
         try {
-            double totalValue = lastHistoryInfo.getCashValue();
-
-            /**
-             * 更新FOFholdInfo
-             */
-            for (FofHoldInfoEntity entity : lastHoldInfos) {
-                FofEstablishInfoEntity establishInfoEntity = LogicUtil.getFofEstablishByFundCode
-                        (fofEstablishInfoEntities, entity.getFundId());
-                FofHoldInfoEntity fofHoldInfoEntity = new FofHoldInfoEntity();
-                NetWorthEntity netWorthEntity = LogicUtil.getNetWorthByDate(marketDataService.getNetWorth(entity
-                        .getFundId()), date);
-                fofHoldInfoEntity.setDate(date);
-                fofHoldInfoEntity.setFofId(fof_code);
-                fofHoldInfoEntity.setFundId(entity.getFundId());
-                fofHoldInfoEntity.setHoldNum(entity.getHoldNum());
-                fofHoldInfoEntity.setFinishedProfit(entity.getFinishedProfit());
-                fofHoldInfoEntity.setNetWorth(netWorthEntity.getUnitWorth());
-                fofHoldInfoEntity.setHoldValue(netWorthEntity.getUnitWorth() * entity.getHoldNum());
-                cashValue += entity.getHoldValue() * (1 + netWorthEntity.getDailyRise() / 100)
-                        - fofHoldInfoEntity.getHoldValue();
-                fofHoldInfoEntity.setDayProfit(entity.getHoldValue() * netWorthEntity
-                        .getDailyRise() / 100);
-                fofHoldInfoEntity.setFloatProfit((netWorthEntity.getUnitWorth()
-                        - establishInfoEntity.getBuyPrice()) * fofHoldInfoEntity.getHoldNum());
-                fofHoldInfoEntity.setFloatProfitRatio((netWorthEntity.getUnitWorth()
-                        - establishInfoEntity.getBuyPrice()) * fofHoldInfoEntity.getHoldNum()
-                        / establishInfoEntity.getCost() * 100);
-                fofHoldInfoEntity.setTotalProfit(entity.getTotalProfit()
-                        + fofHoldInfoEntity.getDayProfit());
-                fofHoldInfoEntity.setTotalProfitRatio(((entity.getTotalProfitRatio() / 100 + 1) *
-                        (netWorthEntity.getDailyRise() / 100 + 1) - 1) * 100);
-                totalValue += fofHoldInfoEntity.getHoldValue();
-                newFOFHoldInfos.add(fofHoldInfoEntity);
-            }
-
-            totalValue += cashValue;
-            newFOFHistoryInfo.setTotalValue(totalValue);
 
 
-            for (FofHoldInfoEntity entity : newFOFHoldInfos) {
-                entity.setRatio(entity.getHoldValue() / totalValue * 100);
-            }
-            // FOFHoldInfo更新完成
-            // 处理调仓请求
+            for (String date : dates) {
+                System.out.println(date);
+                newFOFHoldInfos = new ArrayList<>();
+                newFOFHistoryInfo = new FofHistoryInfoEntity();
+                netWorthEntity = new NetWorthEntity();
+                lastFOFNetWorth = marketDataService.getNewestNetWorth(fof_code);
+                lastHoldInfos = fofDataService.getNewestFofHoldInfos(fof_code);
+                lastHistoryInfo = fofDataService.getNewestHistoryInfo(fof_code);
+                cashValue = lastHistoryInfo.getCashValue();
+                currentCost = fofInfoEntity.getCurrentCost();
+                double totalValue = lastHistoryInfo.getCashValue();
+                /**
+                 * 更新FOFholdInfo
+                 */
+                for (FofHoldInfoEntity entity : lastHoldInfos) {
+                    FofEstablishInfoEntity establishInfoEntity = LogicUtil.getFofEstablishByFundCode
+                            (fofEstablishInfoEntities, entity.getFundId());
+                    FofHoldInfoEntity fofHoldInfoEntity = new FofHoldInfoEntity();
+                    NetWorthEntity netWorthEntity = LogicUtil.getNetWorthByDate(marketDataService.getNetWorth(entity
+                            .getFundId()), date);
+                    fofHoldInfoEntity.setDate(date);
+                    fofHoldInfoEntity.setFofId(fof_code);
+                    fofHoldInfoEntity.setFundId(entity.getFundId());
+                    fofHoldInfoEntity.setHoldNum(entity.getHoldNum());
+                    fofHoldInfoEntity.setFinishedProfit(entity.getFinishedProfit());
+                    fofHoldInfoEntity.setNetWorth(netWorthEntity.getUnitWorth());
+                    fofHoldInfoEntity.setHoldValue(netWorthEntity.getUnitWorth() * entity.getHoldNum());
+                    cashValue += entity.getHoldValue() * (1 + netWorthEntity.getDailyRise() / 100)
+                            - fofHoldInfoEntity.getHoldValue();
+                    fofHoldInfoEntity.setDayProfit(entity.getHoldValue() * netWorthEntity
+                            .getDailyRise() / 100);
+                    fofHoldInfoEntity.setFloatProfit((netWorthEntity.getUnitWorth()
+                            - establishInfoEntity.getBuyPrice()) * fofHoldInfoEntity.getHoldNum());
+                    fofHoldInfoEntity.setFloatProfitRatio((netWorthEntity.getUnitWorth()
+                            - establishInfoEntity.getBuyPrice()) * fofHoldInfoEntity.getHoldNum()
+                            / establishInfoEntity.getCost() * 100);
+                    fofHoldInfoEntity.setTotalProfit(entity.getTotalProfit()
+                            + fofHoldInfoEntity.getDayProfit());
+                    fofHoldInfoEntity.setTotalProfitRatio(((entity.getTotalProfitRatio() / 100 + 1) *
+                            (netWorthEntity.getDailyRise() / 100 + 1) - 1) * 100);
+                    totalValue += fofHoldInfoEntity.getHoldValue();
+                    newFOFHoldInfos.add(fofHoldInfoEntity);
+                }
+
+                totalValue += cashValue;
+                newFOFHistoryInfo.setTotalValue(totalValue);
+
+
+                for (FofHoldInfoEntity entity : newFOFHoldInfos) {
+                    entity.setRatio(entity.getHoldValue() / totalValue * 100);
+                }
+                // FOFHoldInfo更新完成
+                // 处理调仓请求
 //            consumePositionChangeResuqest();
 
-            upDateHistoryInfo();
-            upDateFOFQuickInfo();
+                upDateHistoryInfo(date);
+                upDateFOFQuickInfo(date);
 
-            saveInfos();
+                saveInfos();
+
+            }
         } catch (ObjectNotFoundException e) {
             e.printStackTrace();
         }
@@ -153,7 +178,7 @@ public class FOFInfoUpdate {
     /**
      * 更新基金历史信息
      */
-    private void upDateHistoryInfo() {
+    private void upDateHistoryInfo(String date) {
         double dailyProfit = newFOFHistoryInfo.getTotalValue() - lastHistoryInfo.getTotalValue();
         double dailyProfitRate = dailyProfit / lastHistoryInfo.getTotalValue();
         double totalProfit = lastHistoryInfo.getTotalProfit() + dailyProfit;
@@ -172,7 +197,7 @@ public class FOFInfoUpdate {
     /**
      * 更新基金信息
      */
-    private void upDateFOFQuickInfo() {
+    private void upDateFOFQuickInfo(String date) {
         fofInfoEntity.setCurrentCost(currentCost);
         fofInfoEntity.setTotalProfit(newFOFHistoryInfo.getTotalProfitRate());
         fofInfoEntity.setNetAsset(newFOFHistoryInfo.getTotalValue());
@@ -200,10 +225,12 @@ public class FOFInfoUpdate {
         se.saveOrUpdate(netWorthEntity);
         se.saveOrUpdate(fofInfoEntity);
         newFOFHoldInfos.forEach(se::saveOrUpdate);
+        lastHoldInfos = newFOFHoldInfos;
+        lastHistoryInfo = newFOFHistoryInfo;
+        lastFOFNetWorth = netWorthEntity;
         transaction.commit();
         se.close();
     }
-
 
 
     /**
@@ -234,14 +261,12 @@ public class FOFInfoUpdate {
     }
 
     public static void main(String[] args) throws Exception {
-        List<NetWorthEntity> entitys = DataServiceController.getMarketDataService().getNetWorth
-                ("000122", "2016-08-31", LocalDate.now().toString());
         FOFInfoUpdate fofInfoUpdate = new FOFInfoUpdate();
-        for (NetWorthEntity entity : entitys) {
-            System.out.println(entity.getDate());
-            fofInfoUpdate.init(entity.getDate());
-            fofInfoUpdate.updateFOFinfo();
-        }
+//        String[] dates = new String[entitys.size()];
+//        entitys.stream().map(NetWorthEntity::getDate).collect(Collectors.toList()).toArray(dates);
+//        fofInfoUpdate.init();
+//        fofInfoUpdate.setDate(dates);
+        fofInfoUpdate.updateFOFinfo();
         HibernateBoot.closeConnection();
     }
 

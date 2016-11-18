@@ -2,6 +2,7 @@ package blimpl;
 
 import beans.PriceInfo;
 import bl.MarketLogic;
+import com.google.gson.Gson;
 import exception.ObjectNotFoundException;
 import exception.ParameterException;
 import util.TimeType;
@@ -142,6 +143,7 @@ public class CalculateDataHandler {
                 LogicUtil.alignList(priceInfos, baseInfo);
                 result.put(base, baseInfo);
             }
+//            System.out.println(result.get(code).size()+","+result.get(baseCode[0]).size());
             return result;
         } catch (RemoteException e) {
             e.printStackTrace();
